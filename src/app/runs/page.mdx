@@ -15,7 +15,7 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
 <Row>
   <Col>
 
-    This endpoint allows you to add a new run between you and a contact or group. A contact or group id is required to create a run.
+    This endpoint allows you to register a new run based on a procedure and performed on a unit.
 
     ### Required attributes
 
@@ -104,16 +104,7 @@ client.create_run(
 
     ```json {{ title: 'Response' }}
     {
-      "id": "xgQQXg3hrtjh7AvZ",
-      "contact_id": "WAz8eIbvDR60rouK",
-      "group_id": null,
-      "pinned_message_id": null,
-      "is_pinned": false,
-      "is_muted": false,
-      "last_active_at": null,
-      "last_opened_at": null,
-      "created_at": 692233200,
-      "archived_at": null
+      "url": "https://tofupilot.com/acme-corp/runs/your-new-run"
     }
     ```
 
