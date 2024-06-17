@@ -4,8 +4,8 @@ import { Heading } from '@/components/Heading'
 const guides = [
   {
     href: '/sdks',
-    name: 'SDKs',
-    description: 'Learn how to use TofuPilot SDKs.',
+    name: 'SDK',
+    description: 'Learn how to use TofuPilot SDK.',
   },
   {
     href: '/authentication',
