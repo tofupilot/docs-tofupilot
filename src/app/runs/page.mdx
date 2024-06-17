@@ -6,137 +6,7 @@ export const metadata = {
 
 # Runs
 
-Runs are an essential part of TofuPilot — they are the containers for the messages between you, your contacts, and groups. On this page, we’ll dive into the different run endpoints you can use to manage runs programmatically. We'll look at how to query, create, update, and delete runs. {{ className: 'lead' }}
-
-## The run model
-
-The run model contains all the information about the runs between you and your contacts. In addition, runs can also be group-based with more than one contact, they can have a pinned message, and they can be muted.
-
-### Properties
-
-<Properties>
-  <Property name="id" type="string">
-    Unique identifier for the run.
-  </Property>
-  <Property name="contact_id" type="string">
-    Unique identifier for the other contact in the run.
-  </Property>
-  <Property name="group_id" type="string">
-    Unique identifier for the group that the run belongs to.
-  </Property>
-  <Property name="pinned_message_id" type="string">
-    Unique identifier for the pinned message.
-  </Property>
-  <Property name="is_pinned" type="boolean">
-    Whether or not the run has been pinned.
-  </Property>
-  <Property name="is_muted" type="boolean">
-    Whether or not the run has been muted.
-  </Property>
-  <Property name="last_active_at" type="timestamp">
-    Timestamp of when the run was last active.
-  </Property>
-  <Property name="last_opened_at" type="timestamp">
-    Timestamp of when the run was last opened by the authenticated user.
-  </Property>
-  <Property name="created_at" type="timestamp">
-    Timestamp of when the run was created.
-  </Property>
-  <Property name="archived_at" type="timestamp">
-    Timestamp of when the run was archived.
-  </Property>
-</Properties>
-
----
-
-## List all runs {{ tag: 'GET', label: '/v1/runs' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to retrieve a paginated list of all your runs. By default, a maximum of ten runs are shown per page.
-
-    ### Optional attributes
-
-    <Properties>
-      <Property name="limit" type="integer">
-        Limit the number of runs returned.
-      </Property>
-      <Property name="muted" type="boolean">
-        Only show runs that are muted when set to `true`.
-      </Property>
-      <Property name="archived" type="boolean">
-        Only show runs that are archived when set to `true`.
-      </Property>
-      <Property name="pinned" type="boolean">
-        Only show runs that are pinned when set to `true`.
-      </Property>
-      <Property name="group_id" type="string">
-        Only show runs for the specified group.
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/runs">
-
-    ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/runs \
-      -H "Authorization: Bearer {token}" \
-      -d limit=10
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.runs.list()
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.runs.list()
-    ```
-
-    ```php
-    $client = new \TofuPilot\ApiClient($token);
-
-    $client->runs->list();
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "has_more": false,
-      "data": [
-        {
-          "id": "xgQQXg3hrtjh7AvZ",
-          "contact_id": "WAz8eIbvDR60rouK",
-          "group_id": null,
-          "pinned_message_id": null,
-          "is_pinned": false,
-          "is_muted": false,
-          "last_active_at": 705103200,
-          "last_opened_at": 705103200,
-          "created_at": 692233200,
-          "archived_at": null
-        },
-        {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
-        }
-      ]
-    }
-    ```
-
-  </Col>
-</Row>
+Runs are an essential part of TofuPilot — they are the the primary method for systematically testing and evaluating hardware performance and reliability. On this page, we’ll dive into the different run endpoints you can use to manage runs programmatically. {{ className: 'lead' }}
 
 ---
 
@@ -150,11 +20,31 @@ The run model contains all the information about the runs between you and your c
     ### Required attributes
 
     <Properties>
-      <Property name="contact_id" type="string">
-        Unique identifier for the other contact in the run.
+      <Property name="procedure_id" type="string">
+        Unique identifier for the run's procedure.
       </Property>
-      <Property name="group_id" type="string">
-        Unique identifier for the group that the run belongs to.
+      <Property name="component_id" type="string">
+        Unique identifier for the run's component. A new component will be created if none was found with this identifier.
+      </Property>
+      <Property name="unit_sn" type="string">
+        Serial number of the unit on which the run was performed. A new unit will be created if none was found with this S/N.
+      </Property>
+      <Property name="run_passed" type="boolean">
+        Boolean indicating whether the run passed or not.
+      </Property>
+      <Property name="duration" type="duration">
+        ISO8601 timestamp indicating the duration of the run.
+      </Property>
+    </Properties>
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="component_revision" type="string">
+        The name of the component's revision. Required if component has more than one revision.
+      </Property>
+      <Property name="params" type="record(string, string)">
+        {"A dictionary of key/value pairs used to replace {{smart fields}} in the procedure's document."}
       </Property>
     </Properties>
 
@@ -164,20 +54,37 @@ The run model contains all the information about the runs between you and your c
     <CodeGroup title="Request" tag="POST" label="/v1/runs">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/runs \
-      -H "Authorization: Bearer {token}" \
-      -d 'contact_id'="WAz8eIbvDR60rouK"
+    curl -X POST https://www.tofupilot.com/api/v1/runs
+      -H "Content-Type: application/json"
+      -H "Authorization: Bearer {token}"
+      -d '{
+
+"procedure_id": "FVT1",
+"component_id": "EXAMPLE-ID",
+"unit_sn": "EXAMPLE-SN",
+"run_passed": true,
+"duration": "PT27M15S"
+}'
+
     ```
 
     ```js
-    import ApiClient from '@example/protocol-api'
+    fetch('https://www.tofupilot.com/api/v1/runs', {
 
-    const client = new ApiClient(token)
-
-    await client.runs.create({
-      contact_id: 'WAz8eIbvDR60rouK',
-    })
-    ```
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+Authorization: 'Bearer {token}'
+},
+body: JSON.stringify({
+"procedure_id": "FVT1",
+"component_id": "EXAMPLE-ID",
+"unit_sn": "EXAMPLE-SN",
+"run_passed": true,
+"duration": "PT27M15S",
+})
+})
+```
 
     ```python
     from protocol_api import ApiClient
@@ -185,14 +92,6 @@ The run model contains all the information about the runs between you and your c
     client = ApiClient(token)
 
     client.runs.create(contact_id="WAz8eIbvDR60rouK")
-    ```
-
-    ```php
-    $client = new \TofuPilot\ApiClient($token);
-
-    $client->runs->create([
-      'contact_id' => 'WAz8eIbvDR60rouK',
-    ]);
     ```
 
     </CodeGroup>
@@ -211,196 +110,6 @@ The run model contains all the information about the runs between you and your c
       "archived_at": null
     }
     ```
-
-  </Col>
-</Row>
-
----
-
-## Retrieve a run {{ tag: 'GET', label: '/v1/runs/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to retrieve a run by providing the run id. Refer to [the list](#the-run-model) at the top of this page to see which properties are included with run objects.
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/runs/xgQQXg3hrtjh7AvZ">
-
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/runs/xgQQXg3hrtjh7AvZ \
-      -H "Authorization: Bearer {token}"
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.runs.get('xgQQXg3hrtjh7AvZ')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.runs.get("xgQQXg3hrtjh7AvZ")
-    ```
-
-    ```php
-    $client = new \TofuPilot\ApiClient($token);
-
-    $client->runs->get('xgQQXg3hrtjh7AvZ');
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "id": "xgQQXg3hrtjh7AvZ",
-      "contact_id": "WAz8eIbvDR60rouK",
-      "group_id": null,
-      "pinned_message_id": null,
-      "is_pinned": false,
-      "is_muted": false,
-      "last_active_at": 705103200,
-      "last_opened_at": 705103200,
-      "created_at": 692233200,
-      "archived_at": null
-    }
-    ```
-
-  </Col>
-</Row>
-
----
-
-## Update a run {{ tag: 'PUT', label: '/v1/runs/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to perform an update on a run. Examples of updates are pinning a message, muting or archiving the run, or pinning the run itself.
-
-    ### Optional attributes
-
-    <Properties>
-      <Property name="pinned_message_id" type="string">
-        Unique identifier for the pinned message.
-      </Property>
-      <Property name="is_pinned" type="boolean">
-        Whether or not the run has been pinned.
-      </Property>
-      <Property name="is_muted" type="boolean">
-        Whether or not the run has been muted.
-      </Property>
-      <Property name="archived_at" type="timestamp">
-        Timestamp of when the run was archived.
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="PUT" label="/v1/runs/xgQQXg3hrtjh7AvZ">
-
-    ```bash {{ title: 'cURL' }}
-    curl -X PUT https://api.protocol.chat/v1/runs/xgQQXg3hrtjh7AvZ \
-      -H "Authorization: Bearer {token}" \
-      -d 'is_muted'=true
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.runs.update('xgQQXg3hrtjh7AvZ', {
-        is_muted: true,
-    })
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.runs.update("xgQQXg3hrtjh7AvZ", is_muted=True)
-    ```
-
-    ```php
-    $client = new \TofuPilot\ApiClient($token);
-
-    $client->runs->update('xgQQXg3hrtjh7AvZ', [
-      'is_muted' => true,
-    ]);
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "id": "xgQQXg3hrtjh7AvZ",
-      "contact_id": "WAz8eIbvDR60rouK",
-      "group_id": null,
-      "pinned_message_id": null,
-      "is_pinned": false,
-      "is_muted": true,
-      "last_active_at": 705103200,
-      "last_opened_at": 705103200,
-      "created_at": 692233200,
-      "archived_at": null
-    }
-    ```
-
-  </Col>
-</Row>
-
----
-
-## Delete a run {{ tag: 'DELETE', label: '/v1/runs/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to delete your runs in TofuPilot. Note: This will permanently delete the run and all its messages — archive it instead if you want to be able to restore it later.
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="DELETE" label="/v1/runs/xgQQXg3hrtjh7AvZ">
-
-    ```bash {{ title: 'cURL' }}
-    curl -X DELETE https://api.protocol.chat/v1/runs/xgQQXg3hrtjh7AvZ \
-      -H "Authorization: Bearer {token}"
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.runs.delete('xgQQXg3hrtjh7AvZ')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.runs.delete("xgQQXg3hrtjh7AvZ")
-    ```
-
-    ```php
-    $client = new \TofuPilot\ApiClient($token);
-
-    $client->runs->delete('xgQQXg3hrtjh7AvZ');
-    ```
-
-    </CodeGroup>
 
   </Col>
 </Row>
