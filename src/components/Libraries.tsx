@@ -10,39 +10,11 @@ import logoRuby from '@/images/logos/ruby.svg'
 
 const libraries = [
   {
-    href: '#',
-    name: 'PHP',
-    description:
-      'A popular general-purpose scripting language that is especially suited to web development.',
-    logo: logoPhp,
-  },
-  {
-    href: '#',
-    name: 'Ruby',
-    description:
-      'A dynamic, open source programming language with a focus on simplicity and productivity.',
-    logo: logoRuby,
-  },
-  {
-    href: '#',
-    name: 'Node.js',
-    description:
-      'Node.js® is an open-source, cross-platform JavaScript runtime environment.',
-    logo: logoNode,
-  },
-  {
-    href: '#',
+    href: 'https://pypi.org/project/tofupilot/',
     name: 'Python',
     description:
       'Python is a programming language that lets you work quickly and integrate systems more effectively.',
     logo: logoPython,
-  },
-  {
-    href: '#',
-    name: 'Go',
-    description:
-      'An open-source programming language supported by Google with built-in concurrency.',
-    logo: logoGo,
   },
 ]
 
