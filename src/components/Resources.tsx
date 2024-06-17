@@ -1,19 +1,19 @@
 'use client'
 
-import Link from 'next/link'
 import {
-  type MotionValue,
   motion,
   useMotionTemplate,
   useMotionValue,
+  type MotionValue,
 } from 'framer-motion'
+import Link from 'next/link'
 
 import { GridPattern } from '@/components/GridPattern'
 import { Heading } from '@/components/Heading'
 import { ChatBubbleIcon } from '@/components/icons/ChatBubbleIcon'
 import { EnvelopeIcon } from '@/components/icons/EnvelopeIcon'
-import { UserIcon } from '@/components/icons/UserIcon'
 import { UsersIcon } from '@/components/icons/UsersIcon'
+import { CheckIcon } from './icons/CheckIcon'
 
 interface Resource {
   href: string
@@ -28,11 +28,11 @@ interface Resource {
 
 const resources: Array<Resource> = [
   {
-    href: '/contacts',
-    name: 'Contacts',
+    href: '/runs',
+    name: 'Runs',
     description:
-      'Learn about the contact model and how to create, retrieve, update, delete, and list contacts.',
-    icon: UserIcon,
+      'Learn about the run model and how to create, retrieve, update, delete, and list runs.',
+    icon: CheckIcon,
     pattern: {
       y: 16,
       squares: [
@@ -41,7 +41,7 @@ const resources: Array<Resource> = [
       ],
     },
   },
-  {
+  /* {
     href: '/conversations',
     name: 'Conversations',
     description:
@@ -79,7 +79,7 @@ const resources: Array<Resource> = [
       y: 22,
       squares: [[0, 1]],
     },
-  },
+  } */
 ]
 
 function ResourceIcon({ icon: Icon }: { icon: Resource['icon'] }) {
