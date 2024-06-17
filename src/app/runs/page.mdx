@@ -53,46 +53,52 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
 
     <CodeGroup title="Request" tag="POST" label="/v1/runs">
 
-    ```bash {{ title: 'cURL' }}
-    curl -X POST https://www.tofupilot.com/api/v1/runs
-      -H "Content-Type: application/json"
-      -H "Authorization: Bearer {token}"
-      -d '{
-
-"procedure_id": "FVT1",
-"component_id": "EXAMPLE-ID",
-"unit_sn": "EXAMPLE-SN",
-"run_passed": true,
-"duration": "PT27M15S"
+```bash {{ title: 'cURL' }}
+curl -X POST https://www.tofupilot.com/api/v1/runs
+  -H "Content-Type: application/json"
+  -H "Authorization: Bearer {token}"
+  -d '{
+    "procedure_id": "FVT1",
+    "component_id": "EXAMPLE-ID",
+    "unit_sn": "EXAMPLE-SN",
+    "run_passed": true,
+    "duration": "PT27M15S"
 }'
+```
 
-    ```
-
-    ```js
-    fetch('https://www.tofupilot.com/api/v1/runs', {
-
-method: 'POST',
-headers: {
-'Content-Type': 'application/json',
-Authorization: 'Bearer {token}'
-},
-body: JSON.stringify({
-"procedure_id": "FVT1",
-"component_id": "EXAMPLE-ID",
-"unit_sn": "EXAMPLE-SN",
-"run_passed": true,
-"duration": "PT27M15S",
-})
+```js
+fetch('https://www.tofupilot.com/api/v1/runs', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer {token}'
+  },
+  body: JSON.stringify({
+    "procedure_id": "FVT1",
+    "component_id": "EXAMPLE-ID",
+    "unit_sn": "EXAMPLE-SN",
+    "run_passed": true,
+    "duration": "PT27M15S",
+  })
 })
 ```
 
-    ```python
-    from protocol_api import ApiClient
+```python
+from tofupilot import TofuPilotClient
 
-    client = ApiClient(token)
+client = TofuPilotClient(api_key="{token}")
 
-    client.runs.create(contact_id="WAz8eIbvDR60rouK")
-    ```
+def test_function():
+    # Your test execution goes here
+    return True
+
+client.create_run(
+    procedure_id="FVT1", 
+    component_id="EXAMPLE-ID", 
+    unit_sn="EXAMPLE-SN", 
+    test_function=test_function
+)
+```
 
     </CodeGroup>
 
