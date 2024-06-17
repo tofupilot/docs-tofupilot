@@ -1,30 +1,19 @@
 export const metadata = {
   title: 'Authentication',
   description:
-    'In this guide, we’ll look at how authentication works. TofuPilot offers two ways to authenticate your API requests: Basic authentication and OAuth2 with a token.',
+    'In this guide, we’ll look at how authentication works. TofuPilot uses OAuth2 authentication with a bearer token',
 }
 
 # Authentication
 
-You'll need to authenticate your requests to access any of the endpoints in the TofuPilot API. In this guide, we'll look at how authentication works. TofuPilot offers two ways to authenticate your API requests: Basic authentication and OAuth2 with a token — OAuth2 is the recommended way. {{ className: 'lead' }}
-
-## Basic authentication
-
-With basic authentication, you use your username and password to authenticate your HTTP requests. Unless you have a very good reason, you probably shouldn't use basic auth. Here's how to authenticate using cURL:
-
-```bash {{ title: 'Example request with basic auth' }}
-curl https://api.protocol.chat/v1/conversations \
-  -u username:password
-```
-
-Please don't commit your TofuPilot password to GitHub!
+You'll need to authenticate your requests to access any of the endpoints in the TofuPilot API. In this guide, we'll look at how authentication works. TofuPilot uses OAuth2 authentication with a token. {{ className: 'lead' }}
 
 ## OAuth2 with bearer token
 
 The recommended way to authenticate with the TofuPilot API is by using OAuth2. When establishing a connection using OAuth2, you will need your access token — you will find it in the [TofuPilot dashboard](#) under API settings. Here's how to add the token to the request header using cURL:
 
 ```bash {{ title: 'Example request with bearer token' }}
-curl https://api.protocol.chat/v1/conversations \
+curl https://https://tofupilot.com/v1/runs/create \
   -H "Authorization: Bearer {token}"
 ```
 
