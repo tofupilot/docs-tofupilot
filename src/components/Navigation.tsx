@@ -259,7 +259,11 @@ export function Navigation(props: React.ComponentPropsWithoutRef<'nav'>) {
           />
         ))}
         <li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
-          <Button href="#" variant="filled" className="w-full">
+          <Button
+            href="https://www.tofupilot.com/auth/signin"
+            variant="filled"
+            className="w-full"
+          >
             Sign in
           </Button>
         </li>
