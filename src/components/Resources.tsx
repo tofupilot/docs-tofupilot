@@ -10,9 +10,6 @@ import Link from 'next/link'
 
 import { GridPattern } from '@/components/GridPattern'
 import { Heading } from '@/components/Heading'
-import { ChatBubbleIcon } from '@/components/icons/ChatBubbleIcon'
-import { EnvelopeIcon } from '@/components/icons/EnvelopeIcon'
-import { UsersIcon } from '@/components/icons/UsersIcon'
 import { CheckIcon } from './icons/CheckIcon'
 
 interface Resource {

@@ -1,89 +1,88 @@
 export const metadata = {
-  title: 'Conversations',
+  title: 'Runs',
   description:
-    'On this page, we’ll dive into the different conversation endpoints you can use to manage conversations programmatically.',
+    'On this page, we’ll dive into the different run endpoints you can use to manage runs programmatically.',
 }
 
-# Conversations
+# Runs
 
-Conversations are an essential part of TofuPilot — they are the containers for the messages between you, your contacts, and groups. On this page, we’ll dive into the different conversation endpoints you can use to manage conversations programmatically. We'll look at how to query, create, update, and delete conversations. {{ className: 'lead' }}
+Runs are an essential part of TofuPilot — they are the containers for the messages between you, your contacts, and groups. On this page, we’ll dive into the different run endpoints you can use to manage runs programmatically. We'll look at how to query, create, update, and delete runs. {{ className: 'lead' }}
 
-## The conversation model
+## The run model
 
-The conversation model contains all the information about the conversations between you and your contacts. In addition, conversations can also be group-based with more than one contact, they can have a pinned message, and they can be muted.
+The run model contains all the information about the runs between you and your contacts. In addition, runs can also be group-based with more than one contact, they can have a pinned message, and they can be muted.
 
 ### Properties
 
 <Properties>
   <Property name="id" type="string">
-    Unique identifier for the conversation.
+    Unique identifier for the run.
   </Property>
   <Property name="contact_id" type="string">
-    Unique identifier for the other contact in the conversation.
+    Unique identifier for the other contact in the run.
   </Property>
   <Property name="group_id" type="string">
-    Unique identifier for the group that the conversation belongs to.
+    Unique identifier for the group that the run belongs to.
   </Property>
   <Property name="pinned_message_id" type="string">
     Unique identifier for the pinned message.
   </Property>
   <Property name="is_pinned" type="boolean">
-    Whether or not the conversation has been pinned.
+    Whether or not the run has been pinned.
   </Property>
   <Property name="is_muted" type="boolean">
-    Whether or not the conversation has been muted.
+    Whether or not the run has been muted.
   </Property>
   <Property name="last_active_at" type="timestamp">
-    Timestamp of when the conversation was last active.
+    Timestamp of when the run was last active.
   </Property>
   <Property name="last_opened_at" type="timestamp">
-    Timestamp of when the conversation was last opened by the authenticated
-    user.
+    Timestamp of when the run was last opened by the authenticated user.
   </Property>
   <Property name="created_at" type="timestamp">
-    Timestamp of when the conversation was created.
+    Timestamp of when the run was created.
   </Property>
   <Property name="archived_at" type="timestamp">
-    Timestamp of when the conversation was archived.
+    Timestamp of when the run was archived.
   </Property>
 </Properties>
 
 ---
 
-## List all conversations {{ tag: 'GET', label: '/v1/conversations' }}
+## List all runs {{ tag: 'GET', label: '/v1/runs' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your conversations. By default, a maximum of ten conversations are shown per page.
+    This endpoint allows you to retrieve a paginated list of all your runs. By default, a maximum of ten runs are shown per page.
 
     ### Optional attributes
 
     <Properties>
       <Property name="limit" type="integer">
-        Limit the number of conversations returned.
+        Limit the number of runs returned.
       </Property>
       <Property name="muted" type="boolean">
-        Only show conversations that are muted when set to `true`.
+        Only show runs that are muted when set to `true`.
       </Property>
       <Property name="archived" type="boolean">
-        Only show conversations that are archived when set to `true`.
+        Only show runs that are archived when set to `true`.
       </Property>
       <Property name="pinned" type="boolean">
-        Only show conversations that are pinned when set to `true`.
+        Only show runs that are pinned when set to `true`.
       </Property>
       <Property name="group_id" type="string">
-        Only show conversations for the specified group.
+        Only show runs for the specified group.
       </Property>
     </Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/conversations">
+    <CodeGroup title="Request" tag="GET" label="/v1/runs">
 
     ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/conversations \
+    curl -G https://api.protocol.chat/v1/runs \
       -H "Authorization: Bearer {token}" \
       -d limit=10
     ```
@@ -93,7 +92,7 @@ The conversation model contains all the information about the conversations betw
 
     const client = new ApiClient(token)
 
-    await client.conversations.list()
+    await client.runs.list()
     ```
 
     ```python
@@ -101,13 +100,13 @@ The conversation model contains all the information about the conversations betw
 
     client = ApiClient(token)
 
-    client.conversations.list()
+    client.runs.list()
     ```
 
     ```php
     $client = new \TofuPilot\ApiClient($token);
 
-    $client->conversations->list();
+    $client->runs->list();
     ```
 
     </CodeGroup>
@@ -141,31 +140,31 @@ The conversation model contains all the information about the conversations betw
 
 ---
 
-## Create a conversation {{ tag: 'POST', label: '/v1/conversations' }}
+## Create a run {{ tag: 'POST', label: '/v1/runs' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to add a new conversation between you and a contact or group. A contact or group id is required to create a conversation.
+    This endpoint allows you to add a new run between you and a contact or group. A contact or group id is required to create a run.
 
     ### Required attributes
 
     <Properties>
       <Property name="contact_id" type="string">
-        Unique identifier for the other contact in the conversation.
+        Unique identifier for the other contact in the run.
       </Property>
       <Property name="group_id" type="string">
-        Unique identifier for the group that the conversation belongs to.
+        Unique identifier for the group that the run belongs to.
       </Property>
     </Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="POST" label="/v1/conversations">
+    <CodeGroup title="Request" tag="POST" label="/v1/runs">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/conversations \
+    curl https://api.protocol.chat/v1/runs \
       -H "Authorization: Bearer {token}" \
       -d 'contact_id'="WAz8eIbvDR60rouK"
     ```
@@ -175,7 +174,7 @@ The conversation model contains all the information about the conversations betw
 
     const client = new ApiClient(token)
 
-    await client.conversations.create({
+    await client.runs.create({
       contact_id: 'WAz8eIbvDR60rouK',
     })
     ```
@@ -185,13 +184,13 @@ The conversation model contains all the information about the conversations betw
 
     client = ApiClient(token)
 
-    client.conversations.create(contact_id="WAz8eIbvDR60rouK")
+    client.runs.create(contact_id="WAz8eIbvDR60rouK")
     ```
 
     ```php
     $client = new \TofuPilot\ApiClient($token);
 
-    $client->conversations->create([
+    $client->runs->create([
       'contact_id' => 'WAz8eIbvDR60rouK',
     ]);
     ```
@@ -218,20 +217,20 @@ The conversation model contains all the information about the conversations betw
 
 ---
 
-## Retrieve a conversation {{ tag: 'GET', label: '/v1/conversations/:id' }}
+## Retrieve a run {{ tag: 'GET', label: '/v1/runs/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a conversation by providing the conversation id. Refer to [the list](#the-conversation-model) at the top of this page to see which properties are included with conversation objects.
+    This endpoint allows you to retrieve a run by providing the run id. Refer to [the list](#the-run-model) at the top of this page to see which properties are included with run objects.
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/conversations/xgQQXg3hrtjh7AvZ">
+    <CodeGroup title="Request" tag="GET" label="/v1/runs/xgQQXg3hrtjh7AvZ">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/conversations/xgQQXg3hrtjh7AvZ \
+    curl https://api.protocol.chat/v1/runs/xgQQXg3hrtjh7AvZ \
       -H "Authorization: Bearer {token}"
     ```
 
@@ -240,7 +239,7 @@ The conversation model contains all the information about the conversations betw
 
     const client = new ApiClient(token)
 
-    await client.conversations.get('xgQQXg3hrtjh7AvZ')
+    await client.runs.get('xgQQXg3hrtjh7AvZ')
     ```
 
     ```python
@@ -248,13 +247,13 @@ The conversation model contains all the information about the conversations betw
 
     client = ApiClient(token)
 
-    client.conversations.get("xgQQXg3hrtjh7AvZ")
+    client.runs.get("xgQQXg3hrtjh7AvZ")
     ```
 
     ```php
     $client = new \TofuPilot\ApiClient($token);
 
-    $client->conversations->get('xgQQXg3hrtjh7AvZ');
+    $client->runs->get('xgQQXg3hrtjh7AvZ');
     ```
 
     </CodeGroup>
@@ -279,12 +278,12 @@ The conversation model contains all the information about the conversations betw
 
 ---
 
-## Update a conversation {{ tag: 'PUT', label: '/v1/conversations/:id' }}
+## Update a run {{ tag: 'PUT', label: '/v1/runs/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to perform an update on a conversation. Examples of updates are pinning a message, muting or archiving the conversation, or pinning the conversation itself.
+    This endpoint allows you to perform an update on a run. Examples of updates are pinning a message, muting or archiving the run, or pinning the run itself.
 
     ### Optional attributes
 
@@ -293,23 +292,23 @@ The conversation model contains all the information about the conversations betw
         Unique identifier for the pinned message.
       </Property>
       <Property name="is_pinned" type="boolean">
-        Whether or not the conversation has been pinned.
+        Whether or not the run has been pinned.
       </Property>
       <Property name="is_muted" type="boolean">
-        Whether or not the conversation has been muted.
+        Whether or not the run has been muted.
       </Property>
       <Property name="archived_at" type="timestamp">
-        Timestamp of when the conversation was archived.
+        Timestamp of when the run was archived.
       </Property>
     </Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PUT" label="/v1/conversations/xgQQXg3hrtjh7AvZ">
+    <CodeGroup title="Request" tag="PUT" label="/v1/runs/xgQQXg3hrtjh7AvZ">
 
     ```bash {{ title: 'cURL' }}
-    curl -X PUT https://api.protocol.chat/v1/conversations/xgQQXg3hrtjh7AvZ \
+    curl -X PUT https://api.protocol.chat/v1/runs/xgQQXg3hrtjh7AvZ \
       -H "Authorization: Bearer {token}" \
       -d 'is_muted'=true
     ```
@@ -319,7 +318,7 @@ The conversation model contains all the information about the conversations betw
 
     const client = new ApiClient(token)
 
-    await client.conversations.update('xgQQXg3hrtjh7AvZ', {
+    await client.runs.update('xgQQXg3hrtjh7AvZ', {
         is_muted: true,
     })
     ```
@@ -329,13 +328,13 @@ The conversation model contains all the information about the conversations betw
 
     client = ApiClient(token)
 
-    client.conversations.update("xgQQXg3hrtjh7AvZ", is_muted=True)
+    client.runs.update("xgQQXg3hrtjh7AvZ", is_muted=True)
     ```
 
     ```php
     $client = new \TofuPilot\ApiClient($token);
 
-    $client->conversations->update('xgQQXg3hrtjh7AvZ', [
+    $client->runs->update('xgQQXg3hrtjh7AvZ', [
       'is_muted' => true,
     ]);
     ```
@@ -362,20 +361,20 @@ The conversation model contains all the information about the conversations betw
 
 ---
 
-## Delete a conversation {{ tag: 'DELETE', label: '/v1/conversations/:id' }}
+## Delete a run {{ tag: 'DELETE', label: '/v1/runs/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to delete your conversations in TofuPilot. Note: This will permanently delete the conversation and all its messages — archive it instead if you want to be able to restore it later.
+    This endpoint allows you to delete your runs in TofuPilot. Note: This will permanently delete the run and all its messages — archive it instead if you want to be able to restore it later.
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="DELETE" label="/v1/conversations/xgQQXg3hrtjh7AvZ">
+    <CodeGroup title="Request" tag="DELETE" label="/v1/runs/xgQQXg3hrtjh7AvZ">
 
     ```bash {{ title: 'cURL' }}
-    curl -X DELETE https://api.protocol.chat/v1/conversations/xgQQXg3hrtjh7AvZ \
+    curl -X DELETE https://api.protocol.chat/v1/runs/xgQQXg3hrtjh7AvZ \
       -H "Authorization: Bearer {token}"
     ```
 
@@ -384,7 +383,7 @@ The conversation model contains all the information about the conversations betw
 
     const client = new ApiClient(token)
 
-    await client.conversations.delete('xgQQXg3hrtjh7AvZ')
+    await client.runs.delete('xgQQXg3hrtjh7AvZ')
     ```
 
     ```python
@@ -392,13 +391,13 @@ The conversation model contains all the information about the conversations betw
 
     client = ApiClient(token)
 
-    client.conversations.delete("xgQQXg3hrtjh7AvZ")
+    client.runs.delete("xgQQXg3hrtjh7AvZ")
     ```
 
     ```php
     $client = new \TofuPilot\ApiClient($token);
 
-    $client->conversations->delete('xgQQXg3hrtjh7AvZ');
+    $client->runs->delete('xgQQXg3hrtjh7AvZ');
     ```
 
     </CodeGroup>
