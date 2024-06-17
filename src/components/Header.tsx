@@ -89,7 +89,10 @@ export const Header = forwardRef<
           <ThemeToggle />
         </div>
         <div className="hidden min-[416px]:contents">
-          <Button href="https://www.tofupilot.com/auth/signin">Sign in</Button>
+          <Button variant="text" href="https://www.tofupilot.com/home">
+            Sign in
+          </Button>
+          <Button href="https://www.tofupilot.com/auth/signup">Sign up</Button>
         </div>
       </div>
     </motion.div>
