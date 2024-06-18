@@ -43,6 +43,9 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
       <Property name="component_revision" type="string">
         The name of the component's revision. Required if component has more than one revision.
       </Property>
+      <Property name="sub_units_sn" type="array(string)">
+        A list of unit identifiers that should be added as sub-units of the run's unit
+      </Property>
       <Property name="params" type="record(string, string)">
         {"A dictionary of key/value pairs used to replace {{smart fields}} in the procedure's document."}
       </Property>
@@ -71,15 +74,15 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer {token}'
+    Authorization: 'Bearer {token}',
   },
   body: JSON.stringify({
-    "procedure_id": "FVT1",
-    "component_id": "EXAMPLE-ID",
-    "unit_sn": "EXAMPLE-SN",
-    "run_passed": true,
-    "duration": "PT27M15S",
-  })
+    procedure_id: 'FVT1',
+    component_id: 'EXAMPLE-ID',
+    unit_sn: 'EXAMPLE-SN',
+    run_passed: true,
+    duration: 'PT27M15S',
+  }),
 })
 ```
 
@@ -93,9 +96,9 @@ def test_function():
     return True
 
 client.create_run(
-    procedure_id="FVT1", 
-    component_id="EXAMPLE-ID", 
-    unit_sn="EXAMPLE-SN", 
+    procedure_id="FVT1",
+    component_id="EXAMPLE-ID",
+    unit_sn="EXAMPLE-SN",
     test_function=test_function
 )
 ```
