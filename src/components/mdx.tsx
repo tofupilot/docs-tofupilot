@@ -54,7 +54,7 @@ export function Note({ children }: { children: React.ReactNode }) {
   )
 }
 
-function NextImage({ src, alt }: { src: string; alt: string }) {
+function CustomImage({ src, alt }: { src: string; alt: string }) {
   return (
     <Image
       {...{ src, alt }}
@@ -65,7 +65,7 @@ function NextImage({ src, alt }: { src: string; alt: string }) {
   )
 }
 
-export { NextImage as Image }
+export { CustomImage as Image }
 
 export function Row({ children }: { children: React.ReactNode }) {
   return (

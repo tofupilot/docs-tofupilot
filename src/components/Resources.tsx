@@ -27,8 +27,7 @@ const resources: Array<Resource> = [
   {
     href: '/runs',
     name: 'Runs',
-    description:
-      'Learn about the run model and how to create, retrieve, update, delete, and list runs.',
+    description: 'Learn about the run model and how to create runs.',
     icon: CheckIcon,
     pattern: {
       y: 16,

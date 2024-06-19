@@ -1,0 +1,95 @@
+export const metadata = {
+  title: 'TofuPilot SDK',
+  description:
+    'TofuPilot offers a fine-tuned Python library to make your life easier and give you the best experience when consuming the API.',
+}
+
+export const sections = [
+  { title: 'Official libraries', id: 'official-library' },
+]
+
+# Your first API call
+
+This guide will help your upload your first test run using TofuPilot Python SDK. {{ className: 'lead' }}
+
+### Copy your API key
+
+Access your API key and copy it to clipboard.
+
+<div className="not-prose">
+  <Button href="/api-key" variant="text" arrow="right">
+    <>Access your API key</>
+  </Button>
+</div>
+
+### Download our Python SDK
+
+If you haven't downloaded it yet, install our python SDK:
+
+<Row>
+  <Col>
+
+```bash {{ title: 'bash' }}
+pip install --upgrade tofupilot
+```
+
+  </Col>
+</Row>
+
+### Create a test run
+
+Call the Python client using your API key
+
+<Row>
+  <Col>
+
+```python {{ title: 'client.py'}}
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient(api_key="YOUR API KEY")
+
+def test_function():
+    # Your test execution goes here
+    return True
+
+client.create_run(
+    procedure_id="FVT1",
+    component_id="EXAMPLE-ID",
+    unit_sn="EXAMPLE-SN",
+    test_function=test_function
+)
+```
+
+  </Col>
+</Row>
+
+<Note>
+  A default procedure called "FVT1" was automatically added to your organization
+  upon creation. If you deleted it or want to use another procedure, you can
+  always create a new one.
+  <div className="not-prose">
+    <Button href="#" variant="text" arrow="right">
+      <>Create a procedure</>
+    </Button>
+  </div>
+</Note>
+
+### Tada !
+
+You can now head back to the Runs page, and see the newly created run.
+
+<Image src={'/first-run.png'} alt={'Your first run'} />
+
+### What happened ?
+
+A new run was created from the procedure FVT1 and associated with Unit ‘EXAMPLE-ID’ derived from Component ‘EXAMPLE-SN’. As the Unit and Component did not previously exist, they were automatically created. Since the test_function returned True, the run was assigned a ‘Passed’ (green) status. The run duration was calculated based on the execution time of the test_function.
+
+### What's next ?
+
+If you want to know more about the parameters you entered, feel free to access to the Runs endpoint documenation.
+
+<div className="not-prose">
+  <Button href="/runs" variant="text" arrow="right">
+    <>More about runs</>
+  </Button>
+</div>
