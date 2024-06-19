@@ -1,15 +1,14 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { motion } from 'framer-motion'
 
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Logo } from '@/components/Logo'
 import { Navigation } from '@/components/Navigation'
-import { type Section, SectionProvider } from '@/components/SectionProvider'
-import Image from 'next/image'
+import { SectionProvider, type Section } from '@/components/SectionProvider'
 
 export function Layout({
   children,

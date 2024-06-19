@@ -263,7 +263,6 @@ export function Navigation(props: React.ComponentPropsWithoutRef<'nav'>) {
   return (
     <nav {...props}>
       <ul role="list">
-        <TopLevelNavItem href="/">API</TopLevelNavItem>
         <TopLevelNavItem href="/">TofuPilot</TopLevelNavItem>
         {navigation.map((group, groupIndex) => (
           <NavigationGroup
