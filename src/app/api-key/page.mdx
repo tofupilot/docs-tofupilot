@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 export const metadata = {
   title: 'TofuPilot SDK',
   description:
@@ -12,21 +10,23 @@ export const sections = [
 
 # API Key
 
-In order to interact with TofuPilot's API, you will need to use a personnal API key. {{ className: 'lead' }}
-
-This key will authenticate your API requests and act on your behalf. It is unique per user.
+In order to interact with TofuPilot's API, you will need to use a personnal API key. This key will authenticate your API requests and act on your behalf. It is unique per user. {{ className: 'lead' }}
 
 ## Accessing your API key
 
-You can easily and access your API key via your profile page. {{ className: 'lead' }}
+You can access and manage your API key via your profile page, accessible under the settings menu. {{ className: 'lead' }}
 
-    <Image
-        width={28}
-      height={28}
-      quality={100}
-      src="/icon.png"
-      alt="TofuPilot"
-    />
+## Creating your API key
+
+If you haven't created your API key, press the 'Create' button. {{ className: 'lead' }}
+
+<Image src="/api-key-create.png" alt="Create API key" />
+
+## Managing your API key
+
+Once created, you can copy your API key and use it to authenticate against the API.
+
+<Image src="/api-key-manage.png" alt="Manage API key" />
 
 <Note>
   If you think your API Key has been compromised, you can regenerate it at any

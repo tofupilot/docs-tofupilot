@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import clsx from 'clsx'
 
 import { Feedback } from '@/components/Feedback'
@@ -52,6 +53,19 @@ export function Note({ children }: { children: React.ReactNode }) {
     </div>
   )
 }
+
+function NextImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <Image
+      {...{ src, alt }}
+      width={1000}
+      height={800}
+      className="w-full rounded-lg border-4 border-zinc-300 shadow-sm ring-1 ring-zinc-500"
+    />
+  )
+}
+
+export { NextImage as Image }
 
 export function Row({ children }: { children: React.ReactNode }) {
   return (

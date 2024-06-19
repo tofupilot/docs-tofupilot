@@ -234,6 +234,7 @@ export const navigation: Array<NavGroup> = [
     title: 'Guides',
     links: [
       { title: 'Introduction', href: '/' },
+      { title: 'API key', href: '/api-key' },
       { title: 'SDK', href: '/sdks' },
       { title: 'Authentication', href: '/authentication' },
       { title: 'Errors', href: '/errors' },

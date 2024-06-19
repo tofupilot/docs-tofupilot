@@ -3,6 +3,11 @@ import { Heading } from '@/components/Heading'
 
 const guides = [
   {
+    href: '/api-key',
+    name: 'API key',
+    description: 'Access and manage your TofuPilot API key.',
+  },
+  {
     href: '/sdks',
     name: 'SDK',
     description: 'Learn how to use TofuPilot SDK.',
