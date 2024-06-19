@@ -234,7 +234,14 @@ export const navigation: Array<NavGroup> = [
     title: 'Guides',
     links: [
       { title: 'Introduction', href: '/' },
-      { title: 'Your first API call', href: '/first-call' },
+      { title: 'Invite your teammates', href: '/first-call' },
+      { title: 'Make your first API call', href: '/first-call' },
+      { title: 'Integrate a test bench', href: '/first-call' },
+      { title: 'Add traceability of sub-units', href: '/first-call' },
+      {
+        title: 'Generate beautiful test reports automatically',
+        href: '/first-call',
+      },
     ],
   },
   {
