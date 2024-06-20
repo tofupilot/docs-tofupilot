@@ -60,7 +60,7 @@ function CustomImage({ src, alt }: { src: string; alt: string }) {
       {...{ src, alt }}
       width={1000}
       height={800}
-      className="w-full rounded-lg border-4 border-zinc-300 shadow-sm ring-1 ring-zinc-500"
+      className="w-full rounded-lg border-4 border-zinc-300 shadow-sm ring-1 ring-zinc-400 dark:ring-zinc-500"
     />
   )
 }
