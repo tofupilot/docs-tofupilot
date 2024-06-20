@@ -62,8 +62,8 @@ curl -X POST https://www.tofupilot.com/api/v1/runs
   -H "Authorization: Bearer {token}"
   -d '{
     "procedure_id": "FVT1",
-    "component_id": "EXAMPLE-ID",
-    "unit_sn": "EXAMPLE-SN",
+    "component_id": "EXAMPLE-PART_NUMBER",
+    "unit_sn": "EXAMPLE-SERIAL_NUMBER",
     "run_passed": true,
     "duration": "PT27M15S"
 }'
@@ -78,8 +78,8 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
   },
   body: JSON.stringify({
     procedure_id: 'FVT1',
-    component_id: 'EXAMPLE-ID',
-    unit_sn: 'EXAMPLE-SN',
+    component_id: 'EXAMPLE-PART_NUMBER',
+    unit_sn: 'EXAMPLE-SERIAL_NUMBER',
     run_passed: true,
     duration: 'PT27M15S',
   }),
@@ -97,8 +97,8 @@ def test_function():
 
 client.create_run(
     procedure_id="FVT1",
-    component_id="EXAMPLE-ID",
-    unit_sn="EXAMPLE-SN",
+    component_id="EXAMPLE-PART_NUMBER",
+    unit_sn="EXAMPLE-SERIAL_NUMBER",
     test_function=test_function
 )
 ```

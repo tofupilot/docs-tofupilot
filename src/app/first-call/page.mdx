@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'TofuPilot SDK',
+  title: 'TofuPilot Clients',
   description:
     'TofuPilot offers a fine-tuned Python library to make your life easier and give you the best experience when consuming the API.',
 }
@@ -10,7 +10,7 @@ export const sections = [
 
 # Your first API call
 
-This guide will help your upload your first test run using TofuPilot Python SDK. {{ className: 'lead' }}
+This guide will help your upload your first test run using TofuPilot Python client. {{ className: 'lead' }}
 
 ### Copy your API key
 
@@ -22,9 +22,9 @@ Access your API key and copy it to clipboard.
   </Button>
 </div>
 
-### Download our Python SDK
+### Download our Python client
 
-If you haven't downloaded it yet, install our python SDK:
+If you haven't downloaded it yet, install our python client:
 
 <Row>
   <Col>
@@ -54,8 +54,8 @@ def test_function():
 
 client.create_run(
     procedure_id="FVT1",
-    component_id="EXAMPLE-ID",
-    unit_sn="EXAMPLE-SN",
+    component_id="EXAMPLE-PART_NUMBER",
+    unit_sn="EXAMPLE-SERIAL_NUMBER",
     test_function=test_function
 )
 ```
@@ -82,7 +82,7 @@ You can now head back to the Runs page, and see the newly created run.
 
 ### What happened ?
 
-A new run was created from the procedure FVT1 and associated with Unit ‘EXAMPLE-ID’ derived from Component ‘EXAMPLE-SN’. As the Unit and Component did not previously exist, they were automatically created. Since the test_function returned True, the run was assigned a ‘Passed’ (green) status. The run duration was calculated based on the execution time of the test_function.
+A new run was created from the procedure FVT1 and associated with Unit ‘EXAMPLE-PART_NUMBER’ derived from Component ‘EXAMPLE-SERIAL_NUMBER’. As the Unit and Component did not previously exist, they were automatically created. Since the test_function returned True, the run was assigned a ‘Pass’ (green) status. The run duration was calculated based on the execution time of the test_function.
 
 ### What's next ?
 

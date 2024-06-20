@@ -8,9 +8,9 @@ const guides = [
     description: 'Access and manage your TofuPilot API key.',
   },
   {
-    href: '/sdks',
-    name: 'SDK',
-    description: 'Learn how to use TofuPilot SDK.',
+    href: '/clients',
+    name: 'Clients',
+    description: 'Learn how to use TofuPilot clients.',
   },
   {
     href: '/authentication',
