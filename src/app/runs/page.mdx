@@ -52,8 +52,9 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
     ## Optional attributes
 
     <Properties>
-      <Property name="sub_units_sn" type="array(string)">
+      <Property name="sub_units" type="array(record)">
         A list of unit identifiers that should be added as sub-units of the run's unit
+        - serial_number (string): Serial number of the sub-unit
       </Property>
       <Property name="params" type="record(string, string)">
         {"A dictionary of key/value pairs used to replace {{smart fields}} in the procedure's document."}
