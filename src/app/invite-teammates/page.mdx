@@ -1,0 +1,33 @@
+export const metadata = {
+  title: 'TofuPilot Clients',
+  description:
+    'TofuPilot offers a fine-tuned Python library to make your life easier and give you the best experience when consuming the API.',
+}
+
+export const sections = [
+  { title: 'Send an invitation', id: 'send' },
+  { title: 'View all invitations', id: 'view' },
+  { title: 'Accept an invitation', id: 'accept' },
+]
+
+# Invite your teammates
+
+The 'Members' section of the 'Settings' page allows you to see a list of all members of your organization that have an account on TofuPilot. {{ className: 'lead' }}
+
+<Image src="/settings-page.png" alt="Settings page" />
+
+## Send an invitation {{ id: 'send' }}
+
+In order to invite a member to join TofuPilot, you can simply fill in the form under 'Members' section. {{ className: 'lead' }}
+
+<Image src="/invite-member.png" alt="Inviting a member..." />
+
+## Verify invitation was sent {{ id: 'view' }}
+
+All sent invitations should appear in the 'Members' table {{ className: 'lead' }}
+
+<Image src="/invited-member.png" alt="Invitation" />
+
+## Accept an invitation {{ id: 'accept' }}
+
+If you've been invited to TofuPilot, you just need to [sign in](https://www.tofupilot.com/auth/signin) using the email on which you've received the invitation. {{ className: 'lead' }}

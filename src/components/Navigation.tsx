@@ -234,8 +234,8 @@ export const navigation: Array<NavGroup> = [
     title: 'Guides',
     links: [
       { title: 'Introduction', href: '/' },
-      { title: 'Invite your teammates', href: '/first-call' },
       { title: 'Make your first API call', href: '/first-call' },
+      { title: 'Invite your teammates', href: '/invite-teammates' },
       { title: 'Integrate a test bench', href: '/first-call' },
       { title: 'Add traceability of sub-units', href: '/first-call' },
       {
