@@ -238,7 +238,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Invite your teammates', href: '/invite-teammates' },
       { title: 'Add traceability of sub-units', href: '/sub-units' },
       {
-        title: 'Generate automatic test reports with smart fields',
+        title: 'Generate beautiful test reports automatically',
         href: '/smart-fields',
       },
     ],
