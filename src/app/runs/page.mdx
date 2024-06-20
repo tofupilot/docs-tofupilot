@@ -17,18 +17,30 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
 
     This endpoint allows you to register a new run based on a procedure and performed on a unit.
 
-    ### Required attributes
+    ## Required attributes
 
     <Properties>
       <Property name="procedure_id" type="string">
         Unique identifier for the run's procedure.
       </Property>
-      <Property name="component_id" type="string">
-        Unique identifier for the run's component. A new component will be created if none was found with this identifier.
+      <Property name="unit_under_test" type="record">
+      - serial_number (string): Serial number of the unit
+      - part_number (string): Part number of the unit's component
+      - revision (optional, string): Revision of the unit's component. Required if component has more than one revision.
       </Property>
-      <Property name="unit_sn" type="string">
-        Serial number of the unit on which the run was performed. A new unit will be created if none was found with this S/N.
+    </Properties>
+
+    ### When using TofuPilot Client
+
+    <Properties>
+      <Property name="test_function" type="() => boolean">
+        The function executing the test's script. Must return a boolean representing the run's status. Any call to stdout and stderr inside this function will be logged.
       </Property>
+    </Properties>
+
+    ### When using REST API
+
+    <Properties>
       <Property name="run_passed" type="boolean">
         Boolean indicating whether the run passed or not.
       </Property>
@@ -37,12 +49,9 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
       </Property>
     </Properties>
 
-    ### Optional attributes
+    ## Optional attributes
 
     <Properties>
-      <Property name="component_revision" type="string">
-        The name of the component's revision. Required if component has more than one revision.
-      </Property>
       <Property name="sub_units_sn" type="array(string)">
         A list of unit identifiers that should be added as sub-units of the run's unit
       </Property>
@@ -55,6 +64,25 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
   <Col sticky>
 
     <CodeGroup title="Request" tag="POST" label="/v1/runs">
+
+```python
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient(api_key="{token}")
+
+def test_function():
+    # Your test execution goes here
+    return True
+
+client.create_run(
+    procedure_id="FVT1",
+    unit_under_test = {
+      "part_number": 'EXAMPLE-PART-NUMBER',
+      "serial_number": 'EXAMPLE-SERIAL-NUMBER',
+    },
+    test_function=test_function
+)
+```
 
 ```bash {{ title: 'cURL' }}
 curl -X POST https://www.tofupilot.com/api/v1/runs
@@ -88,25 +116,6 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
     duration: 'PT27M15S',
   }),
 })
-```
-
-```python
-from tofupilot import TofuPilotClient
-
-client = TofuPilotClient(api_key="{token}")
-
-def test_function():
-    # Your test execution goes here
-    return True
-
-client.create_run(
-    procedure_id="FVT1",
-    unit_under_test = {
-      "part_number": 'EXAMPLE-PART-NUMBER',
-      "serial_number": 'EXAMPLE-SERIAL-NUMBER',
-    },
-    test_function=test_function
-)
 ```
 
     </CodeGroup>
