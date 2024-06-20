@@ -54,8 +54,10 @@ def test_function():
 
 client.create_run(
     procedure_id="FVT1",
-    component_id="EXAMPLE-PART_NUMBER",
-    unit_sn="EXAMPLE-SERIAL_NUMBER",
+    unit_under_test={
+      "part_number": "EXAMPLE-PART-NUMBER",
+      "serial_number": "EXAMPLE-SERIAL-NUMBER"
+    },
     test_function=test_function
 )
 ```
