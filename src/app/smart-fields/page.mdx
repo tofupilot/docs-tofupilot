@@ -10,29 +10,40 @@ export const sections = [
   { title: 'Managing your API Key', id: 'official-library' },
 ]
 
-# API Key
+# Generate beautiful test reports automatically
 
-In order to interact with TofuPilot's API, you will need to use a personnal API key. This key will authenticate your API requests and act on your behalf. It is unique per user. {{ className: 'lead' }}
+Each run in TofuPilot has a **Report** section powered by a collaborative and strong editor. Upon creation, run's inherit from the report of their Procedure and can then be freely modified. {{ className: 'lead' }}
 
-## Accessing your API key
+## Populate run's report dynamically with smart field
 
-You can access and manage your API key via your profile page, accessible under the settings menu. {{ className: 'lead' }}
+To create a procedure report template, you can insert smart fields by wrapping any variable in \{\{ }}. These fields will be converted into customizable inputs. {{ className: 'lead' }}
 
-<Image src="/profile-page.png" alt="Your profile page" />
+### Example
 
-## Creating your API key
+1. Open the procedure’s page and create the report template, incorporating smart fields.
 
-If you haven't created your API key, press the 'Create' button. {{ className: 'lead' }}
+<Image src="/procedure-report.png" alt="Procedure report template" />
 
-<Image src="/api-key-create.png" alt="Create API key" />
+2. Create a run from the procedure and use the “smart_fields” parameter to populate the smart fields.
 
-## Managing your API key
+```python
+  client.create_run({
+    # other parameters here
+    smart_fields: {
+      "temperature_sensor": "75°C",
+      "calibration_date": "2024-06-20",
+      "technician_name": "John Doe",
+      "initial_temperature_reading": "72°C",
+      "final_temperature_reading": "75°C",
+    }
+  })
+```
 
-Once created, you can copy your API key and use it to authenticate against the API. {{ className: 'lead' }}
+3. Access the newly created run's report and observe the automatic population of the smart fields.
 
-<Image src="/api-key-manage.png" alt="Manage API key" />
+<Image src="/run-report.png" alt="Run's report" />
 
 <Note>
-  If you think your API Key has been compromised, you can regenerate it at any
-  time using the 'Regenerate' button.
+  **Pro Tip**: Smart fields work in all parts of the editor (lists, tables, code
+  blocks, etc.), so use them anywhere you like.
 </Note>
