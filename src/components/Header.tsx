@@ -1,15 +1,15 @@
-import { forwardRef } from 'react'
-import Link from 'next/link'
 import clsx from 'clsx'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import Link from 'next/link'
+import { forwardRef } from 'react'
 
 import { Button } from '@/components/Button'
 import { Logo } from '@/components/Logo'
 import {
   MobileNavigation,
   useIsInsideMobileNavigation,
+  useMobileNavigationStore,
 } from '@/components/MobileNavigation'
-import { useMobileNavigationStore } from '@/components/MobileNavigation'
 import { MobileSearch, Search } from '@/components/Search'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
@@ -72,9 +72,7 @@ export const Header = forwardRef<
       <Search />
       <div className="flex items-center gap-5 lg:hidden">
         <MobileNavigation />
-        <Link href="/" aria-label="Home">
-          <Logo />
-        </Link>
+        <Logo />
       </div>
       <div className="flex items-center gap-5">
         <nav className="hidden md:block">
