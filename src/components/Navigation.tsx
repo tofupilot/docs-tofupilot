@@ -231,7 +231,7 @@ function NavigationGroup({
 
 export const navigation: Array<NavGroup> = [
   {
-    title: 'Guides',
+    title: 'Getting started',
     links: [
       { title: 'Introduction', href: '/' },
       {
@@ -239,27 +239,27 @@ export const navigation: Array<NavGroup> = [
         href: '/1-create-your-first-test-run',
       },
       {
-        title: 'Create run with sub-units',
+        title: 'Create a run with sub-units',
         href: '/2-create-run-with-sub-units',
       },
       {
-        title: 'Create run with report',
-        href: '/3-create-run-with-report',
+        title: 'Create a run with report variables',
+        href: '/3-create-run-with-report-variables',
       },
-      { title: 'Invite your teammates', href: '/invite-teammates' },
     ],
   },
   {
-    title: 'Resources',
+    title: 'Guides',
     links: [
       { title: 'API key', href: '/api-key' },
       { title: 'Clients', href: '/clients' },
       { title: 'Authentication', href: '/authentication' },
       { title: 'Errors', href: '/errors' },
+      { title: 'Invite your teammates', href: '/invite-teammates' },
     ],
   },
   {
-    title: 'Endpoints',
+    title: 'API Reference',
     links: [{ title: 'Runs', href: '/runs' }],
   },
 ]

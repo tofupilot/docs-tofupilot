@@ -1,0 +1,58 @@
+export const metadata = {
+  title: 'Smart Fields | TofuPilot',
+  description:
+    'TofuPilot offers a fine-tuned Python library to make your life easier and give you the best experience when consuming the API.',
+}
+
+# Create a run with report variables
+
+Each run in TofuPilot includes a Report section with a robust, collaborative editor. Runs inherit the report from their Procedure, which can be modified as needed.
+
+## Create report template variables
+
+Insert variables into a procedure report template by wrapping their name in \{\{ }}. These fields become customizable inputs.
+
+<Image src="/procedure-report.png" alt="Procedure report template" />
+
+## Fill variables programmatically
+
+Create a run from the procedure and use the "report_variables" parameter to populate the variables fields.
+
+```python {{ title: 'create_run_report_variables.py'}}
+from tofupilot import TofuPilotClient
+import time
+
+client = TofuPilotClient(api_key="Your API key goes here")
+
+def test_function():
+    # Your test execution goes here
+    time.sleep(1)
+    return True
+
+client.create_run(
+    procedure_id="FVT1",
+    unit_under_test={
+      "part_number": "ASY01",
+      "serial_number": "00001"
+    },
+    smart_fields= {
+      "temperature_sensor": "75°C",
+      "calibration_date": "2024-06-20",
+      "technician_name": "John Doe",
+      "initial_temperature_reading": "72°C",
+      "final_temperature_reading": "75°C",
+    },
+    test_function=test_function
+)
+```
+
+## Check your run report
+
+Access the newly created run's report and observe the automatic population of the smart fields.
+
+<Image src="/run-report.png" alt="Run's report" />
+
+<Note>
+  Smart fields work in any block of the editor (lists, tables, code blocks, and
+  more), so use them anywhere you like.
+</Note>

@@ -6,17 +6,17 @@ export const metadata = {
 
 # Create a run with sub-units
 
-Sometimes, units under test (UUT) include sub-units. They can be specified when creating runs, automatically linking them as children to the main unit for full traceability throughout manufacturing.
+Sometimes, units under test (UUT) include sub-units. They can be specified when creating runs, automatically linking them as children to the main unit for full traceability throughout manufacturing. {{ className: 'lead' }}
 
 ## Example with single sub-unit
 
 Here's how to create a test run with sub-units:
 
-```python {{ title: 'sub_unit_upload.py'}}
+```python {{ title: 'create_run_sub_unit.py'}}
 from tofupilot import TofuPilotClient
 import time
 
-client = TofuPilotClient(api_key="Your API key here")
+client = TofuPilotClient(api_key="Your API key goes here")
 
 def test_function():
     # Your test execution goes here
@@ -49,11 +49,11 @@ You can now navigate to the Units page to see the hierarchy applied. Use the exp
 
 Here's how to create a test run with multi-units:
 
-```python {{ title: 'sub_unit_upload.py'}}
+```python {{ title: 'create_run_sub_units.py'}}
 from tofupilot import TofuPilotClient
 import time
 
-client = TofuPilotClient(api_key="Your API key here")
+client = TofuPilotClient(api_key="Your API key goes here")
 
 def test_function():
     # Your test execution goes here
