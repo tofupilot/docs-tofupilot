@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export function Logo() {
   return (
-    <Link href="/www.tofupilot.com" aria-label="Landing Page">
+    <Link href="https://www.tofupilot.com" aria-label="Landing Page">
       <Image
         width={28}
         height={28}
