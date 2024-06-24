@@ -9,8 +9,8 @@ import '@/styles/tailwind.css'
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - TofuPilot API Reference',
-    default: 'TofuPilot API Reference',
+    template: '%s | TofuPilot Documentation',
+    default: 'TofuPilot Documentation',
   },
 }
 
