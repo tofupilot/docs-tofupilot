@@ -234,13 +234,13 @@ export const navigation: Array<NavGroup> = [
     title: 'Guides',
     links: [
       { title: 'Introduction', href: '/' },
-      { title: 'Make your first API call', href: '/first-call' },
-      { title: 'Invite your teammates', href: '/invite-teammates' },
+      { title: 'Upload your first test run', href: '/upload-your-first-test-run' },
       { title: 'Add traceability of sub-units', href: '/sub-units' },
       {
         title: 'Generate beautiful test reports automatically',
         href: '/smart-fields',
       },
+      { title: 'Invite your teammates', href: '/invite-teammates' },
     ],
   },
   {

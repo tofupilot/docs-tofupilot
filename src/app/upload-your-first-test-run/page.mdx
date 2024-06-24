@@ -1,0 +1,88 @@
+export const metadata = {
+  title: 'Upload your first test run | TofuPilot',
+  description:
+    'TofuPilot offers a fine-tuned Python library to make your life easier and give you the best experience when consuming the API.',
+}
+
+export const sections = []
+
+# Upload your first test run
+
+This guide will help your upload your first test run using the TofuPilot Python client. {{ className: 'lead' }}
+
+<Note>
+  An interactive tutorial guide covering these steps is also available within
+  the app once you're logged in.
+</Note>
+
+## Create your API key
+
+Create your API key from your Profile page and copy it to your clipboard. An API key is a unique identifier that allows you to authenticate requests to the TofuPilot API. It ensures secure access to your data and resources.
+
+<div className="not-prose">
+  <Button href="/api-key" variant="text" arrow="right">
+    <>Full guide to created your API key</>
+  </Button>
+</div>
+
+## Download the Python client
+
+To interact with the TofuPilot API, you'll need to download and install the TofuPilot Python client. This client simplifies the process of making API calls. To install the Python client, run the following command:
+
+```bash {{ title: 'bash' }}
+pip install --upgrade tofupilot
+```
+
+## Create a test run
+
+A test run can now be easily created using a few parameters. Here is the code snippet:
+
+```python {{ title: 'first_upload.py'}}
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient(api_key="Your API key here")
+
+def test_function():
+    # Your test execution goes here
+    time.sleep(1)
+    return True
+
+client.create_run(
+    procedure_id="FVT1",
+    unit_under_test={
+      "part_number": "PCB01",
+      "serial_number": "00102"
+    },
+    test_function=test_function
+)
+```
+
+<Note>
+  A default procedure "FVT1" is automatically created with your organization. If
+  it was deleted or you need a different procedure, you can create a new one
+  from the Procedure page.
+</Note>
+
+## Check the Runs page
+
+You can now navigate to the Runs page to view the newly created run.
+
+<Image src={'/first-run.png'} alt={'Your first run'} />
+
+## What happened?
+
+- A new run was created from the procedure `FVT1`.
+- The Unit `00102` was automatically created as it did not exist.
+- The Unit was linked to Component `PCB01`, which was also automatically created since it did not exist.
+- Since the `test_function` returned `True`, the run was assigned a `Pass` status.
+- The run duration was calculated based on the execution time of the `test_function`.
+
+## What's next ?
+
+If you want to know more about the parameters you entered, feel free to access to the Runs endpoint documenation.
+
+<div className="not-prose">
+  <Button href="/runs" variant="text" arrow="right">
+    <>More about runs</>
+  </Button>
+</div>
