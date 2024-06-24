@@ -6,7 +6,7 @@ export const metadata = {
 
 export const sections = []
 
-# Upload your first test run
+# Create your first test run
 
 This guide will help your upload your first test run using the TofuPilot Python client. {{ className: 'lead' }}
 
@@ -39,6 +39,7 @@ A test run can now be easily created using a few parameters. Here is the code sn
 
 ```python {{ title: 'first_upload.py'}}
 from tofupilot import TofuPilotClient
+import time
 
 client = TofuPilotClient(api_key="Your API key here")
 
@@ -51,7 +52,7 @@ client.create_run(
     procedure_id="FVT1",
     unit_under_test={
       "part_number": "PCB01",
-      "serial_number": "00102"
+      "serial_number": "00001"
     },
     test_function=test_function
 )

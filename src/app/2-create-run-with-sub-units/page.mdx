@@ -1,0 +1,74 @@
+export const metadata = {
+  title: 'Sub-units | TofuPilot',
+  description:
+    'TofuPilot offers a fine-tuned Python library to make your life easier and give you the best experience when consuming the API.',
+}
+
+export const sections = []
+
+# Create a run with sub-units
+
+Sometimes, units under test (UUT) include sub-units. They can be specified when creating runs, automatically linking them as children to the main unit for full traceability throughout manufacturing.
+
+## Example with single sub-unit
+
+Here's how to create a test run with sub-units:
+
+```python {{ title: 'sub_unit_upload.py'}}
+from tofupilot import TofuPilotClient
+import time
+
+client = TofuPilotClient(api_key="Your API key here")
+
+def test_function():
+    # Your test execution goes here
+    time.sleep(1)
+    return True
+
+client.create_run(
+    procedure_id="FVT1",
+    unit_under_test={
+      "part_number": "ASY01",
+      "serial_number": "00001"
+    },
+    sub_units=[{"serial_number": "00001"}],
+    test_function=test_function
+)
+```
+
+<Note>
+  Sub-units must be created first; new ones are added without replacing existing
+  ones, and duplicates are ignored.
+</Note>
+
+## Check the Units page
+
+You can now navigate to the Units page to see the hierarchy applied. Use the expand button to view the children of the tested units.
+
+<Image src="/nested-units.png" alt="Your profile page" />
+
+## Example with multiple sub-units
+
+Here's how to create a test run with multi-units:
+
+```python {{ title: 'sub_unit_upload.py'}}
+from tofupilot import TofuPilotClient
+import time
+
+client = TofuPilotClient(api_key="Your API key here")
+
+def test_function():
+    # Your test execution goes here
+    time.sleep(1)
+    return True
+
+client.create_run(
+    procedure_id="FVT1",
+    unit_under_test={
+      "part_number": "ASY02",
+      "serial_number": "00003"
+    },
+    sub_units=[{"serial_number": "00002"}, {"serial_number": "00001"}],
+    test_function=test_function
+)
+```

@@ -234,8 +234,14 @@ export const navigation: Array<NavGroup> = [
     title: 'Guides',
     links: [
       { title: 'Introduction', href: '/' },
-      { title: 'Upload your first test run', href: '/upload-your-first-test-run' },
-      { title: 'Add traceability of sub-units', href: '/sub-units' },
+      {
+        title: 'Create your first test run',
+        href: '/1-create-your-first-test-run',
+      },
+      {
+        title: 'Create run with sub-units',
+        href: '/2-create-run-with-sub-units',
+      },
       {
         title: 'Generate beautiful test reports automatically',
         href: '/smart-fields',
