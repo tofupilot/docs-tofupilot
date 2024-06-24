@@ -243,8 +243,8 @@ export const navigation: Array<NavGroup> = [
         href: '/2-create-run-with-sub-units',
       },
       {
-        title: 'Generate beautiful test reports automatically',
-        href: '/smart-fields',
+        title: 'Create run with report',
+        href: '/3-create-run-with-report',
       },
       { title: 'Invite your teammates', href: '/invite-teammates' },
     ],
