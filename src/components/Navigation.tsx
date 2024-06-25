@@ -240,11 +240,11 @@ export const navigation: Array<NavGroup> = [
       },
       {
         title: 'Create a run with sub-units',
-        href: '/2-create-run-with-sub-units',
+        href: '/2-create-a-run-with-sub-units',
       },
       {
         title: 'Create a run with report variables',
-        href: '/3-create-run-with-report-variables',
+        href: '/3-create-a-run-with-report-variables',
       },
     ],
   },
