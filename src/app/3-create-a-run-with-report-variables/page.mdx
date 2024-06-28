@@ -6,17 +6,22 @@ export const metadata = {
 
 # Create a run with report variables
 
-Each run in TofuPilot includes a Report section with a robust, collaborative editor. Runs inherit the report from their Procedure, which can be modified as needed.
+Each TofuPilot run has a Report section with a rich text editor. Runs inherit the report from the Procedure they follow. Custom variables can be defined in the template and set with values when the run is created. {{ className: 'lead' }}
 
-## Create report template variables
+## Create report template with variables
 
-Insert variables into a procedure report template by wrapping their name in \{\{ }}. These fields become customizable inputs.
+To create variables in a procedure report template, wrap the variable name in double curly brackets: `{{variable-name}}`. These fields will then become customizable inputs.
+
+<Note>
+  Variables can be inserted into any editor block (lists, tables, code blocks,
+  etc.) and can include applied styles.
+</Note>
 
 <Image src="/procedure-report.png" alt="Procedure report template" />
 
-## Fill variables programmatically
+## Set values programmatically
 
-Create a run from the procedure and use the "report_variables" parameter to populate the variables fields.
+Create a run from the procedure and use the `template_variables` parameter to populate the variables fields.
 
 ```python {{ title: 'create_run_report_variables.py'}}
 from tofupilot import TofuPilotClient
@@ -48,11 +53,6 @@ client.create_run(
 
 ## Check your run report
 
-Access the newly created run's report and observe the automatic population of the smart fields.
+Access the report of the newly created run to observe how variables were automatically populated.
 
 <Image src="/run-report.png" alt="Run's report" />
-
-<Note>
-  Smart fields work in any block of the editor (lists, tables, code blocks, and
-  more), so use them anywhere you like.
-</Note>
