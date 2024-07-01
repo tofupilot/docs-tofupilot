@@ -58,18 +58,42 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
 
 ```python
 from tofupilot import TofuPilotClient
-from datetime import timedelta
+from datetime import timedelta, datetime
+
+def test_function():
+    # Your actual test logic
+    ###
+
+    run_passed = True
+    params = {
+        "param1": "value1",
+        "param2": "value2"
+    }
+    attachments = [
+        "/path/to/attachment1",
+        "/path/to/attachment2"
+    ]
+
+    return run_passed, params, attachments
+
+# Measure the duration of the test_function
+start_time = datetime.now()
+run_passed, params, attachments = test_function()
+end_time = datetime.now()
+duration = end_time - start_time
 
 client = TofuPilotClient(api_key="your_api_key")
 
 client.create_run(
-    procedure_id = "FVT1",
-    unit_under_test = {
-      "serial_number": 'EXAMPLE-SERIAL-NUMBER',
-      "part_number": 'EXAMPLE-PART-NUMBER',
+    procedure_id="FVT1",
+    unit_under_test={
+        "serial_number": 'EXAMPLE-SERIAL-NUMBER',
+        "part_number": 'EXAMPLE-PART-NUMBER',
     },
-    run_passed = True,
-    duration = timedelta(hours=1, minutes=32, seconds=18)
+    run_passed=run_passed,
+    duration=duration,
+    params=params,
+    attachments=attachments
 )
 ```
 
