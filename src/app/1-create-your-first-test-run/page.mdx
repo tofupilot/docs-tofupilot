@@ -44,15 +44,18 @@ client = TofuPilotClient(api_key="Your API key goes here")
 def test_function():
     # Your test execution goes here
     time.sleep(1)
+
     return True
+
+run_passed = test_function()
 
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-      "part_number": "PCB01",
-      "serial_number": "00001"
+      "serial_number": "00102",
+      "part_number": "PCB01"
     },
-    test_function=test_function
+    run_passed=run_passed
 )
 ```
 
@@ -73,5 +76,4 @@ Here are the operations handled by TofuPilot's servers:
 - A new run was created from the procedure `FVT1`.
 - The Unit `00102` was automatically created as it did not exist.
 - The Unit was linked to Component `PCB01`, which was also automatically created since it did not exist.
-- Since the `test_function` returned `True`, the run was assigned a `Pass` status.
-- The run duration was calculated based on the execution time of the `test_function`.
+- Since `run_passed` is `True`, the run was assigned a `Pass` status.

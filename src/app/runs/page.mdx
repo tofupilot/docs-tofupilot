@@ -58,18 +58,43 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
 
 ```python
 from tofupilot import TofuPilotClient
-from datetime import timedelta
+import time
+from datetime import datetime
 
-client = TofuPilotClient(api_key="your_api_key")
+def test_function():
+    # Your test execution goes here
+    time.sleep(1)
+
+    run_passed = True
+    params = {
+      "initial_temperature_reading": "72°C",
+      "final_temperature_reading": "75°C",
+    }
+    attachments = [
+      '/mnt/data/temperature-map.png',
+      '/mnt/data/performance-report.pdf'
+    ]
+
+    return run_passed, params, attachments
+
+# Measure the duration of the test_function
+start_time = datetime.now()
+run_passed, params, attachments = test_function()
+end_time = datetime.now()
+duration = end_time - start_time
+
+client = TofuPilotClient(api_key="Your API key goes here")
 
 client.create_run(
-    procedure_id = "FVT1",
-    unit_under_test = {
-      "serial_number": 'EXAMPLE-SERIAL-NUMBER',
-      "part_number": 'EXAMPLE-PART-NUMBER',
+    procedure_id="FVT1",
+    unit_under_test={
+        "part_number": '00102',
+        "serial_number": 'PCB01'
     },
-    run_passed = True,
-    duration = timedelta(hours=1, minutes=32, seconds=18)
+    run_passed=run_passed,
+    duration=duration,
+    params=params,
+    attachments=attachments
 )
 ```
 
@@ -80,8 +105,8 @@ curl -X POST https://www.tofupilot.com/api/v1/runs
   -d '{
     "procedure_id": "FVT1",
     "unit_under_test": {
-      "serial_number": "EXAMPLE-SERIAL-NUMBER",
-      "part_number": "EXAMPLE-PART-NUMBER"
+      "serial_number": "00102",
+      "part_number": "PCB01"
     },
     "run_passed": true,
     "duration": "PT27M15S"
@@ -98,8 +123,8 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
   body: JSON.stringify({
     procedure_id: 'FVT1',
     unit_under_test: {
-      serial_number: 'EXAMPLE-SERIAL-NUMBER',
-      part_number: 'EXAMPLE-PART-NUMBER',
+      serial_number: '00102',
+      part_number: 'PCB01',
     },
     run_passed: true,
     duration: 'PT27M15S',
