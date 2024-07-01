@@ -21,7 +21,10 @@ client = TofuPilotClient(api_key="Your API key goes here")
 def test_function():
     # Your test execution goes here
     time.sleep(1)
+
     return True
+
+run_passed = test_function()
 
 client.create_run(
     procedure_id="FVT1",
@@ -29,8 +32,8 @@ client.create_run(
       "serial_number": "00002",
       "part_number": "PCB01"
     },
-    sub_units=[{"serial_number": "00001"}],
-    test_function=test_function
+    run_passed=run_passed,
+    sub_units=[{"serial_number": "00001"}]
 )
 ```
 
@@ -58,7 +61,10 @@ client = TofuPilotClient(api_key="Your API key goes here")
 def test_function():
     # Your test execution goes here
     time.sleep(1)
+
     return True
+
+run_passed = test_function()
 
 client.create_run(
     procedure_id="FVT1",
@@ -66,7 +72,7 @@ client.create_run(
       "serial_number": "00003",
       "part_number": "PCB01"
     },
-    sub_units=[{"serial_number": "00002"}, {"serial_number": "00001"}],
-    test_function=test_function
+    run_passed=run_passed,
+    sub_units=[{"serial_number": "00002"}, {"serial_number": "00001"}]
 )
 ```

@@ -14,10 +14,14 @@ Here's how to create a test run with a graph and a report attached to it:
 
 ```python {{ title: 'create_run_with_attachments.py'}}
 from tofupilot import TofuPilotClient
+import time
 
 client = TofuPilotClient(api_key="Your API key goes here")
 
 def test_function():
+    # Your test execution goes here
+    time.sleep(1)
+
     run_passed = True
     attachments=[
       '/mnt/data/temperature-map.png',

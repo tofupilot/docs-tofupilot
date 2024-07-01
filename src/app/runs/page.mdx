@@ -58,10 +58,12 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
 
 ```python
 from tofupilot import TofuPilotClient
+import time
 from datetime import datetime
 
 def test_function():
-    # Your actual test logic
+    # Your test execution goes here
+    time.sleep(1)
 
     run_passed = True
     params = {
