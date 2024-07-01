@@ -20,17 +20,17 @@ client = TofuPilotClient(api_key="Your API key goes here")
 def test_function():
     run_passed = True
     attachments=[
-      '/mnt/data/graph.png',
-      '/mnt/data/report.pdf'
+      '/mnt/data/temperature-map.png',
+      '/mnt/data/performance-report.pdf'
     ]
-    return True
+    return run_passed, attachments
 
 run_passed, attachments = test_function()
 
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-      "serial_number": "00002",
+      "serial_number": "00102",
       "part_number": "PCB01"
     },
     run_passed=run_passed,
@@ -42,7 +42,7 @@ client.create_run(
 
 You can now navigate to the Runs page to see your newly created run. It's attachments are visible under the _Attachments_ section
 
-<Image src="/nested-units.png" alt="Your profile page" />
+<Image src="/run-attachments.png" alt="Attachments section" />
 
 <Note>
   You can add, download, or delete any attachments for a run at any time in this
