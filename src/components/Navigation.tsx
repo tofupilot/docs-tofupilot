@@ -246,6 +246,10 @@ export const navigation: Array<NavGroup> = [
         title: 'Create a run with report variables',
         href: '/3-create-a-run-with-report-variables',
       },
+      {
+        title: 'Create a run with attachments',
+        href: '/4-create-a-run-with-attachments',
+      },
     ],
   },
   {
