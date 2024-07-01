@@ -87,8 +87,8 @@ client = TofuPilotClient(api_key="your_api_key")
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-        "serial_number": 'EXAMPLE-SERIAL-NUMBER',
-        "part_number": 'EXAMPLE-PART-NUMBER',
+        "part_number": '00102',
+        "serial_number": 'PCB01'
     },
     run_passed=run_passed,
     duration=duration,
@@ -104,8 +104,8 @@ curl -X POST https://www.tofupilot.com/api/v1/runs
   -d '{
     "procedure_id": "FVT1",
     "unit_under_test": {
-      "serial_number": "EXAMPLE-SERIAL-NUMBER",
-      "part_number": "EXAMPLE-PART-NUMBER"
+      "serial_number": "00102",
+      "part_number": "PCB01"
     },
     "run_passed": true,
     "duration": "PT27M15S"
@@ -122,8 +122,8 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
   body: JSON.stringify({
     procedure_id: 'FVT1',
     unit_under_test: {
-      serial_number: 'EXAMPLE-SERIAL-NUMBER',
-      part_number: 'EXAMPLE-PART-NUMBER',
+      serial_number: '00102',
+      part_number: 'PCB01',
     },
     run_passed: true,
     duration: 'PT27M15S',
