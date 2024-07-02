@@ -27,10 +27,10 @@ client.create_run(
     procedure_id="FVT1",
     unit_under_test={
       "serial_number": "00002",
-      "part_number": "PCB01"
+      "part_number": "SI001"
     },
     run_passed=run_passed,
-    sub_units=[{"serial_number": "00001"}]
+    sub_units=[{"serial_number": "00102"}]
 )
 ```
 
@@ -43,7 +43,7 @@ client.create_run(
 
 You can now navigate to the Units page to see the hierarchy applied. Use the expand button to view the children of the tested units.
 
-<Image src="/nested-units.png" alt="Your profile page" />
+<Image src="/sub-units.png" alt="Your profile page" />
 
 ## Example with multiple sub-units
 
@@ -65,9 +65,9 @@ client.create_run(
     procedure_id="FVT1",
     unit_under_test={
       "serial_number": "00003",
-      "part_number": "PCB01"
+      "part_number": "SI002"
     },
     run_passed=run_passed,
-    sub_units=[{"serial_number": "00002"}, {"serial_number": "00001"}]
+    sub_units=[{"serial_number": "00002"}, {"serial_number": "00102"}]
 )
 ```
