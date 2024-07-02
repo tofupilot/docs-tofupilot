@@ -6,7 +6,7 @@ export const metadata = {
 
 # Create a run with attachments
 
-You can easily attach images, graphs, or reports to your runs using TofuPilot's "attachments" feature. Just add a parameter when creating a run. {{ className: 'lead' }}
+You can attach any file to a test run, such as images, graphs, or reports, by simply linking their local path during run creation. {{ className: 'lead' }}
 
 ## Example
 
@@ -23,7 +23,7 @@ def test_function():
     run_passed = True
     # local path to attachements
     attachments=[
-      '/temperature-map.png',
+      '/temperature-map.png', # path to your local files
       '/performance-report.pdf'
     ]
     return run_passed, attachments

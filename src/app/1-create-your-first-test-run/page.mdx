@@ -6,16 +6,16 @@ export const metadata = {
 
 # Create your first test run
 
-This guide will help your upload your first test run using the TofuPilot Python client. {{ className: 'lead' }}
+Uploading your first test run to TofuPilot is quick and easy using the Python client. This guide will show you how in just 2 minutes. {{ className: 'lead' }}
 
 <Note>
-  An interactive tutorial guide covering these steps is also available within
-  the app once you're logged in.
+  Once logged in, you will also find an interactive tutorial guide within the
+  app covering these steps.
 </Note>
 
 ## Create your API key
 
-Create your API key from your Profile page and copy it to your clipboard. An API key is a unique identifier that allows you to authenticate requests to the TofuPilot API. It ensures secure access to your data and resources.
+Generate your API key from your Profile page to securely authenticate Python client requests to the TofuPilot API.
 
 <div className="not-prose">
   <Button href="/api-key" variant="text" arrow="right">
@@ -25,10 +25,10 @@ Create your API key from your Profile page and copy it to your clipboard. An API
 
 ## Download the Python client
 
-To interact with the TofuPilot API, you'll need to download and install the TofuPilot Python client. This client simplifies the process of making API calls. To install the Python client, run the following command:
+To interact with the TofuPilot API effortlessly, install the TofuPilot Python client using this command:
 
 ```bash {{ title: 'bash' }}
-pip install --upgrade tofupilot
+pip install tofupilot
 ```
 
 ## Create a test run
@@ -37,14 +37,11 @@ A test run can now be easily created using a few parameters. Here is the code sn
 
 ```python {{ title: 'first_upload.py'}}
 from tofupilot import TofuPilotClient
-import time
 
 client = TofuPilotClient(api_key="Your API key goes here")
 
 def test_function():
-    # Your test execution goes here
-    time.sleep(1)
-
+    # your test execution goes here
     return True
 
 run_passed = test_function()
@@ -60,9 +57,9 @@ client.create_run(
 ```
 
 <Note>
-  A default procedure "FVT1" is automatically created with your organization. If
-  it was deleted or you need a different procedure, you can create a new one
-  from the Procedure page.
+  A default procedure named 'FVT1' is automatically created for your
+  organization. If it has been deleted or you require a different procedure, you
+  can create a new one from the Procedures page.
 </Note>
 
 ## Check the Runs page

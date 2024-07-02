@@ -6,7 +6,7 @@ export const metadata = {
 
 # Create a run with report variables
 
-Each TofuPilot run has a Report section with a rich text editor. Runs inherit the report from the Procedure they follow. Custom variables can be defined in the template and set with values when the run is created. {{ className: 'lead' }}
+Each TofuPilot run includes a Report section with a rich text editor, inheriting the report from the Procedure they are created from. Custom variables can be defined in the template and assigned values when the run is created. {{ className: 'lead' }}
 
 ## Create report template with variables
 
@@ -25,24 +25,12 @@ Create a run from the procedure and use the `params` parameter to populate the v
 
 ```python {{ title: 'create_run_report_variables.py'}}
 from tofupilot import TofuPilotClient
-import time
 
 client = TofuPilotClient(api_key="Your API key goes here")
 
 def test_function():
-    # Your test execution goes here
-    time.sleep(1)
-
-    return True
-
-run_passed = test_function()
-
-client.create_run(
-    procedure_id="FVT1",
-    unit_under_test={
-      "serial_number": "0001",
-      "part_number": "PCB01"
-    },
+    # your test execution goes here
+    run_passed = True
     params={
       "temperature_sensor": "75°C",
       "calibration_date": "2024-06-20",
@@ -50,12 +38,23 @@ client.create_run(
       "initial_temperature_reading": "72°C",
       "final_temperature_reading": "75°C",
     },
-    run_passed=run_passed
+    return run_passed, params
+
+run_passed, params = test_function()
+
+client.create_run(
+    procedure_id="FVT1",
+    unit_under_test={
+      "serial_number": "0001",
+      "part_number": "PCB01"
+    },
+    run_passed=run_passed,
+    params=params
 )
 ```
 
 ## Check your run report
 
-Access the report of the newly created run to observe how variables were automatically populated.
+Access the report of the newly created run where variables have been automatically populated.
 
 <Image src="/run-report.png" alt="Run's report" />
