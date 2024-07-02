@@ -38,6 +38,7 @@ A test run can now be easily created using a few parameters. Here is the code sn
 ```python {{ title: 'first_upload.py'}}
 from tofupilot import TofuPilotClient
 import time
+from datetime import timedelta
 
 client = TofuPilotClient(api_key="Your API key goes here")
 
@@ -59,7 +60,7 @@ client.create_run(
       "part_number": "PCB01"
     },
     run_passed=run_passed,
-    duration=duration
+    duration=timedelta(seconds=end_time-start_time) # Optional argument
 )
 ```
 
