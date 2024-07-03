@@ -46,8 +46,8 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
         A list of unit identifiers that should be added as sub-units of the run's unit
         - serial_number (string): Serial number of the sub-unit
       </Property>
-      <Property name="params" type="record(string, string)">
-        {"A dictionary of key/value pairs used to replace {{smart fields}} in the procedure's document."}
+      <Property name="report_variables" type="record(string, string)">
+        {"A dictionary of key/value pairs used to replace {{report variables}} in the procedure's document."}
       </Property>
     </Properties>
 
@@ -66,7 +66,7 @@ def test_function():
     time.sleep(1)
 
     run_passed = True
-    params = {
+    report_variables = {
       "initial_temperature_reading": "72°C",
       "final_temperature_reading": "75°C",
     }
@@ -75,11 +75,11 @@ def test_function():
       '/mnt/data/performance-report.pdf'
     ]
 
-    return run_passed, params, attachments
+    return run_passed, report_variables, attachments
 
 # Measure the duration of the test_function
 start_time = datetime.now()
-run_passed, params, attachments = test_function()
+run_passed, report_variables, attachments = test_function()
 end_time = datetime.now()
 duration = end_time - start_time
 
@@ -93,7 +93,7 @@ client.create_run(
     },
     run_passed=run_passed,
     duration=duration,
-    params=params,
+    report_variables=report_variables,
     attachments=attachments
 )
 ```
