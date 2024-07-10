@@ -88,8 +88,8 @@ client = TofuPilotClient(api_key="Your API key goes here")
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-        "part_number": '00102',
-        "serial_number": 'PCB01'
+        "serial_number": '00102',
+        "part_number": 'PCB01'
     },
     run_passed=run_passed,
     duration=duration,
