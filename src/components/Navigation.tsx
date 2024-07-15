@@ -266,6 +266,10 @@ export const navigation: Array<NavGroup> = [
     title: 'API Reference',
     links: [{ title: 'Runs', href: '/runs' }],
   },
+  {
+    title: 'Legal',
+    links: [{ title: 'Privacy Policy', href: '/legal/privacy-policy' }],
+  },
 ]
 
 export function Navigation(props: React.ComponentPropsWithoutRef<'nav'>) {
