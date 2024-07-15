@@ -268,7 +268,10 @@ export const navigation: Array<NavGroup> = [
   },
   {
     title: 'Legal',
-    links: [{ title: 'Privacy Policy', href: '/legal/privacy-policy' }],
+    links: [
+      { title: 'Privacy Policy', href: '/legal/privacy-policy' },
+      { title: 'Terms & Conditions', href: '/legal/terms-conditions' },
+    ],
   },
 ]
 
