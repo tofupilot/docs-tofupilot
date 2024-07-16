@@ -6,7 +6,7 @@ import logoPython from '@/images/logos/python.svg'
 
 const libraries = [
   {
-    href: 'https://pypi.org/project/tofupilot/',
+    href: 'https://github.com/tofupilot/python-client',
     name: 'Python',
     description:
       'Python is a programming language that lets you work quickly and integrate systems more effectively.',
