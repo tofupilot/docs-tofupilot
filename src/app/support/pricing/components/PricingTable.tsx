@@ -50,9 +50,9 @@ export function PricingTable() {
           return (
             <tr key={index}>
               <td>{data.level}</td>
-              <td>{formatRuns(data.runsPerMonth)}€</td>
+              <td>{formatRuns(data.runsPerMonth)}</td>
               <td>{formatPrice(data.annualPrice)}€</td>
-              <td>{(data.annualPrice / data.runsPerMonth).toFixed(2)}</td>
+              <td>{(data.annualPrice / data.runsPerMonth).toFixed(2)}€</td>
               <td>{formatAttachmentSize(attachmentSize)}</td>
             </tr>
           )
