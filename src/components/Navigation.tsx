@@ -236,19 +236,19 @@ export const navigation: Array<NavGroup> = [
       { title: 'Introduction', href: '/' },
       {
         title: 'Create your first test run',
-        href: '/1-create-your-first-test-run',
+        href: 'first-run',
       },
       {
-        title: 'Create a run with sub-units',
-        href: '/2-create-a-run-with-sub-units',
+        title: 'Attachments',
+        href: '/attachments',
       },
       {
-        title: 'Create a run with report variables',
-        href: '/3-create-a-run-with-report-variables',
+        title: 'Report',
+        href: 'report',
       },
       {
-        title: 'Create a run with attachments',
-        href: '/4-create-a-run-with-attachments',
+        title: 'Sub-Units',
+        href: 'sub-units',
       },
     ],
   },
@@ -267,8 +267,10 @@ export const navigation: Array<NavGroup> = [
     links: [{ title: 'Runs', href: '/runs' }],
   },
   {
-    title: 'Legal',
+    title: 'Support',
     links: [
+      // { title: 'Security', href: '/support/security' },
+      { title: 'Pricing', href: '/support/pricing' },
       { title: 'Privacy Policy', href: '/legal/privacy-policy' },
       { title: 'Terms & Conditions', href: '/legal/terms-conditions' },
     ],
