@@ -8,6 +8,7 @@ export const sections = [
   { title: 'Accessing your API Key', id: 'accessing-key' },
   { title: 'Creating your API Key', id: 'creating-key' },
   { title: 'Managing your API Key', id: 'managing-key' },
+  { title: 'Set as environment variable', id: 'managing-key' },
 ]
 
 # API Key
@@ -36,3 +37,15 @@ Once created, you can copy your API key and use it to authenticate against the A
   If you think your API Key has been compromised, you can regenerate it at any
   time using the 'Regenerate' button.
 </Note>
+
+## Set as environment variable {{ id: 'environment-variable' }}
+
+Set your TofuPilot API Key as an environment variable. You only need to do this once.
+
+```bash
+# set TofuPilot API Key (using zsh for example)
+$ echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
+
+# reload the environment (or just quit and open a new terminal)
+$ source ~/.zshenv
+```
