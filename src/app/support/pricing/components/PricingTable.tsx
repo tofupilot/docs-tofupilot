@@ -1,16 +1,17 @@
 import React from 'react'
 
 const pricingData = [
-  { level: 1, runsPerMonth: 2500, annualPrice: 399 },
-  { level: 2, runsPerMonth: 5000, annualPrice: 699 },
-  { level: 3, runsPerMonth: 7500, annualPrice: 899 },
-  { level: 4, runsPerMonth: 10000, annualPrice: 1099 },
-  { level: 5, runsPerMonth: 25000, annualPrice: 1599 },
-  { level: 6, runsPerMonth: 50000, annualPrice: 2499 },
-  { level: 7, runsPerMonth: 100000, annualPrice: 3999 },
-  { level: 8, runsPerMonth: 200000, annualPrice: 6999 },
-  { level: 9, runsPerMonth: 500000, annualPrice: 9999 },
-  { level: 10, runsPerMonth: 1000000, annualPrice: 14999 },
+  { level: 1, runsPerMonth: 2500, annualPrice: 60*5 },
+  { level: 2, runsPerMonth: 5000, annualPrice: 100*5 },
+  { level: 3, runsPerMonth: 10000, annualPrice: 135*5 },
+  { level: 4, runsPerMonth: 15000, annualPrice: 230*5 },
+  { level: 5, runsPerMonth: 20000, annualPrice: 285*5 },
+  { level: 6, runsPerMonth: 25000, annualPrice: 310*5 },
+  { level: 7, runsPerMonth: 30000, annualPrice: 340*5 },
+  { level: 8, runsPerMonth: 40000, annualPrice: 410*5 },
+  { level: 9, runsPerMonth: 50000, annualPrice: 450*5 },
+  { level: 10, runsPerMonth: 75000, annualPrice: 3149 },
+  { level: 11, runsPerMonth: 100000, annualPrice: 3999 },
 ]
 
 const formatRuns = (runs: number): string => {
