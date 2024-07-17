@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { Feedback } from '@/components/Feedback'
 import { Heading } from '@/components/Heading'
 import { Prose } from '@/components/Prose'
+import { Code, Pre } from '@/components/Code'
 
 export const a = Link
 export { Button } from '@/components/Button'
@@ -137,5 +138,21 @@ export function Property({
         </dd>
       </dl>
     </li>
+  )
+}
+
+export async function PythonExample({ path }: { path: string }) {
+  const response = await fetch(
+    `https://api.github.com/repos/tofupilot/python-client/contents/examples/${path}`,
+  )
+  let code
+  const data = await response.json()
+  if (data.content) {
+    code = atob(data.content)
+  }
+  return (
+    <Pre code={code} title={path}>
+      <Code className="language-python">{code}</Code>
+    </Pre>
   )
 }
