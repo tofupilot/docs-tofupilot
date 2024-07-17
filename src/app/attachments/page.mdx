@@ -12,34 +12,7 @@ You can attach any file to a test run, such as images, graphs, or reports, by si
 
 Here's how to create a test run with a graph and a report attached:
 
-```python {{ title: 'create_run_with_attachments.py'}}
-from tofupilot import TofuPilotClient
-import time
-
-client = TofuPilotClient(api_key="Your API key goes here")
-
-def test_function():
-    # test status
-    run_passed = True
-    # local path to attachements
-    attachments=[
-      'temperature-map.png', # path to your local files
-      'performance-report.pdf'
-    ]
-    return run_passed, attachments
-
-run_passed, attachments = test_function()
-
-client.create_run(
-    procedure_id="FVT1",
-    unit_under_test={
-      "serial_number": "00102",
-      "part_number": "PCB01"
-    },
-    run_passed=run_passed,
-    attachments=attachments
-)
-```
+<PythonExample path="create_run_with_attachments.py" />
 
 ## Check the new Run
 

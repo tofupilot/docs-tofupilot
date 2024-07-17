@@ -145,7 +145,7 @@ export async function PythonExample({ path }: { path: string }) {
   const response = await fetch(
     `https://api.github.com/repos/tofupilot/python-client/contents/examples/${path}`,
   )
-  let code
+  let code = 'Not found'
   const data = await response.json()
   if (data.content) {
     code = atob(data.content)

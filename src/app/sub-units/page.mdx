@@ -12,27 +12,7 @@ TofuPilot supports sub-units within units under test (UUT), and it will automati
 
 Here's how to create a test run with sub-units:
 
-```python {{ title: 'create_run_sub_unit.py'}}
-from tofupilot import TofuPilotClient
-
-client = TofuPilotClient(api_key="Your API key goes here")
-
-def test_function():
-    # your test execution goes here
-    return True
-
-run_passed = test_function()
-
-client.create_run(
-    procedure_id="FVT1",
-    unit_under_test={
-      "serial_number": "00002",
-      "part_number": "SI001"
-    },
-    run_passed=run_passed,
-    sub_units=[{"serial_number": "00102"}]
-)
-```
+<PythonExample path="create_run_single_sub_unit.py" />
 
 <Note>
   Sub-units must be created first; new ones are added without replacing existing
@@ -49,25 +29,4 @@ You can now navigate to the Units page to see the hierarchy applied. Use the exp
 
 Here's how to create a test run with multi-units:
 
-```python {{ title: 'create_run_sub_units.py'}}
-from tofupilot import TofuPilotClient
-import time
-
-client = TofuPilotClient(api_key="Your API key goes here")
-
-def test_function():
-    # your test execution goes here
-    return True
-
-run_passed = test_function()
-
-client.create_run(
-    procedure_id="FVT1",
-    unit_under_test={
-      "serial_number": "00003",
-      "part_number": "SI002"
-    },
-    run_passed=run_passed,
-    sub_units=[{"serial_number": "00002"}, {"serial_number": "00102"}]
-)
-```
+<PythonExample path="create_run_multiple_sub_units.py" />
