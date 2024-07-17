@@ -1,4 +1,4 @@
-import { PricingTable } from './components/PricingTable'
+import { TablePricing } from './components/TablePricing'
 
 export const metadata = {
   title: 'Pricing',
@@ -12,29 +12,26 @@ Our pricing is designed to accommodate all your needs as you grow. {{ className:
 
 ## Free Trial
 
-We offer a 15-day free trial with no limits on data uploads or users. This allows you to explore all the features of our platform without any restrictions.
+We offer a 15-day free trial, allowing you to explore all our platform features without limits.
 
 <Button href="/api-key" variant="text" arrow="right">
-  <>Get started for free</>
+  <>Start your free trial</>
 </Button>
 
 ## Standard Plan
 
 Our Standard Plan provides full access to all platform features, including clients and API capabilities. Pricing is based on usage: the number of test runs uploaded and the attachment volume.
 
-<Note>
-  Listed prices are for annual subscriptions with a 20% discount. Monthly
-  subscriptions are also available.
-</Note>
+<TablePricing />
 
-<PricingTable />
-
-If your usage increases, we will notify you without blocking any uploads, ensuring your critical infrastructure remains operational. You will have the option to upgrade to a higher level, purchase a [temporary data pack](#additional-data-pack), or archive unused runs.
+Higher volumes? Contact our [sales team](https://outlook.office.com/bookwithme/user/b07c0ff908f44c3bb2e1f33eef07fc64%40tofupilot.com/meetingtype/01b54553-d734-4754-a061-124323cdfb12) to get a detailed quote.
 
 <Note>
   Prices are listed in EUR and do not include taxes. TofuPilot's standard [Terms
   and Conditions](/legal/terms-conditions) apply.
 </Note>
+
+If your usage increases, we will notify you without blocking any uploads, ensuring your critical infrastructure remains operational. You will have the option to upgrade to a higher level, purchase a [temporary data pack](#additional-data-pack), or archive unused runs.
 
 ## Additional Data Pack
 
