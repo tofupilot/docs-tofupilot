@@ -141,7 +141,13 @@ export function Property({
   )
 }
 
-export async function PythonExample({ path }: { path: string }) {
+export async function PythonExample({
+  path,
+  title,
+}: {
+  path: string
+  title?: string
+}) {
   const response = await fetch(
     `https://api.github.com/repos/tofupilot/python-client/contents/examples/${path}`,
   )
@@ -151,7 +157,7 @@ export async function PythonExample({ path }: { path: string }) {
     code = atob(data.content)
   }
   return (
-    <Pre code={code} title={path}>
+    <Pre code={code} title={title ?? path}>
       <Code className="language-python">{code}</Code>
     </Pre>
   )
