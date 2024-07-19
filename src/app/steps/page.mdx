@@ -1,7 +1,6 @@
 export const metadata = {
   title: 'Steps',
-  description:
-    '',
+  description: '',
 }
 
 # Steps
@@ -41,7 +40,7 @@ def run_all_tests():
 
     for test in tests:
         start_time = datetime.now()
-        passed, value_measured, unit, limt_low, limt_high = test()
+        passed, value_measured, unit, limit_low, limit_high = test()
         end_time = datetime.now()
 
         step = {
@@ -49,10 +48,10 @@ def run_all_tests():
             "started_at": start_time,
             "duration": end_time - start_time,
             "step_passed": passed,
-            "unit": unit,
+            "measurement_unit": unit,
             "measurement_value": value_measured,
-            "limt_low": limt_low,
-            "limt_high": limt_high,
+            "limit_low": limit_low,
+            "limit_high": limit_high,
         }
 
         steps.append(step)
@@ -95,8 +94,8 @@ fetch('https://tofupilot.com/api/v1/runs', {
         duration: 'PT1M15S',
         measurement_unit: 'Amperes',
         measurement_value: 0.5,
-        limt_low: 0.3,
-        limt_high: 0.7,
+        limit_low: 0.3,
+        limit_high: 0.7,
       },
       {
         name: 'Vibration Test',
@@ -106,13 +105,17 @@ fetch('https://tofupilot.com/api/v1/runs', {
       },
     ],
   }),
-});
+})
 ```
 
   </CodeGroup>
 
 <Note>
-  Please note that the provided Python example is designed to be framework-agnostic and includes extensive business logic for illustrative purposes. In a real-world scenario, it is advisable to utilize a dedicated hardware testing framework, such as [OpenHTF](https://openhtf.com), to streamline and optimize your implementation.
+  Please note that the provided Python example is designed to be
+  framework-agnostic and includes extensive business logic for illustrative
+  purposes. In a real-world scenario, it is advisable to utilize a dedicated
+  hardware testing framework, such as [OpenHTF](https://openhtf.com), to
+  streamline and optimize your implementation.
 </Note>
 
 ## Check the Run page
@@ -128,5 +131,6 @@ On the Procedure page, you can find a comprehensive summary of the duration and 
 <Image src={'/test-steps-procedure.png'} alt={"Procedure's steps"} />
 
 <Note>
-  For complete details on the API signature for run steps, please refer to the [API documentation page](/runs).
+  For complete details on the API signature for run steps, please refer to the
+  [API documentation page](/runs).
 </Note>
