@@ -271,7 +271,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'Pricing', href: '/support/pricing' },
       { title: 'Terms & Conditions', href: '/legal/terms-conditions' },
-      { title: 'Security', href: '/support/security' },
+      // { title: 'Security', href: '/support/security' },
       { title: 'Privacy Policy', href: '/legal/privacy-policy' },
     ],
   },
