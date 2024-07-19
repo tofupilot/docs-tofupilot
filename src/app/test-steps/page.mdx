@@ -4,43 +4,11 @@ export const metadata = {
     'TofuPilot offers a fine-tuned Python library to make your life easier and give you the best experience when consuming the API.',
 }
 
-# Create a run with test steps
+# Create a Run with Test Steps
 
-On TofuPilot, you can log steps of your run by adding the step parameter
-
-Here are the code snippets:
+TofuPilot allows you to log steps of your run by adding the `steps` parameter. Below is a code snippet demonstrating how to create a run with test steps:
 
   <CodeGroup>
-
-```python
-from tofupilot import TofuPilotClient
-import time
-from datetime import timedelta
-
-client = TofuPilotClient(api_key="Your API key goes here")
-
-def test_function(): # Your test execution goes here
-time.sleep(1) # Placeholder for test execution time
-return True
-
-# Measure the duration of the test_function (optional)
-
-start_time = time.time()
-run_passed = test_function()
-end_time = time.time()
-duration = end_time - start_time
-
-client.create_run(
-procedure_id="FVT1",
-unit_under_test={
-"serial_number": "00102",
-"part_number": "PCB01"
-},
-run_passed=run_passed,
-duration=timedelta(seconds=end_time-start_time) # Optional argument
-)
-
-```
 
 ```js
 fetch('https://tofupilot.com/api/v1/runs', {
@@ -79,8 +47,14 @@ fetch('https://tofupilot.com/api/v1/runs', {
 
   </CodeGroup>
 
-## Check the Runs page
+## Check the Run page
 
-Runs steps are available in the 'Steps' section of the run page
+You can view the run steps in the ‘Steps’ section of the Run’s page.
 
 <Image src={'/test-steps-run.png'} alt={"Run's steps"} />
+
+## Check the Procedure page
+
+On the Procedure page, you can find a comprehensive summary of the duration and yield of all test steps, including data from all the runs executed from the procedure
+
+<Image src={'/test-steps-procedure.png'} alt={"Procedure's steps"} />
