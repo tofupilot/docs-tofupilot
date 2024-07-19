@@ -41,18 +41,18 @@ def run_all_tests():
 
     for test in tests:
         start_time = datetime.now()
-        passed, value_measured, unit, min_threshold, max_threshold = test()
+        passed, value_measured, unit, limt_low, limt_high = test()
         end_time = datetime.now()
 
         step = {
             "name": test.__name__,
             "started_at": start_time,
             "duration": end_time - start_time,
-            "passed": passed,
+            "step_passed": passed,
             "unit": unit,
-            "measured_value": value_measured,
-            "min_threshold": min_threshold,
-            "max_threshold": max_threshold,
+            "measurement_value": value_measured,
+            "limt_low": limt_low,
+            "limt_high": limt_high,
         }
 
         steps.append(step)
@@ -90,19 +90,19 @@ fetch('https://tofupilot.com/api/v1/runs', {
     steps: [
       {
         name: 'Current Consumption',
+        step_passed: true,
         started_at: new Date(Date.now() - 240000).toISOString(), // 4 minutes ago
         duration: 'PT1M15S',
-        passed: true,
-        units: 'Amperes',
-        measured_value: 0.5,
-        min_threshold: 0.3,
-        max_threshold: 0.7,
+        measurement_unit: 'Amperes',
+        measurement_value: 0.5,
+        limt_low: 0.3,
+        limt_high: 0.7,
       },
       {
         name: 'Vibration Test',
         started_at: new Date(Date.now() - 300000).toISOString(), // 5 minutes ago
         duration: 'PT2M30S',
-        passed: false,
+        step_passed: true,
       },
     ],
   }),

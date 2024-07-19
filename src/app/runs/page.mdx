@@ -41,13 +41,13 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
       </Property>
       <Property name="steps" type="array(record)">
         - name (string): The name of the step.
-        - started_at (string): An ISO 8601 formatted timestamp indicating the start time of the step.
+        - step_passed (boolean): A boolean indicating whether the step passed or failed.
+        - started_at (string / datetime): An ISO 8601 formatted timestamp (or datetime in Python) indicating the start time of the step.
         - duration (string): An ISO 8601 duration string indicating the duration of the step.
-        - passed (boolean): A boolean indicating whether the step passed or failed.
-        - measured_value (optional, float): The value measured during the step execution.
-        - unit (optional, string): The unit in which the measured value was measured.
-        - min_threshold (optional, float): The minimum acceptable threshold for the step value.
-        - max_threshold (optional, float): The maximum acceptable threshold for the step value.
+        - measurement_unit (optional, string): The unit in which the measured value was measured.
+        - measurement_value (optional, float): The value measured during the step execution.
+        - limit_low (optional, float): The minimum acceptable threshold for the step value.
+        - limit_high (optional, float): The maximum acceptable threshold for the step value.
       </Property>
       <Property name="attachments" type="array(string)">
         A list of absolute file paths that should be added as run's attachments.
