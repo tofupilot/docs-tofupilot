@@ -32,25 +32,23 @@ export function TablePricing() {
       <thead>
         <tr>
           <th>Level</th>
-          <th>Monthly Runs</th>
-          <th>Monthly Attachment Limit</th>
-          <th>Monthly Price</th>
-          <th>Annual Price (-20%)</th>
-          <th>Price per Run</th>
+          <th>Runs per Month</th>
+          <th>Monthly Plan</th>
+          <th>Annual Plan (-20%)</th>
+          <th>Cost of Run</th>
         </tr>
       </thead>
       <tbody>
         {pricingData.map((data, index) => {
           const monthlyPriceWithIncrease = (data.annualPrice / 12) * 1.2
-          const attachmentSize = (data.runsPerMonth * 4) / 1000 // Convert to GB
+          // const attachmentSize = (data.runsPerMonth * 4) / 1000 // Convert to GB
           return (
             <tr key={index}>
               <td>{data.level}</td>
               <td>{formatRuns(data.runsPerMonth)}</td>
-              <td>{formatAttachmentSize(attachmentSize)}</td>
               <td>€{formatPrice(monthlyPriceWithIncrease)}</td>
               <td>€{formatPrice(data.annualPrice)}</td>
-              <td>€{(data.annualPrice / data.runsPerMonth).toFixed(2)}</td>
+              <td>€{(data.annualPrice / 12 / data.runsPerMonth).toFixed(2)}</td>
             </tr>
           )
         })}
