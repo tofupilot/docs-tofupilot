@@ -236,7 +236,11 @@ export const navigation: Array<NavGroup> = [
       { title: 'Introduction', href: '/' },
       {
         title: 'Create your first test run',
-        href: 'first-run',
+        href: '/first-run',
+      },
+      {
+        title: 'Test steps',
+        href: '/test-steps'
       },
       {
         title: 'Attachments',
@@ -244,11 +248,11 @@ export const navigation: Array<NavGroup> = [
       },
       {
         title: 'Report',
-        href: 'report',
+        href: '/report',
       },
       {
         title: 'Sub-Units',
-        href: 'sub-units',
+        href: '/sub-units',
       },
     ],
   },

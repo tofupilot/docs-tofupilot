@@ -1,0 +1,86 @@
+export const metadata = {
+  title: 'First Run',
+  description:
+    'TofuPilot offers a fine-tuned Python library to make your life easier and give you the best experience when consuming the API.',
+}
+
+# Create a run with test steps
+
+On TofuPilot, you can log steps of your run by adding the step parameter
+
+Here are the code snippets:
+
+  <CodeGroup>
+
+```python
+from tofupilot import TofuPilotClient
+import time
+from datetime import timedelta
+
+client = TofuPilotClient(api_key="Your API key goes here")
+
+def test_function(): # Your test execution goes here
+time.sleep(1) # Placeholder for test execution time
+return True
+
+# Measure the duration of the test_function (optional)
+
+start_time = time.time()
+run_passed = test_function()
+end_time = time.time()
+duration = end_time - start_time
+
+client.create_run(
+procedure_id="FVT1",
+unit_under_test={
+"serial_number": "00102",
+"part_number": "PCB01"
+},
+run_passed=run_passed,
+duration=timedelta(seconds=end_time-start_time) # Optional argument
+)
+
+```
+
+```js
+fetch('https://tofupilot.com/api/v1/runs', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${yourApiKey}`,
+  },
+  body: JSON.stringify({
+    procedure_id: 'FVT1',
+    unit_under_test: {
+      serial_number: '00102',
+    },
+    run_passed: true,
+    steps: [
+      {
+        name: 'Current Consumption',
+        startedAt: new Date(Date.now() - 240000).toISOString(), // 4 minutes ago
+        duration: 'PT1M15S',
+        passed: true,
+        units: 'Amperes',
+        measured_value: 0.5,
+        min_threshold: 0.3,
+        max_threshold: 0.7,
+      },
+      {
+        name: 'Vibration Test',
+        startedAt: new Date(Date.now() - 300000).toISOString(), // 5 minutes ago
+        duration: 'PT2M30S',
+        passed: false,
+      },
+    ],
+  }),
+});
+```
+
+  </CodeGroup>
+
+## Check the Runs page
+
+Runs steps are available in the 'Steps' section of the run page
+
+<Image src={'/test-steps-run.png'} alt={"Run's steps"} />
