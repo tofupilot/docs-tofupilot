@@ -5,6 +5,8 @@ import { Providers } from '@/app/providers'
 import { Layout } from '@/components/Layout'
 import { type Section } from '@/components/SectionProvider'
 
+import { Analytics } from '@vercel/analytics/react'
+
 import '@/styles/tailwind.css'
 
 export const metadata: Metadata = {
@@ -33,6 +35,7 @@ export default async function RootLayout({
       <body className="flex min-h-full bg-white antialiased dark:bg-zinc-900">
         <Providers>
           <div className="w-full">
+            <Analytics />
             <Layout allSections={allSections}>{children}</Layout>
           </div>
         </Providers>
