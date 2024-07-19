@@ -24,9 +24,9 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
         Unique identifier for the run's procedure.
       </Property>
       <Property name="unit_under_test" type="record">
-      - serial_number (string): Serial number of the unit
-      - part_number (string): Part number of the unit's component
-      - revision (optional, string): Revision of the unit's component. Required if component has more than one revision.
+        - serial_number (string): The serial number of the unit. A new unit will be created if no existing unit is found with this serial number.
+        - part_number (optional, string): The part number of the unit's component. A new component will be created if no component with this part number is found. This field is optional if the given serial number corresponds to an already existing unit.
+        - revision (optional, string): The revision of the unit's component. This field is required if the unit does not exist and the component has multiple revisions.
       </Property>
       <Property name="run_passed" type="boolean">
         Boolean indicating whether the run passed or not.
@@ -36,8 +36,18 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
     ## Optional attributes
 
     <Properties>
-    <Property name="duration" type="string / timedelta">
-        ISO8601 string or datetime.timedelta (for Python client) indicating the duration of the run.
+      <Property name="duration" type="string / timedelta">
+        ISO 8601 duration string or datetime.timedelta (for Python client) indicating the duration of the run.
+      </Property>
+      <Property name="steps" type="array(record)">
+        - name (string): The name of the step.
+        - started_at (string): An ISO 8601 formatted timestamp indicating the start time of the step.
+        - duration (string): An ISO 8601 duration string indicating the duration of the step.
+        - passed (boolean): A boolean indicating whether the step passed or failed.
+        - measured_value (optional, float): The value measured during the step execution.
+        - unit (optional, string): The unit in which the measured value was measured.
+        - min_threshold (optional, float): The minimum acceptable threshold for the step value.
+        - max_threshold (optional, float): The maximum acceptable threshold for the step value.
       </Property>
       <Property name="attachments" type="array(string)">
         A list of absolute file paths that should be added as run's attachments.
