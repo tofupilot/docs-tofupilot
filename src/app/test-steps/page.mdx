@@ -8,14 +8,12 @@ export const metadata = {
 TofuPilot allows you to log steps of your run by adding the `steps` parameter. Below is a code snippet demonstrating how to create a run with test steps:
 
 ## Example
+
 ```python {{ title: 'create_run_with_steps.py'}}
 from tofupilot import TofuPilotClient
 from datetime import datetime
 
-client = TofuPilotClient(
-    api_key="257b1af3-ea22-4de1-8b3c-ab60c9f0d6d7",
-    base_url="https://app-git-0384-tofupilot.vercel.app/"
-  )
+client = TofuPilotClient(api_key="Your api key")
 
 def step_boolean_test():
     return True, None, None, None, None
@@ -71,7 +69,7 @@ client.create_run(
     run_passed=run_passed,
     steps=steps,
 )
-````
+```
 
 <Note>
   Please note that the provided Python example is designed to be
