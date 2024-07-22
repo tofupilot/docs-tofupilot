@@ -91,10 +91,10 @@ The Procedure page provides a summary of the steps' run count, status, and avera
 The provided code example is designed to be framework-agnostic, offering a simple logic suitable for quick implement. For real world deployment, we recommend using your own test sequencer or open-source alternatives like [PyTest](https://docs.pytest.org/en/8.2.x/) or [OpenHTF](https://www.openhtf.com/).
 
 ## API Reference
-
+§
 Each `step` in the `steps` array provided to `create_run` can include the following parameters:
 
-### Mandatory
+### Required
 
 <Properties>
   <Property name="name" type="string">
@@ -114,16 +114,16 @@ Each `step` in the `steps` array provided to `create_run` can include the follow
 ### Optional
 
 <Properties>
-  <Property name="measurement_value" type="float or None">
+  <Property name="measurement_value" type="number or None">
     Value measured during the step, if any.
   </Property>
   <Property name="measurement_unit" type="string or None">
     Unit of the measurement value, if any.
   </Property>
-  <Property name="limit_low" type="float or None">
+  <Property name="limit_low" type="number or None">
     Lower limit for the measurement, if any.
   </Property>
-  <Property name="limit_high" type="float or None">
+  <Property name="limit_high" type="number or None">
     Upper limit for the measurement, if any.
   </Property>
 </Properties>
