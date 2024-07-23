@@ -1,11 +1,12 @@
 export const metadata = {
   title: 'Steps',
-  description: '',
+  description:
+    'Tofupilot provides a simple way to upload and manage files generated during manufacturing tests, such as logs, pictures, and PDFs, with detailed views available on the web platform.',
 }
 
 # Steps
 
-Hardware production tests often involve multiple steps such as connections, measurements, calibration, and more. Tofupilot offers a simple yet comprehensive way to record the details of these steps and analyze their performance across all executions. {{ className: 'lead' }}
+Hardware manufacturing tests often involve multiple steps such as connections, measurements, calibration, and more. Tofupilot offers a simple yet comprehensive way to record the details of these steps and analyze their performance across all executions. {{ className: 'lead' }}
 
 This guide shows how to create and add various test steps in Tofupilot and view the automatically generated reports. This helps you quickly identify frequent failures and time-consuming steps, allowing you to focus on improvements.
 
@@ -15,7 +16,7 @@ To log test step details, this script defines test functions, runs them sequenti
 
 <Note>
   This example is designed to be framework-agnostic and offers a simple
-  sequencing logic suitable. For production deployments, we recommend using
+  sequencing logic suitable. For manufacturing deployments, we recommend using
   proven test sequencers like [PyTest](https://docs.pytest.org/en/8.2.x/),
   [OpenHTF](https://www.openhtf.com/), or your own.
 </Note>
@@ -75,7 +76,9 @@ run_passed, steps = run_all_tests()
 
 client.create_run(
     procedure_id="FVT1",
-    unit_under_test={"serial_number": "0001"},
+    unit_under_test={
+      "serial_number": "00102",
+    },
     run_passed=run_passed,
     steps=steps,
 )

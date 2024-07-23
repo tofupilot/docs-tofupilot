@@ -6,48 +6,53 @@ export const metadata = {
 
 # Attachments
 
-You can attach any file to a Run, such as images, graphs, or reports, by simply linking their local path during run creation. {{ className: 'lead' }}
+Manufacturing tests often generate more than just status or test steps; they can produce logs, pictures, PDFs, and more. Tofupilot provides an option to easily upload these files with the test runs. {{ className: 'lead' }}
+
+This guide shows how to attach one or several files during the creation of a run in Tofupilot and view them on the web platform.
 
 ## Example
 
-Here's how to create a Run with a graph and a report attached:
+To log test attachments, this script defines a test function, captures its results along with associated files, and uploads them to the `attachments` field in `create_run`.
 
 ```python {{ title: 'create_run_with_attachments.py'}}
 from tofupilot import TofuPilotClient
-import time
+import json
+import matplotlib.pyplot as plt
 
-client = TofuPilotClient(api_key="Your API key goes here")
+client = TofuPilotClient(api_key="Your API key")
+
+def generate_json_file():
+    with open('test_result.json', 'w') as f:
+        json.dump({"test_result": "pass", "details": {"measurement": "temperature", "value": 23.5}}, f)
+
+def generate_temperature_graph():
+    plt.plot([0, 1, 2, 3, 4, 5], [22, 23, 23.5, 24, 23.8, 23.5])
+    plt.xlabel('Time (s)')
+    plt.ylabel('Temperature (C)')
+    plt.title('Temperature Sensor Measurements')
+    plt.savefig('temperature-map.png')
 
 def test_function():
-    # test status
-    run_passed = True
-    # local path to attachements
-    attachments=[
-      'temperature-map.png', # path to your local files
-      'performance-report.pdf'
-    ]
-    return run_passed, attachments
+    generate_json_file()
+    generate_temperature_graph()
+    return True, ['temperature-map.png', 'test_result.json']
 
 run_passed, attachments = test_function()
 
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-      "serial_number": "00102",
-      "part_number": "PCB01"
+        "serial_number": "00102",
     },
     run_passed=run_passed,
     attachments=attachments
 )
 ```
 
-## Check the new Run
+## Run Page
 
-Navigate to the Runs page to see your new run and its attachments under the Attachments section.
+A dedicated Attachments section is automatically created on the Run’s page.
 
-<Image src="/run-attachments.png" alt="Attachments section" />
+<Image src="/run-attachments.png" alt="Attachments of Runs" />
 
-<Note>
-  After upload, attachments can be manually downloaded, added, or deleted at any
-  time.
-</Note>
+Attachments can be viewed in the browser or downloaded.
