@@ -5,13 +5,20 @@ export const metadata = {
 
 # Steps
 
-Production tests often consist of multiple successive steps: connection, measurements, calibration, etc. TofuPilot enables precise logging of each step and provides detailed step analytics across all runs. {{ className: 'lead' }}
+Hardware production tests often involve multiple steps such as connections, measurements, calibration, and more. Tofupilot offers a simple yet comprehensive way to record the details of these steps and analyze their performance across all executions. {{ className: 'lead' }}
 
-This allows you to quickly identify your most frequent failing tests and time-consuming steps, ensuring you focus on processes with the most potential for improvement.
+This guide shows how to create and add various test steps in Tofupilot and view the automatically generated reports. This helps you quickly identify frequent failures and time-consuming steps, allowing you to focus on improvements.
 
 ## Example
 
-To log test step details, the code defines test functions, runs them sequentially, captures their results, and adds these details to the `steps` table in `create_run`.
+To log test step details, this script defines test functions, runs them sequentially, captures their results, and adds them to the `steps` table in `create_run`.
+
+<Note>
+  This example is designed to be framework-agnostic and offers a simple
+  sequencing logic suitable. For production deployments, we recommend using
+  proven test sequencers like [PyTest](https://docs.pytest.org/en/8.2.x/),
+  [OpenHTF](https://www.openhtf.com/), or your own.
+</Note>
 
 ```python {{ title: 'create_run_with_steps.py'}}
 from tofupilot import TofuPilotClient
@@ -86,12 +93,12 @@ The Procedure page provides a summary of the steps' run count, status, and avera
 
 <Image src={'/steps-procedure.png'} alt={'Steps Runs of Procedures'} />
 
-## Test Framework
+## Run Duration
 
-The provided code example is designed to be framework-agnostic, offering a simple logic suitable for quick implement. For real world deployment, we recommend using your own test sequencer or open-source alternatives like [PyTest](https://docs.pytest.org/en/8.2.x/) or [OpenHTF](https://www.openhtf.com/).
+If no total test duration is provided, it will be computed as the sum of the durations of all the steps. However, if a total test duration is specified, it will override the computed sum.
 
 ## API Reference
-§
+
 Each `step` in the `steps` array provided to `create_run` can include the following parameters:
 
 ### Required
