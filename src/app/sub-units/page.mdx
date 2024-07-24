@@ -1,7 +1,7 @@
 export const metadata = {
   title: 'Sub-Units',
   description:
-    'TofuPilot offers a fine-tuned Python library to make your life easier and give you the best experience when consuming the API.',
+    'TofuPilot Sub-Unit feature enables automatic test traceability through the entire hardware manufacturing process.',
 }
 
 # Sub-Units
@@ -65,23 +65,18 @@ run_passed = test_function()
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-      "serial_number": "BAT010001",
+      "serial_number": "BAT01-0001",
       "part_number": "BAT01"
     },
     run_passed=run_passed,
     sub_units=[
-      {"serial_number": "PCBA010001"},
-      {"serial_number": "CELL010001"},
-      {"serial_number": "CELL010002"},
-      {"serial_number": "CELL010003"}
+      {"serial_number": "PCBA01-10001"},
+      {"serial_number": "CELL01-10001"},
+      {"serial_number": "CELL01-10002"},
+      {"serial_number": "CELL01-10003"}
     ]
 )
 ```
-
-<Note>
-  Sub-units must be created first; new ones are added without replacing existing
-  ones, and duplicates are ignored.
-</Note>
 
 ## Unit Page
 
