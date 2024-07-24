@@ -1,14 +1,38 @@
 export const metadata = {
   title: 'Report',
   description:
-    'TofuPilot offers a fine-tuned Python library to make your life easier and give you the best experience when consuming the API.',
+    'Tofupilot enables the creation of static formatted reports programmatically for each run, facilitating compliance, exporting, and sharing. This guide explains how to use Tofupilot’s report feature to create, customize, and print test run reports. Each run report is generated from a report template defined in the procedure, with a variable system allowing dynamic modification during the creation of the run using values obtained during the run.',
 }
 
-# Create a run with report variables
+# Report
 
-Each TofuPilot run includes a Report section with a rich text editor, inheriting the report from the Procedure they are created from. Custom variables can be defined in the template and assigned values when the run is created. {{ className: 'lead' }}
+Beyond structured test steps and attachments, production reports sometimes need to produce static formatted reports to facilitate compliance, exporting, and sharing. Tofupilot enables the creation of these types of reports programmatically for each run. {{ className: 'lead' }}
 
-## Create report template with variables
+This guide explains how to use Tofupilot’s report feature to create, customize, and print test run reports.
+
+## Report Template
+
+Each run report is generated from a report template defined in the procedure, with a variable system allowing dynamic modification during the creation of the run using values obtained during the run.
+
+### Create report template
+
+Open the page of the procedure for which you want the runs to have a report, navigate to the `Report Template` section, and then click on the `Edit` button.
+
+Tofupilot provides a collaborative rich text editor to help you create a report template in the desired format.
+
+<Image src="/procedure-report-template.png" alt="Procedure Report Template" />
+
+The editor provides a full set of blocks and marks to create rich reports:
+
+| Category         | Type                                                          |
+| ---------------- | ------------------------------------------------------------- |
+| **Headings**     | Heading levels 1, 2, 3                                        |
+| **Content**      | Paragraph, Table, Code Block, Image                           |
+| **Text Styling** | Quote, Blockquote, Paragraph                                  |
+| **Layout**       | Horizontal Rule, Hard Break                                   |
+| **Marks**        | Bold, Italic, Underline, Strikethrough, Link, Highlight, Code |
+
+### Insert variable field
 
 To create variables in a procedure report template, wrap the variable name in double curly brackets: `{{variable-name}}`. These fields will then become customizable inputs.
 
@@ -19,7 +43,7 @@ To create variables in a procedure report template, wrap the variable name in do
 
 <Image src="/procedure-report.png" alt="Procedure report template" />
 
-## Set values programmatically
+## Example
 
 Create a run from the procedure and use the `report_variables` parameter to populate the variables fields.
 
@@ -53,8 +77,10 @@ client.create_run(
 )
 ```
 
-## Check your run report
+## Run Page
 
 Access the report of the newly created run where variables have been automatically populated.
 
 <Image src="/run-report.png" alt="Run's report" />
+
+## API Reference
