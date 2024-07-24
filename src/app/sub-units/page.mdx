@@ -78,32 +78,8 @@ client.create_run(
 )
 ```
 
-## Unit Page
+## Unit Pages
 
-You can now navigate to the Units page to see the hierarchy applied. Use the expand button to view the children of the tested units.
+<Image src="/units-with-sub-units.png" alt="Your profile page" />
 
-<Image src="/sub-units.png" alt="Your profile page" />
-Here's how to create a Run with multiple sub-units:
-
-```python {{ title: 'create_run_sub_units.py'}}
-from tofupilot import TofuPilotClient
-import time
-
-client = TofuPilotClient(api_key="Your API key goes here")
-
-def test_function():
-    # your test execution goes here
-    return True
-
-run_passed = test_function()
-
-client.create_run(
-    procedure_id="FVT1",
-    unit_under_test={
-      "serial_number": "00003",
-      "part_number": "SI002"
-    },
-    run_passed=run_passed,
-    sub_units=[{"serial_number": "00002"}, {"serial_number": "00102"}]
-)
-```
+<Image src="/unit-with-sub-units.png" alt="Your profile page" />
