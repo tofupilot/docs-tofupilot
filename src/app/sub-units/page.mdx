@@ -28,10 +28,10 @@ A test flowchart is very useful to give the production team an overview of the t
 
 In this example of a smart-battery testing strategy:
 
-- **PCBA**: a firmware flash and test is performed at the supplier to verify the integrated components (temperature sensors, LEDs, buttons).
+- **PCBA**: a firmware flash and test is performed at the supplier to verify the integrated components (gauge, LEDs...).
 - **Chemical Cells**: a test is performed on the battery cells to check voltage levels.
 - **Thermal Probes**: no tests are performed for thermal probes that are purchased off-the-shelf.
-- **Smart Battery Assembly**: a complete test is performed after final assembly to ensure proper integration of all components.
+- **Smart Battery Assembly**: a test is performed after final assembly to ensure proper integration of all components.
 
 ### Flowchart Template
 
@@ -39,7 +39,7 @@ Use our Figma template to quickly create a test flowchart for your product.
 
 <div className="not-prose">
   <Button
-    href="https://www.figma.com/board/0Esmk43Ct5VKUea3w8QFW0/TofuPilot-%E2%80%BA-Hardware-Testing-Flowchart-Example-(Community)?node-id=0-1&t=Ao7EGHWKaCWnGJK7-0"
+    href="https://www.figma.com/community/file/1380891711622677799"
     variant="text"
     arrow="right"
   >
@@ -49,16 +49,15 @@ Use our Figma template to quickly create a test flowchart for your product.
 
 ## Example
 
-Here's how to create a Run with sub-units:
+To add sub-units in an assembly test, specify their serial number in the `sub-units` parameter in `create-run`.
 
-```python {{ title: 'create_run_sub_unit.py'}}
+```python {{ title: 'create_run_with_sub_units.py'}}
 from tofupilot import TofuPilotClient
 
 client = TofuPilotClient(api_key="Your API key goes here")
 
 def test_function():
     # your test execution goes here
-    # multiple test sub-units
     return True
 
 run_passed = test_function()
@@ -66,11 +65,16 @@ run_passed = test_function()
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-      "serial_number": "00002",
-      "part_number": "SI001"
+      "serial_number": "BAT010001",
+      "part_number": "BAT01"
     },
     run_passed=run_passed,
-    sub_units=[{"serial_number": "00102"}]
+    sub_units=[
+      {"serial_number": "PCBA010001"},
+      {"serial_number": "CELL010001"},
+      {"serial_number": "CELL010002"},
+      {"serial_number": "CELL010003"}
+    ]
 )
 ```
 
