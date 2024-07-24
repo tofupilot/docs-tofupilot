@@ -4,11 +4,50 @@ export const metadata = {
     'TofuPilot offers a fine-tuned Python library to make your life easier and give you the best experience when consuming the API.',
 }
 
-# Create a run with sub-units
+# Sub-Units
 
-TofuPilot supports sub-units within units under test (UUT), and it will automatically link them accordingly when creating runs for seamless traceability throughout assembly. {{ className: 'lead' }}
+Most hardware products are made of multiple components, tested individually and at each step of assembly to the final product. TofuPilot's sub-unit features enable automatic test traceability through the entire process. {{ className: 'lead' }}
 
-## Example with single sub-unit
+This guide explains how to use TofuPilot's sub-units feature to automatically ensure the traceability of tests and serial numbers throughout the assembly process.
+
+## Test Strategy
+
+### Introduction
+
+A good industrial test strategy relies on several key steps:
+
+- **Early Test Deployment**: Install tests early at the supplier or assembler, matching each assembly stage.
+- **Automated Tests**: Prioritize automation to reduce errors and save time.
+- **Standardization and Log Collection**: Standardize logs and systematically collect results.
+
+### Flowchart Example
+
+A test flowchart is very useful to give the production team an overview of the test benches for a product.
+
+<Image src="/test-flowchart.png" alt="Example Test Flowchart" />
+
+In this example of a smart-battery testing strategy:
+
+- **PCBA**: a firmware flash and test is performed at the supplier to verify the integrated components (temperature sensors, LEDs, buttons).
+- **Chemical Cells**: a test is performed on the battery cells to check voltage levels.
+- **Thermal Probes**: no tests are performed for thermal probes that are purchased off-the-shelf.
+- **Smart Battery Assembly**: a complete test is performed after final assembly to ensure proper integration of all components.
+
+### Flowchart Template
+
+Use our Figma template to quickly create a test flowchart for your product.
+
+<div className="not-prose">
+  <Button
+    href="https://www.figma.com/board/0Esmk43Ct5VKUea3w8QFW0/TofuPilot-%E2%80%BA-Hardware-Testing-Flowchart-Example-(Community)?node-id=0-1&t=Ao7EGHWKaCWnGJK7-0"
+    variant="text"
+    arrow="right"
+  >
+    Get our free test flowchart template
+  </Button>
+</div>
+
+## Example
 
 Here's how to create a Run with sub-units:
 
@@ -19,6 +58,7 @@ client = TofuPilotClient(api_key="Your API key goes here")
 
 def test_function():
     # your test execution goes here
+    # multiple test sub-units
     return True
 
 run_passed = test_function()
@@ -39,14 +79,11 @@ client.create_run(
   ones, and duplicates are ignored.
 </Note>
 
-## Check the Units page
+## Unit Page
 
 You can now navigate to the Units page to see the hierarchy applied. Use the expand button to view the children of the tested units.
 
 <Image src="/sub-units.png" alt="Your profile page" />
-
-## Example with multiple sub-units
-
 Here's how to create a Run with multiple sub-units:
 
 ```python {{ title: 'create_run_sub_units.py'}}
