@@ -8,7 +8,7 @@ export const metadata = {
 
 Beyond structured test steps and attachments, production reports sometimes need to produce static formatted reports to facilitate compliance, exporting, and sharing. Tofupilot enables the creation of these types of reports programmatically for each run. {{ className: 'lead' }}
 
-This guide explains how to use Tofupilot’s report feature to create, customize, and print test run reports.
+This guide explains how to use Tofupilot’s report feature to create, customize, and export test run reports.
 
 ## Report Template
 
@@ -16,7 +16,7 @@ Each run report is generated from a report template defined in the procedure, wi
 
 ### Create report template
 
-Open the page of the procedure for which you want the runs to have a report, navigate to the `Report Template` section, and then click on the `Edit` button.
+Open the page of the procedure for which you want the runs to have a report, navigate to the **Report Template** section, and then click on the `Edit` button.
 
 Tofupilot provides a collaborative rich text editor to help you create a report template in the desired format.
 
@@ -50,30 +50,32 @@ To create variables in a procedure report template, wrap the variable name in do
 
 Create a run from the procedure and use the `report_variables` parameter to populate the variables fields.
 
-```python {{ title: 'create_run_report_variables.py'}}
+```python {{ title: 'create_run_report.py'}}
 from tofupilot import TofuPilotClient
 
-client = TofuPilotClient(api_key="Your API key goes here")
+client = TofuPilotClient(api_key="Your API key here")
 
 def test_function():
     # your test execution goes here
     run_passed = True
     report_variables={
-      "temperature_sensor": "75°C",
-      "calibration_date": "2024-06-20",
-      "technician_name": "John Doe",
-      "initial_temperature_reading": "72°C",
-      "final_temperature_reading": "75°C",
+      "t-processor": "75°C",
+      "status-processor": "Pass",
+      "t-regulator": "78°C",
+      "status-regulator": "Pass",
+      "t-memory": "64°C",
+      "status-memory": "Pass",
+      "t-power": "72°C",
+      "status-power": "Pass",
     }
     return run_passed, report_variables
 
 run_passed, report_variables = test_function()
 
 client.create_run(
-    procedure_id="FVT1",
+    procedure_id="SOP-35",
     unit_under_test={
       "serial_number": "0001",
-      "part_number": "PCB01"
     },
     run_passed=run_passed,
     report_variables=report_variables

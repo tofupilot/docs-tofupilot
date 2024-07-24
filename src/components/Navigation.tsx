@@ -231,13 +231,18 @@ function NavigationGroup({
 
 export const navigation: Array<NavGroup> = [
   {
-    title: 'Getting started',
+    title: 'Getting Started',
     links: [
       { title: 'Introduction', href: '/' },
       {
-        title: 'Create your first Run',
+        title: 'Quickstart',
         href: '/first-run',
       },
+    ],
+  },
+  {
+    title: 'Uploading Test Runs',
+    links: [
       {
         title: 'Steps',
         href: '/steps',
@@ -264,11 +269,8 @@ export const navigation: Array<NavGroup> = [
       { title: 'Authentication', href: '/authentication' },
       { title: 'Errors', href: '/errors' },
       { title: 'Invite your teammates', href: '/invite-teammates' },
+      { title: 'API Reference', href: '/invite-teammates' },
     ],
-  },
-  {
-    title: 'API Reference',
-    links: [{ title: 'Runs', href: '/runs' }],
   },
   {
     title: 'Support',

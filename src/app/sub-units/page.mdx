@@ -63,17 +63,17 @@ def test_function():
 run_passed = test_function()
 
 client.create_run(
-    procedure_id="FVT1",
+    procedure_id="FVT3",
     unit_under_test={
       "serial_number": "BAT01-0001",
       "part_number": "BAT01"
     },
     run_passed=run_passed,
     sub_units=[
-      {"serial_number": "PCBA01-10001"},
-      {"serial_number": "CELL01-10001"},
-      {"serial_number": "CELL01-10002"},
-      {"serial_number": "CELL01-10003"}
+      {"serial_number": "PCBA01-0001"},
+      {"serial_number": "CELL01-0001"},
+      {"serial_number": "CELL01-0002"},
+      {"serial_number": "CELL01-0003"}
     ]
 )
 ```
