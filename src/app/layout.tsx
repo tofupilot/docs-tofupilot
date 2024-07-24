@@ -11,8 +11,8 @@ import '@/styles/tailwind.css'
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | TofuPilot Documentation',
-    default: 'TofuPilot Documentation',
+    template: '%s - TofuPilot',
+    default: 'TofuPilot',
   },
 }
 

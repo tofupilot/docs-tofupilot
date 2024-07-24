@@ -236,7 +236,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Introduction', href: '/' },
       {
         title: 'Quickstart',
-        href: '/first-run',
+        href: '/quickstart',
       },
     ],
   },
@@ -261,23 +261,42 @@ export const navigation: Array<NavGroup> = [
       },
     ],
   },
+  // {
+  //   title: 'Integrations',
+  //   links: [
+  //     {
+  //       title: 'LabView',
+  //       href: '/labview',
+  //     },
+  //     {
+  //       title: 'Matlab',
+  //       href: '/matlab',
+  //     },
+  //     {
+  //       title: 'OpenHTF',
+  //       href: '/openhtf',
+  //     },
+  //     {
+  //       title: 'Odoo',
+  //       href: '/odoo',
+  //     },
+  //   ],
+  // },
   {
     title: 'Guides',
     links: [
-      { title: 'API key', href: '/api-key' },
-      { title: 'Clients', href: '/clients' },
-      { title: 'Authentication', href: '/authentication' },
-      { title: 'Errors', href: '/errors' },
-      { title: 'Invite your teammates', href: '/invite-teammates' },
-      { title: 'API Reference', href: '/invite-teammates' },
+      { title: 'User Management', href: '/user-management' },
+      { title: 'Python Client', href: '/clients/python' },
+      { title: 'REST API', href: '/invite-teammates' },
     ],
   },
   {
     title: 'Support',
     links: [
       { title: 'Pricing', href: '/support/pricing' },
+      { title: 'Security', href: '/support/security' },
+      { title: 'Contact', href: '/support/contact' },
       { title: 'Terms & Conditions', href: '/legal/terms-conditions' },
-      // { title: 'Security', href: '/support/security' },
       { title: 'Privacy Policy', href: '/legal/privacy-policy' },
     ],
   },
