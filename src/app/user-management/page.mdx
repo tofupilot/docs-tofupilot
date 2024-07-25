@@ -72,13 +72,33 @@ To create an API Key for your account, follow these steps:
 
 <Note>Your API key provides the same permissions as your web account.</Note>
 
-### Save
+### Save Environment Variable
 
 We strongly recommend saving your API key in a local `TOFUPILOT_API_KEY` environment variable to prevent exposure through version control or to external stakeholders.
 
-```bash
-export TOFUPILOT_API_KEY="<Copy your API key here>"
-```
+1. **Unix-based Systems (macOS, Linux)**
+
+   - Open a terminal.
+   - Copy and paste the following command:
+     ```bash
+     echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
+     ```
+     <Note>If you use Bash, replace `~/.zshenv` with `~/.bash_profile`.</Note>
+   - Optionally, verify the environment variable with this command:
+     ```bash
+     echo $TOFUPILOT_API_KEY
+     ```
+
+2. **Windows**
+   - Open Command Prompt.
+   - Copy and paste the following command:
+     ```cmd
+     setx TOFUPILOT_API_KEY "<Copy your API key here>"
+     ```
+   - Optionally, verify the environment variable with this command:
+     ```cmd
+     echo %TOFUPILOT_API_KEY%
+     ```
 
 ### Regenerate
 

@@ -52,67 +52,71 @@ To allow your test scripts to securely authenticate with TofuPilot and upload da
 
 ## First Test Run
 
-1. Open your preferred Python development environment. We recommend using **virtualenv** for isolated Python environments. Learn how to set it up for:
+1. Open your preferred Python development environment. We recommend using **virtualenv** for isolated Python environments. Learn how to set one up for:
    [VSCode](https://code.visualstudio.com/docs/python/environments#_virtual-environments),
    [PyCharm](https://www.jetbrains.com/help/pycharm/creating-virtual-environment.html),
    [Sublime Text](https://packagecontrol.io/packages/Virtualenv).
 
-2. Install the TofuPilot package:
+2. Install the TofuPilot Python client:
 
-```bash
-pip install tofupilot
-```
+   ```bash
+   pip install tofupilot
+   ```
 
-3. Retrieve your API key from the app and save it as an environment variable:
+3. Retrieve your API key from the app and save it as an environment variable.
 
-```bash
-export TOFUPILOT_API_KEY="<Copy your API key here>"
-```
+   - For **Unix-based systems (macOS, Linux)** open a terminal and paste:
+     ```bash
+     echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
+     ```
+   - For **Windows-based systems** open Command Prompt and paste:
+     ```cmd
+     setx TOFUPILOT_API_KEY "<Copy your API key here>"
+     ```
 
 4. Create a new test script and copy the following code:
 
-```python {{ title: 'create_run.py'}}
-from tofupilot import TofuPilotClient
-from datetime import datetime
+   ```python {{ title: 'create_run.py'}}
+   from tofupilot import TofuPilotClient
+   from datetime import datetime
 
-client = TofuPilotClient()
+   client = TofuPilotClient()
 
-# Test function
-def test():
-    return True
+   # Test function
+   def test():
+       return True
 
-# Run test function
-start_time = datetime.now()
-run_passed = test()
-end_time = datetime.now()
+   # Run test function
+   start_time = datetime.now()
+   run_passed = test()
+   end_time = datetime.now()
 
-# Create a test run
-client.create_run(
-    procedure_id="FVT1",
-    unit_under_test={
-      "serial_number": "PCBA01-0001",
-      "part_number": "PCBA01"
-    },
-    run_passed=run_passed,
-    duration=end_time - start_time
-)
-```
+   # Create a test run
+   client.create_run(
+       procedure_id="FVT1",
+       unit_under_test={
+         "serial_number": "PCBA01-0001",
+         "part_number": "PCBA01"
+       },
+       run_passed=run_passed,
+       duration=end_time - start_time
+   )
+   ```
 
 5. Run the script:
 
-```bash
-python create_run.py
-```
+   ```bash
+   python create_run.py
+   ```
 
-The console returns:
+6. The console returns:
+   ```plaintext
+   TofuPilot Python Client <version>
+   2024-07-24 16:44:18 - ℹ️ Creating run...
+   2024-07-24 16:44:19 - ✅ Test run created: https://tofupilot.com/<organization>/runs/<uuid>
+   ```
 
-```plaintext
-TofuPilot Python Client <version>
-2024-07-24 16:44:18 - ℹ️ Creating run...
-2024-07-24 16:44:19 - ✅ Test run created: https://tofupilot.com/<organization>/runs/<uuid>
-```
-
-Your first run has been created on TofuPilot, congratulations! 🎉
+Congratulations, your first run has been created on TofuPilot 🎉
 
 ## Run Page
 
