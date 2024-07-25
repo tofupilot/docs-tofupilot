@@ -111,14 +111,21 @@ export function Property({
   name,
   children,
   type,
+  indent = false,
 }: {
   name: string
   children: React.ReactNode
   type?: string
+  indent: boolean
 }) {
   return (
     <li className="m-0 px-0 py-4 first:pt-0 last:pb-0">
-      <dl className="m-0 flex flex-wrap items-center gap-x-3 gap-y-2">
+      <dl
+        className={clsx(
+          'm-0 flex flex-wrap items-center gap-x-3 gap-y-2',
+          indent && 'ml-4',
+        )}
+      >
         <dt className="sr-only">Name</dt>
         <dd>
           <code>{name}</code>

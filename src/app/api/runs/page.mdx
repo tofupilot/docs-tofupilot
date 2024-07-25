@@ -1,12 +1,12 @@
 export const metadata = {
   title: 'Runs API Reference',
   description:
-    'On this page, we’ll dive into the different run endpoints you can use to manage runs programmatically.',
+    "Explore the different run endpoints available in TofuPilot's REST API to manage test runs programmatically.",
 }
 
 # REST API Reference
 
-Runs are an essential part of TofuPilot — they are the the primary method for systematically testing and evaluating hardware performance and reliability. On this page, we’ll dive into the different run endpoints you can use to manage runs programmatically. {{ className: 'lead' }}
+The TofuPilot REST API is the primary interface for programmatically uploading test runs to TofuPilot. {{ className: 'lead' }}
 
 ---
 
@@ -14,53 +14,69 @@ Runs are an essential part of TofuPilot — they are the the primary method for 
 
 <Row>
   <Col>
-
-    This endpoint allows you to register a new run based on a procedure and performed on a unit.
-
-    ## Required attributes
-
+    This endpoint allows you to create a new run.
     <Properties>
-      <Property name="procedure_id" type="string">
-        Unique identifier for the run's procedure.
+      <Property name="procedure_id" type="string, required">
+        Unique identifier for the procedure.
       </Property>
-      <Property name="unit_under_test" type="record">
-        - serial_number (string): The serial number of the unit. A new unit will be created if no existing unit is found with this serial number.
-        - part_number (optional, string): The part number of the unit's component. A new component will be created if no component with this part number is found. This field is optional if the given serial number corresponds to an already existing unit.
-        - revision (optional, string): The revision of the unit's component. This field is required if the unit does not exist and the component has multiple revisions.
+      <Property name="unit_under_test" type="record, required">
+        Record of the unit under test.
       </Property>
-      <Property name="run_passed" type="boolean">
-        Boolean indicating whether the run passed or not.
+      <Property name="serial_number" type="string, required" indent>
+        Unit identifier. Creates new unit if no match.
       </Property>
-    </Properties>
-
-    ## Optional attributes
-
-    <Properties>
-      <Property name="duration" type="string / timedelta">
-        ISO 8601 duration string or datetime.timedelta (for Python client) indicating the duration of the run.
+      <Property name="part_number" type="string, optional" indent>
+        Component identifier. Creates new component if no match.
       </Property>
-      <Property name="steps" type="array(record)">
-        - name (string): The name of the step.
-        - step_passed (boolean): A boolean indicating whether the step passed or failed.
-        - started_at (string / datetime): An ISO 8601 formatted timestamp (or datetime in Python) indicating the start time of the step.
-        - duration (string): An ISO 8601 duration string indicating the duration of the step.
-        - measurement_unit (optional, string): The unit in which the measured value was measured.
-        - measurement_value (optional, float): The value measured during the step execution.
-        - limit_low (optional, float): The minimum acceptable threshold for the step value.
-        - limit_high (optional, float): The maximum acceptable threshold for the step value.
+      <Property name="revision" type="string, optional" indent>
+        Component revision. Required if multiple revisions exist.
       </Property>
-      <Property name="attachments" type="array(string)">
-        A list of absolute file paths that should be added as run's attachments.
+      <Property name="run_passed" type="boolean, required">
+        Indicates if the run passed.
       </Property>
-      <Property name="sub_units" type="array(record)">
-        A list of unit identifiers that should be added as sub-units of the run's unit
-        - serial_number (string): Serial number of the sub-unit
+      <Property name="duration" type="string, required">
+        ISO 8601 duration of the run.
+      </Property>
+      <Property name="steps" type="array, optional">
+        Steps of the procedure.
+      </Property>
+      <Property name="name" type="string, required" indent>
+        Step name.
+      </Property>
+      <Property name="step_passed" type="boolean, required" indent>
+        Indicates if the step passed.
+      </Property>
+      <Property name="started_at" type="string, required" indent>
+        ISO 8601 start time of the step.
+      </Property>
+      <Property name="duration" type="string, required" indent>
+        ISO 8601 duration of the step.
+      </Property>
+      <Property name="measurement_unit" type="string, optional" indent>
+        Unit of measurement.
+      </Property>
+      <Property name="measurement_value" type="float, optional" indent>
+        Measured value.
+      </Property>
+      <Property name="limit_low" type="float, optional" indent>
+        Minimum threshold.
+      </Property>
+      <Property name="limit_high" type="float, optional" indent>
+        Maximum threshold.
+      </Property>
+      <Property name="attachments" type="array(string), optional">
+        File paths for attachments.
+      </Property>
+      <Property name="sub_units" type="array(record), optional">
+        Identifiers of sub-units.
+      </Property>
+      <Property name="serial_number" type="string, required" indent>
+        Serial number of sub-unit.
       </Property>
       <Property name="report_variables" type="record(string, string)">
-        {"A dictionary of key/value pairs used to replace {{report variables}} in the procedure's document."}
+        Key/value pairs for report variables.
       </Property>
     </Properties>
-
   </Col>
   <Col sticky>
 
