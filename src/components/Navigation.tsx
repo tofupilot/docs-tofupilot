@@ -233,10 +233,9 @@ export const navigation: Array<NavGroup> = [
   {
     title: 'Getting Started',
     links: [
-      { title: 'Introduction', href: '/' },
       {
         title: 'Quickstart',
-        href: '/quickstart',
+        href: '/',
       },
     ],
   },

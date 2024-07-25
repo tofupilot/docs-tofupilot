@@ -1,33 +1,155 @@
-import { Guides } from '@/components/Guides'
-import { Resources } from '@/components/Resources'
 import { HeroPattern } from '@/components/HeroPattern'
 
 export const metadata = {
-  title: 'Documentation - TofuPilot',
-  description:
-    'Your complete guide to using TofuPilot for efficient test data management and insightful analytics.',
+  title: 'Quickstart',
+  description: 'A guide to quickly start using TofuPilot.',
 }
-
-export const sections = []
 
 <HeroPattern />
 
-# TofuPilot Documentation
+# Quickstart
 
-Welcome to TofuPilot, the test data management platform for modern hardware manufacturing. {{ className: 'lead' }}
+Start uploading your first test run in under five minutes. {{ className: 'lead' }}
 
-{/* TODO: problem statement and solution */}
+Welcome to the TofuPilot documentation guide. Follow the instructions below to learn how to upload your first hardware test runs with TofuPilot.
 
-{/* TODO: logo cloud */}
+## Account Setup
 
-## Key Features
+To use TofuPilot, start by creating an account and follow the steps provided.
 
-TofuPilot allows you to:
+<div className="not-prose">
+  <Button
+    href="https://www.tofupilot.com/auth/signup"
+    variant="text"
+    arrow="right"
+    target="_blank"
+    rel="noopener"
+  >
+    Create a free account
+  </Button>
+</div>
 
-- Import your hardware test data from many different sources.
-- Automatically create traceable test records for each unit.
-- Identify bottlenecks and streamline your testing process.
+If you encounter difficulties during account creation, please refer to our dedicated article [here](/user-management#sign-up).
 
-## Start today for free
+If you are joining a team already on TofuPilot, you can ask your team members to invite you.
 
-Getting started with TofuPilot is extremely fast. Start by [creating your account](https://www.tofupilot.com/auth/signup).
+<div className="not-prose">
+  <Button href="/user-management#invite-user" variant="text" arrow="right">
+    Invite team member
+  </Button>
+</div>
+
+### Interactive Guide
+
+After creating your account, an interactive guide within the application will walk you through the steps described below.
+
+<Image src="/quickstart-interactive.png" alt="Quickstart Interactive Guide" />
+
+### Create API Key
+
+To allow your test scripts to securely authenticate with TofuPilot and upload data, you need to create an API key.
+
+1. Navigate to **User Profile** → **My Profile** page.
+2. Create your API key in the dedicated section.
+
+<Image src="/quickstart-api-key.png" alt="Quickstart API Key" />
+
+## First Test Run
+
+1. Open your preferred Python development environment. We recommend using **virtualenv** for isolated Python environments. Learn how to set one up for:
+   [VSCode](https://code.visualstudio.com/docs/python/environments#_virtual-environments),
+   [PyCharm](https://www.jetbrains.com/help/pycharm/creating-virtual-environment.html),
+   [Sublime Text](https://packagecontrol.io/packages/Virtualenv).
+
+2. Install the TofuPilot Python client:
+
+   ```bash
+   pip install tofupilot
+   ```
+
+3. Retrieve your API key from the app and save it as an environment variable.
+
+   - For **Unix-based systems (macOS, Linux)** open a terminal and paste:
+     ```bash
+     echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
+     ```
+   - For **Windows-based systems** open Command Prompt and paste:
+     ```cmd
+     setx TOFUPILOT_API_KEY "<Copy your API key here>"
+     ```
+
+4. Create a new test script and copy the following code:
+
+   ```python {{ title: 'create_run.py'}}
+   from tofupilot import TofuPilotClient
+   from datetime import datetime
+
+   client = TofuPilotClient()
+
+   # Test function
+   def test():
+       return True
+
+   # Run test function
+   start_time = datetime.now()
+   run_passed = test()
+   end_time = datetime.now()
+
+   # Create a test run
+   client.create_run(
+       procedure_id="FVT1",
+       unit_under_test={
+         "serial_number": "PCBA01-0001",
+         "part_number": "PCBA01"
+       },
+       run_passed=run_passed,
+       duration=end_time - start_time
+   )
+   ```
+
+5. Run the script:
+
+   ```bash
+   python create_run.py
+   ```
+
+6. The console returns:
+   ```plaintext
+   TofuPilot Python Client <version>
+   2024-07-24 16:44:18 - ℹ️ Creating run...
+   2024-07-24 16:44:19 - ✅ Test run created: https://tofupilot.com/<organization>/runs/<uuid>
+   ```
+
+Congratulations, your first run has been created on TofuPilot 🎉
+
+## Run Page
+
+You can open the link returned by the console with `Ctrl` / `Cmd` + `Click` or navigate to the Run page directly.
+
+The Run page has been populated with your first run's information such as:
+
+<Image src={'/run-first-upload.png'} alt={'First Run'} />
+
+Here's the breakdown of what happened:
+
+1. The `create_run` function used the TofuPilot REST API with your API key.
+2. A new run was created for the `Battery PCBA Test` procedure, with ID `FVT1`. This procedure was automatically created when you signed up.
+3. The unit `PCBA01-0001` was created.
+4. The unit was linked to component `PCBA01`.
+5. The default revision `A` was assigned to the component.
+6. The run status was set to `Pass` since `run_passed` is `True`.
+7. The execution duration was `< 1s`.
+
+## Next
+
+Congratulations on uploading your first test run to TofuPilot! This simple test is just the beginning. The next guides will show you how to add essential options like test steps, attachments, and more.
+
+If you have any questions, or simply want to meet the team behind TofuPilot, we're always here for you.
+
+<div className="not-prose">
+  <Button href="/support/contact" variant="text" arrow="right">
+    Contact us
+  </Button>
+</div>
+
+Let's make this the start of a long and successful journey! 🙂
