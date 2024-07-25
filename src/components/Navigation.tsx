@@ -256,7 +256,7 @@ export const navigation: Array<NavGroup> = [
         href: '/report',
       },
       {
-        title: 'Sub-Units',
+        title: 'Sub-units',
         href: '/sub-units',
       },
     ],

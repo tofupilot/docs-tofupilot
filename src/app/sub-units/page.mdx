@@ -4,7 +4,7 @@ export const metadata = {
     'TofuPilot Sub-Unit feature enables automatic test traceability through the entire hardware manufacturing process.',
 }
 
-# Sub-Units
+# Sub-units
 
 Most hardware products are made of multiple components, tested individually and at each step of assembly to the final product. TofuPilot's sub-unit features enable automatic test traceability through the entire process. {{ className: 'lead' }}
 
@@ -54,7 +54,7 @@ To add sub-units in an assembly test, specify their serial number in the `sub-un
 ```python {{ title: 'create_run_with_sub_units.py'}}
 from tofupilot import TofuPilotClient
 
-client = TofuPilotClient(api_key="Your API key goes here")
+client = TofuPilotClient()
 
 def test_function():
     # your test execution goes here
