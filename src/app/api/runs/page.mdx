@@ -10,6 +10,27 @@ The TofuPilot REST API is the primary interface for programmatically uploading t
 
 ---
 
+## Authentication
+
+Authenticate your requests to access any endpoints in the TofuPilot API using OAuth2 with your API key.
+
+<div className="not-prose mt-8">
+  <Button href="/user-management#api-key" variant="text" arrow="right">
+    Create your API key
+  </Button>
+</div>
+
+Add the key to the request header using cURL:
+
+```bash
+curl https://tofupilot.com/v1/runs/create \
+  -H "Authorization: Bearer {api-key}"
+```
+
+Keep your API key safe and [regenerate](/user-management#api-key) it if you suspect compromise.
+
+---
+
 ## Create a run {{ tag: 'POST', label: '/v1/runs' }}
 
 <Row>
@@ -168,3 +189,32 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
 
   </Col>
 </Row>
+
+---
+
+## Errors
+
+Whenever a request is unsuccessful, the TofuPilot API will return a response with a status code and error message.
+
+### Status Codes
+
+Here are the categories of status codes returned by the TofuPilot API:
+
+<Properties>
+  <Property name="2xx">
+    A 2xx status code indicates a successful response.
+  </Property>
+  <Property name="4xx">A 4xx status code indicates a client error.</Property>
+  <Property name="5xx">A 5xx status code indicates a server error.</Property>
+</Properties>
+
+## Error Messages
+
+Use error messages to identify and fix issues. For example:
+
+```bash {{ title: "Error response" }}
+{
+  "status_code": 404,
+  "message": "No procedure found with ID FVT2",
+}
+```
