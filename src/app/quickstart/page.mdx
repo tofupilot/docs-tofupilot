@@ -63,7 +63,7 @@ To allow your test scripts to securely authenticate with TofuPilot and upload da
 pip install tofupilot
 ```
 
-3. Save your API key as an environment variable:
+3. Retrieve your API key from the app and save it as an environment variable:
 
 ```bash
 export TOFUPILOT_API_KEY="<Copy your API key here>"
@@ -75,7 +75,7 @@ export TOFUPILOT_API_KEY="<Copy your API key here>"
 from tofupilot import TofuPilotClient
 from datetime import datetime
 
-client = TofuPilotClient(api_key=os.environ["MISTRAL_API_KEY"])
+client = TofuPilotClient()
 
 # Test function
 def test():
