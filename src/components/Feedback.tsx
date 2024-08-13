@@ -2,6 +2,8 @@
 
 import { forwardRef, Fragment, useState } from 'react'
 import { Transition } from '@headlessui/react'
+import { track } from '@vercel/analytics/react'
+import { usePathname } from 'next/navigation'
 
 function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -70,12 +72,20 @@ const FeedbackThanks = forwardRef<React.ElementRef<'div'>>(
 
 export function Feedback() {
   let [submitted, setSubmitted] = useState(false)
+  const path = usePathname()
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    // event.nativeEvent.submitter.dataset.response
-    // => "yes" or "no"
+    // Sending feedback to vercel
+    switch ((event.nativeEvent as SubmitEvent)?.submitter?.dataset.response) {
+      case 'yes':
+        track('Feedback Yes', { path })
+        break
+      case 'no':
+        track('Feedback No', { path })
+        break
+    }
 
     setSubmitted(true)
   }
