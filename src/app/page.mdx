@@ -2,7 +2,8 @@ import { HeroPattern } from '@/components/HeroPattern'
 
 export const metadata = {
   title: 'Documentation - TofuPilot',
-  description: 'This guide helps you start uploading your first test run to TofuPilot in under five minutes.',
+  description:
+    'This guide helps you start uploading your first test run to TofuPilot in under five minutes.',
 }
 
 <HeroPattern />
@@ -49,12 +50,14 @@ After creating your account, an interactive guide within the application will wa
 3.  Retrieve your API key from [My Profile](/user-management#api-key) page and save it as an environment variable.
 
     <CodeGroup>
-      ```bash {{ title: 'Linux, macOS' }}
-      echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
-      ```
-      ```bash {{ title: 'Windows' }}
-      setx TOFUPILOT_API_KEY "<your_key_here>"
-      ```
+    ```bash {{ title: 'Linux, macOS' }}
+    echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
+    ```
+
+    ```bash {{ title: 'Windows' }}
+    setx TOFUPILOT_API_KEY "<your_key_here>"
+    ```
+
     </CodeGroup>
 
 4.  Create a new Python script and paste the following code:
@@ -75,7 +78,7 @@ After creating your account, an interactive guide within the application will wa
     end_time = datetime.now()
 
     # Create a test run
-    client.create_run(
+    response = client.create_run(
         procedure_id="FVT1",
         unit_under_test={
           "serial_number": "PCBA01-0001",
@@ -100,6 +103,16 @@ TofuPilot Python Client <version>
 2024-07-24 16:44:19 - ✅ Test run created: https://tofupilot.com/<organization>/runs/<uuid>
 ```
 
+The `response` object will confirm the success of the operation:
+
+```python
+response = {
+    'success': True
+    'status_code': 201,
+    'error': None,
+}
+```
+
 Congratulations, your first run has been created on TofuPilot 🎉
 
 ## Run Page
@@ -109,6 +122,7 @@ Open the link from the console or navigate to the Run page. The Run has been cre
 <Image src={'/run-first-upload.png'} alt={'First Run'} />
 
 Here's what happened:
+
 1. A new run was created for the `Battery PCBA Test` (ID `FVT1`) procedure. This procedure was automatically created when you signed up.
 2. The unit `PCBA01-0001` was created.
 3. The unit was linked to component `PCBA01`, also created.
