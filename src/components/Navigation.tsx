@@ -243,8 +243,8 @@ export const navigation: Array<NavGroup> = [
     title: 'Uploading Test Runs',
     links: [
       {
-        title: 'Steps',
-        href: '/steps',
+        title: 'Unit & Component',
+        href: '/unit-component',
       },
       {
         title: 'Attachments',
@@ -295,7 +295,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Contact', href: '/support/contact' },
       { title: 'Security', href: '/support/security' },
       { title: 'Privacy Policy', href: '/legal/privacy-policy' },
-      { title: 'Pricing', href: '/support/pricing' },
+      // { title: 'Pricing', href: '/support/pricing' },
       { title: 'Terms & Conditions', href: '/legal/terms-conditions' },
     ],
   },
