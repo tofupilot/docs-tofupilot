@@ -243,8 +243,8 @@ export const navigation: Array<NavGroup> = [
     title: 'Uploading Test Runs',
     links: [
       {
-        title: 'Unit & Component',
-        href: '/unit-component',
+        title: 'Steps',
+        href: '/steps',
       },
       {
         title: 'Attachments',
