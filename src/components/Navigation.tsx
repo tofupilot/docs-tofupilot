@@ -286,7 +286,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'User Management', href: '/user-management' },
       { title: 'Python Client', href: '/clients/python' },
-      { title: 'REST API Reference', href: '/api/runs' },
+      { title: 'REST API Reference', href: '/api' },
     ],
   },
   {
