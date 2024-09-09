@@ -157,11 +157,75 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
 })
 ```
 
+</CodeGroup>
+
+```json {{ title: 'Response' }}
+{
+  "message": "Run created successfully: https://tofupilot.com/acme-corp/runs/your-new-run"
+}
+```
+
+</Col>
+
+</Row>
+
+---
+
+## Create a run from a file {{ tag: 'POST', label: '/v1/import' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to create a new run from a file report.
+    <Properties>
+      <Property name="file_path" type="string, required">
+        The path to the log file to be imported.
+      </Property>
+      <Property name="importer" type="string, optional">
+        The type of importer to use. Defaults to "OPENHTF".
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/v1/import">
+
+```python
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+client.create_run_from_file(file_path="path/to/your/test/report.json", importer="OPENHTF")
+```
+
+```bash {{ title: 'cURL' }}
+curl -X POST https://www.tofupilot.com/api/v1/import
+  -H "Content-Type: application/json"
+  -H "Authorization: Bearer {your_api_key}"
+  -d '{
+    "file_path": "path/to/your/test/report.json",
+    "importer": "OPENHTF"
+}'
+```
+
+```js
+fetch('https://www.tofupilot.com/api/v1/import', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer "your_api_key"',
+  },
+  body: JSON.stringify({
+    file_path: 'path/to/your/test/report.json',
+    importer: 'OPENHTF',
+  }),
+})
+```
+
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
     {
-      "url": "https://tofupilot.com/acme-corp/runs/your-new-run"
+      "message": "Run created successfully: https://tofupilot.com/acme-corp/runs/your-new-run"
     }
     ```
 
