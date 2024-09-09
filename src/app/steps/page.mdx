@@ -37,13 +37,6 @@ client.create_run(
 
 This script shows a complete example of all TofuPilot's steps functionnality.
 
-<Note>
-  This example is designed to be framework-agnostic and does not offer any
-  sequencing logic. For manufacturing deployments, we recommend using proven
-  test sequencers like [PyTest](https://docs.pytest.org/en/8.2.x/),
-  [OpenHTF](https://www.openhtf.com/), or your own.
-</Note>
-
 ```python {{ title: 'create_run_with_steps_complete.py'}}
 from tofupilot import TofuPilotClient
 from datetime import datetime, timedelta
@@ -93,6 +86,13 @@ client.create_run(
 )
 ```
 
+<Note>
+  This example is designed to be framework-agnostic and does not offer any
+  sequencing logic. For manufacturing deployments, we recommend using proven
+  test sequencers like [PyTest](https://docs.pytest.org/en/8.2.x/),
+  [OpenHTF](https://www.openhtf.com/), or your own.
+</Note>
+
 ## Run Page
 
 A dedicated **Steps** section is automatically created on the Run’s page.
@@ -132,7 +132,13 @@ If the selected step includes values and at least one defined limit (either a `l
 
 To unselect a step, simply click on it's name on the topbar of the page.
 
-<Image src="/step-unselect.png" alt="Unselection of step" />
+<Image
+  src="/step-unselect.png"
+  alt="Unselection of step"
+  width={250}
+  height={200}
+  className="w-fit"
+/>
 
 ## Run Duration
 
