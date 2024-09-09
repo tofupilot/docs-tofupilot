@@ -62,7 +62,7 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
         ISO 8601 start time of the run.
       </Property>
       <Property name="steps" type="array, optional">
-        Steps of the procedure.
+        [Steps](../steps) of the run.
       </Property>
       <Property name="name" type="string, required" indent>
         Step name.
@@ -89,16 +89,16 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
         Maximum threshold.
       </Property>
       <Property name="attachments" type="array(string), optional">
-        File paths for attachments.
+        File paths for [attachments](../attachments).
       </Property>
       <Property name="sub_units" type="array(record), optional">
-        Identifiers of sub-units.
+        Identifiers of [sub-units](../sub-units).
       </Property>
       <Property name="serial_number" type="string, required" indent>
-        Serial number of sub-unit.
+        Serial number of [sub-unit](../sub-units).
       </Property>
       <Property name="report_variables" type="record(string, string)">
-        Key/value pairs for report variables.
+        Key/value pairs for [report variables](../report).
       </Property>
     </Properties>
   </Col>
