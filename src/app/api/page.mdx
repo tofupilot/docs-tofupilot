@@ -108,32 +108,9 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
 
 ```python
 from tofupilot import TofuPilotClient
-import time
-from datetime import datetime
+from datetime import timedelta
 
-def test_function():
-    # Your test execution goes here
-    time.sleep(1)
-
-    run_passed = True
-    report_variables = {
-      "initial_temperature_reading": "72°C",
-      "final_temperature_reading": "75°C",
-    }
-    attachments = [
-      '/mnt/data/temperature-map.png',
-      '/mnt/data/performance-report.pdf'
-    ]
-
-    return run_passed, report_variables, attachments
-
-# Measure the duration of the test_function
-start_time = datetime.now()
-run_passed, report_variables, attachments = test_function()
-end_time = datetime.now()
-duration = end_time - start_time
-
-client = TofuPilotClient(api_key="Your API key goes here")
+client = TofuPilotClient()
 
 client.create_run(
     procedure_id="FVT1",
@@ -141,10 +118,8 @@ client.create_run(
         "serial_number": '00102',
         "part_number": 'PCB01'
     },
-    run_passed=run_passed,
-    duration=duration,
-    report_variables=report_variables,
-    attachments=attachments
+    run_passed=True,
+    duration=timedelta(minutes=27, seconds=15),
 )
 ```
 
