@@ -102,8 +102,8 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       </Property>
     </Properties>
   </Col>
-  <Col sticky>
 
+  <Col sticky>
     <CodeGroup title="Request" tag="POST" label="/v1/runs">
 
 ```python
@@ -126,7 +126,7 @@ client.create_run(
 ```bash {{ title: 'cURL' }}
 curl -X POST https://www.tofupilot.com/api/v1/runs
   -H "Content-Type: application/json"
-  -H "Authorization: Bearer {your_api_key}"
+  -H "Authorization: Bearer <your_api_key>"
   -d '{
     "procedure_id": "FVT1",
     "unit_under_test": {
@@ -143,7 +143,7 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer "your_api_key"',
+    Authorization: 'Bearer <your_api_key>',
   },
   body: JSON.stringify({
     procedure_id: 'FVT1',
@@ -185,8 +185,8 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
       </Property>
     </Properties>
   </Col>
-  <Col sticky>
 
+  <Col sticky>
     <CodeGroup title="Request" tag="POST" label="/v1/import">
 
 ```python
@@ -200,7 +200,7 @@ client.create_run_from_file(file_path="path/to/your/test/report.json", importer=
 ```bash {{ title: 'cURL' }}
 curl -X POST https://www.tofupilot.com/api/v1/import
   -H "Content-Type: application/json"
-  -H "Authorization: Bearer {your_api_key}"
+  -H "Authorization: Bearer <your_api_key>"
   -d '{
     "file_path": "path/to/your/test/report.json",
     "importer": "OPENHTF"
@@ -212,7 +212,7 @@ fetch('https://www.tofupilot.com/api/v1/import', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer "your_api_key"',
+    Authorization: 'Bearer <your_api_key>',
   },
   body: JSON.stringify({
     file_path: 'path/to/your/test/report.json',
@@ -221,15 +221,94 @@ fetch('https://www.tofupilot.com/api/v1/import', {
 })
 ```
 
-    </CodeGroup>
+</CodeGroup>
 
-    ```json {{ title: 'Response' }}
-    {
-      "message": "Run created successfully: https://tofupilot.com/acme-corp/runs/your-new-run"
-    }
-    ```
+```json {{ title: 'Response' }}
+{
+  "message": "Run created successfully: https://tofupilot.com/acme-corp/runs/your-new-run"
+}
+```
 
+</Col>
+</Row>
+
+---
+
+## Get runs by serial number {{ tag: 'GET', label: '/v1/units/?serial_number=<serial_number>' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to fetch all runs related to a specific unit.
+    <Properties>
+      <Property name="serial_number" type="string, required">
+        The unique identifier of the unit associated with the runs.
+      </Property>
+    </Properties>
   </Col>
+
+  <Col sticky>
+    <CodeGroup title="Request" tag="GET" label="/v1/units?serial_number=<serial_number>">
+
+```python
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+client.get_runs_by_serial_number(serial_number="00102")
+```
+
+```bash {{ title: 'cURL' }}
+curl -X POST https://www.tofupilot.com/api/v1/units?serial_number=<serial_number>
+  -H "Content-Type: application/json"
+  -H "Authorization: Bearer <your_api_key>"
+```
+
+```js
+fetch('https://www.tofupilot.com/api/v1/units?serial_number=<serial_number>', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer <your_api_key>',
+  },
+})
+```
+
+</CodeGroup>
+
+```json {{ title: 'Response' }}
+{
+  "message": "Runs fetched successfuly.",
+  "data": [
+    {
+      "duration": "PT12S",
+      "createdAt": "2024-09-05T15:58:30.891Z",
+      "startedAt": "2024-09-05T08:38:17.115Z",
+      "createdBy": {
+        "email": "user@acmecorp.com"
+      },
+      "status": {
+        "name": "Pass",
+        "category": "Successful"
+      },
+      "steps": [
+        {
+          "name": "measure_duration",
+          "duration": "PT11S",
+          "value": 5,
+          "status": {
+            "category": "Successful"
+          },
+          "units": "second",
+          "lowLimit": 1,
+          "highLimit": 10
+        }
+      ]
+    }
+  ]
+}
+```
+
+</Col>
 </Row>
 
 ---
