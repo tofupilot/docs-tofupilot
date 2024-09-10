@@ -43,57 +43,49 @@ After creating your account, an interactive guide within the application will wa
 
 2.  Install the TofuPilot Python client:
 
-    ```bash
-    pip install tofupilot
-    ```
+```bash
+pip install tofupilot
+```
 
 3.  Retrieve your API key from [My Profile](/user-management#api-key) page and save it as an environment variable.
 
-    <CodeGroup>
-    ```bash {{ title: 'Linux, macOS' }}
-    echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
-    ```
+<CodeGroup>
 
-    ```bash {{ title: 'Windows' }}
-    setx TOFUPILOT_API_KEY "<your_key_here>"
-    ```
+```bash {{ title: 'Linux, macOS' }}
+echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
+```
+
+```bash {{ title: 'Windows' }}
+setx TOFUPILOT_API_KEY "<your_key_here>"
+```
 
     </CodeGroup>
 
 4.  Create a new Python script and paste the following code:
 
-    ```python {{ title: 'create_run.py'}}
-    from tofupilot import TofuPilotClient
-    from datetime import datetime
+```python {{ title: 'create_run.py'}}
+from tofupilot import TofuPilotClient
+from datetime import timedelta
 
-    client = TofuPilotClient()
+client = TofuPilotClient()
 
-    # Test function
-    def test():
-        return True
-
-    # Run test function
-    start_time = datetime.now()
-    run_passed = test()
-    end_time = datetime.now()
-
-    # Create a test run
-    response = client.create_run(
-        procedure_id="FVT1",
-        unit_under_test={
-          "serial_number": "PCBA01-0001",
-          "part_number": "PCBA01"
-        },
-        run_passed=run_passed,
-        duration=end_time - start_time
-    )
-    ```
+# Create a test run
+response = client.create_run(
+    procedure_id="FVT1",
+    unit_under_test={
+      "serial_number": "PCBA01-0001",
+      "part_number": "PCBA01"
+    },
+    run_passed=True, # Status of the test run
+    duration=timedelta(minutes=12, seconds=13) # Test duration
+)
+```
 
 5.  Run the script:
 
-    ```bash
-    python create_run.py
-    ```
+```bash
+python create_run.py
+```
 
 The console returns:
 
