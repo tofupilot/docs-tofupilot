@@ -23,6 +23,7 @@ client.create_run(
     unit_under_test={
       "serial_number": "00102",
     },
+    duration=timedelta(minutes=2, seconds=30),
     run_passed=True,  # Overall run status
     steps=[{
       "name": "Power On Self Test",
@@ -33,9 +34,15 @@ client.create_run(
 )
 ```
 
+<Note>
+  If a run has `steps` but no defined `duration`, the `duration` will be
+  automatically calculated as the sum of the durations of its steps (e.g., 2
+  minutes and 30 seconds in this example).
+</Note>
+
 ## Complete example
 
-This script shows a complete example of all TofuPilot's steps functionnality.
+This script shows a complete example of all TofuPilot's steps functionnality (measured value, limits, units...).
 
 ```python {{ title: 'create_run_with_steps_complete.py'}}
 from tofupilot import TofuPilotClient
@@ -139,10 +146,6 @@ To unselect a step, simply click on it's name on the topbar of the page.
   height={200}
   className="w-fit"
 />
-
-## Run Duration
-
-If no total test duration is provided, it will be computed as the sum of the durations of all the steps. However, if a total test duration is specified, it will override the computed sum.
 
 ## API Reference
 
