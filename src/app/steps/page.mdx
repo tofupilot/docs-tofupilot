@@ -154,36 +154,37 @@ Each `step` in the `steps` array provided to `create_run` should include the fol
 ### Required
 
 <Properties>
-  <Property name="name" type="string, required" indent>
-    Step name.
+  <Property name="name" type="string, required">
+    The name of the step. _Example: "temperature_calibration"_
   </Property>
-  <Property name="step_passed" type="boolean, required" indent>
-    Indicates if the step passed.
+  <Property name="step_passed" type="boolean, required">
+    Indicates if the step passed. _Example: true_
   </Property>
-  <Property name="started_at" type="string, required" indent>
-    ISO 8601 start time of the step.
+  <Property name="started_at" type="string, required">
+    ISO 8601 start time of the step. _Example: "2024-09-11T08:00:00Z"_
   </Property>
-  <Property name="duration" type="string, required" indent>
-    The ISO 8601 duration of the step. *Note:* If using the [Python
-    client](./clients/python), use a
-    [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects)
-    object.
+  <Property name="duration" type="string, required">
+    The duration of the step.
+
+    - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
+    - For Python Client: Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
+
   </Property>
 </Properties>
 
 ### Optional
 
 <Properties>
-  <Property name="measurement_unit" type="string, optional" indent>
-    Unit of measurement.
+  <Property name="measurement_unit" type="string, optional">
+    The unit of measurement for the value. _Example: "°C"_
   </Property>
-  <Property name="measurement_value" type="float, optional" indent>
-    Measured value.
+  <Property name="measurement_value" type="float, optional">
+    The value measured during step. _Example: 12.25_
   </Property>
-  <Property name="limit_low" type="float, optional" indent>
-    Minimum threshold.
+  <Property name="limit_low" type="float, optional">
+    Minimum threshold. _Example: 11.44_
   </Property>
-  <Property name="limit_high" type="float, optional" indent>
-    Maximum threshold.
+  <Property name="limit_high" type="float, optional">
+    Maximum threshold. _Example: 13.2_
   </Property>
 </Properties>
