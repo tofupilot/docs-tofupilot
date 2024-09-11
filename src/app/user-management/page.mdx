@@ -80,9 +80,12 @@ We strongly recommend saving your API key in a local `TOFUPILOT_API_KEY` environ
 1. **Unix-based Systems (macOS, Linux)**
 
    - Open a terminal.
-   - Copy and paste the following command:
+   - Copy and paste the following commands:
      ```bash
-     echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
+     echo 'export TOFUPILOT_API_KEY=<your_key_here>' >> ~/.zshenv
+     ```
+     ```bash
+     source ~/.zshenv
      ```
      <Note>If you use Bash, replace `~/.zshenv` with `~/.bash_profile`.</Note>
    - Optionally, verify the environment variable with this command:
