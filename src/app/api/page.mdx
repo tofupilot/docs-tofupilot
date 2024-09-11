@@ -164,7 +164,7 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ${TOFUPILOT_API_KEY}',
+    Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
   },
   body: JSON.stringify({
     procedure_id: 'FVT1',
@@ -215,14 +215,14 @@ from tofupilot import TofuPilotClient
 
 client = TofuPilotClient()
 
-client.create_run_from_report(file_path="path/to/your/test/report.json", importer="OPENHTF")
+client.create_run_from_report(
+  file_path="path/to/your/test/report.json",
+  importer="OPENHTF"
+)
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://www.tofupilot.com/api/v1/import
-  -H "Content-Type: application/json"
-  -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
-  -d '{
+curl -X POST https://www.tofupilot.com/api/v1/import -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
     "file_path": "path/to/your/test/report.json",
     "importer": "OPENHTF"
 }'
@@ -233,7 +233,7 @@ fetch('https://www.tofupilot.com/api/v1/import', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ${TOFUPILOT_API_KEY}',
+    Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
   },
   body: JSON.stringify({
     file_path: 'path/to/your/test/report.json',
@@ -279,9 +279,7 @@ client.get_runs(serial_number="00102")
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://www.tofupilot.com/api/v1/units?serial_number=<serial_number>
-  -H "Content-Type: application/json"
-  -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
+curl -X POST https://www.tofupilot.com/api/v1/units?serial_number=<serial_number> -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
 ```
 
 ```js
@@ -289,7 +287,7 @@ fetch('https://www.tofupilot.com/api/v1/units?serial_number=<serial_number>', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ${TOFUPILOT_API_KEY}',
+    Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
   },
 })
 ```
