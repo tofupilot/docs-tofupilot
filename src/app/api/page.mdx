@@ -34,81 +34,85 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
 ## Create a run {{ tag: 'POST', label: '/v1/runs' }}
 
 <Row>
+
   <Col>
     This endpoint allows you to create a new run.
     <Properties>
       <Property name="procedure_id" type="string, required">
-        Unique identifier for the procedure.
+        Unique identifier for the procedure. _Example: "FVT1"_
       </Property>
       <Property name="unit_under_test" type="record, required">
         Record of the unit under test.
       </Property>
       <Property name="serial_number" type="string, required" indent>
-        Unit identifier. Creates new unit if no match.
+        Unit identifier. Creates a new unit if no match. _Example: "SN123456"_
       </Property>
       <Property name="part_number" type="string, optional" indent>
-        Component identifier. Creates new component if no match.
+        Component identifier. Creates a new component if no match. _Example: "PN-001"_
       </Property>
       <Property name="revision" type="string, optional" indent>
-        Component revision. Required if multiple revisions exist.
+        Component revision. Required if multiple revisions exist. _Example: "A"_
       </Property>
       <Property name="run_passed" type="boolean, required">
-        Indicates if the run passed.
+        Indicates if the run passed. _Example: true_
       </Property>
       <Property name="started_at" type="string, optional">
-        ISO 8601 start time of the run.
+        ISO 8601 start time of the run. _Example: "2024-09-11T08:00:00Z"_
       </Property>
       <Property name="duration" type="string, optional">
-        The ISO 8601 duration of the run. *Note:* If using the [Python
-        client](./clients/python), use a
-        [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects)
-        object.
+      The duration of the run.
+
+        - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
+        - For [Python Client](./clients/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
+
       </Property>
       <Property name="steps" type="array, optional">
         [Steps](../steps) of the run.
       </Property>
       <Property name="name" type="string, required" indent>
-        Step name.
+        The name of the step. _Example: "temperature_calibration"_
       </Property>
       <Property name="step_passed" type="boolean, required" indent>
-        Indicates if the step passed.
+        Indicates if the step passed. _Example: true_
       </Property>
       <Property name="started_at" type="string, required" indent>
-        ISO 8601 start time of the step.
+        ISO 8601 start time of the step. _Example: "2024-09-11T08:00:00Z"_
       </Property>
       <Property name="duration" type="string, required" indent>
-        ISO 8601 duration of the step. *Note:* If using the [Python
-        client](./clients/python), use a
-        [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects)
-        object.
+        The duration of the step.
+
+        - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
+        - For [Python Client](./clients/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
+
       </Property>
       <Property name="measurement_unit" type="string, optional" indent>
-        Unit of measurement.
+        The unit of measurement for the value. _Example: "°C"_
       </Property>
       <Property name="measurement_value" type="float, optional" indent>
-        Measured value.
+        The value measured during step. _Example: 12.25_
       </Property>
       <Property name="limit_low" type="float, optional" indent>
-        Minimum threshold.
+        Minimum threshold. _Example: 11.44_
       </Property>
       <Property name="limit_high" type="float, optional" indent>
-        Maximum threshold.
+        Maximum threshold. _Example: 13.2_
       </Property>
       <Property name="attachments" type="array(string), optional">
-        File paths for [attachments](../attachments).
+        File paths for [attachments](../attachments). _Example: ["path/to/file1.png", "path/to/file2.pdf"]_
       </Property>
       <Property name="sub_units" type="array(record), optional">
         Identifiers of [sub-units](../sub-units).
       </Property>
       <Property name="serial_number" type="string, required" indent>
-        Serial number of [sub-unit](../sub-units).
+        Serial number of [sub-unit](../sub-units). _Example: "SN789"_
       </Property>
       <Property name="report_variables" type="record(string, string)">
         Key/value pairs for [report variables](../report).
       </Property>
     </Properties>
-  </Col>
 
+  </Col>
+ 
   <Col sticky>
     <CodeGroup title="Request" tag="POST" label="/v1/runs">
 
