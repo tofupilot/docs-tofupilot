@@ -55,11 +55,14 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       <Property name="run_passed" type="boolean, required">
         Indicates if the run passed.
       </Property>
-      <Property name="duration" type="string, required">
-        ISO 8601 duration of the run.
-      </Property>
-      <Property name="started_at" type="string">
+      <Property name="started_at" type="string, optional">
         ISO 8601 start time of the run.
+      </Property>
+      <Property name="duration" type="string, optional">
+        The ISO 8601 duration of the run. *Note:* If using the [Python
+        client](./clients/python), use a
+        [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects)
+        object.
       </Property>
       <Property name="steps" type="array, optional">
         [Steps](../steps) of the run.
@@ -74,7 +77,10 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
         ISO 8601 start time of the step.
       </Property>
       <Property name="duration" type="string, required" indent>
-        ISO 8601 duration of the step.
+        ISO 8601 duration of the step. *Note:* If using the [Python
+        client](./clients/python), use a
+        [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects)
+        object.
       </Property>
       <Property name="measurement_unit" type="string, optional" indent>
         Unit of measurement.
