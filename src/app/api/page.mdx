@@ -279,11 +279,11 @@ client.get_runs(serial_number="00102")
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://www.tofupilot.com/api/v1/runs?serial_number=<serial_number> -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
+curl -X POST https://www.tofupilot.com/api/v1/runs?serial_number=00102 -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
 ```
 
 ```js
-fetch('https://www.tofupilot.com/api/v1/runs?serial_number=<serial_number>', {
+fetch('https://www.tofupilot.com/api/v1/runs?serial_number=00102', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
