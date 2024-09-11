@@ -255,7 +255,7 @@ fetch('https://www.tofupilot.com/api/v1/import', {
 
 ---
 
-## Get runs by serial number {{ tag: 'GET', label: '/v1/units/?serial_number=<serial_number>' }}
+## Get runs by serial number {{ tag: 'GET', label: '/v1/runs?serial_number=<serial_number>' }}
 
 <Row>
   <Col>
@@ -268,7 +268,7 @@ fetch('https://www.tofupilot.com/api/v1/import', {
   </Col>
 
   <Col sticky>
-    <CodeGroup title="Request" tag="GET" label="/v1/units?serial_number=<serial_number>">
+    <CodeGroup title="Request" tag="GET" label="/v1/runs?serial_number=<serial_number>">
 
 ```python
 from tofupilot import TofuPilotClient
@@ -279,11 +279,11 @@ client.get_runs(serial_number="00102")
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://www.tofupilot.com/api/v1/units?serial_number=<serial_number> -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
+curl -X POST https://www.tofupilot.com/api/v1/runs?serial_number=<serial_number> -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
 ```
 
 ```js
-fetch('https://www.tofupilot.com/api/v1/units?serial_number=<serial_number>', {
+fetch('https://www.tofupilot.com/api/v1/runs?serial_number=<serial_number>', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
