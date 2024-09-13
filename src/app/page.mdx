@@ -81,8 +81,8 @@ After creating your account, an interactive guide within the application will wa
     response = client.create_run(
         procedure_id="FVT1",
         unit_under_test={
-          "serial_number": "PCBA01-0001",
-          "part_number": "PCBA01"
+          "serial_number": "000001", # Serial Number = Individual Item
+          "part_number": "PCBA01" # Part Number = Type of Item
         },
         run_passed=run_passed,
         duration=end_time - start_time
