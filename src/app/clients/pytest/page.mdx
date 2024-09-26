@@ -18,7 +18,11 @@ pip install tofupilot
 
 ## Usage
 
-The TofuPilot Pytest plugin builds on pytest’s familiar syntax, making it easy to adopt while offering additional features geared toward hardware testing.
+The TofuPilot pytest plugin builds on pytest’s familiar syntax, making it easy to adopt while offering additional features geared toward hardware testing. It consists of two parts:
+
+• **Configuration**: This section, _placed at the beginning or end of the script_, specifies metadata about the test being performed.
+
+• **Testing**: This section contains one or more functions representing individual test steps. Each function should be prefixed with `test_`, following pytest’s recommendations for proper recognition.
 
 ### Setting Metadata
 
@@ -28,6 +32,8 @@ Before executing tests, it's important to provide necessary metadata, such as th
 from tofupilot import conf
 
 conf.set(procedure_id="FVT1", serial_number="PCBA01-0001", part_number="PCBA01", revision="A")
+
+# Rest of your script here
 ```
 
 - The `conf.set` method accepts the following arguments:
@@ -44,23 +50,42 @@ conf.set(procedure_id="FVT1", serial_number="PCBA01-0001", part_number="PCBA01",
 To create a simple boolean test step, define a pytest function that includes one or more assertions.
 
 ```python {{ label: 'your_pytest_script.py' }}
-def test_boolean_step():
+from tofupilot import conf
+
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
+
+def test_passing_step():
   assert True
+
+def test_failing_step():
+  assert False
 ```
+
+<Note>
+  This script sets up a test run for procedure `FVT1` on unit `PCBA01-0001`. It includes two test steps:
+  
+  - `test_passing_step()`: This step will pass as the assertion is `True`.
+  - `test_failing_step()`: This step will fail due to a `False` assertion.
+
+The global status of the test run will be marked as `Fail` because one of the steps did not pass.
+
+</Note>
 
 ### Defining String Measurement Steps
 
 To create a string measurement step:
 
 1. Define a new test function prefixed with `test_` (following pytest best practices).
-2. Add the `@string_limit_step` decorator to the function.
+2. Add the `@string_step` decorator to the function.
 3. Include a `step` parameter, which will automatically be populated with a valid object.
 4. End the function with `assert step()`.
 
 ```python {{ label: 'your_pytest_script.py' }}
-from tofupilot import string_limit_step
+from tofupilot import conf, string_step
 
-@string_limit_step
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
+
+@string_step
 def test_string_limit(step):
   step.set_name("My string limit step").set_limit("1.2.A")
 
@@ -77,16 +102,18 @@ def test_string_limit(step):
 To create a numeric measurement step:
 
 1. Define a new test function prefixed with `test_`.
-2. Add the `@numeric_limit_step` decorator to the function.
+2. Add the `@numeric_step` decorator to the function.
 3. Include a `step` parameter, which will automatically be populated with a valid object.
 4. End the function with `assert step()`.
 
 ```python {{ label: 'your_pytest_script.py' }}
-from tofupilot import numeric_limit_step
+from tofupilot import conf, numeric_step
 
-@numeric_limit_step
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
+
+@numeric_step
 def test_numeric_limit(step):
-  step.set_name("My numeric limit step").set_units("V").set_limits(low=12, high=15)
+  step.set_name("Custom step name").set_units("V").set_limits(low=12, high=15)
 
   step.measure(14)
 
