@@ -52,6 +52,14 @@ conf.set(procedure_id="FVT1", serial_number="PCBA01-0001", part_number="PCBA01",
   `conf.set(procedure_id="FVT1").set(attachments=['./temperature-map.png'])`
 </Note>
 
+### Steps
+
+In the TofuPilot pytest plugin, each test function (i.e., functions that begin with `test_`) represents an individual step in the testing process.
+
+- The outcome of a step is determined by the assertions within the test function.
+- If all assertions in a step pass, the step is considered successful.
+- The overall result of the test run is "Pass" if every step succeeds; otherwise, the result is "Fail".
+
 ### Defining Boolean Test Steps
 
 To create a simple boolean test step, define a pytest function that includes one or more assertions.
@@ -80,7 +88,7 @@ The global status of the test run will be marked as `Fail` because one of the st
 
 ### Defining String Measurement Steps
 
-To create a string measurement step:
+To register a step that performs a string measurement:
 
 1. Define a new test function prefixed with `test_` (following pytest best practices).
 2. Add the `@string_step` decorator to the function.
@@ -94,9 +102,16 @@ conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
 
 @string_step
 def test_string_limit(step):
-  step.set_name("My string limit step").set_limit("1.2.A")
+    # Set the step name and the expected string limit
+    step.set_name("Firmware Version Check").set_limit("Firmware_v2.5.1")
 
-  assert step()
+    # Simulate retrieving the current firmware version from the device
+    current_firmware_version = "Firmware_v2.5.1"
+    # Register measurement
+    step.measure(current_firmware_version)
+
+    # Assert that the registered string matches the provided limit
+    assert step()
 ```
 
 - Available methods for string measurement steps:
@@ -106,7 +121,7 @@ def test_string_limit(step):
 
 ### Defining Numeric Measurement Steps
 
-To create a numeric measurement step:
+To register a step that performs a numeric measurement:
 
 1. Define a new test function prefixed with `test_`.
 2. Add the `@numeric_step` decorator to the function.
@@ -119,12 +134,17 @@ from tofupilot import conf, numeric_step
 conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
 
 @numeric_step
-def test_numeric_limit(step):
-  step.set_name("Custom step name").set_units("V").set_limits(low=12, high=15)
+def test_numeric_limits(step):
+    # Set the step name, measurement units, and expected numeric limits
+    step.set_name("Voltage Level Check").set_units("V").set_limits(low=12, high=15)
 
-  step.measure(14)
+    # Simulate measuring the voltage
+    measured_voltage = 14
+    # Register the measurement
+    step.measure(measured_voltage)
 
-  assert step()
+    # Assert that the measured value is within the specified limits
+    assert step()
 ```
 
 - Available methods for numeric measurement steps:
@@ -134,8 +154,8 @@ def test_numeric_limit(step):
   - `step.set_units(units: string)` (Optional)
 
 <div className="not-prose">
-  <Button href="/steps" variant="text" arrow="right">
-    See complete examples
+  <Button href="/steps#complete-example" variant="text" arrow="right">
+    See complete example
   </Button>
 </div>
 

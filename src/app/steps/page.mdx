@@ -12,7 +12,24 @@ This guide shows how to create and add various test steps in Tofupilot and view 
 
 ## Simple example
 
-```python {{ title: 'create_run_with_steps_simple.py'}}
+<CodeGroup label='create_run_with_step_simple'>
+
+```python {{ title: 'Pytest plugin'}}
+import time
+from tofupilot import conf
+
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")  # Test metadata
+
+def test_simple_step():
+    time.sleep(1)  # Duration of the test run (will be auto computed)
+    assert True  # Status of the test run
+```
+
+```python {{ title: 'Python client'}}
+"""
+If a run has `steps` but no defined `duration`, the `duration` will be automatically calculated as the sum of the durations of its steps (e.g., 2 minutes and 30 seconds in this example).
+"""
+
 from tofupilot import TofuPilotClient
 from datetime import datetime, timedelta
 
@@ -34,17 +51,53 @@ client.create_run(
 )
 ```
 
-<Note>
-  If a run has `steps` but no defined `duration`, the `duration` will be
-  automatically calculated as the sum of the durations of its steps (e.g., 2
-  minutes and 30 seconds in this example).
-</Note>
+</CodeGroup>
 
 ## Complete example
 
 This script shows a complete example of all TofuPilot's steps functionnality (measured value, limits, units...).
 
-```python {{ title: 'create_run_with_steps_complete.py'}}
+<CodeGroup label="create_run_with_steps_complete.py">
+
+```python {{ title: 'Pytest plugin' }}
+from tofupilot import conf, string_step, numeric_step
+
+# Test metadata configuration
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
+
+# Dummy test to check the connection status (First step)
+def test_connect():
+    assert True
+
+# Simulate checking a firmware version string (Second step)
+@string_step
+def test_firmware_version_check(step):
+    # Set the expected firmware version
+    expected_version = "Firmware_v2.5.1"
+    step.set_name("Firmware Version Check").set_limit(expected_version)
+
+    # Simulate retrieving the current firmware version from the device
+    current_firmware_version = "Firmware_v2.5.1"
+    step.measure(current_firmware_version)  # Registering the measured firmware version
+
+    # Assert that the firmware version matches the expected version
+    assert step()
+
+# Performing a temperature calibration check (Third step)
+@numeric_step
+def test_temp_calibration(step):
+    # Indicating that in order for the step to be passed, the measured value should be between 70°C and 80°C
+    step.set_limits(70, 80).set_units("°C")
+
+    # Simulate measuring the temperature during the calibration process
+    measured_value = 75  # Measured temperature value after calibration
+    step.measure(measured_value)  # Registering measured value
+
+    # Step status will be auto determined from given measurement and limits
+    assert step()
+```
+
+```python {{ title: 'Python client'}}
 from tofupilot import TofuPilotClient
 from datetime import datetime, timedelta
 
@@ -64,23 +117,14 @@ client.create_run(
             "started_at": datetime.now(),  # Start time of the step
         },
         {
-            "name": "step_initial_charge_check",  # Second step
+            "name": "test_firmware_version_check",  # Second step
             "step_passed": True,  # Status of the step
             "duration": timedelta(milliseconds=500),  # Duration of the step (<1s)
             "started_at": datetime.now() + timedelta(seconds=3),  # Start time of the second step
-            "measurement_value": 80,  # Measured value
+            "measurement_value": "Firmware_v2.5.1",  # Measured value
         },
         {
-            "name": "step_initial_temp_check",  # Third step
-            "step_passed": True,  # Status of the step
-            "duration": timedelta(milliseconds=500),  # Duration of the step (<1s)
-            "started_at": datetime.now() + timedelta(seconds=3, milliseconds=500),  # Start time of the third step
-            "measurement_value": 72,  # Measured temperature value
-            "measurement_unit": "°C",  # Unit of the measurement (temperature)
-            "limit_low": 0,  # Lower limit of acceptable temperature
-        },
-        {
-            "name": "step_temp_calibration",  # Fourth step
+            "name": "step_temp_calibration",  # Third step
             "step_passed": True,  # Status of the step
             "duration": timedelta(milliseconds=500),  # Duration of the step (<1s)
             "started_at": datetime.now() + timedelta(seconds=4),  # Start time of the fourth step
@@ -92,6 +136,8 @@ client.create_run(
     ],
 )
 ```
+
+</CodeGroup>
 
 ## Run Page
 
@@ -137,7 +183,7 @@ To unselect a step, simply click on it's name on the topbar of the page.
   alt="Unselection of step"
   width={250}
   height={200}
-  className="w-fit"
+  className="mx-4 max-w-48"
 />
 
 ## API Reference
