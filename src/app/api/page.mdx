@@ -139,7 +139,7 @@ client = TofuPilotClient()
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-        "serial_number": '00102',
+        "serial_number": 'PCBA01-0001',
         "part_number": 'PCB01'
     },
     run_passed=True,
@@ -151,7 +151,7 @@ client.create_run(
 curl -X POST https://www.tofupilot.com/api/v1/runs -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
     "procedure_id": "FVT1",
     "unit_under_test": {
-      "serial_number": "00102",
+      "serial_number": "PCBA01-0001",
       "part_number": "PCB01"
     },
     "run_passed": true,
@@ -169,7 +169,7 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
   body: JSON.stringify({
     procedure_id: 'FVT1',
     unit_under_test: {
-      serial_number: '00102',
+      serial_number: 'PCBA01-0001',
       part_number: 'PCB01',
     },
     run_passed: true,
@@ -275,15 +275,15 @@ from tofupilot import TofuPilotClient
 
 client = TofuPilotClient()
 
-client.get_runs(serial_number="00102")
+client.get_runs(serial_number="PCBA01-0001")
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X GET "https://www.tofupilot.com/api/v1/runs?serial_number=00102" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
+curl -X GET "https://www.tofupilot.com/api/v1/runs?serial_number=PCBA01-0001" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
 ```
 
 ```js
-fetch('https://www.tofupilot.com/api/v1/runs?serial_number=00102', {
+fetch('https://www.tofupilot.com/api/v1/runs?serial_number=PCBA01-0001', {
   method: 'GET',
   headers: {
     Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,

@@ -21,7 +21,7 @@ client = TofuPilotClient()
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-      "serial_number": "00102",
+      "serial_number": "PCBA01-0001",
     },
     duration=timedelta(minutes=2, seconds=30),
     run_passed=True,  # Overall run status
@@ -53,7 +53,7 @@ client = TofuPilotClient()
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-        "serial_number": "00102",
+        "serial_number": "PCBA01-0001",
     },
     run_passed=True,  # Overall run status
     steps=[
@@ -92,13 +92,6 @@ client.create_run(
     ],
 )
 ```
-
-<Note>
-  This example is designed to be framework-agnostic and does not offer any
-  sequencing logic. For manufacturing deployments, we recommend using proven
-  test sequencers like [PyTest](https://docs.pytest.org/en/8.2.x/),
-  [OpenHTF](https://www.openhtf.com/), or your own.
-</Note>
 
 ## Run Page
 

@@ -59,11 +59,27 @@ echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
 setx TOFUPILOT_API_KEY "<your_key_here>"
 ```
 
-    </CodeGroup>
+</CodeGroup>
 
 4.  Create a new Python script and paste the following code:
 
-```python {{ title: 'create_run.py'}}
+<CodeGroup label="create_run.py">
+
+```python {{ title: 'Pytest plugin' }}
+import time
+from tofupilot import conf
+
+conf.set(
+    procedure_id="FVT1", serial_number="PCBA01-0001", part_number="PCBA01"
+)  # Test metadata
+
+
+def test_simple():
+    time.sleep(1)  # Duration of the test run (will be auto computed)
+    assert True  # Status of the test run
+```
+
+```python {{ title: 'Python SDK' }}
 from tofupilot import TofuPilotClient
 from datetime import timedelta
 
@@ -81,11 +97,21 @@ response = client.create_run(
 )
 ```
 
+</CodeGroup>
+
 5.  Run the script:
 
-```bash
+<CodeGroup>
+
+```bash {{ title: 'Pytest plugin' }}
+pytest --tofupilot create_run.py
+```
+
+```bash {{ title: 'Python SDK' }}
 python create_run.py
 ```
+
+</CodeGroup>
 
 The console returns:
 
