@@ -1,0 +1,142 @@
+export const metadata = {
+  title: 'Pytest Plugin',
+  description:
+    'This guide provides information on the TofuPilot open-source pytest plugin, including installation, usage, and contribution guidelines.',
+}
+
+# Pytest Plugin
+
+Many hardware teams prefer Python and pytest for testing because of their simplicity and broad library support. The TofuPilot pytest plugin enhances pytest to meet the specific needs of hardware testing. {{ className: 'lead' }}
+
+## Installation
+
+Installing the TofuPilot Python client automatically installs the pytest plugin, as well as pytest itself if it is not already installed.
+
+```bash
+pip install tofupilot
+```
+
+## Usage
+
+The TofuPilot Pytest plugin builds on pytest’s familiar syntax, making it easy to adopt while offering additional features geared toward hardware testing.
+
+### Setting Metadata
+
+Before executing tests, it's important to provide necessary metadata, such as the serial number of the unit under test. This can be done using the `conf.set` method.
+
+```python {{ label: 'your_pytest_script.py' }}
+from tofupilot import conf
+
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001", part_number="PCBA01", revision="A")
+```
+
+- The `conf.set` method accepts the following arguments:
+
+  - `procedure_id` (string, required)
+  - `serial_number` (string, required)
+  - `part_number` (string, optional)
+  - `revision` (string, optional)
+
+- You can call `conf.set` from anywhere in your code.
+
+### Defining Boolean Test Steps
+
+To create a simple boolean test step, define a pytest function that includes one or more assertions.
+
+```python {{ label: 'your_pytest_script.py' }}
+def test_boolean_step():
+  assert True
+```
+
+### Defining String Measurement Steps
+
+To create a string measurement step:
+
+1. Define a new test function prefixed with `test_` (following pytest best practices).
+2. Add the `@string_limit_step` decorator to the function.
+3. Include a `step` parameter, which will automatically be populated with a valid object.
+4. End the function with `assert step()`.
+
+```python {{ label: 'your_pytest_script.py' }}
+from tofupilot import string_limit_step
+
+@string_limit_step
+def test_string_limit(step):
+  step.set_name("My string limit step").set_limit("1.2.A")
+
+  assert step()
+```
+
+- Available methods for string measurement steps:
+  - `step.measure(measurement: number)` (Required)
+  - `step.set_name(name: string)` (Optional, defaults to the function name)
+  - `step.set_limit(limit: string)` (Optional, defaults to Pass if not provided)
+
+### Defining Numeric Measurement Steps
+
+To create a numeric measurement step:
+
+1. Define a new test function prefixed with `test_`.
+2. Add the `@numeric_limit_step` decorator to the function.
+3. Include a `step` parameter, which will automatically be populated with a valid object.
+4. End the function with `assert step()`.
+
+```python {{ label: 'your_pytest_script.py' }}
+from tofupilot import numeric_limit_step
+
+@numeric_limit_step
+def test_numeric_limit(step):
+  step.set_name("My numeric limit step").set_units("V").set_limits(low=12, high=15)
+
+  step.measure(14)
+
+  assert step()
+```
+
+- Available methods for numeric measurement steps:
+  - `step.measure(measurement: number)` (Required)
+  - `step.set_name(name: string)` (Optional, defaults to the function name)
+  - `step.set_limits(low: Optional[number], high: Optional[number])` (Optional, defaults to Fail if not provided)
+  - `step.set_units(units: string)` (Optional)
+
+<div className="not-prose">
+  <Button href="/steps" variant="text" arrow="right">
+    See complete examples
+  </Button>
+</div>
+
+## Execution
+
+To run tests using the TofuPilot pytest plugin, use the `--tofupilot` argument.
+
+```bash
+pytest --tofupilot your_script.py
+```
+
+## Contribute
+
+The TofuPilot pytest plugin is **open source** under an **MIT license**. We encourage contributions, and a detailed guide is available on GitHub. For issues or feature requests, please open an issue on GitHub so we can assist you.
+
+<div className="not-prose">
+  <Button
+    href="https://github.com/tofupilot/python-client"
+    variant="text"
+    arrow="right"
+    target="_blank"
+    rel="noopener"
+  >
+    Visit GitHub repository
+  </Button>
+</div>
+
+<div className="not-prose mt-8">
+  <Button
+    href="https://pypi.org/project/tofupilot/"
+    variant="text"
+    arrow="right"
+    target="_blank"
+    rel="noopener"
+  >
+    Visit PyPi page
+  </Button>
+</div>
