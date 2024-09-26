@@ -1,0 +1,166 @@
+export const metadata = {
+  title: 'Steps',
+  description: '',
+}
+
+# Unit & Component
+
+Hardware manufacturing tests often involve multiple steps such as connections, measurements, calibration, and more. Tofupilot offers a simple way to record the details of these steps and analyze their performance across all executions. {{ className: 'lead' }}
+
+This guide shows how to create and add various test steps in Tofupilot and view the automatically generated reports. This helps you quickly identify frequent failures and time-consuming steps, allowing you to focus on improvements.
+
+## Example
+
+To log test step details, this script defines test functions, runs them sequentially, captures their results, and adds them to the `steps` table in `create_run`.
+
+<Note>
+  This example is designed to be framework-agnostic and offers a simple
+  sequencing logic suitable. For manufacturing deployments, we recommend using
+  proven test sequencers like [PyTest](https://docs.pytest.org/en/8.2.x/),
+  [OpenHTF](https://www.openhtf.com/), or your own.
+</Note>
+
+```python {{ title: 'create_run_with_steps.py'}}
+from tofupilot import TofuPilotClient
+from datetime import datetime
+
+client = TofuPilotClient()
+
+# Simple true/false step
+def step_connect():
+    return True,
+
+# Step with a measurement value and unit
+def step_initial_charge_check():
+    initial_charge = 80
+    return True, initial_charge, "%"
+
+# Step with a measurement and a lower limit
+def step_initial_temp_check():
+    initial_temp = 72.0
+    limit_low = 0.0
+    return initial_temp >= limit_low, initial_temp, "°C", limit_low
+
+# Step with a measurement, lower limit, and upper limit
+def step_temp_calibration():
+    calibrated_temp = 75.0
+    limit_low = 70.0
+    limit_high = 80.0
+    return limit_low <= calibrated_temp <= limit_high, calibrated_temp, "°C", limit_low, limit_high
+
+# Simple step sequencer and logger
+def run_all_tests():
+    tests = [func for name, func in globals().items() if callable(func) and name.startswith("step_")]
+    steps, all_passed = [], True
+
+    for t in tests:
+        start = datetime.now()
+        passed, value, unit, low, high = (t() + (None,) * 4)[:5]  # unpack with default None
+        end = datetime.now()
+        steps.append({
+            "name": t.__name__,
+            "started_at": start,
+            "duration": end - start,
+            "step_passed": passed,
+            "measurement_value": value,
+            "measurement_unit": unit,
+            "limit_low": low,
+            "limit_high": high
+        })
+        all_passed &= passed
+
+    return all_passed, steps
+
+run_passed, steps = run_all_tests()
+
+client.create_run(
+    procedure_id="FVT1",
+    unit_under_test={
+      "serial_number": "00102",
+    },
+    run_passed=run_passed,
+    steps=steps,
+)
+```
+
+## Unit Pah Page
+
+A dedicated **Steps** section is automatically created on the Run’s page.
+
+<Image src={'/steps-run.png'} alt={'Steps of Run'} />
+
+## Procedure Page
+
+The Procedure page provides a summary of the steps' run count, status, and average duration in the **Steps** section:
+
+<Image src={'/steps-procedure.png'} alt={'Steps Runs of Procedures'} />
+
+## Run Duration
+
+If no total test duration is provided, it will be computed as the sum of the durations of all the steps. However, if a total test duration is specified, it will override the computed sum.
+
+## API Reference
+
+Each `step` in the `steps` array provided to `create_run` should include the following parameters:
+
+### Required
+
+<Properties>
+  <Property name="name" type="string">
+    Name of the step.
+  </Property>
+  <Property name="started_at" type="datetime">
+    Timestamp when the step started.
+  </Property>
+  <Property name="duration" type="timedelta">
+    Duration of the step in seconds.
+  </Property>
+  <Property name="step_passed" type="boolean">
+    Indicates whether the step passed.
+  </Property>
+</Properties>
+
+### Optional
+
+<Properties>
+  <Property name="measurement_value" type="number or None">
+    Value measured during the step, if any.
+  </Property>
+  <Property name="measurement_unit" type="string or None">
+    Unit of the measurement value, if any.
+  </Property>
+  <Property name="limit_low" type="number or None">
+    Lower limit for the measurement, if any.
+  </Property>
+  <Property name="limit_high" type="number or None">
+    Upper limit for the measurement, if any.
+  </Property>
+</Properties>
+
+le suivi des pièces par numéro de série et part number est essentielle pour tout manufacturing test 
+
+tofupilot gère automatiquement la création et la gestion des unités par numéro de série et les rattache à la révision de composant de référence pour que vous ayez une traçabilité précise et rapide de chaque pièce testée
+
+il faut toujours spécifier un numéro de série + la part number
+
+si la pièce n'est pas créé elle sera crée automatiquement
+
+si le composant n'existe pas, cela va le créér également
+
+page unit 
+
+page composants
+
+si besoin les numéros de série pour les unités et les serial number peuvent être modifiés depuis la page unit et composants
+
+revisions
+
+la gestion des révisions est créée par défaut, la révision A
+
+si vous spécifiez une révision en plus pour le composant cela va la créér automatiquement
+
+thumbnails
+
+pour faciliter la lecture vous pouvez ajouter un thumnail à un type de component et elle apparaitra pour
+
+pour cela ...
