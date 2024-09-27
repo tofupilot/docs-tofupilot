@@ -69,14 +69,17 @@ setx TOFUPILOT_API_KEY "<your_key_here>"
 import time
 from tofupilot import conf
 
-conf.set(
-    procedure_id="FVT1", serial_number="PCBA01-0001", part_number="PCBA01"
-)  # Test metadata
+# Setting test metadata with procedure ID, serial number, and part number
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001", part_number="PCBA01")
 
 
 def test_simple():
-    time.sleep(1)  # Duration of the test run (will be auto computed)
-    assert True  # Status of the test run
+    # Simulating a test run with a 1-second duration
+    # The duration will be automatically measured and recorded in the test run
+    time.sleep(1)
+
+    # If all assertions pass, the test will be marked with a Pass status
+    assert True
 ```
 
 ```python {{ title: 'Python client' }}
