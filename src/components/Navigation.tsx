@@ -260,27 +260,6 @@ export const navigation: Array<NavGroup> = [
       },
     ],
   },
-  // {
-  //   title: 'Integrations',
-  //   links: [
-  //     {
-  //       title: 'LabView',
-  //       href: '/labview',
-  //     },
-  //     {
-  //       title: 'Matlab',
-  //       href: '/matlab',
-  //     },
-  //     {
-  //       title: 'OpenHTF',
-  //       href: '/openhtf',
-  //     },
-  //     {
-  //       title: 'Odoo',
-  //       href: '/odoo',
-  //     },
-  //   ],
-  // },
   {
     title: 'Guides',
     links: [
