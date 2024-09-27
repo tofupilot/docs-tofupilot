@@ -265,6 +265,7 @@ fetch('https://www.tofupilot.com/api/v1/import', {
         The unique identifier of the unit associated with the runs.
       </Property>
     </Properties>
+
   </Col>
 
   <Col sticky>
@@ -323,6 +324,78 @@ fetch('https://www.tofupilot.com/api/v1/runs?serial_number=PCBA01-0001', {
       ]
     }
   ]
+}
+```
+
+</Col>
+</Row>
+
+---
+
+## Update unit {{ tag: 'PATCH', label: '/v1/units' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to update a specific unit.
+    <Properties>
+      <Property name="serial_number" type="string, required">
+        The unique identifier of the given unit. _Example: "PCBA01-001"_
+      </Property>
+      <Property name="sub_units" type="array(record), optional">
+        Identifiers of [sub-units](../sub-units).
+      </Property>
+    </Properties>
+  </Col>
+
+  <Col sticky>
+    <CodeGroup title="Request" tag="PATCH" label="/v1/units">
+
+```python
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+client.update_unit(
+    serial_number="PCBA01-0001",
+    sub_units=[
+        {"serial_number": "CELL01-0001"},
+        {"serial_number": "CELL01-0002"},
+    ],
+)
+```
+
+```bash {{ title: 'cURL' }}
+curl -X PATCH https://www.tofupilot.com/api/v1/units -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
+    "serial_number": "PCBA01-0001",
+    "sub_units": [
+        {"serial_number": "CELL01-0001"},
+        {"serial_number": "CELL01-0002"},
+    ]
+}'
+```
+
+```js
+fetch('https://www.tofupilot.com/api/v1/units', {
+  method: 'PATCH',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
+  },
+  body: JSON.stringify({
+    serial_number: 'PCBA01-0001',
+    sub_units: [
+      { serial_number: 'CELL01-0001' },
+      { serial_number: 'CELL01-0002' },
+    ],
+  }),
+})
+```
+
+</CodeGroup>
+
+```json {{ title: 'Response' }}
+{
+  "message": "Unit PCBA01-0001 updated successfully."
 }
 ```
 

@@ -47,14 +47,14 @@ conf.set(procedure_id="FVT1", serial_number="PCBA01-0001", part_number="PCBA01",
   - `sub_units` (List[Dict["serial_number", str]], optional): [See more](/sub-units)
 
 <Note>
-  For greater flexibility, you can chain multiple calls to `conf.set`. For
-  example:
-  `conf.set(procedure_id="FVT1").set(attachments=['./temperature-map.png'])`.
-  <p>
-    You can call `conf.set` as many times as needed in your code. For instance,
-    after retrieving the UUT's revision, you can add it with
-    `conf.set(revision=found_revision)`.
-  </p>
+For greater flexibility, you can chain multiple calls to `conf.set`. For
+example:
+`conf.set(procedure_id="FVT1").set(attachments=['./temperature-map.png'])`.
+
+You can call `conf.set` as many times as needed in your code. For instance,
+after retrieving the UUT's revision in a step, you can add it within the step with
+`conf.set(revision=found_revision)`.
+
 </Note>
 
 ### Steps
