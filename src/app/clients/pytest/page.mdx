@@ -20,13 +20,13 @@ pip install tofupilot
 
 The TofuPilot pytest plugin builds on pytest’s familiar syntax, making it easy to adopt while offering additional features geared toward hardware testing. It consists of two parts:
 
-• **Configuration**: This section, _placed at the beginning or end of the script_, specifies metadata about the test being performed.
+• **Configuration**: This section, _which can be placed and modified anywhere in the script_, specifies metadata about the test being performed.
 
 • **Testing**: This section contains one or more functions representing individual test steps. Each function should be prefixed with `test_`, following pytest’s recommendations for proper recognition.
 
 ### Setting Metadata
 
-At the beginning or end of hardware tests, it's important to provide necessary metadata, such as the serial number of the unit under test. This can be done using the `conf.set` method.
+For TofuPilot pytest scripts to function, metadata like the UUT’s serial number must be provided. You can define and update this configuration anywhere in your script using the conf.set method
 
 ```python {{ label: 'your_pytest_script.py' }}
 from tofupilot import conf
@@ -47,9 +47,14 @@ conf.set(procedure_id="FVT1", serial_number="PCBA01-0001", part_number="PCBA01",
   - `sub_units` (List[Dict["serial_number", str]], optional): [See more](/sub-units)
 
 <Note>
-  You can chain multiple calls to `conf.set` for greater flexibility. For
+  For greater flexibility, you can chain multiple calls to `conf.set`. For
   example:
-  `conf.set(procedure_id="FVT1").set(attachments=['./temperature-map.png'])`
+  `conf.set(procedure_id="FVT1").set(attachments=['./temperature-map.png'])`.
+  <p>
+    You can call `conf.set` as many times as needed in your code. For instance,
+    after retrieving the UUT's revision, you can add it with
+    `conf.set(revision=found_revision)`.
+  </p>
 </Note>
 
 ### Steps
