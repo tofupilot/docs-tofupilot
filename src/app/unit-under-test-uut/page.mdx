@@ -27,7 +27,7 @@ Tracking hardware tests by serial number is key for traceability and performance
       <Property name="serial_number" type="string">
         Name of the step.
       </Property>
-      <Property name="part_number" type="string, required if > 1 component">
+      <Property name="part_number" type="string">
         Part number of the unit under test.
       </Property>
       <Property name="revision" type="string, optional">
@@ -47,14 +47,14 @@ Tracking hardware tests by serial number is key for traceability and performance
       from tofupilot.openhtf import TofuPilot
 
       def main():
-          phases = [ ] # your test phases here
+          phases = [ ] # Your test phases here
           test = Test(*phases,
               "part_number": "PCB1",
-              "revision": "A",
-              "batch_number": "12-24"
+              "revision": "A",         # optional
+              "batch_number": "12-24"  # optional
           )
           with TofuPilot(test):
-              test.execute(lambda: 'PCB1A001')  # Native support for `dut_id`
+              test.execute(lambda: 'PCB1A001') # UUT S/N
 
       if __name__ == '__main__':
           main()
@@ -67,10 +67,10 @@ Tracking hardware tests by serial number is key for traceability and performance
     response = client.create_run(
       procedure_id = "FVT1",
       unit_under_test = {
-      "serial_number": "PCB1A001",
-      "part_number": "PCB1"
-      "revision": "A"           # optional
-      "batch_number": "12-24"   # optional
+        "serial_number": "PCB1A001",
+        "part_number": "PCB1"
+        "revision": "A"           # optional
+        "batch_number": "12-24"   # optional
       },
       run_passed = True
     )

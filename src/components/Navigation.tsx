@@ -1,10 +1,10 @@
 'use client'
 
-import { useRef } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useRef } from 'react'
 
 import { Button } from '@/components/Button'
 import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
@@ -244,7 +244,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       {
         title: 'Unit under test (UUT)',
-        href: '/uut',
+        href: '/unit-under-test-uut',
       },
       {
         title: 'Steps',
