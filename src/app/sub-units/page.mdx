@@ -86,3 +86,46 @@ The battery assembly was created with its sub-units automatically listed as chil
 On the specific battery assembly page, the **Sub-units** section allows you to view and navigate to their individual pages.
 
 <Image src="/unit-with-sub-units.png" alt="Your profile page" />
+
+
+## Sub-units
+
+You can track tests throughout assembly with TofuPilot's sub-unit feature. Just specify the serial number of an already tested unit, and it will be marked as a sub-unit of the current one. If a part is retested in a new UUT, it automatically changes parent.
+
+```python {{ title: 'main.py' }}
+from openhtf import Test, PhaseResult
+import tofupilot
+
+def get_units(test):
+    test.test_record.dut_id = 'SI051AB7B0001' # UUT
+    test.test_record.sub_units = [            # Sub-units
+      'SI051AB7B0001',
+      'SI051AB7B0001'
+    ]
+    return PhaseResult.CONTINUE
+
+def main():
+    test = Test(get_unit_info)
+    test.add_output_callbacks(tofupilot.synch())
+    test.execute()
+
+if **name** == '**main**':
+    main()
+```
+
+Dedicated [API functions](https://docs.tofupilot.com/a-page) are available to manage sub-units outside of tests. All unit activity is shown on their TofuPilot page.
+
+<Image
+  src="/UUT-page-unit-activity.png"
+  alt="Activity page for a Unit Under Test (UUT) showing sub-units and test history in TofuPilot."
+/>
+
+Most hardware products are made of multiple components, tested individually and at each step of assembly to the final product. TofuPilot's sub-unit features enable automatic test traceability through the entire process. {{ className: 'lead' }}
+
+This guide explains how to use TofuPilot's sub-units feature to automatically ensure the traceability of tests and serial numbers throughout the assembly process.
+
+<Note>
+  This guide details the process of marking units as sub-units when creating a
+  test run for a given unit. If you need to set sub-units without creating a
+  test run, refer to the [API Reference](/api#update-unit).
+</Note>

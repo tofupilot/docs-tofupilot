@@ -243,6 +243,10 @@ export const navigation: Array<NavGroup> = [
     title: 'Uploading Test Runs',
     links: [
       {
+        title: 'Unit under test (UUT)',
+        href: '/uut',
+      },
+      {
         title: 'Steps',
         href: '/steps',
       },
