@@ -231,7 +231,7 @@ function NavigationGroup({
 
 export const navigation: Array<NavGroup> = [
   {
-    title: 'Getting Started',
+    title: 'Get Started',
     links: [
       {
         title: 'Quickstart',
@@ -240,7 +240,7 @@ export const navigation: Array<NavGroup> = [
     ],
   },
   {
-    title: 'Uploading Test Runs',
+    title: 'Upload Test Runs',
     links: [
       {
         title: 'Unit under test (UUT)',
@@ -264,27 +264,15 @@ export const navigation: Array<NavGroup> = [
       },
     ],
   },
-  // {
-  //   title: 'Integrations',
-  //   links: [
-  //     {
-  //       title: 'LabView',
-  //       href: '/labview',
-  //     },
-  //     {
-  //       title: 'Matlab',
-  //       href: '/matlab',
-  //     },
-  //     {
-  //       title: 'OpenHTF',
-  //       href: '/openhtf',
-  //     },
-  //     {
-  //       title: 'Odoo',
-  //       href: '/odoo',
-  //     },
-  //   ],
-  // },
+  {
+    title: 'Integrations',
+    links: [
+      {
+        title: 'OpenHTF',
+        href: '/integrations/openhtf',
+      },
+    ],
+  },
   {
     title: 'Guides',
     links: [
