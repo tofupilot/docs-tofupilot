@@ -11,18 +11,18 @@ Integrate your OpenHTF scripts with TofuPilot in a single line. {{ className: 'l
 [OpenHTF](https://openhtf.com) is an open-source Python framework for automating hardware tests. It makes writing and running tests easier with a modular design. Built at Google, it's now used by teams around the world.
 
 <Button variant="text" arrow="right" href="https://openhtf.com">
-  <>Learn more in the OpenHTF documentation</>
+  <>Learn more at OpenHTF.org</>
 </Button>
 
-TofuPilot supports OpenHTF test records and can be easily integrated into any OpenHTF test scripts using our open-source Python client.
+With just one line added to your OpenHTF scripts, TofuPilot open-source Python client automatically creates a run on TofuPilot, parsing the test phases, measurements, and attachments, while storing the original OpenHTF JSON log for traceability.
 
 ## Installation
 
 1. [Create a TofuPilot account](https://docs.tofupilot.com/user-management#sign-up)
 
-2. [Install OpenHTF and write your test script](https://openhtf.com/first-test)
+2. [Install OpenHTF](https://openhtf.com/first-test) and create your test script
 
-3. Install the TofuPilot Python client:
+3. Install the TofuPilot open-source Python client:
 
 ```sh
 pip install tofupilot
@@ -39,7 +39,7 @@ def phase_one(test):
 
 def main():
     test = htf.Test(phase_one)
-    with TofuPilot(test):                  # just works™️
+    with TofuPilot(test):
       test.execute(lambda: "PCB001")
 
 if __name__ == '__main__':
@@ -53,16 +53,17 @@ The integration automatically uploads your OpenHTF report to your TofuPilot acco
   alt="Run page showing the different steps performed for a Unit Under Test (UUT) in OpenHTF with TofuPilot."
 />
 
-- how to navigate the documentation
-- learn more on openhtf.comn and tofupilot on our openhtf framework documentation here
+Learn more about OpenHTF features and its integration with TofuPilot at OpenHTF.org, maintained by our team.
+
+<Button variant="text" arrow="right" href="https://openhtf.com">
+  <>Learn more at OpenHTF.org</>
+</Button>
 
 ## Advanced
 
 ### Supported features
 
-Below is a table outlining the supported features of OpenHTF when using TofuPilot:
-
-we are adding more capabilties to the integration
+Below is a table of the supported OpenHTF features when using TofuPilot. We are continually adding more capabilities to the integration.
 
 <table>
   <thead>
@@ -155,7 +156,3 @@ we are adding more capabilties to the integration
     </tr>
   </tbody>
 </table>
-
-### Spintop OpenHTF
-
-### Offline upload
