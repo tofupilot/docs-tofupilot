@@ -43,15 +43,15 @@ Tracking hardware tests by serial number is key for traceability and performance
   <Col>
     <CodeGroup>
     ```python {{ title: 'OpenHTF Integration'}}
-      from openhtf import Test, PhaseResult
+      from openhtf import Test
       from tofupilot.openhtf import TofuPilot
 
       def main():
           phases = [ ] # Your test phases here
           test = Test(*phases,
-              "part_number": "PCB1",
-              "revision": "A",         # optional
-              "batch_number": "12-24"  # optional
+              part_number = "PCB1"
+              revision = "A"           # optional
+              batch_number = "12-24"   # optional
           )
           with TofuPilot(test):
               test.execute(lambda: 'PCB1A001') # UUT S/N
@@ -83,10 +83,10 @@ Tracking hardware tests by serial number is key for traceability and performance
     response = client.create_run(
       procedure_id = "FVT1",
       unit_under_test = {
-      "serial_number": "PCB1A001",
-      "part_number": "PCB1"
-      "revision": "A"           # optional
-      "batch_number": "12-24"   # optional
+        "serial_number": "PCB1A001",
+        "part_number": "PCB1"
+        "revision": "A"           # optional
+        "batch_number": "12-24"   # optional
       },
       run_passed = True
     )
