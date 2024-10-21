@@ -1,10 +1,10 @@
 'use client'
 
-import { useRef } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useRef } from 'react'
 
 import { Button } from '@/components/Button'
 import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
@@ -231,7 +231,7 @@ function NavigationGroup({
 
 export const navigation: Array<NavGroup> = [
   {
-    title: 'Getting Started',
+    title: 'Get Started',
     links: [
       {
         title: 'Quickstart',
@@ -240,8 +240,12 @@ export const navigation: Array<NavGroup> = [
     ],
   },
   {
-    title: 'Uploading Test Runs',
+    title: 'Upload Test Runs',
     links: [
+      {
+        title: 'Unit under test (UUT)',
+        href: '/unit-under-test-uut',
+      },
       {
         title: 'Steps',
         href: '/steps',
@@ -260,27 +264,15 @@ export const navigation: Array<NavGroup> = [
       },
     ],
   },
-  // {
-  //   title: 'Integrations',
-  //   links: [
-  //     {
-  //       title: 'LabView',
-  //       href: '/labview',
-  //     },
-  //     {
-  //       title: 'Matlab',
-  //       href: '/matlab',
-  //     },
-  //     {
-  //       title: 'OpenHTF',
-  //       href: '/openhtf',
-  //     },
-  //     {
-  //       title: 'Odoo',
-  //       href: '/odoo',
-  //     },
-  //   ],
-  // },
+  {
+    title: 'Integrations',
+    links: [
+      {
+        title: 'OpenHTF',
+        href: '/integrations/openhtf',
+      },
+    ],
+  },
   {
     title: 'Guides',
     links: [

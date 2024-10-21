@@ -1,0 +1,81 @@
+export const metadata = {
+  title: 'Unit under test (UUT)',
+  description:
+    "This guide explains how to use TofuPilot's sub-units feature to ensure traceability of tests and serial numbers throughout the assembly process.",
+}
+
+# Unit under test (UUT)
+
+Track the serial number, part number and revision of the unit under test. {{ className: 'lead' }}
+
+<Image
+  src="/uut-header.png"
+  alt="OpenHTF Unit Under Test (UUT) section header with TofuPilot integration."
+/>
+
+## Overview
+
+Tracking hardware tests by serial number is key for traceability and performance monitoring. With TofuPilot, you can specify serial numbers, part numbers, revisions, and batch numbers for each unit. This makes it easy to trace test results, spot quality issues, and analyze performance across batches or revisions.
+
+## Integration
+
+<Row>
+  <Col>
+  If using your own test framework with the Python client, specify parameters in `unit_under_test` when creating the run. With frameworks like OpenHTF, the serial number is auto-retrieved, and extra parameters can be added as metadata.
+
+    <Properties>
+      <Property name="serial_number" type="str">
+        Name of the step.
+      </Property>
+      <Property name="part_number" type="str">
+        Part number of the unit under test.
+      </Property>
+      <Property name="revision" type="str (optional)">
+        Revision of the unit under test.
+      </Property>
+      <Property name="batch_number" type="str (optional)">
+        Batch number of the unit under test.
+      </Property>
+    </Properties>
+
+  </Col>
+
+  <Col>
+    <CodeGroup>
+    ```python {{ title: 'OpenHTF Integration'}}
+      from openhtf import Test
+      from tofupilot.openhtf import TofuPilot
+
+      def main():
+          phases = [ ] # Your test phases here
+          test = Test(phases,
+              part_number = "PCB1"
+              revision = "A"           # optional
+              batch_number = "12-24"   # optional
+          )
+          with TofuPilot(test):
+              test.execute(lambda: 'PCB1A001') # UUT S/N
+
+      if __name__ == '__main__':
+          main()
+    ```
+    ```python {{ title: 'Python Client'}}
+    from tofupilot import TofuPilotClient
+
+    client = TofuPilotClient()
+
+    response = client.create_run(
+      procedure_id = "FVT1",
+      unit_under_test = {
+        "serial_number": "PCB1A001",
+        "part_number": "PCB1"
+        "revision": "A"           # optional
+        "batch_number": "12-24"   # optional
+      },
+      run_passed = True
+    )
+    ```
+    </CodeGroup>
+
+  </Col> 
+</Row>
