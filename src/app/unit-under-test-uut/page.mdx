@@ -75,20 +75,6 @@ Tracking hardware tests by serial number is key for traceability and performance
       run_passed = True
     )
     ```
-    ```python {{ title: 'API REST'}}
-   curl -X POST https://www.tofupilot.com/api/v1/runs -H "Content-Type: 
-   application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
-      "procedure_id": "FVT1",
-      "unit_under_test": {
-        "serial_number": "PCB1A001",
-        "part_number": "PCB1",
-        "revision": "A",           # optional
-        "batch_number": "12-24",   # optional
-      },
-      "run_passed": true,
-      "duration": "PT27M15S"
-}'
-    ```
     </CodeGroup>
 
   </Col> 
