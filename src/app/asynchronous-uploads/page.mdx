@@ -14,11 +14,11 @@ Upload your test results at any time. {{ className: 'lead' }}
 
 
 ## Overview
-TofuPilot allows you to upload your data in real-time, but you might also need to upload your data asynchronously—for example, if you're not connected to the internet during testing or to bulk import past test data.
+TofuPilot allows you to upload your test results in real-time, but you might also need to upload them asynchronously—for example, if you're not connected to the internet during testing or to bulk import data from previous tests.
 
 
 ## Integration
-You can upload test data anytime, specifying `started_at` to keep the original test date; otherwise, the upload date will apply. Use `create_run` to add test details or attachments with TofuPilot Python Client, or `create_report_from_openhtf_record` to upload your OpenHTF JSON record on TofuPilot.
+You can upload test results anytime, specifying `started_at` to keep the original test date; otherwise, the upload date will apply. Use `create_run` to add test details or attachments with the TofuPilot Python Client, or `create_report_from_openhtf_record` to upload your OpenHTF JSON record to TofuPilot.
 
 ```python {{ title: 'Python Client'}}
 from tofupilot import TofuPilotClient
