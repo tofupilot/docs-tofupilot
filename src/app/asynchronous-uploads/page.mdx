@@ -20,6 +20,7 @@ TofuPilot allows you to upload your test results in real-time, but you might als
 ## Integration
 You can upload test results anytime, specifying `started_at` to keep the original test date; otherwise, the upload date will apply. Use `create_run` to add test details or attachments with the TofuPilot Python Client, or `create_report_from_openhtf_record` to upload your OpenHTF JSON record to TofuPilot.
 
+<CodeGroup>
 ```python {{ title: 'Python Client'}}
 from tofupilot import TofuPilotClient
 from datetime import datetime, timedelta, timezone
@@ -46,7 +47,19 @@ def main():
     attachments=["path/to/your/attachment"],
   )
 ```
+```python {{ title: 'OpenHTF'}}
+from tofupilot import TofuPilotClient
 
+client = TofuPilotClient()
+
+def main():
+    file_path = "path/to/your/openhtf/report.json"
+    client.create_run_from_openhtf_report(file_path)
+
+if __name__ == "__main__":
+    main()
+```
+</CodeGroup>
 Uploaded runs then appear on the Runs page with their upload date.
 
 <Image
