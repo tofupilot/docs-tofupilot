@@ -7,63 +7,49 @@ export const metadata = {
 # Asynchronous run uploads
 Upload your test results at any time. {{ className: 'lead' }}
 
+<Image
+  src="/asynchronous-uploads.png"
+  alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
+/>
+
 
 ## Overview
-TofuPilot allows you to import your data in real-time, but you might also need to upload your data asynchronously—for example, if you're not connected to the internet during testing or to bulk import past test data.
+TofuPilot allows you to upload your data in real-time, but you might also need to upload your data asynchronously—for example, if you're not connected to the internet during testing or to bulk import past test data.
 
 
 ## Integration
-Tu peux upload tes données de tests dans TofuPilot, en spécifiant la date de début du run avec `started_at`. Ce champ est optionnel et s'il n'est pas spécifié, la date d'upload est prise en compte. Dans create_run, tu peux ajouter toutes les informations du tests ou des attachments.
+You can upload test data anytime, specifying `started_at` to keep the original test date; otherwise, the upload date will apply. Use `create_run` to add test details or attachments with TofuPilot Python Client, or `create_report_from_openhtf_record` to upload your OpenHTF JSON record on TofuPilot.
 
-Tu peux ensuite voir les uploaded runs dans la page `Runs`.
-
-
-Update scripts: python + openhtf
-
-<CodeGroup>
-```python {{ title: 'OpenHTF Integration'}}
-  from openhtf import Test
-  from tofupilot.openhtf import TofuPilot
-
-  def main():
-      phases = [ ] # Your test phases here
-      test = Test(phases,
-          part_number = "PCB1"
-          revision = "A"           # optional
-          batch_number = "12-24"   # optional
-      )
-      with TofuPilot(test):
-          test.execute(lambda: 'PCB1A001') # UUT S/N
-
-  if __name__ == '__main__':
-      main()
-```
 ```python {{ title: 'Python Client'}}
 from tofupilot import TofuPilotClient
 from datetime import datetime, timedelta, timezone
 
 client = TofuPilotClient()
 
-def upload_your_results():
-  # Convert a date string into a datetime object in the UTC timezone
+# Convert a date string into a datetime object in the UTC timezone
+def convert_your_results():
   date_string = "25-10-2024 14:30"
-  started_at = datetime.strptime(date_string, "%d-%m-%Y %H:%M")
-  started_at_utc_time = started_at.replace(tzinfo=timezone.utc)
-  ...
-  return started_at_utc_time
+  started_at = datetime.strptime(date_string, "%d-%m-%Y %H:%M").replace(tzinfo=timezone.utc)
+  return started_at
 
 def main():
-  started_at = upload_your_results
+  started_at = convert_your_results()
+
   response = client.create_run(
     procedure_id = "FVT1",
     started_at = started_at # datetime object
     unit_under_test = {
       "serial_number": "PCB1A001",
-      "part_number": "PCB1"
-      "revision": "A",
+      "part_number": "PCB1",
     },
     run_passed = True,
-    attachments=["path/to/your/attachment.txt"],
+    attachments=["path/to/your/attachment"],
   )
 ```
-</CodeGroup>
+
+Uploaded runs then appear on the Runs page with their upload date.
+
+<Image
+  src="/asynchronous-page-runs.png"
+  alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
+/>
