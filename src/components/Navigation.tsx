@@ -279,6 +279,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'User Management', href: '/user-management' },
       { title: 'Python Client', href: '/clients/python' },
       { title: 'REST API Reference', href: '/api' },
+      { title: 'Offline data uploads', href: '/asynchronous-uploads' },
     ],
   },
   {
