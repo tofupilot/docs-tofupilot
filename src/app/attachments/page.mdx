@@ -12,9 +12,48 @@ This guide shows how to attach one or several files during the creation of a run
 
 ## Example
 
-To log test attachments, this script defines a test function, captures its results along with associated files, and uploads them to the `attachments` field in `create_run`.
+To log test attachments, this script defines a test function, captures its results along with associated files, and uploads them via the `attachments` field.
 
-```python {{ title: 'create_run_with_attachments.py'}}
+<CodeGroup label='create_run_with_attachments.py'>
+
+```python {{ title: 'Pytest plugin' }}
+import json
+import matplotlib.pyplot as plt
+
+from tofupilot import conf
+
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")  # Test metadata
+
+def generate_json_file():
+    with open("test_result.json", "w") as f:
+        json.dump(
+            {
+                "test_result": "pass",
+                "details": {"measurement": "temperature", "value": 23.5},
+            },
+            f,
+
+def generate_temperature_graph():
+    plt.plot([0, 1, 2, 3, 4, 5], [22, 23, 23.5, 24, 23.8, 23.5])
+    plt.xlabel("Time (s)")
+    plt.ylabel("Temperature (C)")
+    plt.title("Temperature Sensor Measurements")
+    plt.savefig("temperature-map.png")
+
+def get_attachments():
+    generate_json_file()
+    generate_temperature_graph()
+    return ["temperature-map.png", "test_result.json"]
+
+def test_with_attachments():
+    attachments = get_attachments()  # Generate and retrieve the file paths of attachments
+
+    assert attachments is not None  # Ensure that attachments were generated
+
+    conf.set(attachments=attachments)  # Attach the generated files to the test configuration
+```
+
+```python {{ title: 'Python client' }}
 from tofupilot import TofuPilotClient
 import json
 import matplotlib.pyplot as plt
@@ -42,12 +81,14 @@ run_passed, attachments = test_function()
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-        "serial_number": "00102",
+        "serial_number": "PCBA01-0001",
     },
     run_passed=run_passed,
     attachments=attachments
 )
 ```
+
+</CodeGroup>
 
 ## Run Page
 

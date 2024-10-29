@@ -54,13 +54,29 @@ export function Note({ children }: { children: React.ReactNode }) {
   )
 }
 
-function CustomImage({ src, alt }: { src: string; alt: string }) {
+function CustomImage({
+  src,
+  alt,
+  width = 1000,
+  height = 800,
+  className,
+}: {
+  src: string
+  alt: string
+  width?: number
+  height?: number
+  className?: string
+}) {
   return (
     <Image
-      {...{ src, alt }}
-      width={1000}
-      height={800}
-      className="w-full rounded-lg border-4 border-zinc-300 shadow-sm ring-1 ring-zinc-400 dark:ring-zinc-500"
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      className={clsx(
+        'w-full rounded-lg border-4 border-zinc-200 shadow-sm ring-1 ring-zinc-300 dark:border-zinc-600 dark:ring-zinc-700',
+        className,
+      )}
     />
   )
 }

@@ -33,3 +33,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# virtual env
+venv/*
+
+# pycache
+__pycache__/
+
+# test scripts
+framework/*
+test_report.json

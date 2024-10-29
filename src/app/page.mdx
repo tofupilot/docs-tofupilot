@@ -43,57 +43,78 @@ After creating your account, an interactive guide within the application will wa
 
 2.  Install the TofuPilot Python client:
 
-    ```bash
-    pip install tofupilot
-    ```
+```bash
+pip install tofupilot
+```
 
 3.  Retrieve your API key from [My Profile](/user-management#api-key) page and save it as an environment variable.
 
-    <CodeGroup>
-    ```bash {{ title: 'Linux, macOS' }}
-    echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
-    ```
+<CodeGroup>
 
-    ```bash {{ title: 'Windows' }}
-    setx TOFUPILOT_API_KEY "<your_key_here>"
-    ```
+```bash {{ title: 'Linux, macOS' }}
+echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
+```
 
-    </CodeGroup>
+```bash {{ title: 'Windows' }}
+setx TOFUPILOT_API_KEY "<your_key_here>"
+```
+
+</CodeGroup>
 
 4.  Create a new Python script and paste the following code:
 
-    ```python {{ title: 'create_run.py'}}
-    from tofupilot import TofuPilotClient
-    from datetime import datetime
+<CodeGroup label="create_run.py">
 
-    client = TofuPilotClient()
+```python {{ title: 'Pytest plugin' }}
+import time
+from tofupilot import conf
 
-    # Test function
-    def test():
-        return True
+# Setting test metadata with procedure ID, serial number, and part number
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001", part_number="PCBA01")
 
-    # Run test function
-    start_time = datetime.now()
-    run_passed = test()
-    end_time = datetime.now()
 
-    # Create a test run
-    response = client.create_run(
-        procedure_id="FVT1",
-        unit_under_test={
-          "serial_number": "000001", # Serial Number = Individual Item
-          "part_number": "PCBA01" # Part Number = Type of Item
-        },
-        run_passed=run_passed,
-        duration=end_time - start_time
-    )
-    ```
+def test_simple():
+    # Simulating a test run with a 1-second duration
+    # The duration will be automatically measured and recorded in the test run
+    time.sleep(1)
+
+    # If all assertions pass, the test will be marked with a Pass status
+    assert True
+```
+
+```python {{ title: 'Python client' }}
+from tofupilot import TofuPilotClient
+from datetime import timedelta
+
+client = TofuPilotClient()
+
+# Create a test run
+response = client.create_run(
+    procedure_id="FVT1",
+    unit_under_test={
+      "serial_number": "PCBA01-0001",
+      "part_number": "PCBA01"
+    },
+    run_passed=True, # Status of the test run
+    duration=timedelta(minutes=12, seconds=13) # Test duration
+)
+```
+
+</CodeGroup>
 
 5.  Run the script:
 
-    ```bash
-    python create_run.py
-    ```
+<CodeGroup>
+
+```bash {{ title: 'Pytest plugin' }}
+pytest --tofupilot create_run.py
+```
+
+```bash {{ title: 'Python client' }}
+python create_run.py
+```
+
+</CodeGroup>
 
 The console returns:
 
@@ -109,7 +130,7 @@ Congratulations, your first run has been created on TofuPilot 🎉
 
 Open the link from the console or navigate to the Run page. The Run has been created:
 
-<Image src={'/run-first-upload.png'} alt={'First Run'} />
+<Image src="/run-first-upload.png" alt="First Run" />
 
 Here's what happened:
 

@@ -10,6 +10,12 @@ Most hardware products are made of multiple components, tested individually and 
 
 This guide explains how to use TofuPilot's sub-units feature to automatically ensure the traceability of tests and serial numbers throughout the assembly process.
 
+<Note>
+  This guide details the process of marking units as sub-units when creating a
+  test run for a given unit. If you need to set sub-units without creating a
+  test run, refer to the [API Reference](/api#update-unit).
+</Note>
+
 ## Test Strategy
 
 ### Introduction
@@ -49,18 +55,39 @@ Use our Figma template to quickly create a test flowchart for your product.
 
 ## Example
 
-To add sub-units in an assembly test, specify their serial number in the `sub-units` parameter in `create-run`.
+To add sub-units in an assembly test, use the `sub_units` parameter to mark certain units as sub-units of test unit.
 
-```python {{ title: 'create_run_with_sub_units.py'}}
+<CodeGroup label='create_run_with_sub_units.py'>
+
+```python {{ title: 'Pytest plugin'}}
+from tofupilot import conf
+
+conf.set(
+    procedure_id="FVT3",
+    serial_number="BAT01-0001",
+    part_number="BAT01",
+)
+
+def test_sub_units():
+    # Listing example sub_units
+    sub_units = [
+        {"serial_number": "PCBA01-0001"},
+        {"serial_number": "CELL01-0001"},
+        {"serial_number": "CELL01-0002"},
+        {"serial_number": "CELL01-0003"},
+    ]
+
+    # Setting the sub_units in the test configuration
+    conf.set(sub_units=sub_units)
+
+    # Rest of your test here...
+    assert True
+```
+
+```python {{ title: 'Python client'}}
 from tofupilot import TofuPilotClient
 
 client = TofuPilotClient()
-
-def test_function():
-    # your test execution goes here
-    return True
-
-run_passed = test_function()
 
 client.create_run(
     procedure_id="FVT3",
@@ -68,7 +95,7 @@ client.create_run(
       "serial_number": "BAT01-0001",
       "part_number": "BAT01"
     },
-    run_passed=run_passed,
+    run_passed=True,
     sub_units=[
       {"serial_number": "PCBA01-0001"},
       {"serial_number": "CELL01-0001"},
@@ -77,6 +104,8 @@ client.create_run(
     ]
 )
 ```
+
+</CodeGroup>
 
 ## Unit Pages
 

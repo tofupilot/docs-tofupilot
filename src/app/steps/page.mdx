@@ -1,6 +1,7 @@
 export const metadata = {
   title: 'Steps',
-  description: 'This guide shows how to create and add various test steps in Tofupilot and view the automatically generated reports, helping to identify frequent failures and time-consuming steps.',
+  description:
+    'This guide shows how to create and add various test steps in Tofupilot and view the automatically generated reports, helping to identify frequent failures and time-consuming steps.',
 }
 
 # Steps
@@ -9,32 +10,181 @@ Hardware manufacturing tests often involve multiple steps such as connections, m
 
 This guide shows how to create and add various test steps in Tofupilot and view the automatically generated reports. This helps you quickly identify frequent failures and time-consuming steps, allowing you to focus on improvements.
 
-## Example
+## Simple example
 
-To log test step details, this script defines test functions, runs them sequentially, captures their results, and adds them to the `steps` table in `create_run`.
+<CodeGroup label='create_run_with_step_simple'>
 
-<Note>
-  This example is designed to be framework-agnostic and offers a simple
-  sequencing logic suitable. For manufacturing deployments, we recommend using
-  proven test sequencers like [PyTest](https://docs.pytest.org/en/8.2.x/),
-  [OpenHTF](https://www.openhtf.com/), or your own.
-</Note>
+```python {{ title: 'Pytest plugin'}}
+import time
+from tofupilot import conf
+
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")  # Test metadata
+
+def test_simple_step():
+    time.sleep(1)  # Duration of the test run (will be auto computed)
+    assert True  # Status of the test run
+```
+
+```python {{ title: 'Python client'}}
+"""
+If a run has `steps` but no defined `duration`, the `duration` will be automatically calculated as the sum of the durations of its steps (e.g., 2 minutes and 30 seconds in this example).
+"""
+
+from tofupilot import TofuPilotClient
+from datetime import datetime, timedelta
+
+client = TofuPilotClient()
+
+client.create_run(
+    procedure_id="FVT1",
+    unit_under_test={
+      "serial_number": "PCBA01-0001",
+    },
+    duration=timedelta(minutes=2, seconds=30),
+    run_passed=True,  # Overall run status
+    steps=[{
+      "name": "Power On Self Test",
+      "step_passed": True,  # Status of the step
+      "duration": timedelta(minutes=2, seconds=30),  # Duration of the step
+      "started_at": datetime.now(),  # Start time of the step
+    }],
+)
+```
+
+</CodeGroup>
+
+## Complete example
+
+This script shows a complete example of all TofuPilot's steps functionnality (measured value, limits, units...).
+
+<CodeGroup label="create_run_with_steps_complete.py">
+
+```python {{ title: 'Pytest plugin' }}
+from tofupilot import conf, string_step, numeric_step
+
+# Test metadata configuration
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
+
+# Dummy test to check the connection status (First step)
+def test_connect():
+    assert True
+
+# Simulate checking a firmware version string (Second step)
+@string_step
+def test_firmware_version_check(step):
+    # Set the expected firmware version
+    expected_version = "Firmware_v2.5.1"
+    step.set_name("Firmware Version Check").set_limit(expected_version)
+
+    # Simulate retrieving the current firmware version from the device
+    current_firmware_version = "Firmware_v2.5.1"
+    step.measure(current_firmware_version)  # Registering the measured firmware version
+
+    # Assert that the firmware version matches the expected version
+    assert step()
+
+# Performing a temperature calibration check (Third step)
+@numeric_step
+def test_temp_calibration(step):
+    # Indicating that in order for the step to be passed, the measured value should be between 70°C and 80°C
+    step.set_limits(70, 80).set_units("°C")
+
+    # Simulate measuring the temperature during the calibration process
+    measured_value = 75  # Measured temperature value after calibration
+    step.measure(measured_value)  # Registering measured value
+
+    # Step status will be auto determined from given measurement and limits
+    assert step()
+```
+
+```python {{ title: 'Python client'}}
+from tofupilot import TofuPilotClient
+from datetime import datetime, timedelta
+
+client = TofuPilotClient()
+
+client.create_run(
+    procedure_id="FVT1",
+    unit_under_test={
+        "serial_number": "PCBA01-0001",
+    },
+    run_passed=True,  # Overall run status
+    steps=[
+        {
+            "name": "step_connect",  # First step
+            "step_passed": True,  # Status of the step
+            "duration": timedelta(seconds=3),  # Duration of the step
+            "started_at": datetime.now(),  # Start time of the step
+        },
+        {
+            "name": "test_firmware_version_check",  # Second step
+            "step_passed": True,  # Status of the step
+            "duration": timedelta(milliseconds=500),  # Duration of the step (<1s)
+            "started_at": datetime.now() + timedelta(seconds=3),  # Start time of the second step
+            "measurement_value": "Firmware_v2.5.1",  # Measured value
+        },
+        {
+            "name": "step_temp_calibration",  # Third step
+            "step_passed": True,  # Status of the step
+            "duration": timedelta(milliseconds=500),  # Duration of the step (<1s)
+            "started_at": datetime.now() + timedelta(seconds=4),  # Start time of the fourth step
+            "measurement_value": 75,  # Measured temperature value after calibration
+            "measurement_unit": "°C",  # Unit of the measurement (temperature)
+            "limit_low": 70,  # Lower limit of acceptable temperature
+            "limit_high": 80  # Upper limit of acceptable temperature
+        }
+    ],
+)
+```
+
+</CodeGroup>
 
 ## Run Page
 
 A dedicated **Steps** section is automatically created on the Run’s page.
 
-<Image src={'/steps-run.png'} alt={'Steps of Run'} />
+<Image src="/steps-run.png" alt="Steps of Run" />
 
 ## Procedure Page
 
-The Procedure page provides a summary of the steps' run count, status, and average duration in the **Steps** section:
+### Steps section
 
-<Image src={'/steps-procedure.png'} alt={'Steps Runs of Procedures'} />
+On the Procedure page, steps from all executed runs are grouped by name, with an overview showing the performance and average duration for each step across the runs:
 
-## Run Duration
+<Image src="/steps-charts.png" alt="Steps Runs of Procedures" />
 
-If no total test duration is provided, it will be computed as the sum of the durations of all the steps. However, if a total test duration is specified, it will override the computed sum.
+### Steps selection
+
+To see a detailed overview of any step's performance, simply click on it.
+
+### Steps analytics
+
+After selecting a step, all the charts that were visible at the procedure's runs level are now accessible at the step level.
+
+<Image src="/step-charts.png" alt="Analytics on selected step" />
+
+### Steps Control Chart
+
+**If the selected step includes values and at least one defined limit** (either a `limit_low` or `limit_high` or both), a new chart, called the **Control Chart** will be displayed. This chart visualizes the progression of all measured values for the step over time, compared against its limits.
+
+<Image src="/step-control-chart.png" alt="Step control chart example" />
+
+<Note>
+  If the limit definitions have changed over time, the most recent limits
+  provided will be used.
+</Note>
+
+### Steps deselection
+
+To unselect a step, simply click on it's name on the topbar of the page.
+
+<Image
+  src="/step-unselect.png"
+  alt="Unselection of step"
+  width={250}
+  height={200}
+  className="mx-4 max-w-48"
+/>
 
 ## API Reference
 
@@ -43,33 +193,37 @@ Each `step` in the `steps` array provided to `create_run` should include the fol
 ### Required
 
 <Properties>
-  <Property name="name" type="string">
-    Name of the step.
+  <Property name="name" type="string, required">
+    The name of the step. _Example: "temperature_calibration"_
   </Property>
-  <Property name="started_at" type="datetime">
-    Timestamp when the step started.
+  <Property name="step_passed" type="boolean, required">
+    Indicates if the step passed. _Example: true_
   </Property>
-  <Property name="duration" type="timedelta">
-    Duration of the step in seconds.
+  <Property name="started_at" type="string, required">
+    ISO 8601 start time of the step. _Example: "2024-09-11T08:00:00Z"_
   </Property>
-  <Property name="step_passed" type="boolean">
-    Indicates whether the step passed.
+  <Property name="duration" type="string, required">
+    The duration of the step.
+
+    - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
+    - For [Python Client](./clients/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
+
   </Property>
 </Properties>
 
 ### Optional
 
 <Properties>
-  <Property name="measurement_value" type="number or None">
-    Value measured during the step, if any.
+  <Property name="measurement_unit" type="string, optional">
+    The unit of measurement for the value. _Example: "°C"_
   </Property>
-  <Property name="measurement_unit" type="string or None">
-    Unit of the measurement value, if any.
+  <Property name="measurement_value" type="float, optional">
+    The value measured during step. _Example: 12.25_
   </Property>
-  <Property name="limit_low" type="number or None">
-    Lower limit for the measurement, if any.
+  <Property name="limit_low" type="float, optional">
+    Minimum threshold. _Example: 11.44_
   </Property>
-  <Property name="limit_high" type="number or None">
-    Upper limit for the measurement, if any.
+  <Property name="limit_high" type="float, optional">
+    Maximum threshold. _Example: 13.2_
   </Property>
 </Properties>

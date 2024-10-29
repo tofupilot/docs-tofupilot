@@ -1,0 +1,201 @@
+export const metadata = {
+  title: 'Pytest Plugin',
+  description:
+    'This guide provides information on the TofuPilot open-source pytest plugin, including installation, usage, and contribution guidelines.',
+}
+
+# Pytest Plugin
+
+Many hardware teams prefer Python and pytest for testing because of their simplicity and broad library support. The TofuPilot pytest plugin enhances pytest to meet the specific needs of hardware testing. {{ className: 'lead' }}
+
+## Installation
+
+Installing the TofuPilot Python client automatically installs the pytest plugin, as well as pytest itself if it is not already installed.
+
+```bash
+pip install tofupilot
+```
+
+## Usage
+
+The TofuPilot pytest plugin builds on pytest’s familiar syntax, making it easy to adopt while offering additional features geared toward hardware testing. It consists of two parts:
+
+• **Configuration**: This section, _which can be placed and modified anywhere in the script_, specifies metadata about the test being performed.
+
+• **Testing**: This section contains one or more functions representing individual test steps. Each function should be prefixed with `test_`, following pytest’s recommendations for proper recognition.
+
+### Setting Metadata
+
+For TofuPilot pytest scripts to function, metadata like the UUT’s serial number must be provided. You can define and update this configuration anywhere in your script using the conf.set method
+
+```python {{ label: 'your_pytest_script.py' }}
+from tofupilot import conf
+
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001", part_number="PCBA01", revision="A")
+
+# Rest of your script here
+```
+
+- The `conf.set` method accepts the following arguments:
+
+  - `procedure_id` (str, required)
+  - `serial_number` (str, required)
+  - `part_number` (str, optional)
+  - `revision` (str, optional)
+  - `attachments` (List[str], optional): [See more](/attachments)
+  - `report_variables` (Dict[str, str], optional): [See more](/report)
+  - `sub_units` (List[Dict["serial_number", str]], optional): [See more](/sub-units)
+
+<Note>
+For greater flexibility, you can chain multiple calls to `conf.set`. For
+example:
+`conf.set(procedure_id="FVT1").set(attachments=['./temperature-map.png'])`.
+
+You can call `conf.set` as many times as needed in your code. For instance,
+after retrieving the UUT's revision in a step, you can add it within the step with
+`conf.set(revision=found_revision)`.
+
+</Note>
+
+### Steps
+
+In the TofuPilot pytest plugin, each test function (i.e., functions that begin with `test_`) represents an individual step in the testing process.
+
+- The outcome of a step is determined by the assertions within the test function.
+- If all assertions in a step pass, the step is considered successful.
+- The overall result of the test run is "Pass" if every step succeeds; otherwise, the result is "Fail".
+
+### Defining Boolean Test Steps
+
+To create a simple boolean test step, define a pytest function that includes one or more assertions.
+
+```python {{ label: 'your_pytest_script.py' }}
+from tofupilot import conf
+
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
+
+def test_passing_step():
+  assert True
+
+def test_failing_step():
+  assert False
+```
+
+<Note>
+  This script sets up a test run for procedure `FVT1` on unit `PCBA01-0001`. It includes two test steps:
+  
+  - `test_passing_step()`: This step will pass as the assertion is `True`.
+  - `test_failing_step()`: This step will fail due to a `False` assertion.
+
+The global status of the test run will be marked as `Fail` because one of the steps did not pass.
+
+</Note>
+
+### Defining String Measurement Steps
+
+To register a step that performs a string measurement:
+
+1. Define a new test function prefixed with `test_` (following pytest best practices).
+2. Add the `@string_step` decorator to the function.
+3. Include a `step` parameter, which will automatically be populated with a valid object.
+4. End the function with `assert step()`.
+
+```python {{ label: 'your_pytest_script.py' }}
+from tofupilot import conf, string_step
+
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
+
+@string_step
+def test_string_limit(step):
+    # Set the step name and the expected string limit
+    step.set_name("Firmware Version Check").set_limit("Firmware_v2.5.1")
+
+    # Simulate retrieving the current firmware version from the device
+    current_firmware_version = "Firmware_v2.5.1"
+    # Register measurement
+    step.measure(current_firmware_version)
+
+    # Assert that the registered string matches the provided limit
+    assert step()
+```
+
+- Available methods for string measurement steps:
+  - `step.measure(measurement: number)` (Required)
+  - `step.set_name(name: string)` (Optional, defaults to the function name)
+  - `step.set_limit(limit: string)` (Optional, defaults to Pass if not provided)
+
+### Defining Numeric Measurement Steps
+
+To register a step that performs a numeric measurement:
+
+1. Define a new test function prefixed with `test_`.
+2. Add the `@numeric_step` decorator to the function.
+3. Include a `step` parameter, which will automatically be populated with a valid object.
+4. End the function with `assert step()`.
+
+```python {{ label: 'your_pytest_script.py' }}
+from tofupilot import conf, numeric_step
+
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
+
+@numeric_step
+def test_numeric_limits(step):
+    # Set the step name, measurement units, and expected numeric limits
+    step.set_name("Voltage Level Check").set_units("V").set_limits(low=12, high=15)
+
+    # Simulate measuring the voltage
+    measured_voltage = 14
+    # Register the measurement
+    step.measure(measured_voltage)
+
+    # Assert that the measured value is within the specified limits
+    assert step()
+```
+
+- Available methods for numeric measurement steps:
+  - `step.measure(measurement: number)` (Required)
+  - `step.set_name(name: string)` (Optional, defaults to the function name)
+  - `step.set_limits(low: Optional[number], high: Optional[number])` (Optional, defaults to Fail if not provided)
+  - `step.set_units(units: string)` (Optional)
+
+<div className="not-prose">
+  <Button href="/steps#complete-example" variant="text" arrow="right">
+    See complete example
+  </Button>
+</div>
+
+## Execution
+
+To run tests using the TofuPilot pytest plugin, use the `--tofupilot` argument.
+
+```bash
+pytest --tofupilot your_script.py
+```
+
+## Contribute
+
+The TofuPilot pytest plugin is **open source** under an **MIT license**. We encourage contributions, and a detailed guide is available on GitHub. For issues or feature requests, please open an issue on GitHub so we can assist you.
+
+<div className="not-prose">
+  <Button
+    href="https://github.com/tofupilot/python-client"
+    variant="text"
+    arrow="right"
+    target="_blank"
+    rel="noopener"
+  >
+    Visit GitHub repository
+  </Button>
+</div>
+
+<div className="not-prose mt-8">
+  <Button
+    href="https://pypi.org/project/tofupilot/"
+    variant="text"
+    arrow="right"
+    target="_blank"
+    rel="noopener"
+  >
+    Visit PyPi page
+  </Button>
+</div>
