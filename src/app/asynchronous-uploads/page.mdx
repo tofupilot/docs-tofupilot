@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Asynchronous runs upload',
+  title: 'Asynchronous upload',
   description:
     "This guide explains how to use TofuPilot's asynchronous bulk upload feature to ensure analytics with asynchronous data loading.",
 }
 
-# Asynchronous run uploads
-Upload your test results at any time. {{ className: 'lead' }}
+# Asynchronous upload
+Upload your test results at any time after their execution. {{ className: 'lead' }}
 
 <Image
   src="/asynchronous-uploads.png"
@@ -29,14 +29,14 @@ from datetime import datetime, timedelta, timezone
 
 client = TofuPilotClient()
 
-# Convert a date string into a datetime object in the UTC timezone
-def convert_your_results():
+def load_your_results():
+  # Convert a date string into a datetime object in the UTC timezone
   date_string = "25-10-2024 14:30"
   started_at = datetime.strptime(date_string, "%d-%m-%Y %H:%M").replace(tzinfo=timezone.utc)
   return started_at
 
 def main():
-  started_at = convert_your_results()
+  started_at = load_your_results()
 
   response = client.create_run(
     procedure_id = "FVT1",
