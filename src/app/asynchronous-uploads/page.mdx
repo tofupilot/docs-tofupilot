@@ -1,0 +1,70 @@
+export const metadata = {
+  title: 'Asynchronous upload',
+  description:
+    "This guide explains how to use TofuPilot's asynchronous bulk upload feature to ensure analytics with asynchronous data loading.",
+}
+
+# Asynchronous upload
+Upload your test results at any time after their execution. {{ className: 'lead' }}
+
+<Image
+  src="/asynchronous-uploads.png"
+  alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
+/>
+
+
+## Overview
+TofuPilot allows you to upload your test results in real-time, but you might also need to upload them asynchronously—for example, if you're not connected to the internet during testing or to bulk import data from previous tests.
+
+
+## Integration
+With the TofuPilot Python Client, you can upload test results, specifying `started_at` to keep the original test date; otherwise, the upload date will apply. Then use `create_run` to add test details or attachments.
+
+Or you can use `create_report_from_openhtf_record` to upload your OpenHTF JSON record to TofuPilot.
+
+<CodeGroup>
+```python {{ title: 'Python Client'}}
+from tofupilot import TofuPilotClient
+from datetime import datetime, timedelta, timezone
+
+client = TofuPilotClient()
+
+def load_your_results():
+  # Convert a date string into a datetime object in the UTC timezone
+  date_string = "25-10-2024 14:30"
+  started_at = datetime.strptime(date_string, "%d-%m-%Y %H:%M").replace(tzinfo=timezone.utc)
+  return started_at
+
+def main():
+  started_at = load_your_results()
+
+  response = client.create_run(
+    procedure_id = "FVT1",
+    started_at = started_at # datetime object
+    unit_under_test = {
+      "serial_number": "PCB1A001",
+      "part_number": "PCB1",
+    },
+    run_passed = True,
+    attachments=["path/to/your/attachment"],
+  )
+```
+```python {{ title: 'OpenHTF'}}
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+def main():
+    file_path = "path/to/your/openhtf/report.json"
+    client.create_run_from_openhtf_report(file_path)
+
+if __name__ == "__main__":
+    main()
+```
+</CodeGroup>
+Uploaded runs then appear on the Runs page with their upload date.
+
+<Image
+  src="/asynchronous-page-runs.png"
+  alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
+/>
