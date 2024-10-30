@@ -240,48 +240,36 @@ export const navigation: Array<NavGroup> = [
     ],
   },
   {
-    title: 'Upload Test Runs',
+    title: 'Test Runs',
     links: [
-      {
-        title: 'Unit under test (UUT)',
-        href: '/unit-under-test-uut',
-      },
-      {
-        title: 'Steps',
-        href: '/steps',
-      },
-      {
-        title: 'Attachments',
-        href: '/attachments',
-      },
-      {
-        title: 'Report',
-        href: '/report',
-      },
-      {
-        title: 'Sub-units',
-        href: '/sub-units',
-      },
+      { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
+      { title: 'Steps', href: '/steps' },
+      { title: 'Attachments', href: '/attachments' },
+      { title: 'Report', href: '/report' },
+      { title: 'Sub-units', href: '/sub-units' },
+      { title: 'Procedures', href: '/procedures' },
     ],
   },
   {
     title: 'Integrations',
     links: [
-      {
-        title: 'OpenHTF',
-        href: '/integrations/openhtf',
-      },
+      { title: 'OpenHTF', href: '/integrations/openhtf' },
+      { title: 'Python', href: '/clients/python' },
+      { title: 'Pytest', href: '/clients/pytest' }, // to remove
+      { title: 'REST API', href: '/api' },
+    ],
+  },
+  {
+    title: 'Dashboard',
+    links: [
+      { title: 'Test steps analysis', href: '/user-management' },
+      { title: 'Traceability', href: '/user-management' },
+      { title: 'User Management', href: '/user-management' },
     ],
   },
   {
     title: 'Guides',
-    links: [
-      { title: 'User Management', href: '/user-management' },
-      { title: 'Pytest Plugin', href: '/clients/pytest' },
-      { title: 'Python Client', href: '/clients/python' },
-      { title: 'REST API Reference', href: '/api' },
-      { title: 'Asynchronous upload', href: '/asynchronous-upload' },
-    ],
+    links: [{ title: 'Asynchronous upload', href: '/asynchronous-upload' }],
   },
   {
     title: 'Support',
