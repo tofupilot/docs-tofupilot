@@ -8,21 +8,33 @@ export const metadata = {
 Upload your test results at any time after their execution. {{ className: 'lead' }}
 
 <Image
-  src="/asynchronous-uploads.png"
+  src="/asynchronous-header.png"
   alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
 />
 
 
 ## Overview
-TofuPilot allows you to upload your test results in real-time, but you might also need to upload them asynchronously—for example, if you're not connected to the internet during testing or to bulk import data from previous tests.
+TofuPilot supports real-time and asynchronous uploads, useful when offline during testing or importing past test data.
 
+## Run creation date
+Uploading OpenHTF JSON reports is easy and requires just one line. The `start_time_millis` field sets the test creation date.
 
-## Integration
-With the TofuPilot Python Client, you can upload test results, specifying `started_at` to keep the original test date; otherwise, the upload date will apply. Then use `create_run` to add test details or attachments.
+With the TofuPilot Python Client, you can upload test results, specifying `started_at` to keep the original test date; otherwise, the upload date is used.
 
-Or you can use `create_report_from_openhtf_record` to upload your OpenHTF JSON record to TofuPilot.
 
 <CodeGroup>
+```python {{ title: 'OpenHTF'}}
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+def main():
+    file_path = "path/to/your/openhtf/report.json"
+    client.create_run_from_openhtf_report(file_path)
+
+if __name__ == "__main__":
+    main()
+```
 ```python {{ title: 'Python Client'}}
 from tofupilot import TofuPilotClient
 from datetime import datetime, timedelta, timezone
@@ -49,22 +61,26 @@ def main():
     attachments=["path/to/your/attachment"],
   )
 ```
-```python {{ title: 'OpenHTF'}}
-from tofupilot import TofuPilotClient
-
-client = TofuPilotClient()
-
-def main():
-    file_path = "path/to/your/openhtf/report.json"
-    client.create_run_from_openhtf_report(file_path)
-
-if __name__ == "__main__":
-    main()
-```
 </CodeGroup>
-Uploaded runs then appear on the Runs page with their upload date.
+
+### Example
+
+Uploaded runs appear on the Runs page with their `Uploaded` date. In this example, data from tests done on the same day is uploaded at two-day intervals (yesterday and 1 day ago).
 
 <Image
   src="/asynchronous-page-runs.png"
+  alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
+/>
+
+
+The Run page shows the creation date (October 28th for these runs).
+
+<Image
+  src="/asynchronous-page-run1.png"
+  alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
+/>
+
+<Image
+  src="/asynchronous-page-run2.png"
   alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
 />
