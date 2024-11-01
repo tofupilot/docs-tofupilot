@@ -5,10 +5,93 @@ export const metadata = {
 }
 
 # Sub-units
+Assemble and track the sub-units of the unit under test. {{ className: 'lead' }}
 
-Most hardware products are made of multiple components, tested individually and at each step of assembly to the final product. TofuPilot's sub-unit features enable automatic test traceability through the entire process. {{ className: 'lead' }}
+<Image
+  src="/sub-units-header.png"
+  alt="Unit and Sub-Unit view with their serial number"
+/>
 
-This guide explains how to use TofuPilot's sub-units feature to automatically ensure the traceability of tests and serial numbers throughout the assembly process.
+
+## Overview
+Most hardware products are made of multiple components, tested individually and at each step of assembly to the final product. TofuPilot's sub-unit features enable automatic test traceability through the entire process.
+
+
+## Integration
+
+You can define `sub_units` in your assembly test as a list of dictionaries. Each dictionary represents a sub-unit with the key `serial_number` for its serial number.
+
+<CodeGroup>
+
+```python {{ title: 'OpenHTF'}}
+from openhtf import Test, PhaseResult
+from tofupilot.openhtf import TofuPilot
+
+def main():
+    test = Test(
+        procedure_id="FVT140",
+        procedure_name="Camera Assembly",
+        part_number="CAM1",
+        sub_units=[
+            {"serial_number": "PCB1A001"},
+            {"serial_number": "LEN1A001"}
+        ],
+    )
+    with TofuPilot(test):
+        test.execute(lambda: "CAM1A001")
+
+
+if __name__ == "__main__":
+    main()
+
+```
+
+```python {{ title: 'Pytest'}}
+from tofupilot import conf
+
+conf.set(
+    procedure_id="FVT3",
+    serial_number="BAT01-0001",
+    part_number="BAT01",
+)
+
+def test_sub_units():
+    # Listing example sub_units
+    sub_units = [
+        {"serial_number": "PCBA01-0001"},
+        {"serial_number": "CELL01-0001"},
+        {"serial_number": "CELL01-0002"},
+        {"serial_number": "CELL01-0003"},
+    ]
+
+    # Setting the sub_units in the test configuration
+    conf.set(sub_units=sub_units)
+
+    # Rest of your test here...
+    assert True
+```
+
+```python {{ title: 'Python'}}
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+client.create_run(
+    procedure_id="FVT2",
+    procedure_name="Camera Assembly",
+    unit_under_test={
+      "serial_number": "CAM1A001",
+      "part_number": "CAM1"
+    },
+    run_passed=True,
+    sub_units=[
+        {"serial_number": "PCB1A001"},
+        {"serial_number": "LEN1A001"}
+    ],
+)
+```
+
+</CodeGroup>
 
 <Note>
   This guide details the process of marking units as sub-units when creating a
@@ -16,7 +99,21 @@ This guide explains how to use TofuPilot's sub-units feature to automatically en
   test run, refer to the [API Reference](/api#update-unit).
 </Note>
 
-## Test Strategy
+
+
+## In-app view
+
+The battery assembly was created with its sub-units automatically listed as children in the unit list. You can see and navigate to these sub-units using the expansion menu on the left.
+
+<Image src="/units-with-sub-units.png" alt="Your profile page" />
+
+On the specific battery assembly page, the **Sub-units** section allows you to view and navigate to their individual pages.
+
+<Image src="/unit-with-sub-units.png" alt="Your profile page" />
+
+---
+
+## Advanced -- Test Strategy
 
 ### Introduction
 
@@ -52,67 +149,3 @@ Use our Figma template to quickly create a test flowchart for your product.
     Get our free test flowchart template
   </Button>
 </div>
-
-## Example
-
-To add sub-units in an assembly test, use the `sub_units` parameter to mark certain units as sub-units of test unit.
-
-<CodeGroup label='create_run_with_sub_units.py'>
-
-```python {{ title: 'Pytest plugin'}}
-from tofupilot import conf
-
-conf.set(
-    procedure_id="FVT3",
-    serial_number="BAT01-0001",
-    part_number="BAT01",
-)
-
-def test_sub_units():
-    # Listing example sub_units
-    sub_units = [
-        {"serial_number": "PCBA01-0001"},
-        {"serial_number": "CELL01-0001"},
-        {"serial_number": "CELL01-0002"},
-        {"serial_number": "CELL01-0003"},
-    ]
-
-    # Setting the sub_units in the test configuration
-    conf.set(sub_units=sub_units)
-
-    # Rest of your test here...
-    assert True
-```
-
-```python {{ title: 'Python client'}}
-from tofupilot import TofuPilotClient
-
-client = TofuPilotClient()
-
-client.create_run(
-    procedure_id="FVT3",
-    unit_under_test={
-      "serial_number": "BAT01-0001",
-      "part_number": "BAT01"
-    },
-    run_passed=True,
-    sub_units=[
-      {"serial_number": "PCBA01-0001"},
-      {"serial_number": "CELL01-0001"},
-      {"serial_number": "CELL01-0002"},
-      {"serial_number": "CELL01-0003"}
-    ]
-)
-```
-
-</CodeGroup>
-
-## Unit Pages
-
-The battery assembly was created with its sub-units automatically listed as children in the unit list. You can see and navigate to these sub-units using the expansion menu on the left.
-
-<Image src="/units-with-sub-units.png" alt="Your profile page" />
-
-On the specific battery assembly page, the **Sub-units** section allows you to view and navigate to their individual pages.
-
-<Image src="/unit-with-sub-units.png" alt="Your profile page" />
