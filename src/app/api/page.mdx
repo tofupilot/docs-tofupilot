@@ -126,7 +126,7 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
     </Properties>
 
   </Col>
- 
+
   <Col sticky>
     <CodeGroup title="Request" tag="POST" label="/v1/runs">
 
@@ -430,3 +430,11 @@ Use error messages to identify and fix issues. For example:
   "message": 'No procedure was found with the provided ID: "FVT2". Please verify the ID and try again. If the procedure does not exist, you can create a new one on the Procedures page in TofuPilot.'
 }
 ```
+
+
+   - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
+
+
+   ## API Reference
+
+   Each `step` in the `steps` array provided to `create_run` should include the following parameters:
