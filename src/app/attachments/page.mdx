@@ -5,12 +5,17 @@ export const metadata = {
 }
 
 # Attachments
+Attach files collected during execution to the test record. {{ className: 'lead' }}
 
-Manufacturing tests often generate more than just status or test steps; they can produce logs, pictures, PDFs, and more. Tofupilot allows to easily upload these files with the test runs. {{ className: 'lead' }}
+<Image
+  src="/attachments-header.png"
+  alt=""
+/>
 
-This guide shows how to attach one or several files during the creation of a run in Tofupilot and view them on the Run page.
+## Overview
+Hardware tests often generate extra data, like images, that can't be captured as measurements. TofuPilot uploads these attachments, allowing you to access and download them directly from your workspace.
 
-## Example
+## Integration
 
 To log test attachments, this script defines a test function, captures its results along with associated files, and uploads them via the `attachments` field.
 
@@ -90,9 +95,16 @@ client.create_run(
 
 </CodeGroup>
 
-## Run Page
+## View
+
+### Run page
 
 A dedicated **Attachments** section is automatically created on the Run’s page.
+
+<Image
+  src="/attachments-page-run.png"
+  alt=""
+/>
 
 <Image src="/run-attachments.png" alt="Attachments of Runs" />
 
