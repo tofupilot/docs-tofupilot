@@ -245,9 +245,9 @@ export const navigation: Array<NavGroup> = [
       { title: 'Procedures', href: '/procedures' },
       { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
       { title: 'Steps', href: '/steps' },
+      { title: 'Sub-units', href: '/sub-units' },
       { title: 'Attachments', href: '/attachments' },
       { title: 'Report', href: '/report' },
-      { title: 'Sub-units', href: '/sub-units' },
     ],
   },
   {
@@ -262,14 +262,18 @@ export const navigation: Array<NavGroup> = [
   {
     title: 'Dashboard',
     links: [
-      { title: 'Test steps analysis', href: '/user-management' },
-      { title: 'Traceability', href: '/user-management' },
-      { title: 'User Management', href: '/user-management' },
+      { title: 'Test steps analysis', href: '/analysis' },
+      { title: 'Traceability', href: '/traceability' },
+      { title: 'User management', href: '/user-management' },
     ],
   },
   {
     title: 'Guides',
-    links: [{ title: 'Asynchronous upload', href: '/asynchronous-upload' }],
+    links: [
+      { title: 'Test overview', href: '/test-overview' },
+      { title: 'Asynchronous upload', href: '/asynchronous-upload' },
+      { title: 'Errors', href: '/errors' },
+    ],
   },
   {
     title: 'Support',
