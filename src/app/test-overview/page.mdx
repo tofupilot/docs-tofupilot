@@ -11,19 +11,16 @@ Create a flowchart to outline your test workflow. {{ className: 'lead' }}
   alt="Flowchart example for manufacturing test"
 />
 
-## Introduction
+## Flowchart
 
-A good industrial test strategy relies on several key steps:
+You can create a test flowchart to give the manufacturing test and external teams an overview of the product's testbenches. This setup quickly shows available test benches, highlights missing tests, and eases team discussions.
 
-- **Early Test Deployment**: Install tests early at the supplier or assembler, matching each assembly stage.
-- **Automated Tests**: Prioritize automation to reduce errors and save time.
-- **Standardization and Log Collection**: Standardize logs and systematically collect results.
+### Example
 
-## Flowchart Example
+In gray, list the parts (name and `part_number`) that make up the final product, tested or not. In blue, show production or assembly steps, noting the supplier or if done internally. In green, list procedures (with `procedure_id` and `procedure_name`) and mark each test as manual or automatic. Finally, connect the assembled components.
 
-A test flowchart can be created to provide the manufacturing test team with an overview of the product's testbenches.
 
-<Image src="/test-flowchart.png" alt="Example Test Flowchart" />
+<Image src="/flowchart-test.png" alt="Example Test Flowchart" />
 
 In this example of a smart-battery testing strategy:
 
@@ -32,7 +29,7 @@ In this example of a smart-battery testing strategy:
 - **Thermal Probes**: no tests are performed for thermal probes that are purchased off-the-shelf.
 - **Smart Battery Assembly**: a test is performed after final assembly to ensure proper integration of all components.
 
-## Flowchart Template
+### Template
 
 Use our Figma template to quickly create a test flowchart for your product.
 
