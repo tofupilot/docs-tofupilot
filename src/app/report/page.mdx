@@ -19,31 +19,6 @@ Beyond structured test steps and attachments, manufacturing test reports often r
 
 <CodeGroup>
 
-```python {{ title: 'Pytest'}}
-from tofupilot import conf
-
-# Setting the test metadata with procedure ID and serial number
-conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
-
-def test_report_variables():
-    # Defining example report variables with temperature readings and status for each component
-    report_variables = {
-        "t-processor": "75°C",
-        "status-processor": "Pass",
-        "t-regulator": "78°C",
-        "status-regulator": "Pass",
-        "t-memory": "64°C",
-        "status-memory": "Pass",
-        "t-power": "72°C",
-        "status-power": "Pass",
-    }
-    # Setting the report variables in the test configuration
-    conf.set(report_variables=report_variables)
-
-    # Rest of your test here...
-    assert True
-```
-
 ```python {{ title: 'Python'}}
 from tofupilot import TofuPilotClient
 
