@@ -13,11 +13,11 @@ Organize your test flow by breaking it down into multiple steps. {{ className: '
 />
 
 ## Overview
-A hardware test typically consists of several steps that perform measurements and validation. Tofupilot offers a simple way to record the details of these steps and analyze their performance across all executions.
+A hardware test typically consists of several steps that perform measurements and validation. TofuPilot provides an easy way to record step details and analyze performance across all executions, giving you precise analytics on phase failure rates and durations.
 
 
 ## Integration
-You can create and add various test steps in TofuPilot and view the automatically generated reports.
+You can create and add various test steps and view the automatically generated reports on the Run page.
 
 ### Required parameters
 <Properties>
@@ -209,51 +209,90 @@ To unselect a step, click its name on the top bar of the page or click on **Clea
 
 ## Advanced integration
 
-This script provides a complete example of all TofuPilot functionalities, including measured values, limits, and units.
+You can find an example of Steps functionalities in this script, including measured values, limits, and units.
 
-<CodeGroup label="create_run_with_steps_complete.py">
+<CodeGroup>
 
+```python {{ title: 'OpenHTF' }}
+import openhtf as htf
+from tofupilot.openhtf import TofuPilot
+from openhtf.util import units
 
+def step_connect():
+    htf.PhaseResult.CONTINUE
 
-```python {{ title: 'Python client'}}
+@htf.measures(htf.Measurement("firmware_version").equals("v2.5.1"))
+def step_firmware_version_check(test):
+    test.measurements.firmware_version = "v2.5.1"
+
+@htf.measures(
+    htf.Measurement("temperature").in_range(70, 80).with_units(units.DEGREE_CELSIUS)
+)
+def step_temperature_calibration(test):
+    test.measurements.temperature = 75
+
+def main():
+    test = htf.Test(
+        step_connect,
+        step_firmware_version_check,
+        step_temperature_calibration,
+        procedure_id="FVT2",
+        procedure_name="PCB Temperature Calibration",
+        part_number="PCB1",
+    )
+    with TofuPilot(test):
+        test.execute(lambda: "PCB1A002")
+
+if __name__ == "__main__":
+    main()
+```
+
+```python {{ title: 'Python'}}
 from tofupilot import TofuPilotClient
 from datetime import datetime, timedelta
 
 client = TofuPilotClient()
 
 client.create_run(
-    procedure_id="FVT1",
+    procedure_id="FVT2",
+    procedure_name="PCB Temperature Calibration",
     unit_under_test={
-        "serial_number": "PCBA01-0001",
+        "serial_number": "PCB1A002",
+        "part_number": "PCB1",
     },
-    run_passed=True,  # Overall run status
+    run_passed=True,
     steps=[
         {
-            "name": "step_connect",  # First step
-            "step_passed": True,  # Status of the step
-            "duration": timedelta(seconds=3),  # Duration of the step
-            "started_at": datetime.now(),  # Start time of the step
+            "name": "step_connect",
+            "step_passed": True,
+            "duration": timedelta(seconds=3),
+            "started_at": datetime.now(),
         },
         {
-            "name": "test_firmware_version_check",  # Second step
-            "step_passed": True,  # Status of the step
-            "duration": timedelta(milliseconds=500),  # Duration of the step (<1s)
-            "started_at": datetime.now() + timedelta(seconds=3),  # Start time of the second step
-            "measurement_value": "Firmware_v2.5.1",  # Measured value
+            "name": "test_firmware_version_check",
+            "step_passed": True,
+            "duration": timedelta(minutes=1, seconds=42),
+            "started_at": datetime.now() + timedelta(seconds=3),
+            "measurement_value": "v2.5.1",
         },
         {
-            "name": "step_temp_calibration",  # Third step
-            "step_passed": True,  # Status of the step
-            "duration": timedelta(milliseconds=500),  # Duration of the step (<1s)
-            "started_at": datetime.now() + timedelta(seconds=4),  # Start time of the fourth step
-            "measurement_value": 75,  # Measured temperature value after calibration
-            "measurement_unit": "°C",  # Unit of the measurement (temperature)
-            "limit_low": 70,  # Lower limit of acceptable temperature
-            "limit_high": 80  # Upper limit of acceptable temperature
-        }
+            "name": "step_temp_calibration",
+            "step_passed": True,
+            "duration": timedelta(milliseconds=500),
+            "started_at": datetime.now() + timedelta(seconds=4),
+            "measurement_value": 75,
+            "measurement_unit": "°C",
+            "limit_low": 70,
+            "limit_high": 80,
+        },
     ],
 )
 ```
 </CodeGroup>
 
-<Image src="/steps-run.png" alt="Steps of Run" />
+You can see the result on the Run page.
+
+<Image
+  src="/steps-page-run2.png"
+  alt="Steps section header showing test step management whithin TofuPilot."
+/>
