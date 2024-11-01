@@ -46,31 +46,6 @@ if __name__ == "__main__":
 
 ```
 
-```python {{ title: 'Pytest'}}
-from tofupilot import conf
-
-conf.set(
-    procedure_id="FVT3",
-    serial_number="BAT01-0001",
-    part_number="BAT01",
-)
-
-def test_sub_units():
-    # Listing example sub_units
-    sub_units = [
-        {"serial_number": "PCBA01-0001"},
-        {"serial_number": "CELL01-0001"},
-        {"serial_number": "CELL01-0002"},
-        {"serial_number": "CELL01-0003"},
-    ]
-
-    # Setting the sub_units in the test configuration
-    conf.set(sub_units=sub_units)
-
-    # Rest of your test here...
-    assert True
-```
-
 ```python {{ title: 'Python'}}
 from tofupilot import TofuPilotClient
 
