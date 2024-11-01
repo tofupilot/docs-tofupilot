@@ -248,6 +248,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Sub-units', href: '/sub-units' },
       { title: 'Attachments', href: '/attachments' },
       { title: 'Report', href: '/report' },
+      //add config file
     ],
   },
   {
@@ -264,6 +265,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'Test steps analysis', href: '/analysis' },
       { title: 'Traceability', href: '/traceability' },
+      { title: 'Editor', href: '/editor' },
       { title: 'User management', href: '/user-management' },
     ],
   },
