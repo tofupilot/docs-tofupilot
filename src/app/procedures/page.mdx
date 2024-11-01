@@ -14,12 +14,27 @@ Define your test for the Unit Under Test. {{ className: 'lead' }}
 />
 
 ## Overview
-The procedure lets you set up the test sequence for one or more units under test, then gather analytics like average test duration, yields, and Cpk.
-
---> refaire !
+The Procedures allow you to set up the test sequence for one or more units under test. It provides analytics and test performances across multiple runs, including average test duration, yields, Cpk, and Control Chart for numerical values.
 
 ## Integration
-You can create a new procedure from your test scripts by setting its ID, Unit Under Test, and test status.
+You can create a new procedure automatically from your test scripts by setting its ID, name, Unit Under Test, and test status.
+
+### Basic parameters
+
+<Properties>
+  <Property name="procedure_id" type="str">
+    Define unique procedure ID.
+  </Property>
+  <Property name="procedure_name" type="str (optional)">
+    Set or rename the procedure name.
+  </Property>
+  <Property name="run_passed" type="bool">
+    Set Pass/Fail status of the procedure.
+  </Property>
+  <Property name="duration" type="timedelta (optional)">
+    Determine duration of the test.
+  </Property>
+</Properties>
 
 <CodeGroup>
 ```python {{ title: 'OpenHTF'}}
@@ -29,11 +44,11 @@ from tofupilot.openhtf import TofuPilot
 def main():
     test = htf.Test(
         procedure_id="FVT1",
-        procedure_name="PCB Testing"
-        part_number="PCB1"
+        procedure_name="PCB Testing",     # By default set as "openhtf_test"
+        part_number="PCB1",
     )
     with TofuPilot(test):
-        test.execute(lambda: "PCB1A001")
+        test.execute(lambda: "PCB1A001")  # Duration calculated during execution
 
 if __name__ == '__main__':
     main()
@@ -47,12 +62,12 @@ def main():
 
     client.create_run(
         procedure_id="FVT1",
-        procedure_name="PCB Testing"
+        procedure_name="PCB Testing",
         run_passed=True,
         unit_under_test={
             "serial_number": "PCB1A001",
             "part_number": "PCB1"},
-
+        duration=timedelta(minutes=1, seconds=45),
     )
 
 if __name__ == '__main__':
@@ -60,41 +75,27 @@ if __name__ == '__main__':
 ```
 </CodeGroup>
 
-<Properties>
-  <Property name="procedure_id" type="str">
-    The ID of the procedure.
-  </Property>
-  <Property name="procedure_name" type="str (optional)">
-    Set the procedure name.
-  </Property>
-  <Property name="unit_under_test" type="str array">
-    Set unit under tests (UUT) informations: part_number, serial_number, batch_number and revision.
-  </Property>
-  <Property name="run_passed" type="bool (optional with OpenHTF)">
-    Pass/Fail status of the procedure.
-  </Property>
-  <Property name="steps" type="str array (optional)">
-    Set steps within the procedure.
-  </Property>
-  <Property name="sub_units" type="str array (optional)">
-    Set subunit informations assembled in the UUT.
-  </Property>
-  <Property name="attachments" type="str array (optional)">
-    Define path file to attach file in the Run when the procedure is executed.
-  </Property>
-  <Property name="report_variables" type="str array (optional)">
-    Define Report variable
-  </Property>
-</Properties>
+### Advanced parameters
+You can define several important additional parameters for your procedures, each covered in a separate section:
+
+- Define **[Unit under test (UUT)](/unit-under-test-uut)**, which includes serial number, batch, revision, and part number.
+- Break down test **[Steps](/steps)**
+- Add **[Sub-units](/sub-units)** during assembly
+- Include file **[Attachments](/attachments)**
+- Create customizable **[Reports](/report)**
+
 
 ## In-app view
-### Run page
+
+In TofuPilot, you can explore different procedures in the **Procedures** tab. On a Procedure page (for example, `procedure_id` FVT1 with the `procedure_name` PCB Testing), you can navigate between various tabs that display analytics for all runs executed from this procedure. These include:
+
+- The status of **Runs** over time, defined by `run_passed`
+- The average test **Duration** over time, compute from `duration`
+- **First-Pass Yield**
+- **Cpk** for tests with numerical measurements and limits.
+
+These features will be explained in more detail in the [Test steps analysis](/test-steps-analysis) section.
 <Image
-  src="/procedure-page-procedure-duration.png"
+  src="/procedure-page1.png"
   alt=""
 />
-
-
-Les informations concernant le rapport de test se trouve dans une section à part: Report.
-
-AJOUTER - un exemple avec les paramètres optionnels comme dans steps
