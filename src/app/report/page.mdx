@@ -5,16 +5,88 @@ export const metadata = {
 }
 
 # Report
+Create your own customizable test reports. {{ className: 'lead' }}
 
-Beyond structured test steps and attachments, manufacturing test reports sometimes need to produce static formatted reports to facilitate compliance, exporting, and sharing. Tofupilot enables the creation of these types of reports programmatically for each run. {{ className: 'lead' }}
+<Image
+  src="/reports-header.png"
+  alt="Report template in the Procedure page"
+/>
 
-This guide explains how to use Tofupilot’s report feature to create, customize, and export test run reports.
+## Overview
+Beyond structured test steps and attachments, manufacturing test reports often require static, formatted outputs for compliance, export, and sharing. TofuPilot enables programmatic creation of these reports for each run.
 
-## Report Template
+## Integration
+
+<CodeGroup>
+
+```python {{ title: 'Pytest'}}
+from tofupilot import conf
+
+# Setting the test metadata with procedure ID and serial number
+conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
+
+def test_report_variables():
+    # Defining example report variables with temperature readings and status for each component
+    report_variables = {
+        "t-processor": "75°C",
+        "status-processor": "Pass",
+        "t-regulator": "78°C",
+        "status-regulator": "Pass",
+        "t-memory": "64°C",
+        "status-memory": "Pass",
+        "t-power": "72°C",
+        "status-power": "Pass",
+    }
+    # Setting the report variables in the test configuration
+    conf.set(report_variables=report_variables)
+
+    # Rest of your test here...
+    assert True
+```
+
+```python {{ title: 'Python'}}
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+def get_report_variables():
+    # your test execution goes here
+    report_variables={
+      "t-processor": "75°C",
+      "status-processor": "Pass",
+      "t-regulator": "78°C",
+      "status-regulator": "Pass",
+      "t-memory": "64°C",
+      "status-memory": "Pass",
+      "t-power": "72°C",
+      "status-power": "Pass",
+    }
+    return report_variables
+
+report_variables = get_report_variables()
+
+client.create_run(
+    procedure_id="FVT1",
+    unit_under_test={
+      "serial_number": "PCBA01-0001",
+    },
+    run_passed=True,
+    report_variables=report_variables
+)
+```
+</CodeGroup>
+
+<Note>
+  The `report_variables` parameter should be a dictionary where each key-value
+  pair represents a variable. The keys must be strings representing the variable
+  names, and the values must be strings representing the corresponding variable
+  values.
+</Note>
+
+### In-app
 
 Each run report is generated from a report template defined in the procedure, with a variable system allowing dynamic modification during the creation of the run using values obtained during the run.
 
-### Create report template
 
 Open the page of the procedure for which you want the runs to have a report, navigate to the **Report Template** section, and then click on the `Edit` button.
 
@@ -46,78 +118,7 @@ To create variables in a procedure report template, wrap the variable name in do
   alt="Procedure Report Template Variables"
 />
 
-## Example
-
-To add sub-units in an assembly test, use the `sub_units` parameter to designate specific units as sub-units of the test unit.
-
-<CodeGroup label='create_run_report.py'>
-
-```python {{ title: 'Pytest plugin.py'}}
-from tofupilot import conf
-
-# Setting the test metadata with procedure ID and serial number
-conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
-
-def test_report_variables():
-    # Defining example report variables with temperature readings and status for each component
-    report_variables = {
-        "t-processor": "75°C",
-        "status-processor": "Pass",
-        "t-regulator": "78°C",
-        "status-regulator": "Pass",
-        "t-memory": "64°C",
-        "status-memory": "Pass",
-        "t-power": "72°C",
-        "status-power": "Pass",
-    }
-    # Setting the report variables in the test configuration
-    conf.set(report_variables=report_variables)
-
-    # Rest of your test here...
-    assert True
-```
-
-```python {{ title: 'Python client.py'}}
-from tofupilot import TofuPilotClient
-
-client = TofuPilotClient()
-
-def get_report_variables():
-    # your test execution goes here
-    report_variables={
-      "t-processor": "75°C",
-      "status-processor": "Pass",
-      "t-regulator": "78°C",
-      "status-regulator": "Pass",
-      "t-memory": "64°C",
-      "status-memory": "Pass",
-      "t-power": "72°C",
-      "status-power": "Pass",
-    }
-    return report_variables
-
-report_variables = get_report_variables()
-
-client.create_run(
-    procedure_id="FVT1",
-    unit_under_test={
-      "serial_number": "PCBA01-0001",
-    },
-    run_passed=True,
-    report_variables=report_variables
-)
-```
-
-</CodeGroup>
-
-<Note>
-  The `report_variables` parameter should be a dictionary where each key-value
-  pair represents a variable. The keys must be strings representing the variable
-  names, and the values must be strings representing the corresponding variable
-  values.
-</Note>
-
-## Run Page
+## In-app view
 
 Access the report of the newly created run where variables have been automatically populated.
 
