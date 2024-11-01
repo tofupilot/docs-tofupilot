@@ -13,88 +13,98 @@ Create your own customizable test reports. {{ className: 'lead' }}
 />
 
 ## Overview
-Beyond structured test steps and attachments, manufacturing test reports often require static, formatted outputs for compliance, export, and sharing. TofuPilot enables programmatic creation of these reports for each run.
+Manufacturing test reports often need static, formatted outputs for compliance, export, and sharing, beyond structured test steps and attachments. TofuPilot allows you to programmatically create these reports for each run.
+
+Each run report is generated from a Report template defined in the Procedure  and can be dynamically modified using values obtained during the run.
 
 ## Integration
+You can customize your report in the in-app **Report template** on the Procedure page, then use `report_variables` to auto-fill it when the test uploads to TofuPilot. You can find the filled report on the Run page.
+
 
 <CodeGroup>
 
 ```python {{ title: 'Python'}}
 from tofupilot import TofuPilotClient
+from datetime import datetime
 
-client = TofuPilotClient()
+def get_unit_under_test():
+    return {"serial_number": "PCB1A001", "batch_number": "1024"}
 
-def get_report_variables():
-    # your test execution goes here
-    report_variables={
-      "t-processor": "75°C",
-      "status-processor": "Pass",
-      "t-regulator": "78°C",
-      "status-regulator": "Pass",
-      "t-memory": "64°C",
-      "status-memory": "Pass",
-      "t-power": "72°C",
-      "status-power": "Pass",
-    }
-    return report_variables
+def main():
+    client = TofuPilotClient()
 
-report_variables = get_report_variables()
+    uut = get_unit_under_test()
 
-client.create_run(
-    procedure_id="FVT1",
-    unit_under_test={
-      "serial_number": "PCBA01-0001",
-    },
-    run_passed=True,
-    report_variables=report_variables
-)
+    client.create_run(
+        procedure_id="FVT1",
+        unit_under_test={
+            "serial_number": uut["serial_number"],
+            "part_number": "PCB1",
+            "batch_number": uut["batch_number"],
+        },
+        run_passed=True,
+        report_variables={
+            "motor_serial_number": uut["serial_number"],
+            "motor_batch_number": uut["batch_number"],
+            "production_date": str(datetime.now().strftime("%d.%m.%Y")),
+            "report_date": str(datetime.now().strftime("%d.%m.%Y")),
+            "safety_test_status": "Passed",
+        },
+    )
+
+
+if __name__ == "__main__":
+    main()
 ```
 </CodeGroup>
 
 <Note>
-  The `report_variables` parameter should be a dictionary where each key-value
-  pair represents a variable. The keys must be strings representing the variable
-  names, and the values must be strings representing the corresponding variable
-  values.
+  The report_variables parameter should be a dictionary, with each key-value pair representing a variable. Keys are the variable names as strings, and values are the corresponding variable values as strings.
 </Note>
-
-### In-app
-
-Each run report is generated from a report template defined in the procedure, with a variable system allowing dynamic modification during the creation of the run using values obtained during the run.
-
-
-Open the page of the procedure for which you want the runs to have a report, navigate to the **Report Template** section, and then click on the `Edit` button.
-
-Tofupilot provides a collaborative rich text editor to help you create a report template in the desired format.
-
-<Image src="/procedure-report-template.png" alt="Procedure Report Template" />
-
-The editor provides a full set of blocks and marks to create rich reports:
-
-| Category         | Type                                                          |
-| ---------------- | ------------------------------------------------------------- |
-| **Headings**     | Heading levels 1, 2, 3                                        |
-| **Content**      | Paragraph, Table, Code Block, Image                           |
-| **Text Styling** | Quote, Blockquote, Paragraph                                  |
-| **Layout**       | Horizontal Rule, Hard Break                                   |
-| **Marks**        | Bold, Italic, Underline, Strikethrough, Link, Highlight, Code |
 
 ### Insert variable field
 
-To create variables in a procedure report template, wrap the variable name in double curly brackets: `{{variable-name}}`. These fields will then become customizable inputs.
+You need to define your report template in the **Report template** section on the Procedure page by clicking the `Edit` button. Create variables by wrapping the name in double curly brackets: `{{variable-name}}`. These become customizable inputs.
+
+<Image
+  src="/reports-page-procedure1.png"
+  alt="Procedure Report Template Variables"
+/>
 
 <Note>
   Variables can be inserted into any editor block (lists, tables, code blocks,
   etc.) and can include applied styles.
 </Note>
 
-<Image
-  src="/procedure-report-template-variable.png"
-  alt="Procedure Report Template Variables"
-/>
 
 ## In-app view
 
-Access the report of the newly created run where variables have been automatically populated.
+Access the report of the new run in the **Report** section on the **Run** page, where the variables are automatically filled.
 
-<Image src="/run-report.png" alt="Run Report" />
+<Image
+  src="/reports-page-run.png"
+  alt="Report on Run page generated from Procedure"
+/>
+
+---
+
+## Editor
+
+The editor in the **Report template** section on the Procedure page provides a full set of blocks and marks to create rich reports:
+
+| Category         | Type                                                          |
+| ---------------- | ------------------------------------------------------------- |
+| **Headings**     | Heading levels 1, 2, 3                                        |
+| **Content**      | Paragraph, Table, Code Block, Image, Horizontal Rule         |
+| **Text Styling** | Quote, Blockquote, Paragraph |
+| **Lists** | Bullet Points, Numbered List, To-Do List|
+| **Marks**        | Bold, Italic, Underline, Strikethrough, Link, Highlight, Code |
+
+<Image
+  src="/reports-page-procedure2.png"
+  alt="Procedure Report Template Variables"
+/>
+
+<Note>
+  Pressing `/` in your editor brings up a full menu of content blocks you can choose to insert.
+</Note>
