@@ -70,7 +70,7 @@ client.create_run(
 
 
 ## In-app view
-You can see the creation of the camera assembly with its sub-units listed as childer in the **Units** page. You can navigate to these sub-units using the expansion menu on the left.
+You can see in this example the creation of the camera assembly with its sub-units listed as children in the **Units** page. You can navigate to these sub-units using the expansion menu on the left.
 
 <Image
   src="/subunits-page-units.png"
@@ -83,42 +83,3 @@ On the specific camera assembly **Unit** page, the **Sub-units** section allows 
   src="/subunits-page-unit.png"
   alt="Your profile page"
 />
-
----
-
-## Advanced -- Test Strategy
-
-### Introduction
-
-A good industrial test strategy relies on several key steps:
-
-- **Early Test Deployment**: Install tests early at the supplier or assembler, matching each assembly stage.
-- **Automated Tests**: Prioritize automation to reduce errors and save time.
-- **Standardization and Log Collection**: Standardize logs and systematically collect results.
-
-### Flowchart Example
-
-A test flowchart can be created to provide the manufacturing test team with an overview of the product's testbenches.
-
-<Image src="/test-flowchart.png" alt="Example Test Flowchart" />
-
-In this example of a smart-battery testing strategy:
-
-- **PCBA**: a firmware flash and test is performed at the supplier to verify the integrated components (gauge, LEDs...).
-- **Chemical Cells**: a test is performed on the battery cells to check voltage levels.
-- **Thermal Probes**: no tests are performed for thermal probes that are purchased off-the-shelf.
-- **Smart Battery Assembly**: a test is performed after final assembly to ensure proper integration of all components.
-
-### Flowchart Template
-
-Use our Figma template to quickly create a test flowchart for your product.
-
-<div className="not-prose">
-  <Button
-    href="https://www.figma.com/community/file/1380891711622677799"
-    variant="text"
-    arrow="right"
-  >
-    Get our free test flowchart template
-  </Button>
-</div>
