@@ -213,43 +213,7 @@ This script provides a complete example of all TofuPilot functionalities, includ
 
 <CodeGroup label="create_run_with_steps_complete.py">
 
-```python {{ title: 'Pytest plugin' }}
-from tofupilot import conf, string_step, numeric_step
 
-# Test metadata configuration
-conf.set(procedure_id="FVT1", serial_number="PCBA01-0001")
-
-# Dummy test to check the connection status (First step)
-def test_connect():
-    assert True
-
-# Simulate checking a firmware version string (Second step)
-@string_step
-def test_firmware_version_check(step):
-    # Set the expected firmware version
-    expected_version = "Firmware_v2.5.1"
-    step.set_name("Firmware Version Check").set_limit(expected_version)
-
-    # Simulate retrieving the current firmware version from the device
-    current_firmware_version = "Firmware_v2.5.1"
-    step.measure(current_firmware_version)  # Registering the measured firmware version
-
-    # Assert that the firmware version matches the expected version
-    assert step()
-
-# Performing a temperature calibration check (Third step)
-@numeric_step
-def test_temp_calibration(step):
-    # Indicating that in order for the step to be passed, the measured value should be between 70°C and 80°C
-    step.set_limits(70, 80).set_units("°C")
-
-    # Simulate measuring the temperature during the calibration process
-    measured_value = 75  # Measured temperature value after calibration
-    step.measure(measured_value)  # Registering measured value
-
-    # Step status will be auto determined from given measurement and limits
-    assert step()
-```
 
 ```python {{ title: 'Python client'}}
 from tofupilot import TofuPilotClient
