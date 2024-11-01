@@ -1,0 +1,96 @@
+export const metadata = {
+  title: 'Unit under test (UUT)',
+  description:
+    "This guide explains how to use TofuPilot's sub-units feature to ensure traceability of tests and serial numbers throughout the assembly process.",
+}
+
+# Procedures
+Define your test for the Unit Under Test. {{ className: 'lead' }}
+
+
+<Image
+  src="/procedure-header.png"
+  alt=""
+/>
+
+## Overview
+The procedure lets you set up the test sequence for one or more units under test, then gather analytics like average test duration, yields, and Cpk.
+
+--> refaire !
+
+## Integration
+You can create a new procedure from your test scripts by setting its ID, Unit Under Test, and test status.
+
+<CodeGroup>
+```python {{ title: 'OpenHTF'}}
+import openhtf as htf
+from tofupilot.openhtf import TofuPilot
+
+def main():
+    test = htf.Test(
+        procedure_id="FVT1",
+        procedure_name="PCB Testing"
+        part_number="PCB1"
+    )
+    with TofuPilot(test):
+        test.execute(lambda: "PCB1A001")
+
+if __name__ == '__main__':
+    main()
+```
+```python {{ title: 'Python'}}
+from tofupilot import TofuPilotClient
+from datetime import datetime, timedelta
+
+def main():
+    client = TofuPilotClient()
+
+    client.create_run(
+        procedure_id="FVT1",
+        procedure_name="PCB Testing"
+        run_passed=True,
+        unit_under_test={
+            "serial_number": "PCB1A001",
+            "part_number": "PCB1"},
+
+    )
+
+if __name__ == '__main__':
+    main()
+```
+</CodeGroup>
+
+<Properties>
+  <Property name="procedure_id" type="str">
+    The ID of the procedure.
+  </Property>
+  <Property name="procedure_name" type="str (optional)">
+    Set the procedure name.
+  </Property>
+  <Property name="unit_under_test" type="str array">
+    Set unit under tests (UUT) informations: part_number, serial_number, batch_number and revision.
+  </Property>
+  <Property name="run_passed" type="bool (optional with OpenHTF)">
+    Pass/Fail status of the procedure.
+  </Property>
+  <Property name="steps" type="str array (optional)">
+    Set steps within the procedure.
+  </Property>
+  <Property name="sub_units" type="str array (optional)">
+    Set subunit informations assembled in the UUT.
+  </Property>
+  <Property name="attachments" type="str array (optional)">
+    Define path file to attach file in the Run when the procedure is executed.
+  </Property>
+  <Property name="report_variables" type="str array (optional)">
+    Define Report variable
+  </Property>
+</Properties>
+
+
+<Image
+  src="/procedure-page-procedure-duration.png"
+  alt=""
+/>
+
+Les informations concernant le rapport de test se trouve dans une section à part: Report.
