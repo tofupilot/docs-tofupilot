@@ -4,8 +4,14 @@ export const metadata = {
     'This guide provides information on the TofuPilot open-source pytest plugin, including installation, usage, and contribution guidelines.',
 }
 
-# Pytest Plugin
-X {{ className: 'lead' }}
+# Pytest
+Integrate any pytest script with Tofupilot's Pytest Plugin.  {{ className: 'lead' }}
+
+<Image
+  src="/pytest-plugin-header.png"
+  alt=""
+/>
+
 
 ## Overview
 
@@ -22,6 +28,7 @@ pip install tofupilot
 Add it to your test like this:
 
 ```python {{ title: 'main.py' }}
+import pytest
 from tofupilot import conf
 
 conf.set(
@@ -30,6 +37,14 @@ conf.set(
     part_number="PCB1",
     revision="A"
 )
+
+# Tests for pytest
+@numeric_step
+def test_one(step):
+    step.set_units("V").set_limits(low=3.2, high=3.4)
+    value_measured = 3.33
+    step.measure(value_measured)
+    assert step()
 
 # Rest of your script here
 
