@@ -5,22 +5,33 @@ export const metadata = {
 }
 
 # Errors
+Detect and correct errors quickly. {{ className: 'lead' }}
 
+
+<Image
+  src="/errors-header.png"
+  alt=""
+/>
 
 ## Overview
 
-Whenever a request is unsuccessful, the TofuPilot API will return a response with a status code and error message.
+Error messages from the API give you essential information about issues that occur during a request. They'll help you identify and diagnose errors, making it easier to resolve problems and improve your integrations with the API.
 
-### Status Codes
 
-Here are the categories of status codes returned by the TofuPilot API:
+## API status codes
+
+Find the categories of status codes returned by the TofuPilot API:
 
 <Properties>
   <Property name="2xx">
-    A 2xx status code indicates a successful response.
+    Successful response
   </Property>
-  <Property name="4xx">A 4xx status code indicates a client error.</Property>
-  <Property name="5xx">A 5xx status code indicates a server error.</Property>
+  <Property name="4xx">
+    Client error
+  </Property>
+  <Property name="5xx">
+    Server error
+  </Property>
 </Properties>
 
 ### Error Messages
@@ -35,4 +46,7 @@ Use error messages to identify and fix issues. For example:
 ```
 
 
-   - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
+{/*
+## Console Errors
+
+ Add consol errors here */}
