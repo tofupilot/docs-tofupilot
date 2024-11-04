@@ -258,7 +258,6 @@ export const navigation: Array<NavGroup> = [
       { title: 'Python', href: '/clients/python' },
       { title: 'Pytest', href: '/clients/pytest' }, // to remove
       { title: 'REST API', href: '/api' },
-      { title: 'Errors', href: '/errors' },
     ],
   },
   {
@@ -275,6 +274,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'Test overview', href: '/test-overview' },
       { title: 'Asynchronous upload', href: '/asynchronous-upload' },
+      { title: 'Errors manual', href: '/errors' },
     ],
   },
   {
