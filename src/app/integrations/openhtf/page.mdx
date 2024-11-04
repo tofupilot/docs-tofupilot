@@ -6,21 +6,27 @@ export const metadata = {
 
 Integrate your OpenHTF scripts with TofuPilot in a single line. {{ className: 'lead' }}
 
+<Image
+  src="/openhtf-header.png"
+  alt=""
+/>
+
+
 ## Overview
 
 [OpenHTF](https://openhtf.com) is an open-source Python framework for automating hardware tests. It makes writing and running tests easier with a modular design. Built at Google, it's now used by teams around the world.
 
-<Button variant="text" arrow="right" href="https://openhtf.com">
-  <>Learn more about OpenHTF</>
-</Button>
-
-With just one line added to your OpenHTF scripts, TofuPilot open-source Python client automatically creates a run on TofuPilot, parsing the test phases, measurements, and attachments, while storing the original OpenHTF JSON log for traceability.
+By <u>adding a single line</u> to your OpenHTF script, TofuPilot's open-source Python client automatically creates a run on TofuPilot, capturing the test phases, measurements, and attachments, and storing the original OpenHTF JSON log for traceability.
 
 ## Installation
 
 1. [Create a TofuPilot account](https://docs.tofupilot.com/user-management#sign-up)
 
-2. [Install OpenHTF](https://openhtf.com/first-test) and create your test script
+2. Install OpenHTF:
+
+```sh
+pip install openhtf six setuptools
+```
 
 3. Install the TofuPilot open-source Python client:
 
@@ -32,38 +38,30 @@ Add it to your test like this:
 
 ```python {{ title: 'main.py' }}
 import openhtf as htf
-from tofupilot.openhtf import TofuPilot
+from tofupilot.openhtf import TofuPilot # Import OpenHTF for TofuPilot
 
 def phase_one(test):
     return htf.PhaseResult.CONTINUE
 
 def main():
     test = htf.Test(phase_one)
-    with TofuPilot(test):
+    with TofuPilot(test):               # One-line integration
       test.execute(lambda: "PCB001")
 
 if __name__ == '__main__':
     main()
 ```
 
-The integration automatically uploads your OpenHTF report to your TofuPilot account using the DUT's serial number `dut_id`.
+Your OpenHTF reports are uploaded to your TofuPilot account using the Unit Under Test serial number `dut_id` (e.g., "PCB001"), which you can find on the **Runs** page.
 
 <Image
   src="/output-callbacks-page-run.png"
   alt="Run page showing the different steps performed for a Unit Under Test (UUT) in OpenHTF with TofuPilot."
 />
 
-Discover OpenHTF features and TofuPilot integration in the dedicated documentation maintained by our team.
+## Supported features
 
-<Button variant="text" arrow="right" href="https://openhtf.com">
-  <>Learn more about OpenHTF</>
-</Button>
-
-## Advanced
-
-### Supported features
-
-Below is a table of the supported OpenHTF features when using TofuPilot.
+We are continuously adding features to the integration. Below is a table of OpenHTF features currently supported by TofuPilot.
 
 <table>
   <thead>
@@ -154,7 +152,23 @@ Below is a table of the supported OpenHTF features when using TofuPilot.
       <td>File from path</td>
       <td>✅</td>
     </tr>
+    {/* <tr>
+      <td />
+      <td>Multiple measurements</td>
+      <td>⌛</td>
+    </tr> */}
+    <tr>
+      <td>**Output Callback**</td>
+      <td>JSON Report</td>
+      <td>✅</td>
+    </tr>
   </tbody>
 </table>
 
-We are continually adding more capabilities to the integration.
+## More documentation
+
+Discover TofuPilot integrations in [Test Runs](/procedures) sections and OpenHTF features in our dedicated documentation maintained by our team.
+
+<Button variant="text" arrow="right" href="https://openhtf.org">
+  <>OpenHTF Documentation</>
+</Button>
