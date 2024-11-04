@@ -1,24 +1,53 @@
 export const metadata = {
-  title: 'Python Client',
+  title: 'Python',
   description:
     'This guide provides information on the TofuPilot open-source Python client, including installation, usage, and contribution guidelines.',
 }
 
-# Python Client
+# Python
+Integrate any python script with Tofupilot's Python Client.  {{ className: 'lead' }}
 
-Today, many hardware teams use Python as their primary language for test scripts. The TofuPilot Python client, which is our recommended way to interact with TofuPilot's API, is easy to install and seamlessly integrates into existing code with minimal disruption. {{ className: 'lead' }}
+<Image
+  src="/python-client-header.png"
+  alt=""
+/>
+
+
+
+## Overview
+
+Many hardware teams today use Python for their test scripts. The TofuPilot Python client, our recommended tool for accessing TofuPilot's API, is easy to install and integrates smoothly into existing code with minimal changes.
+
+
 
 ## Installation
 
-You can install the TofuPilot Python client using pip.
+1. [Create a TofuPilot account](https://docs.tofupilot.com/user-management#sign-up)
+
+2. Install the TofuPilot open-source Python client:
 
 ```bash
 pip install tofupilot
 ```
 
-## Usage
+Add it to your test like this:
 
-Using the TofuPilot Python client is straighforward as it uses the same syntax as the REST API. All examples in this documentation use the Python client.
+```python {{ title: 'main.py' }}
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+client.create_run(
+    procedure_id="FVT1",             # Define the TofuPilot's procedure ID
+    unit_under_test={
+        "serial_number": "PCB1A001",
+        "part_number": "PCB1",
+    },
+    run_passed=True,                 # Set the Run status to Pass
+)
+```
+
+Discover more TofuPilot's Python Client integrations in [Test Runs](/procedures) sections.
 
 ## Contribute
 
