@@ -1,12 +1,20 @@
 export const metadata = {
-  title: 'Runs API Reference',
+  title: 'Runs API',
   description:
     "Explore the different run endpoints available in TofuPilot's REST API to manage test runs programmatically.",
 }
 
-# REST API Reference
+# REST API
 
-The TofuPilot REST API is the primary interface for programmatically uploading test runs to TofuPilot. {{ className: 'lead' }}
+Interface any scripts with TofuPilot's REST API. {{ className: 'lead' }}
+
+<Image
+  src="/api-header.png"
+  alt=""
+/>
+
+## Overview
+The TofuPilot REST API is the main interface for uploading test runs programmatically. It allows you to authenticate, post runs from your script or a file report, retrieve information about your runs, and update the unit under test.
 
 ---
 
@@ -401,40 +409,3 @@ fetch('https://www.tofupilot.com/api/v1/units', {
 
 </Col>
 </Row>
-
----
-
-## Errors
-
-Whenever a request is unsuccessful, the TofuPilot API will return a response with a status code and error message.
-
-### Status Codes
-
-Here are the categories of status codes returned by the TofuPilot API:
-
-<Properties>
-  <Property name="2xx">
-    A 2xx status code indicates a successful response.
-  </Property>
-  <Property name="4xx">A 4xx status code indicates a client error.</Property>
-  <Property name="5xx">A 5xx status code indicates a server error.</Property>
-</Properties>
-
-### Error Messages
-
-Use error messages to identify and fix issues. For example:
-
-```bash {{ title: "Error response" }}
-{
-  "status_code": 404,
-  "message": 'No procedure was found with the provided ID: "FVT2". Please verify the ID and try again. If the procedure does not exist, you can create a new one on the Procedures page in TofuPilot.'
-}
-```
-
-
-   - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
-
-
-   ## API Reference
-
-   Each `step` in the `steps` array provided to `create_run` should include the following parameters:
