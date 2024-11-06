@@ -277,16 +277,6 @@ export const navigation: Array<NavGroup> = [
       { title: 'Errors manual', href: '/errors' },
     ],
   },
-  {
-    title: 'Support',
-    links: [
-      { title: 'Contact', href: '/support/contact' },
-      { title: 'Security', href: '/support/security' },
-      { title: 'Privacy Policy', href: '/legal/privacy-policy' },
-      // { title: 'Pricing', href: '/support/pricing' },
-      { title: 'Terms & Conditions', href: '/legal/terms-conditions' },
-    ],
-  },
 ]
 
 export function Navigation(props: React.ComponentPropsWithoutRef<'nav'>) {
