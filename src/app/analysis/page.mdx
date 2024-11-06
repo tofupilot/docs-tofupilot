@@ -4,4 +4,87 @@ export const metadata = {
     "",
 }
 
+
 # Test steps analysis
+Continuously analyze and improve your test steps. {{ className: 'lead' }}
+
+<Image
+  src="/steps-analysis.png"
+  alt="TofuPilot test analytics showing test steps performance by failure."
+/>
+
+## Overview
+When testing your product with multiple procedures and steps, it can be challenging to know where to focus your efforts when issues arise or improvements are needed. In TofuPilot, each test step is tracked individually, allowing you to analyze areas that need attention—whether it's steps taking too long, those with low yield, or measurement drifts over time.
+
+## Steps on Runs page
+After executing a test run, go to the **Steps** table on the Run page. Here, you’ll see details about the unit under test, the procedure used, any attachments, the report, and all test steps.
+
+The **Steps** table shows each step’s value, limits (upper and lower), units (e.g., volts, degrees), test status (Pass/Fail), and duration (from milliseconds to hours).
+
+This view lets you analyze each step in detail for a specific run.
+
+<Image
+  src="/steps-analysis-page-run.png"
+  alt="TofuPilot test run showing list of test steps."
+/>
+
+<Note>
+  Click on a test step in the **Steps** table to go to the Procedure page, where data is sorted by that specific step.
+</Note>
+
+## Steps on Procedure page
+It's also essential to have a broader view across all executed runs. You can have this view on the Procedure page. There you'll find different indicators in different tab (e.g. Cpk, yields, ...). Discover more about these indicators in [FPY and Cpk](/analysis) section.
+
+On the Procedure page, you can filter the different indicators of these Runs within the same procedure by various parameters. These parameters are on the top right:
+
+- Date, of the run
+- Component and revision, of the unit under test
+- Batch number, of the unit under test
+
+<Image
+  src="/steps-analysis-page-procedure1.png"
+  alt="TofuPilot test analytics showing indicators filter by components, revision, or batch number."
+/>
+
+You can also filter by step, that you will find in the **Steps by failure** or **Step by duration** tables below.
+
+
+<Image
+  src="/steps-analysis-page-procedure2.png"
+  alt="TofuPilot test analytics showing test steps performance by failure."
+/>
+
+<Note>
+  Click on a step to filter by it (e.g. "thermal_reading" or "motor_noise" in the upper example). To remove the filter, select **Clear Filter**.
+</Note>
+
+
+### Steps by failure and Step by duration
+This view helps you pinpoint the most frequently failing test steps, making it easier to analyze defective parts or focus on improving test procedures.
+
+The **Steps by failure** table lists test steps with a `Fail` status and sorted by occurrence (from most to least failures).
+
+Similarly, **Steps by duration** table displays the test steps by `duration` and that take the longest to complete.
+
+<Image
+  src="/steps-analysis-page-procedure3.png"
+  alt="TofuPilot test analytics showing test steps performance by failure."
+/>
+
+
+## Control chart and histogram
+You can dig in a specific step and display all values of a specific step with numerical or string data. These data are displayed in the **Control Chart** below Steps tables.
+
+This chart shows all numerical values of the test step over time, with its limits and an automatically calculated 6-sigma standard deviation and mean value.
+
+Control Chart histogram with a Gaussian distribution overlay helps you quickly spot values that fall outside the standard range.
+
+<Image
+  src="/steps-analysis-page-procedure4.png"
+  alt="TofuPilot test analytics showing test steps performance by failure."
+/>
+<Note>
+  Click on a step with numeric or text values to display the **Control Chart**.
+</Note>
+
+## Steps FPY and Cpk
