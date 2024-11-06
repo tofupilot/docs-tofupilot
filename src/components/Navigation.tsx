@@ -249,10 +249,9 @@ export const navigation: Array<NavGroup> = [
   {
     title: 'Integrations',
     links: [
-      { title: 'OpenHTF', href: '/integrations/openhtf' },
-      { title: 'Python', href: '/clients/python' },
-      { title: 'Pytest', href: '/clients/pytest' }, // to remove
-      { title: 'REST API', href: '/api' },
+      { title: 'OpenHTF', href: '/openhtf' },
+      { title: 'Pytest', href: '/pytest' },
+      { title: 'Python', href: '/python' },
     ],
   },
   {
@@ -267,6 +266,7 @@ export const navigation: Array<NavGroup> = [
   {
     title: 'Guides',
     links: [
+      { title: 'REST API', href: '/api' },
       { title: 'Test overview', href: '/test-overview' },
       { title: 'Asynchronous upload', href: '/asynchronous-upload' },
       { title: 'Errors manual', href: '/errors' },
