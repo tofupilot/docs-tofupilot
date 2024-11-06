@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/asynchronous-upload",
+      "destination": "/offline-upload",
+      "permanent": true
+    }
+  ]
+}
