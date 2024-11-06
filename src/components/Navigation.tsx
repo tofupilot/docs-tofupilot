@@ -257,6 +257,7 @@ export const navigation: Array<NavGroup> = [
   {
     title: 'Dashboard',
     links: [
+      { title: 'FPY and Cpk', href: '/analytics' },
       { title: 'Test steps analysis', href: '/analysis' },
       { title: 'Traceability', href: '/traceability' },
       { title: 'Editor', href: '/editor' },
