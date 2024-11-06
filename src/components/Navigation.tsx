@@ -231,17 +231,12 @@ function NavigationGroup({
 
 export const navigation: Array<NavGroup> = [
   {
-    title: 'Get Started',
+    title: 'Test Runs',
     links: [
       {
         title: 'Quickstart',
         href: '/',
       },
-    ],
-  },
-  {
-    title: 'Test Runs',
-    links: [
       { title: 'Procedures', href: '/procedures' },
       { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
       { title: 'Steps', href: '/steps' },
