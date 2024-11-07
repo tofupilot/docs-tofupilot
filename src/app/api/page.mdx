@@ -1,12 +1,20 @@
 export const metadata = {
-  title: 'Runs API Reference',
+  title: 'Runs API',
   description:
     "Explore the different run endpoints available in TofuPilot's REST API to manage test runs programmatically.",
 }
 
-# REST API Reference
+# REST API
 
-The TofuPilot REST API is the primary interface for programmatically uploading test runs to TofuPilot. {{ className: 'lead' }}
+Interface any scripts with TofuPilot's REST API. {{ className: 'lead' }}
+
+<Image
+  src="/api-header.png"
+  alt=""
+/>
+
+## Overview
+The TofuPilot REST API is the main interface for uploading test runs programmatically. It allows you to authenticate, post runs from your script or a file report, retrieve information about your runs, and update the unit under test.
 
 ---
 
@@ -22,10 +30,24 @@ Authenticate your requests to access any endpoints in the TofuPilot API using OA
 
 Add the key to the request header using cURL:
 
-```bash
+    <CodeGroup>
+
+```bash {{ title: 'Linux, macOS' }}
 curl https://tofupilot.com/v1/runs/create \
-  -H "Authorization: Bearer {api-key}"
+  -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
 ```
+
+```bash {{ title: 'Windows PowerShell' }}
+curl https://tofupilot.com/v1/runs/create \
+  -H "Authorization: Bearer $env:TOFUPILOT_API_KEY"
+```
+
+```bash {{ title: 'Windows Command Prompt' }}
+curl https://tofupilot.com/v1/runs/create \
+  -H "Authorization: Bearer %TOFUPILOT_API_KEY%"
+```
+
+    </CodeGroup>
 
 Keep your API key safe and [regenerate](/user-management#api-key) it if you suspect compromise.
 
@@ -34,128 +56,110 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
 ## Create a run {{ tag: 'POST', label: '/v1/runs' }}
 
 <Row>
+
   <Col>
     This endpoint allows you to create a new run.
     <Properties>
       <Property name="procedure_id" type="string, required">
-        Unique identifier for the procedure.
+        Unique identifier for the procedure. _Example: "FVT1"_
       </Property>
       <Property name="unit_under_test" type="record, required">
         Record of the unit under test.
       </Property>
       <Property name="serial_number" type="string, required" indent>
-        Unit identifier. Creates new unit if no match.
+        Unit identifier. Creates a new unit if no match. _Example: "SN123456"_
       </Property>
       <Property name="part_number" type="string, optional" indent>
-        Component identifier. Creates new component if no match.
+        Component identifier. Creates a new component if no match. _Example: "PN-001"_
       </Property>
       <Property name="revision" type="string, optional" indent>
-        Component revision. Required if multiple revisions exist.
+        Component revision. Required if multiple revisions exist. _Example: "A"_
       </Property>
       <Property name="run_passed" type="boolean, required">
-        Indicates if the run passed.
+        Indicates if the run passed. _Example: true_
       </Property>
-      <Property name="duration" type="string, required">
-        ISO 8601 duration of the run.
+      <Property name="started_at" type="string, optional">
+        ISO 8601 start time of the run. _Example: "2024-09-11T08:00:00Z"_
       </Property>
-      <Property name="started_at" type="string">
-        ISO 8601 start time of the run.
+      <Property name="duration" type="string, optional">
+      The duration of the run.
+
+        - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
+        - For [Python Client](./clients/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
+
       </Property>
       <Property name="steps" type="array, optional">
-        Steps of the procedure.
+        [Steps](../steps) of the run.
       </Property>
       <Property name="name" type="string, required" indent>
-        Step name.
+        The name of the step. _Example: "temperature_calibration"_
       </Property>
       <Property name="step_passed" type="boolean, required" indent>
-        Indicates if the step passed.
+        Indicates if the step passed. _Example: true_
       </Property>
       <Property name="started_at" type="string, required" indent>
-        ISO 8601 start time of the step.
+        ISO 8601 start time of the step. _Example: "2024-09-11T08:00:00Z"_
       </Property>
       <Property name="duration" type="string, required" indent>
-        ISO 8601 duration of the step.
+        The duration of the step.
+
+        - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
+        - For [Python Client](./clients/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
+
       </Property>
       <Property name="measurement_unit" type="string, optional" indent>
-        Unit of measurement.
+        The unit of measurement for the value. _Example: "°C"_
       </Property>
       <Property name="measurement_value" type="float, optional" indent>
-        Measured value.
+        The value measured during step. _Example: 12.25_
       </Property>
       <Property name="limit_low" type="float, optional" indent>
-        Minimum threshold.
+        Minimum threshold. _Example: 11.44_
       </Property>
       <Property name="limit_high" type="float, optional" indent>
-        Maximum threshold.
+        Maximum threshold. _Example: 13.2_
       </Property>
       <Property name="attachments" type="array(string), optional">
-        File paths for attachments.
+        File paths for [attachments](../attachments). _Example: ["path/to/file1.png", "path/to/file2.pdf"]_
       </Property>
       <Property name="sub_units" type="array(record), optional">
-        Identifiers of sub-units.
+        Identifiers of [sub-units](../sub-units).
       </Property>
       <Property name="serial_number" type="string, required" indent>
-        Serial number of sub-unit.
+        Serial number of [sub-unit](../sub-units). _Example: "SN789"_
       </Property>
       <Property name="report_variables" type="record(string, string)">
-        Key/value pairs for report variables.
+        Key/value pairs for [report variables](../report).
       </Property>
     </Properties>
-  </Col>
-  <Col sticky>
 
+  </Col>
+
+  <Col sticky>
     <CodeGroup title="Request" tag="POST" label="/v1/runs">
 
 ```python
 from tofupilot import TofuPilotClient
-import time
-from datetime import datetime
+from datetime import timedelta
 
-def test_function():
-    # Your test execution goes here
-    time.sleep(1)
-
-    run_passed = True
-    report_variables = {
-      "initial_temperature_reading": "72°C",
-      "final_temperature_reading": "75°C",
-    }
-    attachments = [
-      '/mnt/data/temperature-map.png',
-      '/mnt/data/performance-report.pdf'
-    ]
-
-    return run_passed, report_variables, attachments
-
-# Measure the duration of the test_function
-start_time = datetime.now()
-run_passed, report_variables, attachments = test_function()
-end_time = datetime.now()
-duration = end_time - start_time
-
-client = TofuPilotClient(api_key="Your API key goes here")
+client = TofuPilotClient()
 
 client.create_run(
     procedure_id="FVT1",
     unit_under_test={
-        "serial_number": '00102',
+        "serial_number": 'PCBA01-0001',
         "part_number": 'PCB01'
     },
-    run_passed=run_passed,
-    duration=duration,
-    report_variables=report_variables,
-    attachments=attachments
+    run_passed=True,
+    duration=timedelta(minutes=27, seconds=15),
 )
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://www.tofupilot.com/api/v1/runs
-  -H "Content-Type: application/json"
-  -H "Authorization: Bearer {your_api_key}"
-  -d '{
+curl -X POST https://www.tofupilot.com/api/v1/runs -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
     "procedure_id": "FVT1",
     "unit_under_test": {
-      "serial_number": "00102",
+      "serial_number": "PCBA01-0001",
       "part_number": "PCB01"
     },
     "run_passed": true,
@@ -168,12 +172,12 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer "your_api_key"',
+    Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
   },
   body: JSON.stringify({
     procedure_id: 'FVT1',
     unit_under_test: {
-      serial_number: '00102',
+      serial_number: 'PCBA01-0001',
       part_number: 'PCB01',
     },
     run_passed: true,
@@ -182,42 +186,226 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
 })
 ```
 
-    </CodeGroup>
+</CodeGroup>
 
-    ```json {{ title: 'Response' }}
-    {
-      "url": "https://tofupilot.com/acme-corp/runs/your-new-run"
-    }
-    ```
+```json {{ title: 'Response' }}
+{
+  "message": "Run created successfully: https://tofupilot.com/acme-corp/runs/your-new-run"
+}
+```
 
-  </Col>
+</Col>
+
 </Row>
 
 ---
 
-## Errors
+## Create a run from a file {{ tag: 'POST', label: '/v1/import' }}
 
-Whenever a request is unsuccessful, the TofuPilot API will return a response with a status code and error message.
+<Row>
+  <Col>
+    This endpoint allows you to create a new run from a file report.
+    <Properties>
+      <Property name="file_path" type="string, required">
+        The path to the log file to be imported.
+      </Property>
+      <Property name="importer" type="string, optional">
+        The type of importer to use. Defaults to "OPENHTF".
+      </Property>
+    </Properties>
+  </Col>
 
-### Status Codes
+  <Col sticky>
+    <CodeGroup title="Request" tag="POST" label="/v1/import">
 
-Here are the categories of status codes returned by the TofuPilot API:
+```python
+from tofupilot import TofuPilotClient
 
-<Properties>
-  <Property name="2xx">
-    A 2xx status code indicates a successful response.
-  </Property>
-  <Property name="4xx">A 4xx status code indicates a client error.</Property>
-  <Property name="5xx">A 5xx status code indicates a server error.</Property>
-</Properties>
+client = TofuPilotClient()
 
-### Error Messages
+client.create_run_from_report(
+  file_path="path/to/your/test/report.json",
+  importer="OPENHTF"
+)
+```
 
-Use error messages to identify and fix issues. For example:
+```bash {{ title: 'cURL' }}
+curl -X POST https://www.tofupilot.com/api/v1/import -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
+    "file_path": "path/to/your/test/report.json",
+    "importer": "OPENHTF"
+}'
+```
 
-```bash {{ title: "Error response" }}
+```js
+fetch('https://www.tofupilot.com/api/v1/import', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
+  },
+  body: JSON.stringify({
+    file_path: 'path/to/your/test/report.json',
+    importer: 'OPENHTF',
+  }),
+})
+```
+
+</CodeGroup>
+
+```json {{ title: 'Response' }}
 {
-  "status_code": 404,
-  "message": "No procedure found with ID FVT2",
+  "message": "Run created successfully: https://tofupilot.com/acme-corp/runs/your-new-run"
 }
 ```
+
+</Col>
+</Row>
+
+---
+
+## Get runs by serial number {{ tag: 'GET', label: '/v1/runs?serial_number=<serial_number>' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to fetch all runs related to a specific unit.
+    <Properties>
+      <Property name="serial_number" type="string, required">
+        The unique identifier of the unit associated with the runs.
+      </Property>
+    </Properties>
+
+  </Col>
+
+  <Col sticky>
+    <CodeGroup title="Request" tag="GET" label="/v1/runs?serial_number=<serial_number>">
+
+```python
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+client.get_runs(serial_number="PCBA01-0001")
+```
+
+```bash {{ title: 'cURL' }}
+curl -X GET "https://www.tofupilot.com/api/v1/runs?serial_number=PCBA01-0001" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
+```
+
+```js
+fetch('https://www.tofupilot.com/api/v1/runs?serial_number=PCBA01-0001', {
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
+  },
+})
+```
+
+</CodeGroup>
+
+```json {{ title: 'Response' }}
+{
+  "message": "Runs fetched successfuly.",
+  "data": [
+    {
+      "duration": "PT12S",
+      "createdAt": "2024-09-05T15:58:30.891Z",
+      "startedAt": "2024-09-05T08:38:17.115Z",
+      "createdBy": {
+        "email": "user@acmecorp.com"
+      },
+      "status": {
+        "name": "Pass",
+        "category": "Successful"
+      },
+      "steps": [
+        {
+          "name": "measure_duration",
+          "duration": "PT11S",
+          "value": 5,
+          "status": {
+            "category": "Successful"
+          },
+          "units": "second",
+          "lowLimit": 1,
+          "highLimit": 10
+        }
+      ]
+    }
+  ]
+}
+```
+
+</Col>
+</Row>
+
+---
+
+## Update unit {{ tag: 'PATCH', label: '/v1/units' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to update a specific unit.
+    <Properties>
+      <Property name="serial_number" type="string, required">
+        The unique identifier of the given unit. _Example: "PCBA01-001"_
+      </Property>
+      <Property name="sub_units" type="array(record), optional">
+        Identifiers of [sub-units](../sub-units).
+      </Property>
+    </Properties>
+  </Col>
+
+  <Col sticky>
+    <CodeGroup title="Request" tag="PATCH" label="/v1/units">
+
+```python
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+client.update_unit(
+    serial_number="PCBA01-0001",
+    sub_units=[
+        {"serial_number": "CELL01-0001"},
+        {"serial_number": "CELL01-0002"},
+    ],
+)
+```
+
+```bash {{ title: 'cURL' }}
+curl -X PATCH https://www.tofupilot.com/api/v1/units -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
+    "serial_number": "PCBA01-0001",
+    "sub_units": [
+        {"serial_number": "CELL01-0001"},
+        {"serial_number": "CELL01-0002"},
+    ]
+}'
+```
+
+```js
+fetch('https://www.tofupilot.com/api/v1/units', {
+  method: 'PATCH',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
+  },
+  body: JSON.stringify({
+    serial_number: 'PCBA01-0001',
+    sub_units: [
+      { serial_number: 'CELL01-0001' },
+      { serial_number: 'CELL01-0002' },
+    ],
+  }),
+})
+```
+
+</CodeGroup>
+
+```json {{ title: 'Response' }}
+{
+  "message": "Unit PCBA01-0001 updated successfully."
+}
+```
+
+</Col>
+</Row>

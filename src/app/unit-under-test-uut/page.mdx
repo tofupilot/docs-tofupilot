@@ -10,7 +10,7 @@ Track the serial number, part number and revision of the unit under test. {{ cla
 
 <Image
   src="/uut-header.png"
-  alt="OpenHTF Unit Under Test (UUT) section header with TofuPilot integration."
+  alt="Unit Under Test (UUT) section header with TofuPilot integration."
 />
 
 ## Overview
@@ -19,39 +19,19 @@ Tracking hardware tests by serial number is key for traceability and performance
 
 ## Integration
 
-<Row>
-  <Col>
-  If using your own test framework with the Python client, specify parameters in `unit_under_test` when creating the run. With frameworks like OpenHTF, the serial number is auto-retrieved, and extra parameters can be added as metadata.
+  With frameworks like OpenHTF, the serial number and additional parameters can be added as metadata when `Test` is specified. For custom test frameworks using the Python client, specify parameters in `unit_under_test` when creating the run.
 
-    <Properties>
-      <Property name="serial_number" type="str">
-        Name of the step.
-      </Property>
-      <Property name="part_number" type="str">
-        Part number of the unit under test.
-      </Property>
-      <Property name="revision" type="str (optional)">
-        Revision of the unit under test.
-      </Property>
-      <Property name="batch_number" type="str (optional)">
-        Batch number of the unit under test.
-      </Property>
-    </Properties>
-
-  </Col>
-
-  <Col>
     <CodeGroup>
-    ```python {{ title: 'OpenHTF Integration'}}
+    ```python {{ title: 'OpenHTF'}}
       from openhtf import Test
       from tofupilot.openhtf import TofuPilot
 
       def main():
           phases = [ ] # Your test phases here
           test = Test(phases,
-              part_number = "PCB1"
-              revision = "A"           # optional
-              batch_number = "12-24"   # optional
+              part_number = "PCB1",
+              revision = "A",           # optional
+              batch_number = "12-24",   # optional
           )
           with TofuPilot(test):
               test.execute(lambda: 'PCB1A001') # UUT S/N
@@ -64,18 +44,47 @@ Tracking hardware tests by serial number is key for traceability and performance
 
     client = TofuPilotClient()
 
-    response = client.create_run(
-      procedure_id = "FVT1",
-      unit_under_test = {
-        "serial_number": "PCB1A001",
-        "part_number": "PCB1"
-        "revision": "A"           # optional
-        "batch_number": "12-24"   # optional
-      },
-      run_passed = True
+    client.create_run(
+        procedure_id = "FVT1",
+        unit_under_test = {
+            "serial_number": "PCB1A001",
+            "part_number": "PCB1",
+            "revision": "A",           # optional
+            "batch_number": "12-24",   # optional
+        },
+        run_passed = True
     )
     ```
     </CodeGroup>
 
-  </Col> 
-</Row>
+    <Properties>
+      <Property name="serial_number" type="str">
+        Serial Number of the unit under test.
+      </Property>
+      <Property name="part_number" type="str">
+        Part number of the unit under test.
+      </Property>
+      <Property name="revision" type="str (optional)">
+        Revision of the unit under test.
+      </Property>
+      <Property name="batch_number" type="str (optional)">
+        Batch number of the unit under test.
+      </Property>
+    </Properties>
+
+## In-app view
+You find infromation about your Unit Under Test in the **Unit** section on the ***Run** page.
+
+<Image
+  src="/uut-page-run.png"
+  alt="Unit Under Test (UUT) on a Run page."
+/>
+
+Clicking on the unit will take you to the dedicated **Unit** page, where you can view details about the component, including the part number, name, and revision.
+
+<Image
+  src="/uut-page-unit.png"
+  alt="Unit Under Test (UUT) on a Unit page."
+/>
+
+These features will be explained in more detail in the [Traceability](/traceability) section.

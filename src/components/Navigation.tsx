@@ -231,65 +231,43 @@ function NavigationGroup({
 
 export const navigation: Array<NavGroup> = [
   {
-    title: 'Get Started',
+    title: 'Test Runs',
     links: [
       {
         title: 'Quickstart',
         href: '/',
       },
-    ],
-  },
-  {
-    title: 'Upload Test Runs',
-    links: [
-      {
-        title: 'Unit under test (UUT)',
-        href: '/unit-under-test-uut',
-      },
-      {
-        title: 'Steps',
-        href: '/steps',
-      },
-      {
-        title: 'Attachments',
-        href: '/attachments',
-      },
-      {
-        title: 'Report',
-        href: '/report',
-      },
-      {
-        title: 'Sub-units',
-        href: '/sub-units',
-      },
+      { title: 'Procedures', href: '/procedures' },
+      { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
+      { title: 'Steps', href: '/steps' },
+      { title: 'Sub-units', href: '/sub-units' },
+      { title: 'Attachments', href: '/attachments' },
+      { title: 'Report', href: '/report' },
+      //add config file
     ],
   },
   {
     title: 'Integrations',
     links: [
-      {
-        title: 'OpenHTF',
-        href: '/integrations/openhtf',
-      },
+      { title: 'OpenHTF', href: '/openhtf' },
+      { title: 'Python', href: '/python' },
+    ],
+  },
+  {
+    title: 'In-app views',
+    links: [
+      { title: 'Test analytics', href: '/analytics' },
+      { title: 'Test steps analysis', href: '/analysis' },
+      { title: 'Traceability', href: '/traceability' },
+      { title: 'Account management', href: '/user-management' },
     ],
   },
   {
     title: 'Guides',
     links: [
-      { title: 'User Management', href: '/user-management' },
-      { title: 'Python Client', href: '/clients/python' },
-      { title: 'REST API Reference', href: '/api' },
-      { title: 'Offline upload', href: '/offline-upload' },
-    ],
-  },
-  {
-    title: 'Support',
-    links: [
-      { title: 'Contact', href: '/support/contact' },
-      { title: 'Security', href: '/support/security' },
-      { title: 'Privacy Policy', href: '/legal/privacy-policy' },
-      // { title: 'Pricing', href: '/support/pricing' },
-      { title: 'Terms & Conditions', href: '/legal/terms-conditions' },
+      { title: 'REST API', href: '/api' },
+      { title: 'Asynchronous upload', href: '/asynchronous-upload' },
+      { title: 'Errors manual', href: '/errors' },
     ],
   },
 ]

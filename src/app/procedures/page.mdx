@@ -1,0 +1,106 @@
+export const metadata = {
+  title: 'Unit under test (UUT)',
+  description:
+    "This guide explains how to use TofuPilot's sub-units feature to ensure traceability of tests and serial numbers throughout the assembly process.",
+}
+
+# Procedures
+Define your test sequence for your Units Under Test. {{ className: 'lead' }}
+
+
+<Image
+  src="/procedure-header.png"
+  alt=""
+/>
+
+## Overview
+The Procedures allow you to set up the test sequence for one or more units under test. It provides analytics and test performances across multiple runs, including average test duration, yields, Cpk, and Control Chart for numerical values.
+
+## Integration
+You can create a new procedure automatically from your test scripts by setting its ID, name, Unit Under Test, and test status.
+
+### Basic parameters
+<CodeGroup>
+```python {{ title: 'OpenHTF'}}
+import openhtf as htf
+from tofupilot.openhtf import TofuPilot
+
+def main():
+    test = htf.Test(
+        procedure_id="FVT1",
+        procedure_name="PCB Testing",     # By default set as "openhtf_test"
+        part_number="PCB1",
+    )
+    with TofuPilot(test):
+        test.execute(lambda: "PCB1A001")  # Duration calculated during execution
+
+if __name__ == '__main__':
+    main()
+```
+```python {{ title: 'Python'}}
+from tofupilot import TofuPilotClient
+from datetime import datetime, timedelta
+
+def main():
+    client = TofuPilotClient()
+
+    client.create_run(
+        procedure_id="FVT1",
+        procedure_name="PCB Testing",
+        run_passed=True,
+        unit_under_test={
+            "serial_number": "PCB1A001",
+            "part_number": "PCB1"},
+        duration=timedelta(minutes=1, seconds=45),
+    )
+
+if __name__ == '__main__':
+    main()
+```
+</CodeGroup>
+
+<Properties>
+  <Property name="procedure_id" type="str">
+    Define unique procedure ID.
+  </Property>
+  <Property name="procedure_name" type="str (optional)">
+    Set or rename the procedure name.
+  </Property>
+  <Property name="run_passed" type="bool">
+    Set Pass/Fail status of the procedure.
+  </Property>
+  <Property name="duration" type="timedelta (optional)">
+    Determine duration of the test.
+  </Property>
+</Properties>
+
+
+<Note>
+  If a procedure has `steps` but the procedure duration is not defined, the `duration` will be automatically calculated as the sum of the durations of its steps
+</Note>
+
+### Advanced parameters
+You can define several important additional parameters for your procedures, each covered in a separate section:
+
+- Define **[Unit under test (UUT)](/unit-under-test-uut)**, which includes serial number, batch, revision, and part number.
+- Break down test **[Steps](/steps)**
+- Add **[Sub-units](/sub-units)** during assembly
+- Include file **[Attachments](/attachments)**
+- Create customizable **[Reports](/report)**
+
+
+## In-app view
+
+In TofuPilot, you can explore different procedures in the **Procedures** tab. On a Procedure page (for example, `procedure_id` FVT1 with the `procedure_name` PCB Testing), you can navigate between various tabs that display analytics for all runs executed from this procedure. These include:
+
+- The status of **Runs** over time, defined by `run_passed`
+- The average test **Duration** over time, compute from `duration`
+- **First-Pass Yield**
+- **Cpk** for tests with numerical measurements and limits.
+
+<Image
+  src="/procedure-page1.png"
+  alt=""
+/>
+
+These features will be explained in more detail in the [Test steps analysis](/test-steps-analysis) section.

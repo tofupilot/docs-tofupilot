@@ -5,85 +5,81 @@ export const metadata = {
 }
 
 # Sub-units
+Assemble and track the sub-units of the unit under test. {{ className: 'lead' }}
 
-Most hardware products are made of multiple components, tested individually and at each step of assembly to the final product. TofuPilot's sub-unit features enable automatic test traceability through the entire process. {{ className: 'lead' }}
+<Image
+  src="/subunits-header.png"
+  alt="Unit and Sub-Unit view with their serial number"
+/>
 
-This guide explains how to use TofuPilot's sub-units feature to automatically ensure the traceability of tests and serial numbers throughout the assembly process.
 
-## Test Strategy
+## Overview
+Most hardware products are made of multiple components, tested individually and at each step of assembly to the final product. TofuPilot's sub-unit features enable automatic test traceability through the entire process.
 
-### Introduction
 
-A good industrial test strategy relies on several key steps:
+## Integration
 
-- **Early Test Deployment**: Install tests early at the supplier or assembler, matching each assembly stage.
-- **Automated Tests**: Prioritize automation to reduce errors and save time.
-- **Standardization and Log Collection**: Standardize logs and systematically collect results.
+You can define `sub_units` in your assembly test as a list of dictionaries. Each dictionary represents a sub-unit with the key `serial_number` for its serial number.
 
-### Flowchart Example
+<CodeGroup>
 
-A test flowchart can be created to provide the manufacturing test team with an overview of the product's testbenches.
+```python {{ title: 'OpenHTF'}}
+from openhtf import Test, PhaseResult
+from tofupilot.openhtf import TofuPilot
 
-<Image src="/test-flowchart.png" alt="Example Test Flowchart" />
+def main():
+    test = Test(
+        procedure_id="FVT140",
+        procedure_name="Camera Assembly",
+        part_number="CAM1",
+        sub_units=[
+            {"serial_number": "PCB1A001"},
+            {"serial_number": "LEN1A001"}
+        ],
+    )
+    with TofuPilot(test):
+        test.execute(lambda: "CAM1A001")
 
-In this example of a smart-battery testing strategy:
 
-- **PCBA**: a firmware flash and test is performed at the supplier to verify the integrated components (gauge, LEDs...).
-- **Chemical Cells**: a test is performed on the battery cells to check voltage levels.
-- **Thermal Probes**: no tests are performed for thermal probes that are purchased off-the-shelf.
-- **Smart Battery Assembly**: a test is performed after final assembly to ensure proper integration of all components.
+if __name__ == "__main__":
+    main()
 
-### Flowchart Template
+```
 
-Use our Figma template to quickly create a test flowchart for your product.
-
-<div className="not-prose">
-  <Button
-    href="https://www.figma.com/community/file/1380891711622677799"
-    variant="text"
-    arrow="right"
-  >
-    Get our free test flowchart template
-  </Button>
-</div>
-
-## Example
-
-To add sub-units in an assembly test, specify their serial number in the `sub-units` parameter in `create-run`.
-
-```python {{ title: 'create_run_with_sub_units.py'}}
+```python {{ title: 'Python'}}
 from tofupilot import TofuPilotClient
 
 client = TofuPilotClient()
 
-def test_function():
-    # your test execution goes here
-    return True
-
-run_passed = test_function()
-
 client.create_run(
-    procedure_id="FVT3",
+    procedure_id="FVT2",
+    procedure_name="Camera Assembly",
     unit_under_test={
-      "serial_number": "BAT01-0001",
-      "part_number": "BAT01"
+      "serial_number": "CAM1A001",
+      "part_number": "CAM1"
     },
-    run_passed=run_passed,
+    run_passed=True,
     sub_units=[
-      {"serial_number": "PCBA01-0001"},
-      {"serial_number": "CELL01-0001"},
-      {"serial_number": "CELL01-0002"},
-      {"serial_number": "CELL01-0003"}
-    ]
+        {"serial_number": "PCB1A001"},
+        {"serial_number": "LEN1A001"}
+    ],
 )
 ```
 
-## Unit Pages
+</CodeGroup>
 
-The battery assembly was created with its sub-units automatically listed as children in the unit list. You can see and navigate to these sub-units using the expansion menu on the left.
 
-<Image src="/units-with-sub-units.png" alt="Your profile page" />
+## In-app view
+You can see in this example the creation of the camera assembly with its sub-units listed as children in the **Units** page. You can navigate to these sub-units using the expansion menu on the left.
 
-On the specific battery assembly page, the **Sub-units** section allows you to view and navigate to their individual pages.
+<Image
+  src="/subunits-page-units.png"
+  alt="Your profile page"
+/>
 
-<Image src="/unit-with-sub-units.png" alt="Your profile page" />
+On the specific camera assembly **Unit** page, the **Sub-units** section allows you to view and navigate to their individual pages.
+
+<Image
+  src="/subunits-page-unit.png"
+  alt="Your profile page"
+/>

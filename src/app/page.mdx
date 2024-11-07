@@ -12,7 +12,10 @@ export const metadata = {
 
 Start uploading your first test run to TofuPilot in under five minutes. {{ className: 'lead' }}
 
-## Account Setup
+<Image src="/quickstart-header.png" alt="Quickstart Interactive Guide" />
+
+
+## Account setup
 
 To use TofuPilot, create an account or join an existing organization by [invitation](/user-management#invite-user).
 
@@ -28,107 +31,33 @@ To use TofuPilot, create an account or join an existing organization by [invitat
   </Button>
 </div>
 
-### Interactive Guide
+## First test Run
 
 After creating your account, an interactive guide within the application will walk you through the steps described below.
 
-<Image src="/quickstart-interactive.png" alt="Quickstart Interactive Guide" />
+<div className="not-prose">
+  <Button
+    href="https://www.tofupilot.com/tofupilot/get-started"
+    variant="text"
+    arrow="right"
+    target="_blank"
+    rel="noopener"
+  >
+    Get started in-app guide
+  </Button>
+</div>
 
-## First Test Run
+<Image src="/quickstart-page-get-started.png" alt="Quickstart Interactive Guide" />
 
-1.  Open your preferred Python development environment. We recommend using **virtualenv** for isolated Python environments. Learn how to set one up for:
-    [VSCode](https://code.visualstudio.com/docs/python/environments#_virtual-environments),
-    [PyCharm](https://www.jetbrains.com/help/pycharm/creating-virtual-environment.html),
-    [Sublime Text](https://packagecontrol.io/packages/Virtualenv).
-
-2.  Install the TofuPilot Python client:
-
-    ```bash
-    pip install tofupilot
-    ```
-
-3.  Retrieve your API key from [My Profile](/user-management#api-key) page and save it as an environment variable.
-
-    <CodeGroup>
-    ```bash {{ title: 'Linux, macOS' }}
-    echo 'export TOFUPILOT_API_KEY=[your_key_here]' >> ~/.zshenv
-    ```
-
-    ```bash {{ title: 'Windows' }}
-    setx TOFUPILOT_API_KEY "<your_key_here>"
-    ```
-
-    </CodeGroup>
-
-4.  Create a new Python script and paste the following code:
-
-    ```python {{ title: 'create_run.py'}}
-    from tofupilot import TofuPilotClient
-    from datetime import datetime
-
-    client = TofuPilotClient()
-
-    # Test function
-    def test():
-        return True
-
-    # Run test function
-    start_time = datetime.now()
-    run_passed = test()
-    end_time = datetime.now()
-
-    # Create a test run
-    response = client.create_run(
-        procedure_id="FVT1",
-        unit_under_test={
-          "serial_number": "000001", # Serial Number = Individual Item
-          "part_number": "PCBA01" # Part Number = Type of Item
-        },
-        run_passed=run_passed,
-        duration=end_time - start_time
-    )
-    ```
-
-5.  Run the script:
-
-    ```bash
-    python create_run.py
-    ```
-
-The console returns:
-
-```plaintext
-TofuPilot Python Client <version>
-2024-07-24 16:44:18 - ℹ️ Creating run...
-2024-07-24 16:44:19 - ✅ Test run created: https://tofupilot.com/<organization>/runs/<uuid>
-```
-
-Congratulations, your first run has been created on TofuPilot 🎉
-
-## Run Page
-
-Open the link from the console or navigate to the Run page. The Run has been created:
-
-<Image src={'/run-first-upload.png'} alt={'First Run'} />
-
-Here's what happened:
-
-1. A new run was created for the `Battery PCBA Test` (ID `FVT1`) procedure. This procedure was automatically created when you signed up.
-2. The unit `PCBA01-0001` was created.
-3. The unit was linked to component `PCBA01`, also created.
-4. The default revision `A` was assigned to the component.
-5. The run status was set to `Pass` since `run_passed` is `True`.
+<Note>
+  We recommend using **virtualenv** for isolated Python environments. Learn how to set one up for:
+      [VSCode](https://code.visualstudio.com/docs/python/environments#_virtual-environments),
+      [PyCharm](https://www.jetbrains.com/help/pycharm/creating-virtual-environment.html),
+      [Sublime Text](https://packagecontrol.io/packages/Virtualenv).
+</Note>
 
 ## Next
 
 Congratulations on uploading your first test run to TofuPilot! This simple test is just the beginning. The next guides will show you how to add essential options like test steps, attachments, and more.
-
-If you have any questions, or simply want to meet the team behind TofuPilot, we're always here for you.
-
-<div className="not-prose">
-  <Button href="/support/contact" variant="text" arrow="right">
-    Contact us
-  </Button>
-</div>
 
 Let's make this the start of a long and successful journey! 🥳
