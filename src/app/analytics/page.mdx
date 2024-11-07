@@ -6,7 +6,7 @@ export const metadata = {
 
 # Test analytics
 
-Monitor your tests yields and capability index xat the test phase level. {{ className: 'lead' }}
+Monitor your test capabilities at the test phase level. {{ className: 'lead' }}
 
 <Image
   src="/analytics-header.png"
@@ -15,26 +15,26 @@ Monitor your tests yields and capability index xat the test phase level. {{ clas
 
 ## Overview
 
-When you deploy your test script, it runs many times, and issues arise. Instruments may not connect, limits might reject good parts, or some steps take longer than expected.
+When running your tests, issues can arise: instruments may fail to connect, limits may reject good parts, or some steps may take too long.
 
-One way to troubleshoot your test scripts is by using industry-standard metrics: First-Pass Yield (FPY) and Process Capability Index (Cpk). These measures help identify areas for improvement in your testing process.
+To troubleshoot effectively, use industry-standard metrics like First-Pass Yield (FPY) and Process Capability Index (Cpk) to spot areas for improvement in your testing process.
+
 
 ## First-pass yield (FPY)
 
-On the test procedure page, you'll find detailed statistics on execution performance. The most commonly used metric in industrial test monitoring is First-pass yield (FPY). It measures the percentage of parts that pass without rework and helps assess the efficiency of the process.
+The test procedure page shows detailed execution statistics. One key metric is First-pass yield, which tracks the percentage of parts passing without rework and indicates process efficiency.
 
-In TofuPilot, the first-pass yield is calculated in real time for the complete test and for each test phase, so you can quickly see which step impacts the overall yield the most.
+In TofuPilot, FPY is calculated in real time for both the overall test and each step. You can select the data and time period for calculating FPY using the dropdown menu in the top right.
 
 <Image
   src="/analytics-first-pass-yield.png"
   alt="TofuPilot analytics showing first-pass yield (FPY) for test phases in OpenHTF."
 />
 
-A low First-pass yield (FPY) means many parts fail on the first try, often due to poorly calibrated limits, procedural errors, equipment defects, or process variations.
 
 ## Process capability index (Cpk)
 
-The Process Capability Index (Cpk) measures how well a test stays within its limits. It applies to test steps with numerical measurements and at least one lower or upper limit.
+The Process Capability Index measures how well a test stays within its limits. It applies to test steps with numerical measurements and at least one lower or upper limit.
 
 In TofuPilot, Cpk is calculated in real-time for each test step, showing you how capable your test is.
 
