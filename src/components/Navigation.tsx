@@ -260,7 +260,6 @@ export const navigation: Array<NavGroup> = [
       { title: 'FPY and Cpk', href: '/analytics' },
       { title: 'Test steps analysis', href: '/analysis' },
       { title: 'Traceability', href: '/traceability' },
-      { title: 'Editor', href: '/editor' },
       { title: 'User management', href: '/user-management' },
     ],
   },
