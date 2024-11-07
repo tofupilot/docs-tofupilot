@@ -250,7 +250,6 @@ export const navigation: Array<NavGroup> = [
     title: 'Integrations',
     links: [
       { title: 'OpenHTF', href: '/openhtf' },
-      { title: 'Pytest', href: '/pytest' },
       { title: 'Python', href: '/python' },
     ],
   },
