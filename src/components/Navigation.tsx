@@ -255,12 +255,12 @@ export const navigation: Array<NavGroup> = [
     ],
   },
   {
-    title: 'Dashboard',
+    title: 'In-app views',
     links: [
-      { title: 'FPY and Cpk', href: '/analytics' },
+      { title: 'Test analytics', href: '/analytics' },
       { title: 'Test steps analysis', href: '/analysis' },
       { title: 'Traceability', href: '/traceability' },
-      { title: 'User management', href: '/user-management' },
+      { title: 'Account management', href: '/user-management' },
     ],
   },
   {
