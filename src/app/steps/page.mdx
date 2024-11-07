@@ -20,21 +20,6 @@ A hardware test typically consists of several steps that perform measurements an
 You can create and add various test steps and view the automatically generated reports on the Run page.
 
 ### Required parameters
-<Properties>
-  <Property name="name" type="str">
-    The name of the step.
-  </Property>
-  <Property name="step_passed" type="bool">
-    Pass/Fail status of the step.
-  </Property>
-  <Property name="started_at" type="datetime">
-    ISO 8601 start time of the step. Example: "2024-09-11T08:00:00Z"
-  </Property>
-  <Property name="duration" type="timedelta">
-    The duration of the step.
-  </Property>
-</Properties>
-
 <CodeGroup>
 ```python {{ title: 'OpenHTF'}}
 import openhtf as htf
@@ -87,24 +72,22 @@ if __name__ == "__main__":
 ```
 </CodeGroup>
 
-
-
-### Optional parameters
 <Properties>
-  <Property name="measurement_unit" type="str">
-    The unit of measurement for the value (e.g. "°C").
+  <Property name="name" type="str">
+    The name of the step.
   </Property>
-  <Property name="measurement_value" type="float">
-    The value measured during step.
+  <Property name="step_passed" type="bool">
+    Pass/Fail status of the step.
   </Property>
-  <Property name="limit_low" type="float">
-    Minimum threshold.
+  <Property name="started_at" type="datetime">
+    ISO 8601 start time of the step. Example: "2024-09-11T08:00:00Z"
   </Property>
-  <Property name="limit_high" type="float">
-    Maximum threshold.
+  <Property name="duration" type="timedelta">
+    The duration of the step.
   </Property>
 </Properties>
 
+### Optional parameters
 
 <CodeGroup>
 ```python {{ title: 'OpenHTF'}}
@@ -169,6 +152,21 @@ if __name__ == "__main__":
     main()
 ```
 </CodeGroup>
+
+<Properties>
+  <Property name="measurement_unit" type="str">
+    The unit of measurement for the value (e.g. "°C").
+  </Property>
+  <Property name="measurement_value" type="float">
+    The value measured during step.
+  </Property>
+  <Property name="limit_low" type="float">
+    Minimum threshold.
+  </Property>
+  <Property name="limit_high" type="float">
+    Maximum threshold.
+  </Property>
+</Properties>
 
 ## In-app view
 

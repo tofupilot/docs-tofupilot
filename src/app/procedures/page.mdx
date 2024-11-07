@@ -5,7 +5,7 @@ export const metadata = {
 }
 
 # Procedures
-Define your procedures to test your Units Under Test. {{ className: 'lead' }}
+Define your test sequence of your Units Under Test. {{ className: 'lead' }}
 
 
 <Image
@@ -20,22 +20,6 @@ The Procedures allow you to set up the test sequence for one or more units under
 You can create a new procedure automatically from your test scripts by setting its ID, name, Unit Under Test, and test status.
 
 ### Basic parameters
-
-<Properties>
-  <Property name="procedure_id" type="str">
-    Define unique procedure ID.
-  </Property>
-  <Property name="procedure_name" type="str (optional)">
-    Set or rename the procedure name.
-  </Property>
-  <Property name="run_passed" type="bool">
-    Set Pass/Fail status of the procedure.
-  </Property>
-  <Property name="duration" type="timedelta (optional)">
-    Determine duration of the test.
-  </Property>
-</Properties>
-
 <CodeGroup>
 ```python {{ title: 'OpenHTF'}}
 import openhtf as htf
@@ -74,6 +58,22 @@ if __name__ == '__main__':
     main()
 ```
 </CodeGroup>
+
+<Properties>
+  <Property name="procedure_id" type="str">
+    Define unique procedure ID.
+  </Property>
+  <Property name="procedure_name" type="str (optional)">
+    Set or rename the procedure name.
+  </Property>
+  <Property name="run_passed" type="bool">
+    Set Pass/Fail status of the procedure.
+  </Property>
+  <Property name="duration" type="timedelta (optional)">
+    Determine duration of the test.
+  </Property>
+</Properties>
+
 
 <Note>
   If a procedure has `steps` but the procedure duration is not defined, the `duration` will be automatically calculated as the sum of the durations of its steps

@@ -21,22 +21,6 @@ Tracking hardware tests by serial number is key for traceability and performance
 
   With frameworks like OpenHTF, the serial number and additional parameters can be added as metadata when `Test` is specified. For custom test frameworks using the Python client, specify parameters in `unit_under_test` when creating the run.
 
-    <Properties>
-      <Property name="serial_number" type="str">
-        Serial Number of the unit under test.
-      </Property>
-      <Property name="part_number" type="str">
-        Part number of the unit under test.
-      </Property>
-      <Property name="revision" type="str (optional)">
-        Revision of the unit under test.
-      </Property>
-      <Property name="batch_number" type="str (optional)">
-        Batch number of the unit under test.
-      </Property>
-    </Properties>
-
-
     <CodeGroup>
     ```python {{ title: 'OpenHTF'}}
       from openhtf import Test
@@ -73,6 +57,20 @@ Tracking hardware tests by serial number is key for traceability and performance
     ```
     </CodeGroup>
 
+    <Properties>
+      <Property name="serial_number" type="str">
+        Serial Number of the unit under test.
+      </Property>
+      <Property name="part_number" type="str">
+        Part number of the unit under test.
+      </Property>
+      <Property name="revision" type="str (optional)">
+        Revision of the unit under test.
+      </Property>
+      <Property name="batch_number" type="str (optional)">
+        Batch number of the unit under test.
+      </Property>
+    </Properties>
 
 ## In-app view
 You find infromation about your Unit Under Test in the **Unit** section on the ***Run** page.
