@@ -69,7 +69,7 @@ function CustomImage({
 }) {
   return (
     <Image
-      src={src}
+      src={`/docs${src}`}
       alt={alt}
       width={width}
       height={height}
