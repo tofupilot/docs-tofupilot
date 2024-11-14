@@ -8,7 +8,7 @@ export function Logo() {
         width={28}
         height={28}
         quality={100}
-        src="/icon.png"
+        src="/docs/icon.png"
         alt="TofuPilot"
       />
     </Link>
