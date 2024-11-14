@@ -1,21 +1,21 @@
 export const metadata = {
   title: 'Attachments',
   description:
-    'This guide shows how to attach one or several files during the creation of a run in Tofupilot and view them on the Run page.',
+    'This guide shows how to attach one or several files during the creation of a run in TofuPilot and view them on the Run page.',
 }
 
 # Attachments
+
 Attach files collected during execution to the test record. {{ className: 'lead' }}
 
-<Image
-  src="/attachments-header.png"
-  alt=""
-/>
+<Image src="/attachments-header.png" alt="" />
 
 ## Overview
+
 Hardware tests often generate extra data, like images, that can't be captured as measurements. TofuPilot uploads these attachments, allowing you to access and download them directly from your workspace.
 
 ## Integration
+
 You can add attachments using OpenHTF's `attach` or `attach_from_file` functions. With TofuPilot Client, use the `attachments` field when creating a run with `create_run`.
 
 <CodeGroup>
@@ -69,7 +69,4 @@ if __name__ == "__main__":
 
 A dedicated **Attachments** section is automatically created on the Run’s page. Attachments can be viewed in the browser or downloaded.
 
-<Image
-  src="/attachments-page-run.png"
-  alt=""
-/>
+<Image src="/attachments-page-run.png" alt="" />
