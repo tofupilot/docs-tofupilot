@@ -85,11 +85,11 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       The duration of the run.
 
         - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
-        - For [Python Client](./clients/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
+        - For [Python Client](/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
 
       </Property>
       <Property name="steps" type="array, optional">
-        [Steps](../steps) of the run.
+        [Steps](/steps) of the run.
       </Property>
       <Property name="name" type="string, required" indent>
         The name of the step. _Example: "temperature_calibration"_
@@ -104,7 +104,7 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
         The duration of the step.
 
         - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
-        - For [Python Client](./clients/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
+        - For [Python Client](/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
 
       </Property>
       <Property name="measurement_unit" type="string, optional" indent>
@@ -120,16 +120,16 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
         Maximum threshold. _Example: 13.2_
       </Property>
       <Property name="attachments" type="array(string), optional">
-        File paths for [attachments](../attachments). _Example: ["path/to/file1.png", "path/to/file2.pdf"]_
+        File paths for [attachments](/attachments). _Example: ["path/to/file1.png", "path/to/file2.pdf"]_
       </Property>
       <Property name="sub_units" type="array(record), optional">
-        Identifiers of [sub-units](../sub-units).
+        Identifiers of [sub-units](/sub-units).
       </Property>
       <Property name="serial_number" type="string, required" indent>
-        Serial number of [sub-unit](../sub-units). _Example: "SN789"_
+        Serial number of [sub-unit](/sub-units). _Example: "SN789"_
       </Property>
       <Property name="report_variables" type="record(string, string)">
-        Key/value pairs for [report variables](../report).
+        Key/value pairs for [report variables](/report).
       </Property>
     </Properties>
 
@@ -350,7 +350,7 @@ fetch('https://www.tofupilot.com/api/v1/runs?serial_number=PCBA01-0001', {
         The unique identifier of the given unit. _Example: "PCBA01-001"_
       </Property>
       <Property name="sub_units" type="array(record), optional">
-        Identifiers of [sub-units](../sub-units).
+        Identifiers of [sub-units](/sub-units).
       </Property>
     </Properties>
   </Col>
