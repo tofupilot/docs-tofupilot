@@ -266,7 +266,7 @@ export const navigation: Array<NavGroup> = [
     title: 'Guides',
     links: [
       { title: 'REST API', href: '/api' },
-      { title: 'Offline upload', href: '/asynchronous-upload' },
+      { title: 'Offline upload', href: '/offline-upload' },
       { title: 'Errors manual', href: '/errors' },
     ],
   },
