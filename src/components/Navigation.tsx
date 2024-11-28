@@ -254,7 +254,7 @@ export const navigation: Array<NavGroup> = [
     ],
   },
   {
-    title: 'In-app views',
+    title: 'Web App',
     links: [
       { title: 'Test analytics', href: '/analytics' },
       { title: 'Test steps analysis', href: '/analysis' },
@@ -267,6 +267,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'REST API', href: '/api' },
       { title: 'Offline upload', href: '/offline-upload' },
+      { title: 'Self-hosting', href: '/self-hosting' },
       { title: 'Errors manual', href: '/errors' },
     ],
   },
