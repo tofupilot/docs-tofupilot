@@ -55,6 +55,8 @@ TofuPilot does not store user passwords in its database and offers two secure me
 
 You must enable **at least one** authentication method based on your requirements.
 
+**Email**
+
 To enable email-based authentication, retrieve the following SMTP server details:
 
 - **SMTP Host**: The hostname of your email server (e.g., `smtp.yourdomain.com`).
@@ -65,7 +67,7 @@ To enable email-based authentication, retrieve the following SMTP server details
 
 To enable OAuth authentication, create an authorized application in your Google or Microsoft account:
 
-**Microsoft Account Setup**:
+**Microsoft Account Setup**
 
 1. Go to the [Microsoft Azure portal](https://portal.azure.com).
 2. Navigate to **Microsoft Entra ID** > **App registrations**.
@@ -77,7 +79,7 @@ To enable OAuth authentication, create an authorized application in your Google 
    - **Directory (tenant) ID**
    - **Client Secret**: Create a client secret under **Certificates & secrets**.
 
-**Google Account Setup**:
+**Google Account Setup**
 
 1. Go to the [Google Cloud Console](https://console.developers.google.com/apis/credentials).
 2. Create a new OAuth 2.0 Client ID under **Credentials**.
@@ -93,50 +95,50 @@ Once prerequisites are complete, installation is straightforward.
 
 1. SSH into your server:
 
-    ```bash
-    ssh root@your_server_ip
-    ```
+   ```bash
+   ssh root@your_server_ip
+   ```
 
 2. Download the deployment script:
 
-    ```bash
-    curl -o ~/deploy.sh https://raw.githubusercontent.com/tofupilot/self-hosting/main/deploy.sh
-    ```
+   ```bash
+   curl -o ~/deploy.sh https://raw.githubusercontent.com/tofupilot/self-hosting/main/deploy.sh
+   ```
 
 3. Configure the deployment script:
 
-    ```bash
-    nano ~/deploy.sh
-    ```
+   ```bash
+   nano ~/deploy.sh
+   ```
 
 4. Locate and replace the following lines:
 
-    ```bash
-    DOMAIN_NAME=""
-    EMAIL=""
-    STORAGE_DOMAIN_NAME="storage.$DOMAIN_NAME" # or another
+   ```bash
+   DOMAIN_NAME=""
+   EMAIL=""
+   STORAGE_DOMAIN_NAME="storage.$DOMAIN_NAME" # or another
 
-    # Ensure at least one auth method (Azure AD, Google OAuth, or SMTP) is configured.
-    AZURE_AD_CLIENT_ID=""
-    AZURE_AD_TENANT_ID=""
-    AZURE_AD_CLIENT_SECRET=""
+   # Ensure at least one auth method (Azure AD, Google OAuth, or SMTP) is configured.
+   AZURE_AD_CLIENT_ID=""
+   AZURE_AD_TENANT_ID=""
+   AZURE_AD_CLIENT_SECRET=""
 
-    GOOGLE_CLIENT_ID=""
-    GOOGLE_CLIENT_SECRET=""
+   GOOGLE_CLIENT_ID=""
+   GOOGLE_CLIENT_SECRET=""
 
-    SMTP_HOST=""
-    SMTP_PORT="587"
-    SMTP_USER=""
-    SMTP_PASSWORD=""
-    EMAIL_FROM=""
-    ```
+   SMTP_HOST=""
+   SMTP_PORT="587"
+   SMTP_USER=""
+   SMTP_PASSWORD=""
+   EMAIL_FROM=""
+   ```
 
 5. Run the deployment script:
 
-    ```bash
-    chmod +x ~/deploy.sh
-    sudo bash deploy.sh
-    ```
+   ```bash
+   chmod +x ~/deploy.sh
+   sudo bash deploy.sh
+   ```
 
 ## Post-Installation
 
@@ -148,15 +150,15 @@ Once the script completes, you can immediately access the web app to create an a
 2. Confirm the interface loads with a valid SSL certificate.
 3. Check Docker containers are running:
 
-    ```bash
-    docker-compose ps
-    ```
+   ```bash
+   docker-compose ps
+   ```
 
 4. Review logs for errors:
 
-    ```bash
-    docker-compose logs tofupilot
-    ```
+   ```bash
+   docker-compose logs tofupilot
+   ```
 
 ### Sign-up
 
