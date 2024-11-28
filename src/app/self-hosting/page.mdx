@@ -46,7 +46,7 @@ Ensure your domain and DNS settings are prepared for self-hosting:
   - Point `storage.tofupilot.yourcompany.com` to the same public IPv4 address.
 - **SSL Certificate**: Ensure you have a valid email address for registering the SSL certificate with Let’s Encrypt.
 
-### Authentication
+## Authentication
 
 TofuPilot does not store user passwords in its database and offers two secure methods for user sign-up and authentication:
 
@@ -55,7 +55,7 @@ TofuPilot does not store user passwords in its database and offers two secure me
 
 You must enable **at least one** authentication method based on your requirements.
 
-**Email**
+### Email
 
 To enable email-based authentication, retrieve the following SMTP server details:
 
@@ -67,7 +67,7 @@ To enable email-based authentication, retrieve the following SMTP server details
 
 To enable OAuth authentication, create an authorized application in your Google or Microsoft account:
 
-**Microsoft Account Setup**
+### Microsoft Account Setup
 
 1. Go to the [Microsoft Azure portal](https://portal.azure.com).
 2. Navigate to **Microsoft Entra ID** > **App registrations**.
@@ -79,7 +79,7 @@ To enable OAuth authentication, create an authorized application in your Google 
    - **Directory (tenant) ID**
    - **Client Secret**: Create a client secret under **Certificates & secrets**.
 
-**Google Account Setup**
+### Google Account Setup
 
 1. Go to the [Google Cloud Console](https://console.developers.google.com/apis/credentials).
 2. Create a new OAuth 2.0 Client ID under **Credentials**.
@@ -99,10 +99,10 @@ Once prerequisites are complete, installation is straightforward.
    ssh root@your_server_ip
    ```
 
-2. Download the deployment script:
+2. Download the deployment script and run it:
 
    ```bash
-   curl -o ~/deploy.sh https://raw.githubusercontent.com/tofupilot/self-hosting/main/deploy.sh
+   ./deploy.sh
    ```
 
 3. Configure the deployment script:
