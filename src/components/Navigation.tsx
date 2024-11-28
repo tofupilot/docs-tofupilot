@@ -17,6 +17,7 @@ interface NavGroup {
   links: Array<{
     title: string
     href: string
+    new?: boolean
   }>
 }
 
@@ -36,6 +37,7 @@ function TopLevelNavItem({
     <li className="md:hidden">
       <Link
         href={href}
+        target="_blank"
         className="block py-1 text-sm text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
       >
         {children}
@@ -136,7 +138,7 @@ function ActivePageMarker({
   return (
     <motion.div
       layout
-      className="absolute left-2 h-6 w-px bg-sky-500"
+      className="absolute left-2 h-6 w-px bg-teal-500"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { delay: 0.2 } }}
       exit={{ opacity: 0 }}
@@ -190,9 +192,14 @@ function NavigationGroup({
         <ul role="list" className="border-l border-transparent">
           {group.links.map((link) => (
             <motion.li key={link.href} layout="position" className="relative">
-              <NavLink href={link.href} active={link.href === pathname}>
+              <NavLink
+                href={link.href}
+                active={link.href === pathname}
+                tag={link.new ? 'New' : undefined}
+              >
                 {link.title}
               </NavLink>
+
               <AnimatePresence mode="popLayout" initial={false}>
                 {link.href === pathname && sections.length > 0 && (
                   <motion.ul
@@ -267,7 +274,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'REST API', href: '/api' },
       { title: 'Offline upload', href: '/offline-upload' },
-      { title: 'Self-hosting', href: '/self-hosting' },
+      { title: 'Self-hosting', href: '/self-hosting', new: true },
       { title: 'Errors manual', href: '/errors' },
     ],
   },

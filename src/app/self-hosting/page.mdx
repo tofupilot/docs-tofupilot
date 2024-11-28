@@ -8,7 +8,7 @@ export const metadata = {
 Self-host TofuPilot for scenarios where managed cloud is not an option. {{ className: 'lead' }}
 
 <Image
-  src="/subunits-header.png"
+  src="/self-hosting-header.png"
   alt="Unit and Sub-Unit view with their serial number"
 />
 
@@ -16,7 +16,7 @@ Self-host TofuPilot for scenarios where managed cloud is not an option. {{ class
 
 TofuPilot accounts are hosted on our AWS-powered cloud, managed by our team. This ensures strong security, high performance, automatic updates, and removes the need for your infrastructure management.
 
-For strict IT policies or specific connectivity needs, self-hosting TofuPilot is also possible option. Installation takes just 15 minutes with this guide.
+For strict IT policies or specific connectivity needs, self-hosting TofuPilot is also a possible option. Installation takes just 15 minutes with this guide.
 
 ## Prerequisites (10 min)
 
@@ -93,50 +93,50 @@ Once prerequisites are complete, installation is straightforward.
 
 1. SSH into your server:
 
-```bash
-ssh root@your_server_ip
-```
+    ```bash
+    ssh root@your_server_ip
+    ```
 
 2. Download the deployment script:
 
-```bash
-curl -o ~/deploy.sh https://raw.githubusercontent.com/tofupilot/self-hosting/main/deploy.sh
-```
+    ```bash
+    curl -o ~/deploy.sh https://raw.githubusercontent.com/tofupilot/self-hosting/main/deploy.sh
+    ```
 
 3. Configure the deployment script:
 
-```bash
-nano ~/deploy.sh
-```
+    ```bash
+    nano ~/deploy.sh
+    ```
 
-Locate and replace the following lines:
+4. Locate and replace the following lines:
 
-```bash
-DOMAIN_NAME=""
-EMAIL=""
-STORAGE_DOMAIN_NAME="storage.$DOMAIN_NAME" # or another
+    ```bash
+    DOMAIN_NAME=""
+    EMAIL=""
+    STORAGE_DOMAIN_NAME="storage.$DOMAIN_NAME" # or another
 
-# Ensure at least one auth method (Azure AD, Google OAuth, or SMTP) is configured.
-AZURE_AD_CLIENT_ID=""
-AZURE_AD_TENANT_ID=""
-AZURE_AD_CLIENT_SECRET=""
+    # Ensure at least one auth method (Azure AD, Google OAuth, or SMTP) is configured.
+    AZURE_AD_CLIENT_ID=""
+    AZURE_AD_TENANT_ID=""
+    AZURE_AD_CLIENT_SECRET=""
 
-GOOGLE_CLIENT_ID=""
-GOOGLE_CLIENT_SECRET=""
+    GOOGLE_CLIENT_ID=""
+    GOOGLE_CLIENT_SECRET=""
 
-SMTP_HOST=""
-SMTP_PORT="587"
-SMTP_USER=""
-SMTP_PASSWORD=""
-EMAIL_FROM=""
-```
+    SMTP_HOST=""
+    SMTP_PORT="587"
+    SMTP_USER=""
+    SMTP_PASSWORD=""
+    EMAIL_FROM=""
+    ```
 
 5. Run the deployment script:
 
-```bash
-chmod +x ~/deploy.sh
-sudo bash deploy.sh
-```
+    ```bash
+    chmod +x ~/deploy.sh
+    sudo bash deploy.sh
+    ```
 
 ## Post-Installation
 
@@ -148,15 +148,15 @@ Once the script completes, you can immediately access the web app to create an a
 2. Confirm the interface loads with a valid SSL certificate.
 3. Check Docker containers are running:
 
-```bash
-docker-compose ps
-```
+    ```bash
+    docker-compose ps
+    ```
 
 4. Review logs for errors:
 
-```bash
-docker-compose logs tofupilot
-```
+    ```bash
+    docker-compose logs tofupilot
+    ```
 
 ### Sign-up
 
@@ -205,6 +205,7 @@ You can upload test runs using the public TofuPilot Python package. Simply set y
     if __name__ == '__main__':
         main()
     ```
+
 </CodeGroup>
 
 ## Update
