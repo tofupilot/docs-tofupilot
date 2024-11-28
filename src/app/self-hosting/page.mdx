@@ -25,8 +25,8 @@ Welcome to the TofuPilot Self-Hosting Deployment Guide. This repository provides
 ## Prerequisites
 
 1. **Enterprise Plan Subscription**: You must be a TofuPilot client on an Enterprise plan. If you’re not yet subscribed, please contact [our sales team](support@tofupilot.com).
-2. **Domain Name**: A domain name that you will use for your self-hosted TofuPilot application (e.g., tofupilot.yourcompany.com).
-3. **Domain Name**: A sub-domain name that you will use for the object storage of your self-hosted TofuPilot application (defaults to storage.DOMAIN_NAME).
+2. **Domain Name**: A domain / sub-domain name that you will use for your self-hosted TofuPilot application (e.g., tofupilot.yourcompany.com).
+3. **Domain Name**: A domain / sub-domain name that you will use for the object storage of your self-hosted TofuPilot application (defaults to storage.DOMAIN_NAME).
 4. **DNS Configuration**: Create two `A` records in your DNS settings pointing both chosen domain to the public IPv4 address of your server.
 5. **Server Access**: Have root or sudo access to a server where you will install TofuPilot.
 6. **Valid Email Address**: You will need a valid email address for SSL certificate registration with Let’s Encrypt.
@@ -160,3 +160,5 @@ To update TofuPilot to the latest version, run the update script:
 chmod +x ~/update.sh
 sudo bash update.sh
 ```
+
+SET BASE_URL WHEN USING PYTHON CLIENT
