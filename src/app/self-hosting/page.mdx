@@ -16,7 +16,7 @@ Self-host TofuPilot for scenarios where managed cloud is not an option. {{ class
 
 TofuPilot accounts are hosted on our AWS-powered cloud, managed by our team. This ensures strong security, high performance, automatic updates, and removes the need for your infrastructure management.
 
-For strict IT policies or specific connectivity needs, self-hosting TofuPilot is also a possible option. Installation takes just 15 minutes with this guide.
+For strict IT policies or specific connectivity needs, TofuPilot can be self-hosted. Installation should take around 10 minutes.
 
 ## Prerequisites
 
@@ -179,7 +179,7 @@ You can upload test runs using the public TofuPilot Python package. Simply set y
     procedure_name="PCB Testing",
     part_number="PCB1",
     )
-    with TofuPilot(test, url="https://tofupilot.yourcompany.site"): # specify URL here
+    with TofuPilot(test, url="https://tofupilot.yourcompany.com"): # specify URL here
     test.execute(lambda: "PCB1A001")
 
     if __name__ == '__main__':
@@ -191,10 +191,9 @@ You can upload test runs using the public TofuPilot Python package. Simply set y
     from datetime import datetime, timedelta
 
     def main():
-        client = TofuPilotClient()
+        client = TofuPilotClient(url="https://tofupilot.yourcompany.com") # specify URL here
 
         client.create_run(
-            url="http://env-6395722.jcloud.ik-server.com:3000", # specify URL here
             procedure_id="FVT1",
             procedure_name="PCB Testing",
             run_passed=True,
