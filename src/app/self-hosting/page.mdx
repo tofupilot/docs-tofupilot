@@ -94,7 +94,7 @@ Replace the placeholders:
    - Pay close attention to "Who can use this application or access this API?"
      - This allows you to scope access to specific types of user accounts
      - Only your tenant, all azure tenants, or all azure tenants and public Microsoft accounts (Skype, Xbox, Outlook.com, etc.)
-   - When asked for a redirection URL, select the platform type "Web" and use https://{DOMAIN_NAME>}/api/auth/callback/azure-ad
+   - When asked for a redirection URL, select the platform type "Web" and use https://DOMAIN_NAME/api/auth/callback/azure-ad
    - After your App Registration is created, under "Client Credential" create your Client secret.
    - Now copy your:
      - Application (client) ID
@@ -112,7 +112,7 @@ Replace the placeholders:
    **Configuring Authentication with Google**:
 
    - See https://console.developers.google.com/apis/credentials
-   - When asked for the "Authorized redirect URIs", use https://{DOMAIN_NAME}/api/auth/callback/google
+   - When asked for the "Authorized redirect URIs", use https://DOMAIN_NAME/api/auth/callback/google
 
    **Configuring Authentication with Email**:
 
@@ -138,7 +138,7 @@ sudo bash deploy.sh
 
 After the script completes:
 
-- Access TofuPilot: Open a web browser and navigate to https://{YOUR_DOMAIN}. You should see the TofuPilot application interface.
+- Access TofuPilot: Open a web browser and navigate to https://YOUR_DOMAIN. You should see the TofuPilot application interface.
 - Verify SSL Certificate: Ensure the SSL certificate is valid and the connection is secure.
 - Check Docker Containers: Verify that all Docker containers are running:
 
