@@ -138,29 +138,7 @@ Once prerequisites are complete, installation is straightforward.
 
 ## Post-Installation
 
-Once the script completes, you can immediately access the web app to create an admin account, set up an organization, and upload test runs.
-
-### Access the self-hosted web app
-
-1. Access the self-hosted TofuPilot web app at your domain, e.g. `tofupilot.yourcompany.com`.
-2. Confirm the interface loads with a valid SSL certificate.
-3. Check Docker containers are running:
-
-   ```bash
-   docker-compose ps
-   ```
-
-4. Review logs for errors:
-
-   ```bash
-   docker-compose logs tofupilot
-   ```
-
-### Sign-up
-
-Create your first account and organization on the on-premise instance using the signup button. You can choose any name for the organization; however, we recommend opting for `app` for simplicity and consistency.
-
-### Upload test data
+Once the script finishes, access the web app (e.g., `tofupilot.yourcompany.com`) to create an admin account, and set up an organization (we recommend naming it `app`).
 
 You can upload test runs using the public TofuPilot Python package. Simply set your instance URL with the `url` parameter as shown below. All features described in the rest of the documentation will function as expected.
 
