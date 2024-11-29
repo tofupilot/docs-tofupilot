@@ -1,0 +1,195 @@
+export const metadata = {
+  title: 'Self-hosting',
+  description: 'This guide explains how to sef-host TofuPilot.',
+}
+
+# Self-hosting
+
+Self-host TofuPilot for scenarios where managed cloud is not an option. {{ className: 'lead' }}
+
+<Image
+  src="/self-hosting-header.png"
+  alt="Unit and Sub-Unit view with their serial number"
+/>
+
+## Overview
+
+TofuPilot accounts are hosted on our AWS-powered cloud, managed by our team. This ensures strong security, high performance, automatic updates, and removes the need for your infrastructure management.
+
+For strict IT policies or specific connectivity needs, TofuPilot can be self-hosted. Installation should take around 10 minutes.
+
+## Prerequisites
+
+### Enterprise trial
+
+Contact [our team](mailto:support@tofupilot.com) to sign up for a 15-day **Enterprise** plan trial. We will grant you access to the private self-hosting installation repository.
+
+All the tests stored in your TofuPilot Cloud instance can be seamlessly migrated to your self-hosted version by our team.
+
+### System Requirements
+
+Ensure your server meets the minimum specifications.
+
+- **OS**: Ubuntu 20.04 LTS or later (64-bit)
+- **CPU**: 2 cores or more
+- **RAM**: 4 GB or more
+- **Storage**: 20 GB of free disk space, or more depending on your run attachments needs
+- **Access**: Root or sudo access to your server.
+- **Network**: Open ports 80 (HTTP) and 443 (HTTPS)
+
+### Domains
+
+Ensure your domain and DNS settings are prepared for self-hosting:
+
+- **Domain Name**: Register a domain or subdomain for TofuPilot (e.g., `tofupilot.yourcompany.com`).
+- **Storage Domain Name**: Register a subdomain for TofuPilot storage (e.g., `storage.tofupilot.yourcompany.com`).
+- **DNS Records**: Create two A records in your DNS settings:
+  - Point `tofupilot.yourcompany.com` to your server's public IPv4 address.
+  - Point `storage.tofupilot.yourcompany.com` to the same public IPv4 address.
+- **SSL Certificate**: Ensure you have a valid email address for registering the SSL certificate with Let’s Encrypt.
+
+## Authentication
+
+TofuPilot does not store user passwords in its database and offers two secure methods for user sign-up and authentication:
+
+1. **Email Authentication**: Users sign in by receiving a magic code sent to their email.
+2. **OAuth Authentication**: Users sign in using their Microsoft or Google accounts.
+
+You must enable **at least one** authentication method based on your requirements.
+
+### Email
+
+To enable email-based authentication, retrieve the following SMTP server details:
+
+- **SMTP Host**: The hostname of your email server (e.g., `smtp.yourdomain.com`).
+- **SMTP Port**: Typically `587` for TLS or `465` for SSL.
+- **Email From Address**: The email address that will send the magic codes (e.g., `auth@yourdomain.com`).
+- **SMTP User**: The username for your email account (e.g., `auth@yourdomain.com`).
+- **SMTP Password**: The password or app-specific password for your email account.
+
+To enable OAuth authentication, create an authorized application in your Google or Microsoft account:
+
+### Microsoft OAuth
+
+1. Go to the [Microsoft Azure portal](https://portal.azure.com).
+2. Navigate to **Microsoft Entra ID** > **App registrations**.
+3. Register a new application with these details:
+   - **Redirect URI**: e.g. `https://tofupilot.yourcompany.com/api/auth/callback/azure-ad`
+   - Set **Supported Account Types** to match your needs (e.g., single tenant or multi-tenant).
+4. After registration, retrieve the following:
+   - **Application (client) ID**
+   - **Directory (tenant) ID**
+   - **Client Secret**: Create a client secret under **Certificates & secrets**.
+
+### Google OAuth
+
+1. Go to the [Google Cloud Console](https://console.developers.google.com/apis/credentials).
+2. Create a new OAuth 2.0 Client ID under **Credentials**.
+3. Configure the following:
+   - **Authorized Redirect URI**: `https://tofupilot.yourcompany.com/api/auth/callback/google`
+4. Retrieve the following:
+   - **Client ID**
+   - **Client Secret**
+
+## Deploy
+
+Once prerequisites are complete, installation is straightforward.
+
+1. SSH into your server:
+
+   ```bash
+   ssh root@your_server_ip
+   ```
+
+2. Download the deployment script `deploy.sh` from the [installation repository](https://github.com/tofupilot/self-hosting/blob/main/deploy.sh/).
+
+3. Configure the deployment script:
+
+   ```bash
+   nano ~/deploy.sh
+   ```
+
+4. Locate and replace the following lines:
+
+   ```bash
+   DOMAIN_NAME=""
+   EMAIL=""
+   STORAGE_DOMAIN_NAME="storage.$DOMAIN_NAME" # or another
+
+   # Ensure at least one auth method (Azure AD, Google OAuth, or SMTP) is configured.
+   AZURE_AD_CLIENT_ID=""
+   AZURE_AD_TENANT_ID=""
+   AZURE_AD_CLIENT_SECRET=""
+
+   GOOGLE_CLIENT_ID=""
+   GOOGLE_CLIENT_SECRET=""
+
+   SMTP_HOST=""
+   SMTP_PORT="587"
+   SMTP_USER=""
+   SMTP_PASSWORD=""
+   EMAIL_FROM=""
+   ```
+
+5. Run the deployment script:
+
+   ```bash
+   chmod +x ~/deploy.sh
+   sudo bash deploy.sh
+   ```
+
+## Post-Installation
+
+Once the script finishes, access the web app (e.g., `tofupilot.yourcompany.com`) to create an admin account, and set up an organization (we recommend naming it `app`).
+
+You can upload test runs using the public TofuPilot Python package. Simply set your instance URL with the `url` parameter as shown below. All features described in the rest of the documentation will function as expected.
+
+<CodeGroup>
+    ```python {{ title: 'OpenHTF'}}
+    import openhtf as htf
+    from tofupilot.openhtf import TofuPilot
+
+    def main():
+    test = htf.Test(
+    procedure_id="FVT1",
+    procedure_name="PCB Testing",
+    part_number="PCB1",
+    )
+    with TofuPilot(test, url="https://tofupilot.yourcompany.com"): # specify URL here
+    test.execute(lambda: "PCB1A001")
+
+    if __name__ == '__main__':
+    main()
+    ```
+
+    ```python {{ title: 'Python'}}
+    from tofupilot import TofuPilotClient
+    from datetime import datetime, timedelta
+
+    def main():
+        client = TofuPilotClient(url="https://tofupilot.yourcompany.com") # specify URL here
+
+        client.create_run(
+            procedure_id="FVT1",
+            procedure_name="PCB Testing",
+            run_passed=True,
+            unit_under_test={
+                "serial_number": "PCB1A001",
+                "part_number": "PCB1"},
+            duration=timedelta(minutes=1, seconds=45),
+        )
+
+    if __name__ == '__main__':
+        main()
+    ```
+
+</CodeGroup>
+
+## Update
+
+To update your self-hosted TofuPilot app to the latest version, run the update script:
+
+```bash
+chmod +x ~/update.sh
+sudo bash update.sh
+```
