@@ -22,7 +22,7 @@ For strict IT policies or specific connectivity needs, TofuPilot can be self-hos
 
 ### Enterprise trial
 
-Contact [our team](mailto:support@tofupilot.com) to sign up for a 15-day **Enterprise** plan trial. We will grant you access to the private self-hosting installation repository.
+Contact [our team](mailto:support@tofupilot.com) to sign up for an **Enterprise** plan trial. We will grant you access to the private self-hosting installation repository.
 
 All the tests stored in your TofuPilot Cloud instance can be seamlessly migrated to your self-hosted version by our team.
 
@@ -34,7 +34,7 @@ Ensure your server meets the minimum specifications.
 - **CPU**: 2 cores or more
 - **RAM**: 4 GB or more
 - **Storage**: 20 GB of free disk space, or more depending on your run attachments needs
-- **Access**: Root or sudo access to your server.
+- **Access**: Sudo access to your server.
 - **Network**: Open ports 80 (HTTP) and 443 (HTTPS)
 
 ### Domains
@@ -98,7 +98,7 @@ Once prerequisites are complete, installation is straightforward.
 1. SSH into your server:
 
    ```bash
-   ssh root@your_server_ip
+   ssh user@your_server_ip
    ```
 
 2. Download the deployment script `deploy.sh` from the [installation repository](https://github.com/tofupilot/self-hosting/blob/main/deploy.sh/).
@@ -150,16 +150,16 @@ You can upload test runs using the public TofuPilot Python package. Simply set y
     from tofupilot.openhtf import TofuPilot
 
     def main():
-    test = htf.Test(
-    procedure_id="FVT1",
-    procedure_name="PCB Testing",
-    part_number="PCB1",
-    )
-    with TofuPilot(test, url="https://tofupilot.yourcompany.com"): # specify URL here
-    test.execute(lambda: "PCB1A001")
+         test = htf.Test(
+               procedure_id="FVT1",
+               procedure_name="PCB Testing",
+               part_number="PCB1",
+         )
+         with TofuPilot(test, url="https://tofupilot.yourcompany.com"): # specify URL here
+         test.execute(lambda: "PCB1A001")
 
     if __name__ == '__main__':
-    main()
+         main()
     ```
 
     ```python {{ title: 'Python'}}
