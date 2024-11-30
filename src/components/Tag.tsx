@@ -6,15 +6,15 @@ const variantStyles = {
 }
 
 const colorStyles = {
-  sky: {
-    small: 'text-sky-500 dark:text-sky-400',
+  lime: {
+    small: 'text-lime-500 dark:text-lime-400',
     medium:
-      'ring-sky-300 dark:ring-sky-400/30 bg-sky-400/10 text-sky-500 dark:text-sky-400',
+      'ring-lime-300 dark:ring-lime-400/30 bg-lime-400/10 text-lime-500 dark:text-lime-400',
   },
   emerald: {
-    small: 'text-sky-500',
+    small: 'text-lime-500',
     medium:
-      'ring-sky-300 bg-sky-400/10 text-sky-500 dark:ring-sky-400/30 dark:bg-sky-400/10 dark:text-sky-400',
+      'ring-lime-300 bg-lime-400/10 text-lime-500 dark:ring-lime-400/30 dark:bg-lime-400/10 dark:text-lime-400',
   },
   amber: {
     small: 'text-amber-500',
@@ -34,8 +34,8 @@ const colorStyles = {
 }
 
 const valueColorMap = {
-  GET: 'sky',
-  POST: 'sky',
+  GET: 'lime',
+  POST: 'lime',
   PUT: 'amber',
   DELETE: 'rose',
 } as Record<string, keyof typeof colorStyles>
@@ -43,7 +43,7 @@ const valueColorMap = {
 export function Tag({
   children,
   variant = 'medium',
-  color = valueColorMap[children] ?? 'sky',
+  color = valueColorMap[children] ?? 'lime',
 }: {
   children: keyof typeof valueColorMap & (string | {})
   variant?: keyof typeof variantStyles

@@ -1,18 +1,6 @@
 'use client'
 
 import {
-  forwardRef,
-  Fragment,
-  Suspense,
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from 'react'
-import Highlighter from 'react-highlight-words'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import {
   type AutocompleteApi,
   type AutocompleteCollection,
   type AutocompleteState,
@@ -25,6 +13,18 @@ import {
   TransitionChild,
 } from '@headlessui/react'
 import clsx from 'clsx'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import {
+  forwardRef,
+  Fragment,
+  Suspense,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react'
+import Highlighter from 'react-highlight-words'
 
 import { navigation } from '@/components/Navigation'
 import { type Result } from '@/mdx/search.mjs'
@@ -157,7 +157,7 @@ function LoadingIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 function HighlightQuery({ text, query }: { text: string; query: string }) {
   return (
     <Highlighter
-      highlightClassName="underline bg-transparent text-sky-500"
+      highlightClassName="underline bg-transparent text-lime-500"
       searchWords={[query]}
       autoEscape={true}
       textToHighlight={text}
@@ -202,7 +202,7 @@ function SearchResult({
       <div
         id={`${id}-title`}
         aria-hidden="true"
-        className="text-sm font-medium text-zinc-900 group-aria-selected:text-sky-500 dark:text-white"
+        className="text-sm font-medium text-zinc-900 group-aria-selected:text-lime-500 dark:text-white"
       >
         <HighlightQuery text={result.title} query={query} />
       </div>
@@ -313,7 +313,7 @@ const SearchInput = forwardRef<
       />
       {autocompleteState.status === 'stalled' && (
         <div className="absolute inset-y-0 right-3 flex items-center">
-          <LoadingIcon className="h-5 w-5 animate-spin stroke-zinc-200 text-zinc-900 dark:stroke-zinc-800 dark:text-sky-400" />
+          <LoadingIcon className="h-5 w-5 animate-spin stroke-zinc-200 text-zinc-900 dark:stroke-zinc-800 dark:text-lime-400" />
         </div>
       )}
     </div>

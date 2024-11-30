@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import clsx from 'clsx'
+import Image, { ImageProps } from 'next/image'
+import Link from 'next/link'
 
 import { Feedback } from '@/components/Feedback'
 import { Heading } from '@/components/Heading'
@@ -8,7 +8,7 @@ import { Prose } from '@/components/Prose'
 
 export const a = Link
 export { Button } from '@/components/Button'
-export { CodeGroup, Code as code, Pre as pre } from '@/components/Code'
+export { Code as code, CodeGroup, Pre as pre } from '@/components/Code'
 
 export function wrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -45,8 +45,8 @@ function InfoIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export function Note({ children }: { children: React.ReactNode }) {
   return (
-    <div className="my-6 flex gap-2.5 rounded-2xl border border-sky-500/20 bg-sky-50/50 p-4 leading-6 text-sky-900 dark:border-sky-500/30 dark:bg-sky-500/5 dark:text-sky-200 dark:[--tw-prose-links-hover:theme(colors.sky.300)] dark:[--tw-prose-links:theme(colors.white)]">
-      <InfoIcon className="mt-1 h-4 w-4 flex-none fill-sky-500 stroke-white dark:fill-sky-200/20 dark:stroke-sky-200" />
+    <div className="my-6 flex gap-2.5 rounded-2xl border border-lime-500/20 bg-lime-50/50 p-4 leading-6 text-lime-900 dark:border-lime-500/30 dark:bg-lime-500/5 dark:text-lime-200 dark:[--tw-prose-links-hover:theme(colors.lime.300)] dark:[--tw-prose-links:theme(colors.white)]">
+      <InfoIcon className="mt-1 h-4 w-4 flex-none fill-lime-500 stroke-white dark:fill-lime-200/20 dark:stroke-lime-200" />
       <div className="[&>:first-child]:mt-0 [&>:last-child]:mb-0">
         {children}
       </div>
@@ -54,32 +54,22 @@ export function Note({ children }: { children: React.ReactNode }) {
   )
 }
 
-function CustomImage({
-  src,
+export const CustomImage = ({
   alt,
-  width = 1000,
-  height = 800,
-  className,
-}: {
-  src: string
-  alt: string
-  width?: number
-  height?: number
-  className?: string
-}) {
-  return (
-    <Image
-      src={`/docs${src}`}
-      alt={alt}
-      width={width}
-      height={height}
-      className={clsx(
-        'w-full rounded-lg border-4 border-zinc-200 shadow-sm ring-1 ring-zinc-300 dark:border-zinc-600 dark:ring-zinc-700',
-        className,
-      )}
-    />
-  )
-}
+  width = 1200,
+  height = 675,
+  src,
+  ...props
+}: ImageProps) => (
+  <Image
+    src={`/docs${src}`}
+    alt={alt}
+    width={width}
+    height={height}
+    className="rounded-lg border-4 border-zinc-200 shadow-sm ring-1 ring-zinc-300 dark:border-zinc-600 dark:ring-zinc-700"
+    {...props}
+  />
+)
 
 export { CustomImage as Image }
 

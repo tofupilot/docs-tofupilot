@@ -29,7 +29,11 @@ function ThemeWatcher() {
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" disableTransitionOnChange>
+    <ThemeProvider
+      defaultTheme="dark"
+      attribute="class"
+      disableTransitionOnChange
+    >
       <ThemeWatcher />
       {children}
     </ThemeProvider>
