@@ -8,12 +8,10 @@ export const metadata = {
 
 Interface any scripts with TofuPilot's REST API. {{ className: 'lead' }}
 
-<Image
-  src="/api-header.png"
-  alt=""
-/>
+<Image src="/api-header.png" alt="" />
 
 ## Overview
+
 The TofuPilot REST API is the main interface for uploading test runs programmatically. It allows you to authenticate, post runs from your script or a file report, retrieve information about your runs, and update the unit under test.
 
 ---
@@ -32,20 +30,20 @@ Add the key to the request header using cURL:
 
     <CodeGroup>
 
-```bash {{ title: 'Linux, macOS' }}
-curl https://tofupilot.com/v1/runs/create \
-  -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
-```
+    ```bash {{ title: 'Linux, macOS' }}
+    curl https://tofupilot.app/api/v1/runs/create \
+      -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
+    ```
 
-```bash {{ title: 'Windows PowerShell' }}
-curl https://tofupilot.com/v1/runs/create \
-  -H "Authorization: Bearer $env:TOFUPILOT_API_KEY"
-```
+    ```bash {{ title: 'Windows PowerShell' }}
+    curl https://tofupilot.app/api/v1/runs/create \
+      -H "Authorization: Bearer $env:TOFUPILOT_API_KEY"
+    ```
 
-```bash {{ title: 'Windows Command Prompt' }}
-curl https://tofupilot.com/v1/runs/create \
-  -H "Authorization: Bearer %TOFUPILOT_API_KEY%"
-```
+    ```bash {{ title: 'Windows Command Prompt' }}
+    curl https://tofupilot.app/api/v1/runs/create \
+      -H "Authorization: Bearer %TOFUPILOT_API_KEY%"
+    ```
 
     </CodeGroup>
 
@@ -156,7 +154,7 @@ client.create_run(
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://www.tofupilot.com/api/v1/runs -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
+curl -X POST https://www.tofupilot.app/api/v1/runs -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
     "procedure_id": "FVT1",
     "unit_under_test": {
       "serial_number": "PCBA01-0001",
@@ -168,7 +166,7 @@ curl -X POST https://www.tofupilot.com/api/v1/runs -H "Content-Type: application
 ```
 
 ```js
-fetch('https://www.tofupilot.com/api/v1/runs', {
+fetch('https://www.tofupilot.app/api/v1/runs', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -190,7 +188,7 @@ fetch('https://www.tofupilot.com/api/v1/runs', {
 
 ```json {{ title: 'Response' }}
 {
-  "message": "Run created successfully: https://tofupilot.com/acme-corp/runs/your-new-run"
+  "message": "Run created successfully: https://tofupilot.app/yourcompany/runs/your-new-run"
 }
 ```
 
@@ -230,14 +228,14 @@ client.create_run_from_report(
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X POST https://www.tofupilot.com/api/v1/import -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
+curl -X POST https://www.tofupilot.app/api/v1/import -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
     "file_path": "path/to/your/test/report.json",
     "importer": "OPENHTF"
 }'
 ```
 
 ```js
-fetch('https://www.tofupilot.com/api/v1/import', {
+fetch('https://www.tofupilot.app/api/v1/import', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -254,7 +252,7 @@ fetch('https://www.tofupilot.com/api/v1/import', {
 
 ```json {{ title: 'Response' }}
 {
-  "message": "Run created successfully: https://tofupilot.com/acme-corp/runs/your-new-run"
+  "message": "Run created successfully: https://tofupilot.app/yourcompany/runs/your-new-run"
 }
 ```
 
@@ -288,11 +286,11 @@ client.get_runs(serial_number="PCBA01-0001")
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X GET "https://www.tofupilot.com/api/v1/runs?serial_number=PCBA01-0001" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
+curl -X GET "https://www.tofupilot.app/api/v1/runs?serial_number=PCBA01-0001" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
 ```
 
 ```js
-fetch('https://www.tofupilot.com/api/v1/runs?serial_number=PCBA01-0001', {
+fetch('https://www.tofupilot.app/api/v1/runs?serial_number=PCBA01-0001', {
   method: 'GET',
   headers: {
     Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
@@ -373,7 +371,7 @@ client.update_unit(
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X PATCH https://www.tofupilot.com/api/v1/units -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
+curl -X PATCH https://www.tofupilot.app/api/v1/units -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
     "serial_number": "PCBA01-0001",
     "sub_units": [
         {"serial_number": "CELL01-0001"},
@@ -383,7 +381,7 @@ curl -X PATCH https://www.tofupilot.com/api/v1/units -H "Content-Type: applicati
 ```
 
 ```js
-fetch('https://www.tofupilot.com/api/v1/units', {
+fetch('https://www.tofupilot.app/api/v1/units', {
   method: 'PATCH',
   headers: {
     'Content-Type': 'application/json',

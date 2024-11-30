@@ -91,7 +91,7 @@ export const Header = forwardRef<
           <Button variant="text" href="https://www.tofupilot.app/runs">
             Sign in
           </Button>
-          <Button href="https://www.tofupilot.com/auth/signup">Sign up</Button>
+          <Button href="https://www.tofupilot.app/auth/signup">Sign up</Button>
         </div>
       </div>
     </motion.div>
