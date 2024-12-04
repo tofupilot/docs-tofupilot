@@ -338,15 +338,12 @@ fetch('https://www.tofupilot.app/api/v1/runs?serial_number=PCBA01-0001', {
 
 ---
 
-## Update unit {{ tag: 'PATCH', label: '/v1/units/{serial_number}' }}
+## Update a unit {{ tag: 'PATCH', label: '/v1/units/{serial_number}' }}
 
 <Row>
   <Col>
     This endpoint allows you to update a specific unit.
     <Properties>
-      <Property name="serial_number" type="string, required">
-        The unique identifier of the given unit. _Example: "PCBA01-001"_
-      </Property>
       <Property name="sub_units" type="array(record), optional">
         Identifiers of [sub-units](/sub-units).
       </Property>
