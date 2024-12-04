@@ -261,7 +261,7 @@ fetch('https://www.tofupilot.app/api/v1/import', {
 
 ---
 
-## Get runs by serial number {{ tag: 'GET', label: '/v1/runs?serial_number=<serial_number>' }}
+## Get runs by serial number {{ tag: 'GET', label: '/v1/runs?serial_number={serial_number}' }}
 
 <Row>
   <Col>
@@ -275,7 +275,7 @@ fetch('https://www.tofupilot.app/api/v1/import', {
   </Col>
 
   <Col sticky>
-    <CodeGroup title="Request" tag="GET" label="/v1/runs?serial_number=<serial_number>">
+    <CodeGroup title="Request" tag="GET" label="/v1/runs?serial_number={serial_number}">
 
 ```python
 from tofupilot import TofuPilotClient
@@ -338,7 +338,7 @@ fetch('https://www.tofupilot.app/api/v1/runs?serial_number=PCBA01-0001', {
 
 ---
 
-## Update unit {{ tag: 'PATCH', label: '/v1/units' }}
+## Update unit {{ tag: 'PATCH', label: '/v1/units/{serial_number}' }}
 
 <Row>
   <Col>
@@ -354,7 +354,7 @@ fetch('https://www.tofupilot.app/api/v1/runs?serial_number=PCBA01-0001', {
   </Col>
 
   <Col sticky>
-    <CodeGroup title="Request" tag="PATCH" label="/v1/units">
+    <CodeGroup title="Request" tag="PATCH" label="/v1/units/{serial_number}">
 
 ```python
 from tofupilot import TofuPilotClient
@@ -371,8 +371,7 @@ client.update_unit(
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X PATCH https://www.tofupilot.app/api/v1/units -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
-    "serial_number": "PCBA01-0001",
+curl -X PATCH https://www.tofupilot.app/api/v1/units/PCBA01-0001 -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
     "sub_units": [
         {"serial_number": "CELL01-0001"},
         {"serial_number": "CELL01-0002"},
@@ -381,14 +380,13 @@ curl -X PATCH https://www.tofupilot.app/api/v1/units -H "Content-Type: applicati
 ```
 
 ```js
-fetch('https://www.tofupilot.app/api/v1/units', {
+fetch('https://www.tofupilot.app/api/v1/units/PCBA01-0001', {
   method: 'PATCH',
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
   },
   body: JSON.stringify({
-    serial_number: 'PCBA01-0001',
     sub_units: [
       { serial_number: 'CELL01-0001' },
       { serial_number: 'CELL01-0002' },
