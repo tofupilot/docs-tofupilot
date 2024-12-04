@@ -402,3 +402,47 @@ fetch('https://www.tofupilot.app/api/v1/units/PCBA01-0001', {
 
 </Col>
 </Row>
+
+## Delete a unit {{ tag: 'DELETE', label: '/v1/units/{serial_number}' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to delete a specific unit.
+  </Col>
+
+  <Col sticky>
+    <CodeGroup title="Request" tag="DELETE" label="/v1/units/{serial_number}">
+
+```python
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+client.delete_unit(
+    serial_number="PCBA01-0001",
+)
+```
+
+```bash {{ title: 'cURL' }}
+curl -X DELETE https://www.tofupilot.app/api/v1/units/PCBA01-0001 -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
+```
+
+```js
+fetch('https://www.tofupilot.app/api/v1/units/PCBA01-0001', {
+  method: 'DELETE',
+  headers: {
+    Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
+  },
+})
+```
+
+</CodeGroup>
+
+```json {{ title: 'Response' }}
+{
+  "message": "Unit PCBA01-0001 deleted successfully."
+}
+```
+
+</Col>
+</Row>
