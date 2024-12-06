@@ -115,13 +115,32 @@ Once prerequisites are complete, installation is straightforward.
 3. Clone the [installation repository](https://github.com/tofupilot/self-hosting) provided by our team.
 
    ```bash
-   git clone https://github.com/tofupilot/self-hosting.git
+   git clone https://github.com/tofupilot/self-hosting.git && cd self-hosting
    ```
 
-4. Configure the deployment script:
+4. Run the deployment script:
 
    ```bash
-   nano ~/deploy.sh
+   chmod +x ./deploy.sh
+   sudo bash ./deploy.sh
+   ```
+
+   Answer the following questions when prompted:
+
+   ```bash
+   Hostname for your TofuPilot? [tofupilot.example.com]:
+   Hostname for your TofuPilot storage? [storage.tofupilot.example.com]:
+   Email address associated with your domain (for SSL)? [me@example.com]:
+   Google Client ID? (leave blank if not using Google auth):
+   Google Client Secret? (leave blank if not using Google auth):
+   Azure AD Client ID? (leave blank if not using Azure AD auth):
+   Azure AD Client Secret? (leave blank if not using Azure AD auth):
+   Azure AD Tenant ID? (leave blank if not using Azure AD auth):
+   SMTP server address? (leave blank if not using Email auth):
+   SMTP port? (leave blank if not using Email auth):
+   SMTP user name? (leave blank if not using Email auth):
+   SMTP password? (leave blank if not using Email auth):
+   Email address used as 'from' in emails? (leave blank if not using Email auth):
    ```
 
 5. Locate and replace the following lines:
@@ -144,13 +163,6 @@ Once prerequisites are complete, installation is straightforward.
    SMTP_USER=""
    SMTP_PASSWORD=""
    EMAIL_FROM=""
-   ```
-
-6. Run the deployment script:
-
-   ```bash
-   chmod +x ~/deploy.sh
-   sudo bash deploy.sh
    ```
 
 ## Post-Installation
