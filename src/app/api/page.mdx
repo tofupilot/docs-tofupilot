@@ -70,6 +70,9 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       <Property name="part_number" type="string, optional" indent>
         Component identifier. Creates a new component if no match. _Example: "PN-001"_
       </Property>
+      <Property name="part_name" type="string, optional" indent>
+        Assigned name for the component, applied when creating a new one. _Example: "Custom Widget"_
+      </Property>
       <Property name="revision" type="string, optional" indent>
         Component revision. Required if multiple revisions exist. _Example: "A"_
       </Property>
@@ -261,21 +264,15 @@ fetch('https://www.tofupilot.app/api/v1/import', {
 
 ---
 
-## Get runs by serial number {{ tag: 'GET', label: '/v1/runs?serial_number=<serial_number>' }}
+## Get runs by serial number {{ tag: 'GET', label: '/v1/runs?serial_number={serial_number}' }}
 
 <Row>
   <Col>
     This endpoint allows you to fetch all runs related to a specific unit.
-    <Properties>
-      <Property name="serial_number" type="string, required">
-        The unique identifier of the unit associated with the runs.
-      </Property>
-    </Properties>
-
   </Col>
 
   <Col sticky>
-    <CodeGroup title="Request" tag="GET" label="/v1/runs?serial_number=<serial_number>">
+    <CodeGroup title="Request" tag="GET" label="/v1/runs?serial_number={serial_number}">
 
 ```python
 from tofupilot import TofuPilotClient
@@ -338,15 +335,66 @@ fetch('https://www.tofupilot.app/api/v1/runs?serial_number=PCBA01-0001', {
 
 ---
 
-## Update unit {{ tag: 'PATCH', label: '/v1/units' }}
+## Delete a run {{ tag: 'DELETE', label: '/v1/runs/{run_id}' }}
 
 <Row>
   <Col>
-    This endpoint allows you to update a specific unit.
+    This endpoint allows you to delete a specific run.
+
+    <Note>
+      The id of a run can be found by clicking its shortened version on its page.
+    </Note>
+
+  </Col>
+
+  <Col sticky>
+    <CodeGroup title="Request" tag="DELETE" label="/v1/runs/{run_id}">
+
+```python
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+client.delete_run(
+    run_id="005f1ec0-b179-11ef-9a12-f7e5c5919019",
+)
+```
+
+```bash {{ title: 'cURL' }}
+curl -X DELETE https://www.tofupilot.app/api/v1/runs/005f1ec0-b179-11ef-9a12-f7e5c5919019 "Authorization: Bearer ${TOFUPILOT_API_KEY}"
+```
+
+```js
+fetch(
+  'https://www.tofupilot.app/api/v1/runs/005f1ec0-b179-11ef-9a12-f7e5c5919019',
+  {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
+    },
+  },
+)
+```
+
+</CodeGroup>
+
+```json {{ title: 'Response' }}
+{
+  "message": "Run 005f1ec0-b179-11ef-9a12-f7e5c5919019 deleted successfully."
+}
+```
+
+</Col>
+</Row>
+
+---
+
+## Update a unit {{ tag: 'PATCH', label: '/v1/units/{serial_number}' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to add sub-units to a specific unit.
     <Properties>
-      <Property name="serial_number" type="string, required">
-        The unique identifier of the given unit. _Example: "PCBA01-001"_
-      </Property>
       <Property name="sub_units" type="array(record), optional">
         Identifiers of [sub-units](/sub-units).
       </Property>
@@ -354,7 +402,7 @@ fetch('https://www.tofupilot.app/api/v1/runs?serial_number=PCBA01-0001', {
   </Col>
 
   <Col sticky>
-    <CodeGroup title="Request" tag="PATCH" label="/v1/units">
+    <CodeGroup title="Request" tag="PATCH" label="/v1/units/{serial_number}">
 
 ```python
 from tofupilot import TofuPilotClient
@@ -371,8 +419,7 @@ client.update_unit(
 ```
 
 ```bash {{ title: 'cURL' }}
-curl -X PATCH https://www.tofupilot.app/api/v1/units -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
-    "serial_number": "PCBA01-0001",
+curl -X PATCH https://www.tofupilot.app/api/v1/units/PCBA01-0001 -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
     "sub_units": [
         {"serial_number": "CELL01-0001"},
         {"serial_number": "CELL01-0002"},
@@ -381,14 +428,13 @@ curl -X PATCH https://www.tofupilot.app/api/v1/units -H "Content-Type: applicati
 ```
 
 ```js
-fetch('https://www.tofupilot.app/api/v1/units', {
+fetch('https://www.tofupilot.app/api/v1/units/PCBA01-0001', {
   method: 'PATCH',
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
   },
   body: JSON.stringify({
-    serial_number: 'PCBA01-0001',
     sub_units: [
       { serial_number: 'CELL01-0001' },
       { serial_number: 'CELL01-0002' },
@@ -402,6 +448,57 @@ fetch('https://www.tofupilot.app/api/v1/units', {
 ```json {{ title: 'Response' }}
 {
   "message": "Unit PCBA01-0001 updated successfully."
+}
+```
+
+</Col>
+</Row>
+
+---
+
+## Delete a unit {{ tag: 'DELETE', label: '/v1/units/{serial_number}' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to delete a specific unit.
+
+    <Note>
+      A unit can only be deleted after all its associated runs have been deleted.
+    </Note>
+
+  </Col>
+
+  <Col sticky>
+    <CodeGroup title="Request" tag="DELETE" label="/v1/units/{serial_number}">
+
+```python
+from tofupilot import TofuPilotClient
+
+client = TofuPilotClient()
+
+client.delete_unit(
+    serial_number="PCBA01-0001",
+)
+```
+
+```bash {{ title: 'cURL' }}
+curl -X DELETE https://www.tofupilot.app/api/v1/units/PCBA01-0001 -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
+```
+
+```js
+fetch('https://www.tofupilot.app/api/v1/units/PCBA01-0001', {
+  method: 'DELETE',
+  headers: {
+    Authorization: `Bearer ${process.env.TOFUPILOT_API_KEY}`,
+  },
+})
+```
+
+</CodeGroup>
+
+```json {{ title: 'Response' }}
+{
+  "message": "Unit PCBA01-0001 deleted successfully."
 }
 ```
 
