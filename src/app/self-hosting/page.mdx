@@ -155,7 +155,7 @@ Once prerequisites are complete, installation is straightforward.
 
 ## Post-Installation
 
-Once the script finishes, access the web app (e.g., `tofupilot.yourcompany.com`) to create an admin account, and set up an organization (we recommend naming it `app`).
+Once the script finishes, access the web app (e.g., `https://tofupilot.yourcompany.com`) to create an admin account, and set up an organization (we recommend naming it `app`).
 
 You can upload test runs using the public TofuPilot Python package. Simply set your instance URL with the `url` parameter as shown below. All features described in the rest of the documentation will function as expected.
 
@@ -177,7 +177,7 @@ You can upload test runs using the public TofuPilot Python package. Simply set y
          main()
     ```
 
-    ```python {{ title: 'Python'}}
+    ```python {{ title: 'Python Client'}}
     from tofupilot import TofuPilotClient
     from datetime import datetime, timedelta
 
@@ -215,3 +215,19 @@ To update your self-hosted TofuPilot app to the latest version, follow the follo
    ```bash
    docker-compose down && docker-compose up -d --pull always
    ```
+
+## Backups
+
+Ensure the following Docker volumes are included in your backup routine:
+
+### **Volumes to Back Up**
+
+- **`database-data`**:  
+  Contains all database files, including schema definitions, configurations, and application data. Backup this volume to preserve your database's state and integrity.
+
+- **`storage-data`**:  
+  Stores user-uploaded files such as profile pictures, attachments, and other assets. Backup this volume to safeguard external content and binary data.
+
+### **Backup Recommendations**
+
+Integrate these volumes into your backup process using methods like volume snapshots, off-site replication, or encrypted storage to ensure data durability and smooth recovery in case of failure or migration.
