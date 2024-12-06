@@ -97,19 +97,33 @@ Once prerequisites are complete, installation is straightforward.
 
 1. SSH into your server:
 
+   Connect to your server via its IP address using SSH, or [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) on Windows:
+
    ```bash
    ssh user@your_server_ip
    ```
 
-2. Download the deployment script `deploy.sh` from the installation repository provided by our team.
+2. Install Git, Docker and Docker-Compose (Debian/Ubuntu based Distro example)
 
-3. Configure the deployment script:
+   ```bash
+   sudo apt install docker.io
+   sudo apt-get install docker-compose-plugin
+   sudo apt install git
+   ```
+
+3. Clone the [installation repository](https://github.com/tofupilot/self-hosting) provided by our team.
+
+   ```bash
+   git clone https://github.com/tofupilot/self-hosting.git
+   ```
+
+4. Configure the deployment script:
 
    ```bash
    nano ~/deploy.sh
    ```
 
-4. Locate and replace the following lines:
+5. Locate and replace the following lines:
 
    ```bash
    DOMAIN_NAME=""
@@ -131,7 +145,7 @@ Once prerequisites are complete, installation is straightforward.
    EMAIL_FROM=""
    ```
 
-5. Run the deployment script:
+6. Run the deployment script:
 
    ```bash
    chmod +x ~/deploy.sh
