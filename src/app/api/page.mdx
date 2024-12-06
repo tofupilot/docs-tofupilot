@@ -341,7 +341,7 @@ fetch('https://www.tofupilot.app/api/v1/runs?serial_number=PCBA01-0001', {
 
 ---
 
-## Delete a run {{ tag: 'DELETE', label: '/v1/runs/{id}' }}
+## Delete a run {{ tag: 'DELETE', label: '/v1/runs/{run_id}' }}
 
 <Row>
   <Col>
@@ -354,7 +354,7 @@ fetch('https://www.tofupilot.app/api/v1/runs?serial_number=PCBA01-0001', {
   </Col>
 
   <Col sticky>
-    <CodeGroup title="Request" tag="DELETE" label="/v1/runs/{id}">
+    <CodeGroup title="Request" tag="DELETE" label="/v1/runs/{run_id}">
 
 ```python
 from tofupilot import TofuPilotClient
