@@ -103,9 +103,10 @@ Once prerequisites are complete, installation is straightforward.
    ssh user@your_server_ip
    ```
 
-2. Install Git, Docker and Docker-Compose (Debian/Ubuntu based Distro example)
+2. Install Git, Docker and Docker-Compose
 
    ```bash
+   sudo apt update && sudo apt upgrade -y
    sudo apt install docker.io
    sudo apt-get install docker-compose-plugin
    sudo apt install git
@@ -201,9 +202,16 @@ You can upload test runs using the public TofuPilot Python package. Simply set y
 
 ## Update
 
-To update your self-hosted TofuPilot app to the latest version, run the update script:
+To update your self-hosted TofuPilot app to the latest version, follow the following steps:
 
-```bash
-chmod +x ~/update.sh
-sudo bash update.sh
-```
+1. Pull the latest changes:
+
+   ```bash
+   git pull origin main
+   ```
+
+2. Restart the docker containers:
+
+   ```bash
+   docker-compose down && docker-compose up -d --pull always
+   ```
