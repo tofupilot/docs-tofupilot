@@ -22,7 +22,7 @@ For strict IT policies or specific connectivity needs, TofuPilot can be self-hos
 
 ### Enterprise trial
 
-Contact [our team](mailto:support@tofupilot.com) to sign up for an **Enterprise** plan trial. We will grant you access to the private self-hosting installation repository.
+Contact [our team](mailto:support@tofupilot.com) to sign up for an **Enterprise** plan trial. We will grant you access to the private self-hosting installation repository along with the TofuPilot docker image.
 
 All the tests stored in your TofuPilot Cloud instance can be seamlessly migrated to your self-hosted version by our team.
 
@@ -118,7 +118,13 @@ Once prerequisites are complete, installation is straightforward.
    git clone https://github.com/tofupilot/self-hosting.git && cd self-hosting
    ```
 
-4. Run the deployment script:
+4. Connect to your Github account to pull TofuPilot's Image
+
+   ```bash
+   echo {your_personal_access_token} | docker login ghcr.io -u {your_github_username} --password-stdin
+   ```
+
+5. Run the deployment script:
 
    ```bash
    chmod +x ./deploy.sh
