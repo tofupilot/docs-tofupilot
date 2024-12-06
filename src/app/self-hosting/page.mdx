@@ -143,28 +143,6 @@ Once prerequisites are complete, installation is straightforward.
    Email address used as 'from' in emails? (leave blank if not using Email auth):
    ```
 
-5. Locate and replace the following lines:
-
-   ```bash
-   DOMAIN_NAME=""
-   EMAIL=""
-   STORAGE_DOMAIN_NAME="storage.$DOMAIN_NAME" # or another
-
-   # Ensure at least one auth method (Azure AD, Google OAuth, or SMTP) is configured.
-   AZURE_AD_CLIENT_ID=""
-   AZURE_AD_TENANT_ID=""
-   AZURE_AD_CLIENT_SECRET=""
-
-   GOOGLE_CLIENT_ID=""
-   GOOGLE_CLIENT_SECRET=""
-
-   SMTP_HOST=""
-   SMTP_PORT="587"
-   SMTP_USER=""
-   SMTP_PASSWORD=""
-   EMAIL_FROM=""
-   ```
-
 ## Post-Installation
 
 Once the script finishes, access the web app (e.g., `https://tofupilot.yourcompany.com`) to create an admin account, and set up an organization (we recommend naming it `app`).
