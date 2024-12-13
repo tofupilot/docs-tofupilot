@@ -246,7 +246,7 @@ export const navigation: Array<NavGroup> = [
       },
       { title: 'Procedures', href: '/procedures' },
       { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
-      { title: 'Steps', href: '/steps' },
+      { title: 'Phases', href: '/steps' },
       { title: 'Sub-units', href: '/sub-units' },
       { title: 'Attachments', href: '/attachments' },
       { title: 'Report', href: '/report' },
