@@ -321,17 +321,19 @@ fetch('https://www.tofupilot.app/api/v1/runs?serial_number=PCBA01-0001', {
         "name": "Pass",
         "category": "Successful"
       },
-      "steps": [
+      "phases": [
         {
           "name": "measure_duration",
           "duration": "PT11S",
           "value": 5,
-          "status": {
-            "category": "Successful"
-          },
-          "units": "second",
-          "lowLimit": 1,
-          "highLimit": 10
+          "outcome": "PASS",
+          "measurements": [
+            "name": "current_duration",
+            "outcome": "PASS",
+            "units": "second",
+            "lowerLimit": 1,
+            "upperLimit": 10
+          ],
         }
       ]
     }
