@@ -65,7 +65,7 @@ def main():
         procedure_id="FVT1",
         unit_under_test={"serial_number": "PCB1A001", "part_number": "PCB1"},
         phases=phases,
-        run_passed=all(phase["outcome"] == "PASS" for phase in phases),
+        run_passed=all(phase["outcome"] for phase in phases),
     )
 
 if __name__ == "__main__":
@@ -77,8 +77,8 @@ if __name__ == "__main__":
   <Property name="name" type="str">
     The name of the phase.
   </Property>
-  <Property name="outcome" type="str">
-    Pass/Fail status of the phase.
+  <Property name="outcome" type="boolean">
+    Pass/Fail outcome of the phase.
   </Property>
   <Property name="started_at" type="datetime">
     ISO 8601 start time of the phase. Example: "2024-09-11T08:00:00Z"
@@ -125,13 +125,13 @@ def phase_one():
     phase = [
         {
             "name": "phase_one",
-            "outcome": "PASS",
+            "outcome": True,
             "started_at": datetime.now(),
             "duration": timedelta(seconds=30),
             "measurements": [
                 {
                     "name": "input_voltage",
-                    "outcome": "PASS",  # outcome can be "PASS", "FAIL, "STOP", "ERROR"
+                    "outcome": True,
                     "value": 3.3,
                     "units": "V",
                     "lower_limit": 3.1,
@@ -166,8 +166,8 @@ if __name__ == "__main__":
   <Property name="unit" type="str">
     The unit of measurement for the value (e.g. "°C").
   </Property>
-  <Property name="outcome" type="str">
-    Pass/Fail status of the phase.
+  <Property name="outcome" type="boolean">
+    Pass/Fail outcome of the phase.
   </Property>
   <Property name="value" type="float">
     The value measured during phase.
@@ -281,20 +281,20 @@ def main():
                 # Phase without measurement
                 {
                     "name": "phase_connect",
-                    "outcome": "PASS",
+                    "outcome": True,
                     "duration": timedelta(seconds=3),
                     "started_at": datetime.now(),
                 },
                 # Phase with measurement
                 {
                     "name": "phase_firmware_version_check",
-                    "outcome": "PASS",
+                    "outcome": True,
                     "duration": timedelta(minutes=1, seconds=42),
                     "started_at": datetime.now() + timedelta(seconds=3),
                     "measurements": [
                         {
                             "name": "firmware_version",
-                            "outcome": "PASS",
+                            "outcome": True,
                             "value": "v2.5.1",
                         }
                     ],
@@ -302,13 +302,13 @@ def main():
                 # Phase with multiple measurements
                 {
                     "name": "phase_voltage_measurements",
-                    "outcome": "PASS",
+                    "outcome": True,
                     "started_at": datetime.now(),
                     "duration": timedelta(seconds=30),
                     "measurements": [
                         {
                             "name": "input_voltage",
-                            "outcome": "PASS",
+                            "outcome": True,
                             "value": 3.3,
                             "units": "V",
                             "lower_limit": 3.1,
@@ -316,7 +316,7 @@ def main():
                         },
                         {
                             "name": "output_voltage",
-                            "outcome": "PASS",
+                            "outcome": True,
                             "value": 1.2,
                             "units": "V",
                             "lower_limit": 1.1,

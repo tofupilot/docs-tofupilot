@@ -96,7 +96,7 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
         The name of the phase. _Example: "temperature_calibration"_
       </Property>
       <Property name="outcome" type="boolean, required" indent>
-        Indicates if the phase passed. _Example: true_
+        Indicates if the phase passed or failed.
       </Property>
       <Property name="started_at" type="string, required" indent>
         ISO 8601 start time of the phase. _Example: "2024-09-11T08:00:00Z"_
@@ -114,8 +114,8 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
         <Property name="name" type="string, required" indent>
           The name of one measurement.
         </Property>
-        <Property name="outcome" type="string, required" indent>
-          The outcome of the measurement. _Examples: "PASS", "FAIL", "STOP", "ERROR"_
+        <Property name="outcome" type="boolean, required" indent>
+          Indicate if the measurement is passed/failed.
         </Property>
         <Property name="value" type="float, required" indent>
           The value of the measurement.
@@ -326,10 +326,10 @@ fetch('https://www.tofupilot.app/api/v1/runs?serial_number=PCBA01-0001', {
           "name": "measure_duration",
           "duration": "PT11S",
           "value": 5,
-          "outcome": "PASS",
+          "outcome": True,
           "measurements": [
             "name": "current_duration",
-            "outcome": "PASS",
+            "outcome": True,
             "units": "second",
             "lowerLimit": 1,
             "upperLimit": 10
