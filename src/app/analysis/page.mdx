@@ -1,23 +1,23 @@
 export const metadata = {
-  title: 'Test steps analysis',
+  title: 'Test phases analysis',
   description:
     "",
 }
 
 
-# Test steps analysis
-Analyze and continuously improve your test steps. {{ className: 'lead' }}
+# Test phases analysis
+Analyze and continuously improve your test phases. {{ className: 'lead' }}
 
 <Image
   src="/steps-analysis.png"
-  alt="TofuPilot test analytics showing test steps performance by failure."
+  alt="TofuPilot test analytics showing test phases performance by failure."
 />
 
 ## Overview
-When testing your product with multiple procedures and steps, it can be challenging to know where to focus your efforts when issues arise or improvements are needed. In TofuPilot, each test step is tracked individually, allowing you to analyze areas that need attention—whether it's steps taking too long, those with low yield, or measurement drifts over time.
+When testing your product with multiple procedures and phases, it can be challenging to know where to focus your efforts when issues arise or improvements are needed. In TofuPilot, each test step is tracked individually, allowing you to analyze areas that need attention—whether it's phases taking too long, those with low yield, or measurement drifts over time.
 
 ## Single step analysis
-After a test run, go to the **Steps** table on the **Run page** to see details on the unit under test, procedure, attachments, report, and each test step.
+After a test run, go to the **Phases** table on the **Run page** to see details on the unit under test, procedure, attachments, report, and each test step.
 
 The **Steps** table includes each step’s:
 - value
@@ -30,14 +30,14 @@ This view lets you analyze each step in detail for a specific run.
 
 <Image
   src="/steps-analysis-page-run.png"
-  alt="TofuPilot test run showing list of test steps."
+  alt="TofuPilot test run showing list of test phases."
 />
 
 <Note>
   Click on a test step in the **Steps** table to go to the Procedure page, where data is sorted by that specific step.
 </Note>
 
-## Multiple steps analysis
+## Multiple phases analysis
 It's also helpful to get an overview across all executed runs, which you can access on the **Procedure page**. This page provides key indicators in various tabs (e.g., Cpk, yields). Learn more in the [Test analytics](/analytics) section.
 
 On the Procedure page, you can filter the indicators for runs within the same procedure by selecting parameters at the top right:
@@ -57,7 +57,7 @@ You can also filter by step in the **Steps by failure** or **Steps by duration**
 
 <Image
   src="/steps-analysis-page-procedure2.png"
-  alt="TofuPilot test analytics showing test steps performance by failure."
+  alt="TofuPilot test analytics showing test phases performance by failure."
 />
 
 <Note>
@@ -66,15 +66,15 @@ You can also filter by step in the **Steps by failure** or **Steps by duration**
 
 
 ### Steps by failure and Step by duration
-This view helps you identify the most frequently failing test steps, making it easier to analyze defective parts or improve test procedures.
+This view helps you identify the most frequently failing test phases, making it easier to analyze defective parts or improve test procedures.
 
-The **Steps by failure** table lists steps with a `Fail` status, sorted by frequency (from most to least failures).
+The **Steps by failure** table lists phases with a `Fail` status, sorted by frequency (from most to least failures).
 
-The **Steps by duration** table displays steps sorted by `duration`, showing those that take the longest.
+The **Steps by duration** table displays phases sorted by `duration`, showing those that take the longest.
 
 <Image
   src="/steps-analysis-page-procedure3.png"
-  alt="TofuPilot test analytics showing test steps performance by failure."
+  alt="TofuPilot test analytics showing test phases performance by failure."
 />
 
 
@@ -87,7 +87,7 @@ The histogram, with a Gaussian overlay, helps you quickly spot values outside th
 
 <Image
   src="/steps-analysis-page-procedure4.png"
-  alt="TofuPilot test analytics showing test steps performance by failure."
+  alt="TofuPilot test analytics showing test phases performance by failure."
 />
 
 <Note>
@@ -100,5 +100,5 @@ You can also view the First-Pass Yield and Cpk of each step, helping you easily 
 
 <Image
   src="/steps-analysis-page-procedure5.png"
-  alt="TofuPilot test analytics showing test steps performance by failure."
+  alt="TofuPilot test analytics showing test phases performance by failure."
 />

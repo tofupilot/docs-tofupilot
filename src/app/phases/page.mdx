@@ -9,7 +9,7 @@ export const metadata = {
 Organize your test flow by breaking it down into multiple phases. {{ className: 'lead' }}
 
 <Image
-  src="/steps-header.png"
+  src="/phases-header.png"
   alt="Phases section header showing test phase management whithin TofuPilot."
 />
 
@@ -49,7 +49,7 @@ def phase_one():
     phase = [
         {
             "name": "phase_one",
-            "phase_passed": True,
+            "outcome": "PASS",
             "duration": timedelta(seconds=30),
             "started_at": datetime.now(),
         }
@@ -65,7 +65,7 @@ def main():
         procedure_id="FVT1",
         unit_under_test={"serial_number": "PCB1A001", "part_number": "PCB1"},
         phases=phases,
-        run_passed=all(phase["phase_passed"] for phase in phases),
+        run_passed=all(phase["outcome"] == "PASS" for phase in phases),
     )
 
 if __name__ == "__main__":
@@ -77,7 +77,7 @@ if __name__ == "__main__":
   <Property name="name" type="str">
     The name of the phase.
   </Property>
-  <Property name="phase_passed" type="bool">
+  <Property name="outcome" type="str">
     Pass/Fail status of the phase.
   </Property>
   <Property name="started_at" type="datetime">
@@ -125,14 +125,19 @@ def phase_one():
     phase = [
         {
             "name": "phase_one",
-            "phase_passed": True,
+            "outcome": "PASS",
             "started_at": datetime.now(),
             "duration": timedelta(seconds=30),
-            # Add a measurement with value, units and limits
-            "measurement_unit": "V",
-            "measurement_value": 3.3,
-            "limit_low": 3.1,
-            "limit_high": 3.5,
+            "measurements": [
+                {
+                    "name": "input_voltage",
+                    "outcome": "PASS",  # outcome can be "PASS", "FAIL, "STOP", "ERROR"
+                    "value": 3.3,
+                    "units": "V",
+                    "lower_limit": 3.1,
+                    "upper_limit": 3.5,
+                }
+            ],
         }
     ]
     return phase
@@ -155,16 +160,22 @@ if __name__ == "__main__":
 </CodeGroup>
 
 <Properties>
-  <Property name="measurement_unit" type="str">
+<Property name="name" type="str">
+    The name of the measured value.
+</Property>
+  <Property name="unit" type="str">
     The unit of measurement for the value (e.g. "°C").
   </Property>
-  <Property name="measurement_value" type="float">
+  <Property name="outcome" type="str">
+    Pass/Fail status of the phase.
+  </Property>
+  <Property name="value" type="float">
     The value measured during phase.
   </Property>
-  <Property name="limit_low" type="float">
+  <Property name="lower_limit" type="float">
     Minimum threshold.
   </Property>
-  <Property name="limit_high" type="float">
+  <Property name="upper_limit" type="float">
     Maximum threshold.
   </Property>
 </Properties>
@@ -175,7 +186,7 @@ if __name__ == "__main__":
 You can view each test phase in the **Phases** section on the Run page.
 
 <Image
-  src="/steps-page-run.png"
+  src="/phases-page-run.png"
   alt="Phases section header showing test phase management whithin TofuPilot."
 />
 
@@ -184,11 +195,11 @@ Clicking on a test phase from the **Run** page redirects you to the **Procedure*
 
 
 <Image
-  src="/steps-page-procedure1.png"
+  src="/phases-page-procedure1.png"
   alt="Phases section header showing test phase management whithin TofuPilot."
 />
 
-You can view phase details in the tabs or the **Control Chart** by clicking on a phase (e.g., `phase_one`). The Control Chart displays limits `limit_low` and `limit_high` and the 6-sigma standard deviation, calculated automatically.
+You can view phase details in the tabs or the **Control Chart** by clicking on a phase (e.g., `phase_one`). The Control Chart displays limits `lower_limit` and `upper_limit` and the 6-sigma standard deviation, calculated automatically.
 
 
 <Note>
@@ -198,7 +209,7 @@ You can view phase details in the tabs or the **Control Chart** by clicking on a
 
 
 <Image
-  src="/steps-page-procedure2.png"
+  src="/phases-page-procedure2.png"
   alt="Phases section header showing test phase management whithin TofuPilot."
 />
 
@@ -208,7 +219,7 @@ To unselect a phase, click its name on the top bar of the page or click on **Cle
 
 ## Advanced integration
 
-You can find an example of Phases functionalities in this script, including measured values, limits, and units.
+You can find an example of Phases functionalities in this script, including measured values, limits, units, and multiple measurements.
 
 <CodeGroup>
 
@@ -217,26 +228,31 @@ import openhtf as htf
 from tofupilot.openhtf import TofuPilot
 from openhtf.util import units
 
+# Phase without measurement
 def phase_connect():
     htf.PhaseResult.CONTINUE
 
+# Phase with one measure
 @htf.measures(htf.Measurement("firmware_version").equals("v2.5.1"))
 def phase_firmware_version_check(test):
     test.measurements.firmware_version = "v2.5.1"
 
+# Phase with multiple measurements
 @htf.measures(
-    htf.Measurement("temperature").in_range(70, 80).with_units(units.DEGREE_CELSIUS)
+    htf.Measurement("input_voltage").in_range(3.1, 3.5).with_units(units.VOLT),
+    htf.Measurement("output_voltage").in_range(1.1, 1.3).with_units(units.VOLT),
 )
-def phase_temperature_calibration(test):
-    test.measurements.temperature = 75
+def phase_voltage_measurements(test):
+    test.measurements.input_voltage = 3.3
+    test.measurements.output_voltage = 1.2
 
 def main():
     test = htf.Test(
         phase_connect,
         phase_firmware_version_check,
-        phase_temperature_calibration,
+        phase_voltage_measurements,
         procedure_id="FVT2",
-        procedure_name="PCB Temperature Calibration",
+        procedure_name="Functional PCBA Testing",
         part_number="PCB1",
     )
     with TofuPilot(test):
@@ -254,39 +270,62 @@ def main():
     client = TofuPilotClient()
 
     client.create_run(
-        procedure_id="FVT2",
-        procedure_name="PCB Temperature Calibration",
-        unit_under_test={
-            "serial_number": "PCB1A002",
-            "part_number": "PCB1",
-        },
-        run_passed=True,
-        phases=[
-            {
-                "name": "phase_connect",
-                "phase_passed": True,
-                "duration": timedelta(seconds=3),
-                "started_at": datetime.now(),
+            procedure_id="FVT2",
+            procedure_name="Functional PCBA Testing",
+            unit_under_test={
+                "serial_number": "PCB1A002",
+                "part_number": "PCB1",
             },
-            {
-                "name": "test_firmware_version_check",
-                "phase_passed": True,
-                "duration": timedelta(minutes=1, seconds=42),
-                "started_at": datetime.now() + timedelta(seconds=3),
-                "measurement_value": "v2.5.1",
-            },
-            {
-                "name": "phase_temp_calibration",
-                "phase_passed": True,
-                "duration": timedelta(milliseconds=500),
-                "started_at": datetime.now() + timedelta(seconds=4),
-                "measurement_value": 75,
-                "measurement_unit": "°C",
-                "limit_low": 70,
-                "limit_high": 80,
-            },
-        ],
-    )
+            run_passed=True,
+            phases=[
+                # Phase without measurement
+                {
+                    "name": "phase_connect",
+                    "outcome": "PASS",
+                    "duration": timedelta(seconds=3),
+                    "started_at": datetime.now(),
+                },
+                # Phase with measurement
+                {
+                    "name": "phase_firmware_version_check",
+                    "outcome": "PASS",
+                    "duration": timedelta(minutes=1, seconds=42),
+                    "started_at": datetime.now() + timedelta(seconds=3),
+                    "measurements": [
+                        {
+                            "name": "firmware_version",
+                            "outcome": "PASS",
+                            "value": "v2.5.1",
+                        }
+                    ],
+                },
+                # Phase with multiple measurements
+                {
+                    "name": "phase_voltage_measurements",
+                    "outcome": "PASS",
+                    "started_at": datetime.now(),
+                    "duration": timedelta(seconds=30),
+                    "measurements": [
+                        {
+                            "name": "input_voltage",
+                            "outcome": "PASS",
+                            "value": 3.3,
+                            "units": "V",
+                            "lower_limit": 3.1,
+                            "upper_limit": 3.5,
+                        },
+                        {
+                            "name": "output_voltage",
+                            "outcome": "PASS",
+                            "value": 1.2,
+                            "units": "V",
+                            "lower_limit": 1.1,
+                            "upper_limit": 1.3,
+                        },
+                    ],
+                },
+            ],
+        )
 
 if __name__ == "__main__":
     main()
