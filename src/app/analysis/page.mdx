@@ -9,32 +9,32 @@ export const metadata = {
 Analyze and continuously improve your test phases. {{ className: 'lead' }}
 
 <Image
-  src="/steps-analysis.png"
+  src="/phases-analysis.png"
   alt="TofuPilot test analytics showing test phases performance by failure."
 />
 
 ## Overview
-When testing your product with multiple procedures and phases, it can be challenging to know where to focus your efforts when issues arise or improvements are needed. In TofuPilot, each test step is tracked individually, allowing you to analyze areas that need attention—whether it's phases taking too long, those with low yield, or measurement drifts over time.
+When testing your product with multiple procedures and phases, it can be challenging to know where to focus your efforts when issues arise or improvements are needed. In TofuPilot, each test phase is tracked individually, allowing you to analyze areas that need attention—whether it's phases taking too long, those with low yield, or measurement drifts over time.
 
-## Single step analysis
-After a test run, go to the **Phases** table on the **Run page** to see details on the unit under test, procedure, attachments, report, and each test step.
+## Single phase analysis
+After a test run, go to the **Phases** table on the **Run page** to see details on the unit under test, procedure, attachments, report, and each test phase.
 
-The **Steps** table includes each step’s:
+The **Phases** table includes each phase’s:
 - value
 - upper and lower limits
 - units (e.g., volts, degrees)
 - test status (Pass/Fail)
 - duration (milliseconds to hours)
 
-This view lets you analyze each step in detail for a specific run.
+This view lets you analyze each phase in detail for a specific run.
 
 <Image
-  src="/steps-analysis-page-run.png"
+  src="/phases-analysis-page-run.png"
   alt="TofuPilot test run showing list of test phases."
 />
 
 <Note>
-  Click on a test step in the **Steps** table to go to the Procedure page, where data is sorted by that specific step.
+  Click on a test phase in the **Phases** table to go to the Procedure page, where data is sorted by that specific phase.
 </Note>
 
 ## Multiple phases analysis
@@ -48,57 +48,57 @@ On the Procedure page, you can filter the indicators for runs within the same pr
 
 
 <Image
-  src="/steps-analysis-page-procedure1.png"
+  src="/phases-analysis-page-procedure1.png"
   alt="TofuPilot test analytics showing indicators filter by components, revision, or batch number."
 />
 
-You can also filter by step in the **Steps by failure** or **Steps by duration** tables below.
+You can also filter by phase in the **Phases by failure** or **Phases by duration** tables below.
 
 
 <Image
-  src="/steps-analysis-page-procedure2.png"
+  src="/phases-analysis-page-procedure2.png"
   alt="TofuPilot test analytics showing test phases performance by failure."
 />
 
 <Note>
-  Click on a step (e.g., "thermal_reading" or "motor_noise") to filter by it. To clear the filter, select **Clear Filter**.
+  Click on a phase (e.g., "thermal_reading" or "motor_noise") to filter by it. To clear the filter, select **Clear Filter**.
 </Note>
 
 
-### Steps by failure and Step by duration
+### Phases by failure and Step by duration
 This view helps you identify the most frequently failing test phases, making it easier to analyze defective parts or improve test procedures.
 
-The **Steps by failure** table lists phases with a `Fail` status, sorted by frequency (from most to least failures).
+The **Phases by failure** table lists phases with a `Fail` status, sorted by frequency (from most to least failures).
 
-The **Steps by duration** table displays phases sorted by `duration`, showing those that take the longest.
+The **Phases by duration** table displays phases sorted by `duration`, showing those that take the longest.
 
 <Image
-  src="/steps-analysis-page-procedure3.png"
+  src="/phases-analysis-page-procedure3.png"
   alt="TofuPilot test analytics showing test phases performance by failure."
 />
 
 
 ### Control chart and histogram
-You can explore a specific test step with numerical or string data in the **Control Chart** below the Steps tables.
+You can explore a specific test phase with numerical or string data in the **Control Chart** below the Phases tables.
 
-This chart displays all values for the selected step over time, showing limits, an automatically calculated 6-sigma standard deviation, and the average.
+This chart displays all values for the selected phase over time, showing limits, an automatically calculated 6-sigma standard deviation, and the average.
 
 The histogram, with a Gaussian overlay, helps you quickly spot values outside the standard range.
 
 <Image
-  src="/steps-analysis-page-procedure4.png"
+  src="/phases-analysis-page-procedure4.png"
   alt="TofuPilot test analytics showing test phases performance by failure."
 />
 
 <Note>
-  Click on a step with numeric or text values to display the **Control Chart**.
+  Click on a phase with numeric or text values to display the **Control Chart**.
 </Note>
 
-### Steps by First-pass yield and Cpk
+### Phases by First-pass yield and Cpk
 
-You can also view the First-Pass Yield and Cpk of each step, helping you easily identify which test needs improvement to boost the overall yield. Keep in mind that the yield of a run is the cumulative result of all step yields.
+You can also view the First-Pass Yield and Cpk of each phase, helping you easily identify which test needs improvement to boost the overall yield. Keep in mind that the yield of a run is the cumulative result of all phase yields.
 
 <Image
-  src="/steps-analysis-page-procedure5.png"
+  src="/phases-analysis-page-procedure5.png"
   alt="TofuPilot test analytics showing test phases performance by failure."
 />
