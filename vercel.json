@@ -4,6 +4,11 @@
       "source": "/asynchronous-upload",
       "destination": "/offline-upload",
       "permanent": true
+    },
+    {
+      "source": "/steps",
+      "destination": "/phases",
+      "permanent": true
     }
   ]
 }
