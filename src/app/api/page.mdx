@@ -89,37 +89,46 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
         - For [Python Client](/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
 
       </Property>
-      <Property name="steps" type="array, optional">
-        [Steps](/steps) of the run.
+      <Property name="phases" type="array, optional">
+        [Phases](/phases) of the run.
       </Property>
       <Property name="name" type="string, required" indent>
-        The name of the step. _Example: "temperature_calibration"_
+        The name of the phase. _Example: "temperature_calibration"_
       </Property>
-      <Property name="step_passed" type="boolean, required" indent>
-        Indicates if the step passed. _Example: true_
+      <Property name="outcome" type="boolean, required" indent>
+        Indicates if the phase passed. _Example: true_
       </Property>
       <Property name="started_at" type="string, required" indent>
-        ISO 8601 start time of the step. _Example: "2024-09-11T08:00:00Z"_
+        ISO 8601 start time of the phase. _Example: "2024-09-11T08:00:00Z"_
       </Property>
       <Property name="duration" type="string, required" indent>
-        The duration of the step.
+        The duration of the phase.
 
         - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
         - For [Python Client](/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
 
       </Property>
-      <Property name="measurement_unit" type="string, optional" indent>
-        The unit of measurement for the value. _Example: "°C"_
+      <Property name="measurements" type="array, optional" indent>
+        The array of one or several measurement in one phase.
       </Property>
-      <Property name="measurement_value" type="float, optional" indent>
-        The value measured during step. _Example: 12.25_
-      </Property>
-      <Property name="limit_low" type="float, optional" indent>
-        Minimum threshold. _Example: 11.44_
-      </Property>
-      <Property name="limit_high" type="float, optional" indent>
-        Maximum threshold. _Example: 13.2_
-      </Property>
+        <Property name="name" type="string, required" indent>
+          The name of one measurement.
+        </Property>
+        <Property name="outcome" type="string, required" indent>
+          The outcome of the measurement. _Examples: "PASS", "FAIL", "STOP", "ERROR"_
+        </Property>
+        <Property name="value" type="float, required" indent>
+          The value of the measurement.
+        </Property>
+        <Property name="units" type="float, optional" indent>
+        The units of the value. _Examples: Celsius Degrees, Voltage_
+        </Property>
+        <Property name="lower_limit" type="float, optional" indent>
+          Minimum threshold. _Example: 3.2V_
+        </Property>
+        <Property name="upper_limit" type="float, optional" indent>
+          Maximum threshold. _Example: 13.2V_
+        </Property>
       <Property name="attachments" type="array(string), optional">
         File paths for [attachments](/attachments). _Example: ["path/to/file1.png", "path/to/file2.pdf"]_
       </Property>
