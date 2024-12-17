@@ -64,16 +64,16 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       <Property name="unit_under_test" type="record, required">
         Record of the unit under test.
       </Property>
-      <Property name="serial_number" type="string, required" indent>
+      <Property name="serial_number" type="string, required" indent={1}>
         Unit identifier. Creates a new unit if no match. _Example: "SN123456"_
       </Property>
-      <Property name="part_number" type="string, optional" indent>
+      <Property name="part_number" type="string, optional" indent={1}>
         Component identifier. Creates a new component if no match. _Example: "PN-001"_
       </Property>
-      <Property name="part_name" type="string, optional" indent>
+      <Property name="part_name" type="string, optional" indent={1}>
         Assigned name for the component, applied when creating a new one. _Example: "Custom Widget"_
       </Property>
-      <Property name="revision" type="string, optional" indent>
+      <Property name="revision" type="string, optional" indent={1}>
         Component revision. Required if multiple revisions exist. _Example: "A"_
       </Property>
       <Property name="run_passed" type="boolean, required">
@@ -92,41 +92,41 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       <Property name="phases" type="array, optional">
         [Phases](/phases) of the run.
       </Property>
-      <Property name="name" type="string, required" indent>
+      <Property name="name" type="string, required" indent={1}>
         The name of the phase. _Example: "temperature_calibration"_
       </Property>
-      <Property name="outcome" type="boolean, required" indent>
+      <Property name="outcome" type="boolean, required" indent={1}>
         Indicates if the phase passed or failed.
       </Property>
-      <Property name="started_at" type="string, required" indent>
+      <Property name="started_at" type="string, required" indent={1}>
         ISO 8601 start time of the phase. _Example: "2024-09-11T08:00:00Z"_
       </Property>
-      <Property name="duration" type="string, required" indent>
+      <Property name="duration" type="string, required" indent={1}>
         The duration of the phase.
 
         - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
         - For [Python Client](/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
 
       </Property>
-      <Property name="measurements" type="array, optional" indent>
+      <Property name="measurements" type="array, optional" indent={1}>
         The array of one or several measurement in one phase.
       </Property>
-        <Property name="name" type="string, required" indent>
+        <Property name="name" type="string, required" indent={2}>
           The name of one measurement.
         </Property>
-        <Property name="outcome" type="boolean, required" indent>
+        <Property name="outcome" type="boolean, required" indent={2}>
           Indicate if the measurement is passed/failed.
         </Property>
-        <Property name="value" type="float, required" indent>
+        <Property name="value" type="float, required" indent={2}>
           The value of the measurement.
         </Property>
-        <Property name="units" type="float, optional" indent>
+        <Property name="units" type="float, optional" indent={2}>
         The units of the value. _Examples: Celsius Degrees, Voltage_
         </Property>
-        <Property name="lower_limit" type="float, optional" indent>
+        <Property name="lower_limit" type="float, optional" indent={2}>
           Minimum threshold. _Example: 3.2V_
         </Property>
-        <Property name="upper_limit" type="float, optional" indent>
+        <Property name="upper_limit" type="float, optional" indent={2}>
           Maximum threshold. _Example: 13.2V_
         </Property>
       <Property name="attachments" type="array(string), optional">
@@ -135,7 +135,7 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       <Property name="sub_units" type="array(record), optional">
         Identifiers of [sub-units](/sub-units).
       </Property>
-      <Property name="serial_number" type="string, required" indent>
+      <Property name="serial_number" type="string, required" indent={1}>
         Serial number of [sub-unit](/sub-units). _Example: "SN789"_
       </Property>
       <Property name="report_variables" type="record(string, string)">

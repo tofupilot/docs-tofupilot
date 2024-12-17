@@ -117,20 +117,18 @@ export function Property({
   name,
   children,
   type,
-  indent = false,
+  indent = 0,
 }: {
   name: string
   children: React.ReactNode
+  indent: number
   type?: string
-  indent: boolean
 }) {
   return (
     <li className="m-0 px-0 py-4 first:pt-0 last:pb-0">
       <dl
-        className={clsx(
-          'm-0 flex flex-wrap items-center gap-x-3 gap-y-2',
-          indent && 'ml-4',
-        )}
+        className="m-0 flex flex-wrap items-center gap-x-3 gap-y-2"
+        style={{ marginLeft: indent * 16 }}
       >
         <dt className="sr-only">Name</dt>
         <dd>
