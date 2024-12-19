@@ -5,21 +5,20 @@ export const metadata = {
 }
 
 # Report
+
 Create your own customizable test reports. {{ className: 'lead' }}
 
-<Image
-  src="/reports-header.png"
-  alt="Report template in the Procedure page"
-/>
+<Image src="/reports-header.png" alt="Report template in the Procedure page" />
 
 ## Overview
-Manufacturing test reports often need static, formatted outputs for compliance, export, and sharing, beyond structured test steps and attachments. TofuPilot allows you to programmatically create these reports for each run.
 
-Each run report is generated from a Report template defined in the Procedure  and can be dynamically modified using values obtained during the run.
+Manufacturing test reports often need static, formatted outputs for compliance, export, and sharing, beyond structured test phases and attachments. TofuPilot allows you to programmatically create these reports for each run.
+
+Each run report is generated from a Report template defined in the Procedure and can be dynamically modified using values obtained during the run.
 
 ## Integration
-You can customize your report in the in-app **Report template** on the Procedure page, then use `report_variables` to auto-fill it when the test uploads to TofuPilot. You can find the filled report on the Run page.
 
+You can customize your report in the in-app **Report template** on the Procedure page, then use `report_variables` to auto-fill it when the test uploads to TofuPilot. You can find the filled report on the Run page.
 
 <CodeGroup>
 
@@ -56,10 +55,13 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
 </CodeGroup>
 
 <Note>
-  The report_variables parameter should be a dictionary, with each key-value pair representing a variable. Keys are the variable names as strings, and values are the corresponding variable values as strings.
+  The report_variables parameter should be a dictionary, with each key-value
+  pair representing a variable. Keys are the variable names as strings, and
+  values are the corresponding variable values as strings.
 </Note>
 
 ### Insert variable field
@@ -75,7 +77,6 @@ You need to define your report template in the **Report template** section on th
   Variables can be inserted into any editor block (lists, tables, code blocks,
   etc.) and can include applied styles.
 </Note>
-
 
 ## In-app view
 
@@ -93,9 +94,9 @@ The editor in the **Report template** section on the **Procedure** page provides
 | Category         | Type                                                          |
 | ---------------- | ------------------------------------------------------------- |
 | **Headings**     | Heading levels 1, 2, 3                                        |
-| **Content**      | Paragraph, Table, Code Block, Image, Horizontal Rule         |
-| **Text Styling** | Quote, Blockquote, Paragraph |
-| **Lists** | Bullet Points, Numbered List, To-Do List|
+| **Content**      | Paragraph, Table, Code Block, Image, Horizontal Rule          |
+| **Text Styling** | Quote, Blockquote, Paragraph                                  |
+| **Lists**        | Bullet Points, Numbered List, To-Do List                      |
 | **Marks**        | Bold, Italic, Underline, Strikethrough, Link, Highlight, Code |
 
 <Image
@@ -104,5 +105,6 @@ The editor in the **Report template** section on the **Procedure** page provides
 />
 
 <Note>
-  Pressing `/` in your editor brings up a full menu of content blocks you can choose to insert.
+  Pressing `/` in your editor brings up a full menu of content blocks you can
+  choose to insert.
 </Note>
