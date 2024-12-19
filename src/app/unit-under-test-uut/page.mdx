@@ -19,75 +19,74 @@ Tracking hardware tests by serial number is key for traceability and performance
 
 ## Integration
 
-  With frameworks like OpenHTF, the serial number and additional parameters can be added as metadata when `Test` is specified. For custom test frameworks using the Python client, specify parameters in `unit_under_test` when creating the run.
+With frameworks like OpenHTF, the serial number and additional parameters can be added as metadata when `Test` is specified. For custom test frameworks using the Python client, specify parameters in `unit_under_test` when creating the run.
 
-    <CodeGroup>
-    ```python {{ title: 'OpenHTF'}}
-      from openhtf import Test
-      from tofupilot.openhtf import TofuPilot
+<CodeGroup>
 
-      def main():
-          phases = [ ] # Your test phases here
-          test = Test(phases,
-              part_number = "PCB1",
-              revision = "A",           # optional
-              batch_number = "12-24",   # optional
-          )
-          with TofuPilot(test):
-              test.execute(lambda: 'PCB1A001') # UUT S/N
+```python {{ title: 'OpenHTF'}}
+  from openhtf import Test
+  from tofupilot.openhtf import TofuPilot
 
-      if __name__ == '__main__':
-          main()
-    ```
-    ```python {{ title: 'Python Client'}}
-    from tofupilot import TofuPilotClient
+  def main():
+      phases = [ ] # Your test phases here
+      test = Test(phases,
+          part_number = "PCB1",
+          revision = "A",           # optional
+          batch_number = "12-24",   # optional
+      )
+      with TofuPilot(test):
+          test.execute(lambda: 'PCB1A001') # UUT S/N
 
-    client = TofuPilotClient()
+  if __name__ == '__main__':
+      main()
+```
 
-    client.create_run(
-        procedure_id = "FVT1",
-        unit_under_test = {
-            "serial_number": "PCB1A001",
-            "part_number": "PCB1",
-            "revision": "A",           # optional
-            "batch_number": "12-24",   # optional
-        },
-        run_passed = True
-    )
-    ```
-    </CodeGroup>
+```python {{ title: 'Python Client'}}
+from tofupilot import TofuPilotClient
 
-    <Properties>
-      <Property name="serial_number" type="str">
-        Serial Number of the unit under test.
-      </Property>
-      <Property name="part_number" type="str">
-        Part number of the unit under test.
-      </Property>
-      <Property name="part_name" type="str (optional)">
-        Component name of the unit under test. Creates a new component if it doesn't exist.
-      </Property>
-      <Property name="revision" type="str (optional)">
-        Revision of the unit under test.
-      </Property>
-      <Property name="batch_number" type="str (optional)">
-        Batch number of the unit under test.
-      </Property>
-    </Properties>
+client = TofuPilotClient()
+
+client.create_run(
+    procedure_id = "FVT1",
+    unit_under_test = {
+        "serial_number": "PCB1A001",
+        "part_number": "PCB1",
+        "revision": "A",           # optional
+        "batch_number": "12-24",   # optional
+    },
+    run_passed = True
+)
+```
+
+</CodeGroup>
+
+<Properties>
+  <Property name="serial_number" type="str">
+    Serial Number of the unit under test.
+  </Property>
+  <Property name="part_number" type="str">
+    Part number of the unit under test.
+  </Property>
+  <Property name="part_name" type="str (optional)">
+    Component name of the unit under test. Creates a new component if it doesn't
+    exist.
+  </Property>
+  <Property name="revision" type="str (optional)">
+    Revision of the unit under test.
+  </Property>
+  <Property name="batch_number" type="str (optional)">
+    Batch number of the unit under test.
+  </Property>
+</Properties>
 
 ## In-app view
-You find infromation about your Unit Under Test in the **Unit** section on the ***Run** page.
 
-<Image
-  src="/uut-page-run.png"
-  alt="Unit Under Test (UUT) on a Run page."
-/>
+You find infromation about your Unit Under Test in the **Unit** section on the **\*Run** page.
+
+<Image src="/uut-page-run.png" alt="Unit Under Test (UUT) on a Run page." />
 
 Clicking on the unit will take you to the dedicated **Unit** page, where you can view details about the component, including the part number, name, and revision.
 
-<Image
-  src="/uut-page-unit.png"
-  alt="Unit Under Test (UUT) on a Unit page."
-/>
+<Image src="/uut-page-unit.png" alt="Unit Under Test (UUT) on a Unit page." />
 
 These features will be explained in more detail in the [Traceability](/traceability) section.

@@ -1,11 +1,10 @@
 export const metadata = {
   title: 'Test phases analysis',
-  description:
-    "",
+  description: '',
 }
 
-
 # Test phases analysis
+
 Analyze and continuously improve your test phases. {{ className: 'lead' }}
 
 <Image
@@ -14,17 +13,23 @@ Analyze and continuously improve your test phases. {{ className: 'lead' }}
 />
 
 ## Overview
+
 When testing your product with multiple procedures and phases, it can be challenging to know where to focus your efforts when issues arise or improvements are needed. In TofuPilot, each test phase is tracked individually, allowing you to analyze areas that need attention—whether it's phases taking too long, those with low yield, or measurement drifts over time.
 
 ## Single phase analysis
+
 After a test run, go to the **Phases** table on the **Run page** to see details on the unit under test, procedure, attachments, report, and each test phase.
 
 The **Phases** table includes each phase’s:
-- value
-- upper and lower limits
-- units (e.g., volts, degrees)
-- test status (Pass/Fail)
+
+- name
 - duration (milliseconds to hours)
+- measurements
+  - name
+  - value (number, string, boolean or abitrary JSON)
+  - upper and lower limits
+  - units (e.g., volts, degrees)
+  - test status (Pass/Fail)
 
 This view lets you analyze each phase in detail for a specific run.
 
@@ -34,10 +39,12 @@ This view lets you analyze each phase in detail for a specific run.
 />
 
 <Note>
-  Click on a test phase in the **Phases** table to go to the Procedure page, where data is sorted by that specific phase.
+  Click on a test phase in the **Phases** table to go to the Procedure page,
+  where data is sorted by that specific phase.
 </Note>
 
 ## Multiple phases analysis
+
 It's also helpful to get an overview across all executed runs, which you can access on the **Procedure page**. This page provides key indicators in various tabs (e.g., Cpk, yields). Learn more in the [Test analytics](/analytics) section.
 
 On the Procedure page, you can filter the indicators for runs within the same procedure by selecting parameters at the top right:
@@ -46,7 +53,6 @@ On the Procedure page, you can filter the indicators for runs within the same pr
 - Unit under test component and revision
 - Unit under test batch number
 
-
 <Image
   src="/phases-analysis-page-procedure1.png"
   alt="TofuPilot test analytics showing indicators filter by components, revision, or batch number."
@@ -54,18 +60,18 @@ On the Procedure page, you can filter the indicators for runs within the same pr
 
 You can also filter by phase in the **Phases by failure** or **Phases by duration** tables below.
 
-
 <Image
   src="/phases-analysis-page-procedure2.png"
   alt="TofuPilot test analytics showing test phases performance by failure."
 />
 
 <Note>
-  Click on a phase (e.g., "thermal_reading" or "motor_noise") to filter by it. To clear the filter, select **Clear Filter**.
+  Click on a phase (e.g., "thermal_reading" or "motor_noise") to filter by it.
+  To clear the filter, select **Clear Filter**.
 </Note>
 
-
 ### Phases by failure and Step by duration
+
 This view helps you identify the most frequently failing test phases, making it easier to analyze defective parts or improve test procedures.
 
 The **Phases by failure** table lists phases with a `Fail` status, sorted by frequency (from most to least failures).
@@ -77,8 +83,8 @@ The **Phases by duration** table displays phases sorted by `duration`, showing t
   alt="TofuPilot test analytics showing test phases performance by failure."
 />
 
-
 ### Control chart and histogram
+
 You can explore a specific test phase with numerical or string data in the **Control Chart** below the Phases tables.
 
 This chart displays all values for the selected phase over time, showing limits, an automatically calculated 6-sigma standard deviation, and the average.

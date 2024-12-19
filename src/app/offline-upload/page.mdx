@@ -21,8 +21,8 @@ TofuPilot allows you to upload your test results in real-time, but you might als
 
 With the TofuPilot Python Client, you can upload test results, specifying `started_at` to keep the original test date; otherwise, the upload date will apply. Then use `create_run` to add test details or attachments.
 
-
 <CodeGroup>
+
 ```python {{ title: 'OpenHTF'}}
 from tofupilot import TofuPilotClient
 
@@ -35,54 +35,33 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
 ```python {{ title: 'Python Client'}}
 from tofupilot import TofuPilotClient
-from datetime import datetime, timedelta, timezone
 
 client = TofuPilotClient()
 
-def load_your_results():
-
-# Convert a date string into a datetime object in the UTC timezone
-
-date_string = "25-10-2024 14:30"
-started_at = datetime.strptime(date_string, "%d-%m-%Y %H:%M").replace(tzinfo=timezone.utc)
-return started_at
-
 def main():
-started_at = load_your_results()
+  response = client.create_run(
+    procedure_id = "FVT1",
+    unit_under_test = {
+      "serial_number": "PCB1A001",
+      "part_number": "PCB1",
+    },
+    run_passed = True,
+    attachments=["path/to/your/attachment"],
+  )
 
-response = client.create_run(
-procedure_id = "FVT1",
-started_at = started_at # datetime object
-unit_under_test = {
-"serial_number": "PCB1A001",
-"part_number": "PCB1",
-},
-run_passed = True,
-attachments=["path/to/your/attachment"],
-)
-
-````
-```python {{ title: 'OpenHTF'}}
-from tofupilot import TofuPilotClient
-
-### Example
-
-Uploaded runs appear on the Runs page with their **uploaded** date. In this example, data from tests done on the same day is uploaded at two-day intervals (e.g. `created_at` yesterday and 1 day ago).
-
-if __name__ == "__main__":
-    main()
-````
+```
 
 </CodeGroup>
+
 Uploaded runs then appear on the Runs page with their upload date.
 
 <Image
   src="/offline-page-runs.png"
   alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
 />
-
 
 The Run page shows the **started** date of the test. These two runs have been started the same day (e.g. `started_at` October 28th) even if they have been uploaded different days.
 
