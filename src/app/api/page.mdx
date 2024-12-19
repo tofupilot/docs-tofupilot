@@ -111,24 +111,31 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       <Property name="measurements" type="array, optional" indent={1}>
         The array of one or several measurement in one phase.
       </Property>
-        <Property name="name" type="string, required" indent={2}>
-          The name of one measurement.
-        </Property>
-        <Property name="outcome" type="boolean, required" indent={2}>
-          Indicate if the measurement is passed/failed.
-        </Property>
-        <Property name="value" type="float, required" indent={2}>
-          The value of the measurement.
-        </Property>
-        <Property name="units" type="float, optional" indent={2}>
-        The units of the value. _Examples: Celsius Degrees, Voltage_
-        </Property>
-        <Property name="lower_limit" type="float, optional" indent={2}>
-          Minimum threshold. _Example: 3.2V_
-        </Property>
-        <Property name="upper_limit" type="float, optional" indent={2}>
-          Maximum threshold. _Example: 13.2V_
-        </Property>
+          <Property name="name" type="string, required" indent={2}>
+            The name of one measurement.
+          </Property>
+          <Property name="outcome" type='"PASS" | "FAIL" | "UNSET", required' indent={2}>
+            outcome of the measurement. _Example:
+            "PASS"_
+          </Property>
+          <Property
+            name="measured_value"
+            type="number | string | boolean | JSON, optional"
+            indent={2}
+          >
+            The value of the measurement.
+          </Property>
+          <Property name="units" type="string, optional" indent={2}>
+            The units of the value. _Examples: Celsius Degrees, Voltage_
+          </Property>
+          <Property name="lower_limit" type="number, optional" indent={2}>
+            Minimum threshold. **Only taken into account if measured_value is a
+            number**. _Example: 3.2V_
+          </Property>
+          <Property name="upper_limit" type="number, optional" indent={2}>
+            Maximum threshold. **Only taken into account if measured_value is a
+            number**. _Example: 13.2V_
+          </Property>
       <Property name="attachments" type="array(string), optional">
         File paths for [attachments](/attachments). _Example: ["path/to/file1.png", "path/to/file2.pdf"]_
       </Property>

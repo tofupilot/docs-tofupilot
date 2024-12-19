@@ -83,8 +83,8 @@ if __name__ == "__main__":
   <Property name="name" type="str">
     The name of the phase.
   </Property>
-  <Property name="outcome" type="boolean">
-    Pass/Fail outcome of the phase.
+  <Property name="outcome" type='"PASS" | "FAIL" | "ERROR" | "SKIP", required'>
+    Outcome of the phase. _Example: "PASS"_
   </Property>
   <Property name="started_at" type="datetime">
     ISO 8601 start time of the phase. Example: "2024-09-11T08:00:00Z"
@@ -171,23 +171,36 @@ if __name__ == "__main__":
 </CodeGroup>
 
 <Properties>
-  <Property name="name" type="str">
-    The name of the measured value.
+  <Property name="measurements" type="array, optional">
+    The array of one or several measurement in one phase.
   </Property>
-  <Property name="unit" type="str">
-    The unit of measurement for the value (e.g. "°C").
+  <Property name="name" type="string, required" indent={1}>
+    The name of one measurement.
   </Property>
-  <Property name="outcome" type="boolean">
-    Pass/Fail outcome of the phase.
+  <Property
+    name="outcome"
+    type='"PASS" | "FAIL" | "UNSET", required'
+    indent={1}
+  >
+    Outcome of the measurement. _Example: "PASS"_
   </Property>
-  <Property name="value" type="float">
-    The value measured during phase.
+  <Property
+    name="measured_value"
+    type="number | string | boolean | JSON, optional"
+    indent={1}
+  >
+    The value of the measurement.
   </Property>
-  <Property name="lower_limit" type="float">
-    Minimum threshold.
+  <Property name="units" type="string, optional" indent={1}>
+    The units of the value. _Examples: Celsius Degrees, Voltage_
   </Property>
-  <Property name="upper_limit" type="float">
-    Maximum threshold.
+  <Property name="lower_limit" type="number, optional" indent={1}>
+    Minimum threshold. **Only taken into account if measured_value is a
+    number**. _Example: 3.2V_
+  </Property>
+  <Property name="upper_limit" type="number, optional" indent={1}>
+    Maximum threshold. **Only taken into account if measured_value is a
+    number**. _Example: 13.2V_
   </Property>
 </Properties>
 
