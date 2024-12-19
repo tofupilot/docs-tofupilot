@@ -47,14 +47,14 @@ if __name__ == '__main__':
 ```
 
 ```python {{ title: 'Python'}}
-from tofupilot import TofuPilotClient
+from tofupilot import TofuPilotClient, PhaseOutcome
 from datetime import datetime, timedelta
 
 def phase_one():
     phase = [
         {
             "name": "phase_one",
-            "outcome": "PASS",
+            "outcome": PhaseOutcome.PASS,
             "duration": timedelta(seconds=30),
             "started_at": datetime.now(),
         }
@@ -70,7 +70,7 @@ def main():
         procedure_id="FVT1",
         unit_under_test={"serial_number": "PCB1A001", "part_number": "PCB1"},
         phases=phases,
-        run_passed=all(phase["outcome"] for phase in phases),
+        run_passed=all(phase["outcome"] == PhaseOutcome.PASS for phase in phases),
     )
 
 if __name__ == "__main__":
@@ -128,20 +128,20 @@ if __name__ == '**main**':
 ```
 
 ```python {{ title: 'Python'}}
-from tofupilot import TofuPilotClient
+from tofupilot import TofuPilotClient, PhaseOutcome, MeasurementOutcome
 from datetime import datetime, timedelta
 
 def phase_one():
     phase = [
         {
             "name": "phase_one",
-            "outcome": True,
+            "outcome": PhaseOutcome.PASS,
             "started_at": datetime.now(),
             "duration": timedelta(seconds=30),
             "measurements": [
                 {
                     "name": "input_voltage",
-                    "outcome": True,
+                    "outcome": MeasurementOutcome.PASS,
                     "value": 3.3,
                     "units": "V",
                     "lower_limit": 3.1,
@@ -161,7 +161,7 @@ def main():
         procedure_id="FVT1",
         unit_under_test={"serial_number": "PCB1A001", "part_number": "PCB1"},
         phases=phases,
-        run_passed=all(phase["outcome"] for phase in phases),
+        run_passed=all(phase["outcome"] == PhaseOutcome.PASS for phase in phases),
     )
 
 if __name__ == "__main__":
@@ -287,7 +287,7 @@ if __name__ == "__main__":
 ```
 
 ```python {{ title: 'Python'}}
-from tofupilot import TofuPilotClient
+from tofupilot import TofuPilotClient, PhaseOutcome, MeasurementOutcome
 from datetime import datetime, timedelta
 
 def main():
@@ -305,20 +305,20 @@ def main():
                 # Phase without measurement
                 {
                     "name": "phase_connect",
-                    "outcome": True,
+                    "outcome": PhaseOutcome.PASS,
                     "duration": timedelta(seconds=3),
                     "started_at": datetime.now(),
                 },
                 # Phase with measurement
                 {
                     "name": "phase_firmware_version_check",
-                    "outcome": True,
+                    "outcome": PhaseOutcome.PASS,
                     "duration": timedelta(minutes=1, seconds=42),
                     "started_at": datetime.now() + timedelta(seconds=3),
                     "measurements": [
                         {
                             "name": "firmware_version",
-                            "outcome": True,
+                            "outcome": MeasurementOutcome.PASS,
                             "value": "v2.5.1",
                         }
                     ],
@@ -326,13 +326,13 @@ def main():
                 # Phase with multiple measurements
                 {
                     "name": "phase_voltage_measurements",
-                    "outcome": True,
+                    "outcome": PhaseOutcome.PASS,
                     "started_at": datetime.now(),
                     "duration": timedelta(seconds=30),
                     "measurements": [
                         {
                             "name": "input_voltage",
-                            "outcome": True,
+                            "outcome": MeasurementOutcome.PASS,
                             "value": 3.3,
                             "units": "V",
                             "lower_limit": 3.1,
@@ -340,7 +340,7 @@ def main():
                         },
                         {
                             "name": "output_voltage",
-                            "outcome": True,
+                            "outcome": MeasurementOutcome.PASS,
                             "value": 1.2,
                             "units": "V",
                             "lower_limit": 1.1,
