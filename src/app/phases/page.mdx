@@ -50,21 +50,21 @@ if __name__ == '__main__':
 from tofupilot import TofuPilotClient, PhaseOutcome
 from datetime import datetime, timedelta
 
+client = TofuPilotClient()
+
 def phase_one():
-    phase = [
-        {
+    start_time_millis = datetime.now().timestamp() * 1000
+    phase = {
             "name": "phase_one",
             "outcome": PhaseOutcome.PASS,
-            "duration": timedelta(seconds=30),
-            "started_at": datetime.now(),
+            "start_time_millis": start_time_millis,
+            "end_time_millis": start_time_millis
+            + 30 * 1000,  # Indicating phase took 30 seconds to complete
         }
-    ]
     return phase
 
 def main():
-    phases = phase_one()
-
-    client = TofuPilotClient()
+    phases = [phase_one()]
 
     client.create_run(
         procedure_id="FVT1",
@@ -86,11 +86,13 @@ if __name__ == "__main__":
   <Property name="outcome" type='"PASS" | "FAIL" | "ERROR" | "SKIP", required'>
     Outcome of the phase. _Example: "PASS"_
   </Property>
-  <Property name="started_at" type="datetime">
-    ISO 8601 start time of the phase. Example: "2024-09-11T08:00:00Z"
+  <Property name="start_time_millis" type="number">
+    A Unix epoch timestamp in milliseconds representing the start time of the
+    phase. _Example: 1726147200000_
   </Property>
-  <Property name="duration" type="timedelta">
-    The duration of the phase.
+  <Property name="end_time_millis" type="number">
+    A Unix epoch timestamp in milliseconds representing the end time of the
+    phase. _Example: 1726147230000_
   </Property>
 </Properties>
 
@@ -292,8 +294,11 @@ if __name__ == "__main__":
 from tofupilot import TofuPilotClient, PhaseOutcome, MeasurementOutcome
 from datetime import datetime, timedelta
 
+
+client = TofuPilotClient()
+
 def main():
-    client = TofuPilotClient()
+    start_time_millis = datetime.now().timestamp() * 1000
 
     client.create_run(
             procedure_id="FVT2",
@@ -308,15 +313,15 @@ def main():
                 {
                     "name": "phase_connect",
                     "outcome": PhaseOutcome.PASS,
-                    "duration": timedelta(seconds=3),
-                    "started_at": datetime.now(),
+                    "start_time_millis": start_time_millis,
+                    "end_time_millis": start_time_millis + 3000 # phase duration of 3 seconds
                 },
                 # Phase with measurement
                 {
                     "name": "phase_firmware_version_check",
                     "outcome": PhaseOutcome.PASS,
-                    "duration": timedelta(minutes=1, seconds=42),
-                    "started_at": datetime.now() + timedelta(seconds=3),
+                    "start_time_millis": start_time_millis + 3000,
+                    "end_time_millis": start_time_millis + 6000, # phase duration of 3 seconds
                     "measurements": [
                         {
                             "name": "firmware_version",
@@ -329,8 +334,8 @@ def main():
                 {
                     "name": "phase_voltage_measurements",
                     "outcome": PhaseOutcome.PASS,
-                    "started_at": datetime.now(),
-                    "duration": timedelta(seconds=30),
+                    "start_time_millis": start_time_millis + 9000,
+                    "end_time_millis": start_time_millis + 19000, # phase duration of 10 seconds
                     "measurements": [
                         {
                             "name": "input_voltage",
