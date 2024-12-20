@@ -246,7 +246,7 @@ export const navigation: Array<NavGroup> = [
       },
       { title: 'Procedures', href: '/procedures' },
       { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
-      { title: 'Steps', href: '/steps' },
+      { title: 'Phases', href: '/phases' },
       { title: 'Sub-units', href: '/sub-units' },
       { title: 'Attachments', href: '/attachments' },
       { title: 'Report', href: '/report' },
@@ -264,7 +264,7 @@ export const navigation: Array<NavGroup> = [
     title: 'Web App',
     links: [
       { title: 'Test analytics', href: '/analytics' },
-      { title: 'Test steps analysis', href: '/analysis' },
+      { title: 'Test phases analysis', href: '/analysis' },
       { title: 'Traceability', href: '/traceability' },
       { title: 'Account management', href: '/user-management' },
     ],

@@ -5,22 +5,23 @@ export const metadata = {
 }
 
 # Procedures
+
 Define your test sequence for your Units Under Test. {{ className: 'lead' }}
 
-
-<Image
-  src="/procedure-header.png"
-  alt=""
-/>
+<Image src="/procedure-header.png" alt="" />
 
 ## Overview
+
 The Procedures allow you to set up the test sequence for one or more units under test. It provides analytics and test performances across multiple runs, including average test duration, yields, Cpk, and Control Chart for numerical values.
 
 ## Integration
+
 You can create a new procedure automatically from your test scripts by setting its ID, name, Unit Under Test, and test status.
 
 ### Basic parameters
+
 <CodeGroup>
+
 ```python {{ title: 'OpenHTF'}}
 import openhtf as htf
 from tofupilot.openhtf import TofuPilot
@@ -37,6 +38,7 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
 ```python {{ title: 'Python'}}
 from tofupilot import TofuPilotClient
 from datetime import datetime, timedelta
@@ -57,6 +59,7 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
 </CodeGroup>
 
 <Properties>
@@ -74,20 +77,20 @@ if __name__ == '__main__':
   </Property>
 </Properties>
 
-
 <Note>
-  If a procedure has `steps` but the procedure duration is not defined, the `duration` will be automatically calculated as the sum of the durations of its steps
+  If a run has `phases` and its `duration` was not provided, the `duration` will
+  be automatically calculated as the sum of the durations of its phases
 </Note>
 
 ### Advanced parameters
+
 You can define several important additional parameters for your procedures, each covered in a separate section:
 
 - Define **[Unit under test (UUT)](/unit-under-test-uut)**, which includes serial number, batch, revision, and part number.
-- Break down test **[Steps](/steps)**
+- Break down test **[Phases](/phases)**
 - Add **[Sub-units](/sub-units)** during assembly
 - Include file **[Attachments](/attachments)**
 - Create customizable **[Reports](/report)**
-
 
 ## In-app view
 
@@ -98,9 +101,6 @@ In TofuPilot, you can explore different procedures in the **Procedures** tab. On
 - **First-Pass Yield**
 - **Cpk** for tests with numerical measurements and limits.
 
-<Image
-  src="/procedure-page1.png"
-  alt=""
-/>
+<Image src="/procedure-page1.png" alt="" />
 
-These features will be explained in more detail in the [Test steps analysis](/analysis) section.
+These features will be explained in more detail in the [Test phases analysis](/analysis) section.

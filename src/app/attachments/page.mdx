@@ -5,17 +5,17 @@ export const metadata = {
 }
 
 # Attachments
+
 Attach files collected during execution to the test record. {{ className: 'lead' }}
 
-<Image
-  src="/attachments-header.png"
-  alt=""
-/>
+<Image src="/attachments-header.png" alt="" />
 
 ## Overview
+
 Hardware tests often generate extra data, like images, that can't be captured as measurements. TofuPilot uploads these attachments, allowing you to access and download them directly from your workspace.
 
 ## Integration
+
 You can add attachments using OpenHTF's `attach` or `attach_from_file` functions. With TofuPilot Client, use the `attachments` field when creating a run with `create_run`.
 
 <CodeGroup>
@@ -24,7 +24,7 @@ You can add attachments using OpenHTF's `attach` or `attach_from_file` functions
 import openhtf as htf
 from tofupilot.openhtf import TofuPilot
 
-def step_file_attachment(test):
+def phase_file_attachment(test):
     test.attach_from_file("/path/to/your/logfile.png")
     return htf.PhaseResult.CONTINUE
 
@@ -40,14 +40,14 @@ if __name__ == "__main__":
 ```python {{ title: 'Python' }}
 from tofupilot import TofuPilotClient
 
-def step_file_attachment():
+def phase_file_attachment():
     file_path = ["/path/to/your/file.png"]
     return file_path
 
 def main():
     client = TofuPilotClient()
 
-    attachments = step_file_attachment()
+    attachments = phase_file_attachment()
 
     client.create_run(
         procedure_id="FVT1",
@@ -69,7 +69,4 @@ if __name__ == "__main__":
 
 A dedicated **Attachments** section is automatically created on the Run’s page. Attachments can be viewed in the browser or downloaded.
 
-<Image
-  src="/attachments-page-run.png"
-  alt=""
-/>
+<Image src="/attachments-page-run.png" alt="" />
