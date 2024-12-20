@@ -98,15 +98,13 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       <Property name="outcome" type='"PASS" | "FAIL" | "ERROR" | "SKIP", required' indent={1}>
         Outcome of the phase. _Example: "PASS"_
       </Property>
-      <Property name="started_at" type="string, required" indent={1}>
-        ISO 8601 start time of the phase. _Example: "2024-09-11T08:00:00Z"_
+      <Property name="start_time_millis" type="number">
+        A Unix epoch timestamp in milliseconds representing the start time of the
+        phase. _Example: 1726147200000_
       </Property>
-      <Property name="duration" type="string, required" indent={1}>
-        The duration of the phase.
-
-        - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
-        - For [Python Client](/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
-
+      <Property name="end_time_millis" type="number">
+        A Unix epoch timestamp in milliseconds representing the end time of the
+        phase. _Example: 1726147230000_
       </Property>
       <Property name="measurements" type="array, optional" indent={1}>
         The array of one or several measurement in one phase.

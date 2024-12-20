@@ -23,13 +23,14 @@ After a test run, go to the **Phases** table on the **Run page** to see details 
 The **Phases** table includes each phase’s:
 
 - name
-- duration (milliseconds to hours)
+- outcome
+- duration (calculated as end_time_millis - start_time_millis)
 - measurements’
   - name
   - value (number, string, boolean or abitrary JSON)
   - upper and lower limits
   - units (e.g., volts, degrees)
-  - test status (Pass/Fail)
+  - outcome
 
 This view lets you analyze each phase in detail for a specific run.
 
@@ -40,7 +41,7 @@ This view lets you analyze each phase in detail for a specific run.
 
 <Note>
   Click on a test phase in the **Phases** table to go to the Procedure page,
-  where data is sorted by that specific phase.
+  where data is filtered by that specific phase.
 </Note>
 
 ## Multiple phases analysis
