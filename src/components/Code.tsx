@@ -304,7 +304,7 @@ function useTabGroupProps(availableLanguages: Array<string>) {
   }
 }
 
-const CodeGroupContext = createContext(false)
+export const CodeGroupContext = createContext(false)
 
 export function CodeGroup({
   children,
