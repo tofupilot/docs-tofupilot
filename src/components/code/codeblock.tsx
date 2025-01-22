@@ -38,15 +38,21 @@ export function CodeBlock({
   )
 }
 
-const getContentUrl = (path: string) =>
-  `https://raw.githubusercontent.com/tofupilot/examples/main/${path}`
+const getContentUrl = (branch: string, path: string) =>
+  `https://raw.githubusercontent.com/tofupilot/examples/${branch}/${path}`
 
-// Takes the path of a file in main branch of public tofupilot/examples repository and display it with syntax highlighting
-export function CodeBlockFile({ path }: { path: string }) {
+// Takes the path of a file and a branch (main by default) of public tofupilot/examples repository and displays it with syntax highlighting
+export function CodeBlockFile({
+  path,
+  branch = 'main',
+}: {
+  path: string
+  branch?: string
+}) {
   const [code, setCode] = useState('')
   const [error, setError] = useState<string | null>(null)
 
-  const contentUrl = getContentUrl(path)
+  const contentUrl = getContentUrl(branch, path)
 
   const fileName = path.split('/').pop() || 'Unknown file'
 
