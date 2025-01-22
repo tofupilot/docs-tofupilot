@@ -58,7 +58,7 @@ function ClipboardIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function CopyButton({ code }: { code: string }) {
+export function CopyButton({ code }: { code: string }) {
   let [copyCount, setCopyCount] = useState(0)
   let copied = copyCount > 0
 
