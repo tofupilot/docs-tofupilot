@@ -9,6 +9,11 @@
       "source": "/steps",
       "destination": "/phases",
       "permanent": true
+    },
+    {
+      "source": "/report",
+      "destination": "/phases",
+      "permanent": true
     }
   ]
 }
