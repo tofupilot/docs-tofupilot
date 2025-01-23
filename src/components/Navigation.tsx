@@ -249,8 +249,6 @@ export const navigation: Array<NavGroup> = [
       { title: 'Phases', href: '/phases' },
       { title: 'Sub-units', href: '/sub-units' },
       { title: 'Attachments', href: '/attachments' },
-      { title: 'Report', href: '/report' },
-      //add config file
     ],
   },
   {
