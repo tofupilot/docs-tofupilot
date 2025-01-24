@@ -21,45 +21,17 @@ You can create a new procedure automatically from your test scripts by setting i
 ### Basic parameters
 
 <CodeGroup>
+  <File
+    title="OpenHTF"
+    branch="automatic-testing"
+    path="docs/openhtf/procedures/main.py"
+  />
 
-```python {{ title: 'OpenHTF'}}
-import openhtf as htf
-from tofupilot.openhtf import TofuPilot
-
-def main():
-    test = htf.Test(
-        procedure_id="FVT1",
-        procedure_name="PCB Testing",     # By default set as "openhtf_test"
-        part_number="PCB1",
-    )
-    with TofuPilot(test):
-        test.execute(lambda: "PCB1A001")  # Duration calculated during execution
-
-if __name__ == '__main__':
-    main()
-```
-
-```python {{ title: 'Python'}}
-from tofupilot import TofuPilotClient
-from datetime import datetime, timedelta
-
-def main():
-    client = TofuPilotClient()
-
-    client.create_run(
-        procedure_id="FVT1",
-        procedure_name="PCB Testing",
-        run_passed=True,
-        unit_under_test={
-            "serial_number": "PCB1A001",
-            "part_number": "PCB1"},
-        duration=timedelta(minutes=1, seconds=45),
-    )
-
-if __name__ == '__main__':
-    main()
-```
-
+  <File
+    title="Python"
+    branch="automatic-testing"
+    path="docs/client/procedures/main.py"
+  />
 </CodeGroup>
 
 <Properties>
