@@ -153,16 +153,43 @@ Once the script finishes, access the web app (e.g., `https://tofupilot.yourcompa
 You can upload test runs using the public TofuPilot Python package. Simply set your instance URL with the `url` parameter as shown below. All features described in the rest of the documentation will function as expected.
 
 <CodeGroup>
-  <File
-    title="OpenHTF"
-    branch="automatic-testing"
-    path="docs/openhtf/self-hosting/main.py"
-  />
-  <File
-    title="Python"
-    branch="automatic-testing"
-    path="docs/client/self-hosting/main.py"
-  />
+    <Code title="OpenHTF" language="python" code={`import openhtf as htf
+from tofupilot.openhtf import TofuPilot
+
+def main():
+        test = htf.Test(
+              procedure_id="FVT1",
+              procedure_name="PCB Testing",
+              part_number="PCB1",
+              )
+
+with TofuPilot(test, url="https://tofupilot.yourcompany.com"): # specify URL here
+        test.execute(lambda: "PCB1A001")
+
+if __name__ == '__main__':
+        main()
+    `} />
+
+
+    <Code title="Python" language="python" code={`from tofupilot import TofuPilotClient
+  from datetime import datetime, timedelta
+
+  def main():
+      client = TofuPilotClient(url="https://tofupilot.yourcompany.com") # specify URL here
+
+      client.create_run(
+          procedure_id="FVT1",
+          procedure_name="PCB Testing",
+          run_passed=True,
+          unit_under_test={
+                "serial_number": "PCB1A001",
+                "part_number": "PCB1"},
+          duration=timedelta(minutes=1, seconds=45),
+      )
+
+  if __name__ == '__main__':
+      main()`}  />
+
 </CodeGroup>
 
 ## Update
