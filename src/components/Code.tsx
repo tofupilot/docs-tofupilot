@@ -58,7 +58,7 @@ function ClipboardIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function CopyButton({ code }: { code: string }) {
+export function CopyButton({ code }: { code: string }) {
   let [copyCount, setCopyCount] = useState(0)
   let copied = copyCount > 0
 
@@ -150,18 +150,12 @@ function CodePanel({
     code = child.props.code ?? code
   }
 
-  if (!code) {
-    throw new Error(
-      '`CodePanel` requires a `code` prop, or a child with a `code` prop.',
-    )
-  }
-
   return (
     <div className="group dark:bg-white/2.5">
       <CodePanelHeader tag={tag} label={label} />
       <div className="relative">
         <pre className="overflow-x-auto p-4 text-xs text-white">{children}</pre>
-        <CopyButton code={code} />
+        <CopyButton code={code ?? ''} />
       </div>
     </div>
   )
@@ -304,7 +298,7 @@ function useTabGroupProps(availableLanguages: Array<string>) {
   }
 }
 
-const CodeGroupContext = createContext(false)
+export const CodeGroupContext = createContext(false)
 
 export function CodeGroup({
   children,
