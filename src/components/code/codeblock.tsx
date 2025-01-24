@@ -13,14 +13,14 @@ import { CodeGroupContext, CopyButton } from '../Code'
 export function CodeBlock({
   code,
   language,
-  label,
+  title,
 }: {
   code: string
   language: (typeof availableLanguages)[number]
-  label?: string
+  title?: string
 }) {
   // Keeping track of the highlighted HTML
-  let [highlightedHtml, setHighlightedHtml] = useState('')
+  let [highlightedHtml, setHighlightedHtml] = useState(code)
 
   // Checking if we are in a code group
   let isGrouped = useContext(CodeGroupContext)
@@ -45,9 +45,9 @@ export function CodeBlock({
   return (
     <div className="not-prose my-6 overflow-hidden rounded-2xl bg-zinc-900 shadow-md dark:ring-1 dark:ring-white/10">
       {/* Rendering a header bar only if a label is present */}
-      {label && (
+      {title && (
         <div className="flex h-9 items-center gap-2 border-y border-b-white/7.5 border-t-transparent bg-white/2.5 bg-zinc-900 px-4 dark:border-b-white/5 dark:bg-white/1">
-          <span className="font-mono text-xs text-zinc-400">{label}</span>
+          <span className="font-mono text-xs text-zinc-400">{title}</span>
         </div>
       )}
       <div className="group relative">
