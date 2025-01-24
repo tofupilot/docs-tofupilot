@@ -97,7 +97,6 @@ export function CodeBlockFile({
       }
     })
   }, [contentUrl])
-  console.log(code, error, isGrouped, extension, language)
 
   if (error) {
     return (
