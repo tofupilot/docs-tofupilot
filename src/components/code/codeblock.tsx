@@ -101,7 +101,7 @@ export function CodeBlockFile({
   if (error) {
     return (
       <div className="text-red-600 dark:text-red-400">
-        <p>Error loading code: {error}</p>
+        <p>Error loading code example.</p>
       </div>
     )
   }
