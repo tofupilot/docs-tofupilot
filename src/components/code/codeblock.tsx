@@ -70,9 +70,11 @@ const getContentUrl = (branch: string, path: string) =>
 export function CodeBlockFile({
   path,
   branch = 'main',
+  title,
 }: {
   path: string
   branch?: string
+  title?: string
 }) {
   let [code, setCode] = useState('')
   let [error, setError] = useState<string | null>(null)
@@ -95,6 +97,7 @@ export function CodeBlockFile({
       }
     })
   }, [contentUrl])
+  console.log(code, error, isGrouped, extension, language)
 
   if (error) {
     return (
@@ -104,17 +107,5 @@ export function CodeBlockFile({
     )
   }
 
-  // If we have the raw code, proceed
-  if (code) {
-    // If in group, returning a simplified <code> (like old "Code")
-    if (isGrouped) {
-      return <CodeBlock code={code} language={language} />
-    }
-
-    // Otherwise, using the standard container for CodeBlock with label
-    return <CodeBlock code={code} language={language} label={fileName} />
-  }
-
-  // If we're still loading, or no code yet, rendering nothing or a simple loader
-  return null
+  return <CodeBlock code={code} language={language} title={title ?? fileName} />
 }
