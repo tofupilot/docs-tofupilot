@@ -1,15 +1,10 @@
 'use client'
 
-import { useEffect, useState, useContext } from 'react'
-import { availableLanguages, languageMap } from '@/lib/shiki/highlighter'
 import { fetchContentFromUrl, getHighlightedCode } from '@/actions/code'
+import { availableLanguages, languageMap } from '@/lib/shiki/highlighter'
+import { useContext, useEffect, useState } from 'react'
 import { CodeGroupContext, CopyButton } from '../Code'
 
-// Importing the CodeGroupContext so we know if we're in a grouped context
-
-// Doing CodeBlock similarly to "Code" in the old file:
-// - If inside a group => returning just a <code> with dangerouslySetInnerHTML
-// - Otherwise => returning the labeled + copyable container
 export function CodeBlock({
   code,
   language,
@@ -32,7 +27,7 @@ export function CodeBlock({
     })
   }, [code, language])
 
-  // If grouped, just returning a <code> block with HTML (like old "Code" did)
+  // If grouped, just returning a <code> block with HTML
   if (isGrouped) {
     // Ensuring we got back a string from highlight
     if (typeof highlightedHtml !== 'string') {
@@ -65,8 +60,6 @@ export function CodeBlock({
 const getContentUrl = (branch: string, path: string) =>
   `https://raw.githubusercontent.com/tofupilot/examples/${branch}/${path}`
 
-// Doing CodeBlockFile similarly. If in a group => returning <code> directly,
-// else => returning the usual container with label + copy button
 export function CodeBlockFile({
   path,
   branch = 'main',
@@ -79,7 +72,6 @@ export function CodeBlockFile({
   let [code, setCode] = useState('')
   let [error, setError] = useState<string | null>(null)
 
-  let isGrouped = useContext(CodeGroupContext)
   let contentUrl = getContentUrl(branch, path)
   let fileName = path.split('/').pop() || 'Unknown file'
 
