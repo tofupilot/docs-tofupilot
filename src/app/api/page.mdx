@@ -12,7 +12,7 @@ Interface any scripts with TofuPilot's REST API. {{ className: 'lead' }}
 
 ## Overview
 
-The TofuPilot REST API is the main interface for uploading test runs programmatically. It allows you to authenticate, post runs from your script or a file report, retrieve information about your runs, and update the unit under test.
+The TofuPilot REST API is the main interface for uploading test runs programmatically. It allows you to authenticate, upload test data, retrieve information about your runs, and update the unit under test.
 
 ---
 
@@ -142,9 +142,6 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       </Property>
       <Property name="serial_number" type="string, required" indent={1}>
         Serial number of [sub-unit](/sub-units). _Example: "SN789"_
-      </Property>
-      <Property name="report_variables" type="record(string, string)">
-        Key/value pairs for [report variables](/report).
       </Property>
     </Properties>
 
