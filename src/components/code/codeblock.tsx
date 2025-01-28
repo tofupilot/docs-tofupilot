@@ -1,7 +1,7 @@
 'use client'
 
-import { fetchContentFromUrl, getHighlightedCode } from '@/actions/code'
-import { availableLanguages, languageMap } from '@/lib/shiki/highlighter'
+import { getHighlightedCode } from '@/actions/code'
+import { availableLanguages } from '@/lib/shiki/highlighter'
 import { useContext, useEffect, useState } from 'react'
 import { CodeGroupContext, CopyButton } from '../Code'
 
@@ -54,49 +54,4 @@ export function CodeBlock({
       </div>
     </div>
   )
-}
-
-// Helper function building the raw GitHub URL
-const getContentUrl = (branch: string, path: string) =>
-  `https://raw.githubusercontent.com/tofupilot/examples/${branch}/${path}`
-
-export function CodeBlockFile({
-  path,
-  branch = 'main',
-  title,
-}: {
-  path: string
-  branch?: string
-  title?: string
-}) {
-  let [code, setCode] = useState('')
-  let [error, setError] = useState<string | null>(null)
-
-  let contentUrl = getContentUrl(branch, path)
-  let fileName = path.split('/').pop() || 'Unknown file'
-
-  let extension = fileName.split('.').pop()?.toLowerCase() || ''
-  let language = languageMap[extension] || 'plaintext'
-
-  // Fetching code from GitHub on mount
-  useEffect(() => {
-    fetchContentFromUrl(contentUrl).then((result) => {
-      if (result.error) {
-        setError(result.error)
-      }
-      if (result.code) {
-        setCode(result.code)
-      }
-    })
-  }, [contentUrl])
-
-  if (error) {
-    return (
-      <div className="text-red-600 dark:text-red-400">
-        <p>Error loading code example.</p>
-      </div>
-    )
-  }
-
-  return <CodeBlock code={code} language={language} title={title ?? fileName} />
 }
