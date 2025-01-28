@@ -1,12 +1,12 @@
 import { fetchContentFromUrl } from '@/actions/code'
 import { languageMap } from '@/lib/shiki/highlighter'
-import { CodeBlock } from './codeblock'
+import { CodeBlockServer } from './codeblockserver'
 
 // Helper function building the raw GitHub URL
 const getContentUrl = (branch: string, path: string) =>
   `https://raw.githubusercontent.com/tofupilot/examples/${branch}/${path}`
 
-export async function CodeBlockFile({
+export async function CodeBlockFromGithub({
   path,
   branch = 'main',
   title,
@@ -28,7 +28,7 @@ export async function CodeBlockFile({
     const code = result.code || ''
 
     return (
-      <CodeBlock code={code} language={language} title={title ?? fileName} />
+      <CodeBlockServer code={code} language={language} title={title ?? fileName} />
     )
   } catch (error) {
     return (
