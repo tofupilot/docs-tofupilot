@@ -22,43 +22,19 @@ Tracking hardware tests by serial number is key for traceability and performance
 With frameworks like OpenHTF, the serial number and additional parameters can be added as metadata when `Test` is specified. For custom test frameworks using the Python client, specify parameters in `unit_under_test` when creating the run.
 
 <CodeGroup>
+  <CodeGithub
+    title="OpenHTF"
+    branch="main"
+    path="docs/openhtf/unit-under-test/main.py"
+  />
 
-```python {{ title: 'OpenHTF'}}
-  from openhtf import Test
-  from tofupilot.openhtf import TofuPilot
-
-  def main():
-      phases = [ ] # Your test phases here
-      test = Test(phases,
-          part_number = "PCB1",
-          revision = "A",           # optional
-          batch_number = "12-24",   # optional
-      )
-      with TofuPilot(test):
-          test.execute(lambda: 'PCB1A001') # UUT S/N
-
-  if __name__ == '__main__':
-      main()
-```
-
-```python {{ title: 'Python Client'}}
-from tofupilot import TofuPilotClient
-
-client = TofuPilotClient()
-
-client.create_run(
-    procedure_id = "FVT1",
-    unit_under_test = {
-        "serial_number": "PCB1A001",
-        "part_number": "PCB1",
-        "revision": "A",           # optional
-        "batch_number": "12-24",   # optional
-    },
-    run_passed = True
-)
-```
-
+  <CodeGithub
+    title="Python"
+    branch="main"
+    path="docs/client/unit-under-test/main.py"
+  />
 </CodeGroup>
+
 
 <Properties>
   <Property name="serial_number" type="str">

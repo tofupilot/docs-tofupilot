@@ -67,28 +67,32 @@ We strongly recommend saving your API key in a local `TOFUPILOT_API_KEY` environ
 
    - Open a terminal.
    - Copy and paste the following commands:
-     ```bash
-     echo 'export TOFUPILOT_API_KEY=<your_key_here>' >> ~/.zshenv
-     ```
-     ```bash
-     source ~/.zshenv
-     ```
-     <Note>If you use Bash, replace `~/.zshenv` with `~/.bash_profile`.</Note>
+      <Code
+        language="bash"
+        code={`echo 'export TOFUPILOT_API_KEY=<your_key_here>' >> ~/.zshenv
+      source ~/.zshenv`}
+      />
+
+      <Note>If you use Bash, replace `~/.zshenv` with `~/.bash_profile`.</Note>
    - Optionally, verify the environment variable with this command:
-     ```bash
-     echo $TOFUPILOT_API_KEY
-     ```
+      <Code
+          language="bash"
+          code={`echo $TOFUPILOT_API_KEY`}
+        />
 
 2. **Windows**
    - Open Command Prompt.
    - Copy and paste the following command:
-     ```cmd
-     setx TOFUPILOT_API_KEY "<Copy your API key here>"
-     ```
+      <Code
+      language="bash"
+      code={`setx TOFUPILOT_API_KEY "<Copy your API key here>"`}
+      />
+
    - Optionally, verify the environment variable with this command:
-     ```cmd
-     echo %TOFUPILOT_API_KEY%
-     ```
+      <Code
+        language="bash"
+        code={`echo %TOFUPILOT_API_KEY%`}
+        />
 
 ### Regenerate your Key
 

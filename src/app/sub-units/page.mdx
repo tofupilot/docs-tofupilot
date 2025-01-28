@@ -22,58 +22,25 @@ Most hardware products are made of multiple components, tested individually and 
 You can define `sub_units` in your assembly test as a list of dictionaries. Each dictionary represents a sub-unit with the key `serial_number` for its serial number.
 
 <CodeGroup>
+  <CodeGithub
+    title="OpenHTF"
+    branch="main"
+    path="docs/openhtf/sub-units/main.py"
+  />
 
-```python {{ title: 'OpenHTF'}}
-from openhtf import Test, PhaseResult
-from tofupilot.openhtf import TofuPilot
-
-def main():
-    test = Test(
-        procedure_id="FVT140",
-        procedure_name="Camera Assembly",
-        part_number="CAM1",
-        sub_units=[
-            {"serial_number": "PCB1A001"},
-            {"serial_number": "LEN1A001"}
-        ],
-    )
-    with TofuPilot(test):
-        test.execute(lambda: "CAM1A001")
-
-
-if __name__ == "__main__":
-    main()
-
-```
-
-```python {{ title: 'Python'}}
-from tofupilot import TofuPilotClient
-
-client = TofuPilotClient()
-
-client.create_run(
-    procedure_id="FVT2",
-    procedure_name="Camera Assembly",
-    unit_under_test={
-      "serial_number": "CAM1A001",
-      "part_number": "CAM1"
-    },
-    run_passed=True,
-    sub_units=[
-        {"serial_number": "PCB1A001"},
-        {"serial_number": "LEN1A001"}
-    ],
-)
-```
-
+  <CodeGithub
+    title="Python"
+    branch="main"
+    path="docs/client/sub-units/main.py"
+  />
 </CodeGroup>
 
 ## In-app view
 
 You can see in this example the creation of the camera assembly with its sub-units listed as children in the **Units** page. You can navigate to these sub-units using the expansion menu on the left.
 
-<Image src="/subunits-page-units.png" alt="Your profile page" />
+<Image src="/subunits-page-units.png" alt="Your proCodeGithub page" />
 
 On the specific camera assembly **Unit** page, the **Sub-units** section allows you to view and navigate to their individual pages.
 
-<Image src="/subunits-page-unit.png" alt="Your profile page" />
+<Image src="/subunits-page-unit.png" alt="Your proCodeGithub page" />

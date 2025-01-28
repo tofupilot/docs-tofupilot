@@ -20,33 +20,25 @@ By adding a **single line** to your OpenHTF script, TofuPilot's open-source Pyth
 
 2. Install OpenHTF:
 
-```sh
-pip install openhtf six setuptools
-```
+<Code
+  language="bash"
+  code={`pip install openhtf six setuptools`}
+/>
 
 3. Install the TofuPilot open-source Python client:
 
-```sh
-pip install tofupilot
-```
+<Code
+  language="bash"
+  code={`pip install tofupilot`}
+/>
 
 Add it to your test like this:
 
-```python {{ title: 'main.py' }}
-import openhtf as htf
-from tofupilot.openhtf import TofuPilot # Import OpenHTF for TofuPilot
+<CodeGithub
+  branch="main"
+  path="docs/openhtf/integrations/main.py"
+/>
 
-def phase_one(test):
-    return htf.PhaseResult.CONTINUE
-
-def main():
-    test = htf.Test(phase_one)
-    with TofuPilot(test):               # One-line integration
-      test.execute(lambda: "PCB001")
-
-if __name__ == '__main__':
-    main()
-```
 
 Your OpenHTF reports are uploaded to your TofuPilot account using the Unit Under Test serial number `dut_id` (e.g., "PCB001"), which you can find on the **Runs** page.
 

@@ -21,45 +21,17 @@ You can create a new procedure automatically from your test scripts by setting i
 ### Basic parameters
 
 <CodeGroup>
+  <CodeGithub
+    title="OpenHTF"
+    branch="main"
+    path="docs/openhtf/procedures/main.py"
+  />
 
-```python {{ title: 'OpenHTF'}}
-import openhtf as htf
-from tofupilot.openhtf import TofuPilot
-
-def main():
-    test = htf.Test(
-        procedure_id="FVT1",
-        procedure_name="PCB Testing",     # By default set as "openhtf_test"
-        part_number="PCB1",
-    )
-    with TofuPilot(test):
-        test.execute(lambda: "PCB1A001")  # Duration calculated during execution
-
-if __name__ == '__main__':
-    main()
-```
-
-```python {{ title: 'Python'}}
-from tofupilot import TofuPilotClient
-from datetime import datetime, timedelta
-
-def main():
-    client = TofuPilotClient()
-
-    client.create_run(
-        procedure_id="FVT1",
-        procedure_name="PCB Testing",
-        run_passed=True,
-        unit_under_test={
-            "serial_number": "PCB1A001",
-            "part_number": "PCB1"},
-        duration=timedelta(minutes=1, seconds=45),
-    )
-
-if __name__ == '__main__':
-    main()
-```
-
+  <CodeGithub
+    title="Python"
+    branch="main"
+    path="docs/client/procedures/main.py"
+  />
 </CodeGroup>
 
 <Properties>
@@ -89,7 +61,7 @@ You can define several important additional parameters for your procedures, each
 - Define **[Unit under test (UUT)](/unit-under-test-uut)**, which includes serial number, batch, revision, and part number.
 - Break down test **[Phases](/phases)**
 - Add **[Sub-units](/sub-units)** during assembly
-- Include file **[Attachments](/attachments)**
+- Include CodeGithub **[Attachments](/attachments)**
 - Create customizable **[Reports](/report)**
 
 ## In-app view

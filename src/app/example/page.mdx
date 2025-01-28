@@ -1,0 +1,101 @@
+{/* Before: */}
+
+```bash
+pip install openhtf six setuptools
+pip install tofupilot
+```
+
+{/* Now: */}
+
+<Code
+  language="bash"
+  code={`pip install openhtf six setuptools
+pip install tofupilot
+`}
+/>
+
+{/* Before: */}
+
+```python {{ title: 'main.py' }}
+import openhtf as htf
+from tofupilot.openhtf import TofuPilot # Import OpenHTF for TofuPilot
+
+def phase_one(test):
+    return htf.PhaseResult.CONTINUE
+
+def main():
+    test = htf.Test(phase_one)
+    with TofuPilot(test):               # One-line integration
+      test.execute(lambda: "PCB001")
+
+if __name__ == '__main__':
+    main()
+```
+
+{/* Now: */}
+
+{/* If no branch is provided, "main" will be used by default */}
+
+<CodeGithub
+  branch="main"
+  path="docs/openhtf/steps/steps-advanced/main.py"
+/>
+
+{/* Before */}
+
+<CodeGroup>
+
+    ```bash {{ title: 'Linux, macOS' }}
+    curl https://tofupilot.app/api/v1/runs \
+      -H "Authorization: Bearer ${TOFUPILOT_API_KEY}"
+    ```
+
+    ```bash {{ title: 'Windows PowerShell' }}
+    curl https://tofupilot.app/api/v1/runs \
+      -H "Authorization: Bearer $env:TOFUPILOT_API_KEY"
+    ```
+
+    ```bash {{ title: 'Windows Command Prompt' }}
+    curl https://tofupilot.app/api/v1/runs \
+      -H "Authorization: Bearer %TOFUPILOT_API_KEY%"
+    ```
+
+    ```python
+      from tofupilot import TofuPilotClient
+      from datetime import timedelta
+
+      client = TofuPilotClient()
+
+      client.create_run(
+        procedure_id="FVT1",
+        unit_under_test={
+        "serial_number": 'PCBA01-0001',
+        "part_number": 'PCB01'
+        },
+        run_passed=True,
+        duration=timedelta(minutes=27, seconds=15),
+      )
+    ```
+
+    </CodeGroup>
+
+{/* Now */}
+
+<CodeGroup>
+
+    <Code title="Linux, macOs" language="bash" code={`curl https://tofupilot.app/api/v1/runs \\
+        -H "Authorization: Bearer \${TOFUPILOT_API_KEY}"`} />
+
+    <Code title="Windows PowerShell" language="bash" code={`curl https://tofupilot.app/api/v1/runs \\
+      -H "Authorization: Bearer $env:TOFUPILOT_API_KEY"`} />
+
+    <Code title="Windows Command Prompt" language="bash" code={`curl https://tofupilot.app/api/v1/runs \\
+      -H "Authorization: Bearer %TOFUPILOT_API_KEY%"`} />
+
+    <CodeGithub
+      title="Some Title"
+      branch="main"
+      path="docs/openhtf/steps/steps-advanced/main.py"
+    />
+
+</CodeGroup>

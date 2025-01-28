@@ -99,36 +99,38 @@ Once prerequisites are complete, installation is straightforward.
 
    Connect to your server via its IP address using SSH, or [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) on Windows:
 
-   ```bash
-   ssh user@your_server_ip
-   ```
+   <Code
+    language="bash"
+    code={`ssh user@your_server_ip`}
+    />
 
 2. Install Git, Docker and Docker-Compose
-
-   ```bash
-   sudo apt update && sudo apt upgrade -y
-   sudo apt install docker.io
-   sudo apt-get install docker-compose-plugin
-   sudo apt install git
-   ```
+    <Code
+      language="bash"
+      code={`sudo apt update && sudo apt upgrade -y
+    sudo apt install docker.io
+    sudo apt-get install docker-compose-plugin
+    sudo apt install git`}
+      />
 
 3. Clone the [installation repository](https://github.com/tofupilot/self-hosting) provided by our team.
-
-   ```bash
-   git clone https://github.com/tofupilot/self-hosting.git && cd self-hosting
-   ```
+    <Code
+      language="bash"
+      code={`git clone https://github.com/tofupilot/self-hosting.git && cd self-hosting`}
+      />
 
 4. Run the deployment script:
-
-   ```bash
-   chmod +x ./deploy.sh
-   sudo bash ./deploy.sh
-   ```
+    <Code
+      language="bash"
+      code={`chmod +x ./deploy.sh
+    sudo bash ./deploy.sh`}
+      />
 
    Answer the following questions when prompted:
 
-   ```bash
-   Hostname for your TofuPilot? [tofupilot.example.com]:
+   <Code
+      language="bash"
+      code={`Hostname for your TofuPilot? [tofupilot.example.com]:
    Hostname for your TofuPilot storage? [storage.tofupilot.example.com]:
    Email address associated with your domain (for SSL)? [me@example.com]:
    Google Client ID? (leave blank if not using Google auth):
@@ -140,8 +142,9 @@ Once prerequisites are complete, installation is straightforward.
    SMTP port? (leave blank if not using Email auth):
    SMTP user name? (leave blank if not using Email auth):
    SMTP password? (leave blank if not using Email auth):
-   Email address used as 'from' in emails? (leave blank if not using Email auth):
-   ```
+   Email address used as 'from' in emails? (leave blank if not using Email auth):`}
+      />
+
 
 ## Post-Installation
 
@@ -150,44 +153,42 @@ Once the script finishes, access the web app (e.g., `https://tofupilot.yourcompa
 You can upload test runs using the public TofuPilot Python package. Simply set your instance URL with the `url` parameter as shown below. All features described in the rest of the documentation will function as expected.
 
 <CodeGroup>
-
-```python {{ title: 'OpenHTF'}}
-import openhtf as htf
+    <Code title="OpenHTF" language="python" code={`import openhtf as htf
 from tofupilot.openhtf import TofuPilot
 
 def main():
-   test = htf.Test(
-         procedure_id="FVT1",
-         procedure_name="PCB Testing",
-         part_number="PCB1",
-   )
-   with TofuPilot(test, url="https://tofupilot.yourcompany.com"): # specify URL here
-   test.execute(lambda: "PCB1A001")
+        test = htf.Test(
+              procedure_id="FVT1",
+              procedure_name="PCB Testing",
+              part_number="PCB1",
+              )
+
+with TofuPilot(test, url="https://tofupilot.yourcompany.com"): # specify URL here
+        test.execute(lambda: "PCB1A001")
 
 if __name__ == '__main__':
-   main()
-```
+        main()
+    `} />
 
-```python {{ title: 'Python Client'}}
-from tofupilot import TofuPilotClient
-from datetime import datetime, timedelta
 
-def main():
-   client = TofuPilotClient(url="https://tofupilot.yourcompany.com") # specify URL here
+    <Code title="Python" language="python" code={`from tofupilot import TofuPilotClient
+  from datetime import datetime, timedelta
 
-   client.create_run(
-      procedure_id="FVT1",
-      procedure_name="PCB Testing",
-      run_passed=True,
-      unit_under_test={
-            "serial_number": "PCB1A001",
-            "part_number": "PCB1"},
-      duration=timedelta(minutes=1, seconds=45),
-   )
+  def main():
+      client = TofuPilotClient(url="https://tofupilot.yourcompany.com") # specify URL here
 
-if __name__ == '__main__':
-   main()
-```
+      client.create_run(
+          procedure_id="FVT1",
+          procedure_name="PCB Testing",
+          run_passed=True,
+          unit_under_test={
+                "serial_number": "PCB1A001",
+                "part_number": "PCB1"},
+          duration=timedelta(minutes=1, seconds=45),
+      )
+
+  if __name__ == '__main__':
+      main()`}  />
 
 </CodeGroup>
 
@@ -196,16 +197,16 @@ if __name__ == '__main__':
 To update your self-hosted TofuPilot app to the latest version, follow the following steps:
 
 1. Pull the latest changes:
-
-   ```bash
-   git pull origin main
-   ```
+    <Code
+      language="bash"
+      code={`git pull origin main`}
+      />
 
 2. Restart the docker containers:
-
-   ```bash
-   docker-compose down && docker-compose up -d --pull always
-   ```
+    <Code
+      language="bash"
+      code={`docker-compose down && docker-compose up -d --pull always`}
+      />
 
 ## Backups
 
@@ -213,10 +214,10 @@ Ensure the following Docker volumes are included in your backup routine:
 
 ### **Volumes to Back Up**
 
-- **`database-data`**:  
+- **`database-data`**:
   Contains all database files, including schema definitions, configurations, and application data. Backup this volume to preserve your database's state and integrity.
 
-- **`storage-data`**:  
+- **`storage-data`**:
   Stores user-uploaded files such as profile pictures, attachments, and other assets. Backup this volume to safeguard external content and binary data.
 
 ### **Backup Recommendations**
