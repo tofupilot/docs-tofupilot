@@ -1,23 +1,25 @@
-'use client';
+'use client'
 
-import { useContext } from 'react';
-import { CodeGroupContext, CopyButton } from '../Code';
+import { useContext } from 'react'
+import { CodeGroupContext, CopyButton } from '../Code'
 
 export function CodeBlock({
+  code,
   highlightedHtml,
   title,
   isGrouped,
 }: {
-  highlightedHtml: string;
-  title?: string;
-  isGrouped?: boolean;
+  code: string
+  highlightedHtml: string
+  title?: string
+  isGrouped?: boolean
 }) {
   // Checking if we are in a code group
-  const grouped = useContext(CodeGroupContext) || isGrouped;
+  const grouped = useContext(CodeGroupContext) || isGrouped
 
   // If grouped, render a minimal <code> block with syntax-highlighted HTML
   if (grouped) {
-    return <code dangerouslySetInnerHTML={{ __html: highlightedHtml }} />;
+    return <code dangerouslySetInnerHTML={{ __html: highlightedHtml }} />
   }
 
   // Otherwise, render the full UI with the title and copy button
@@ -33,8 +35,8 @@ export function CodeBlock({
           className="overflow-x-auto p-4 text-xs text-white"
           dangerouslySetInnerHTML={{ __html: highlightedHtml }}
         />
-        <CopyButton code={highlightedHtml} />
+        <CopyButton code={code} />
       </div>
     </div>
-  );
+  )
 }
