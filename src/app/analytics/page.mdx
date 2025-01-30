@@ -65,9 +65,10 @@ A low Cpk often means your process has too much variation: limits are too strict
 
 You can compute Cpk by dividing the smaller of the differences between the test mean and the specification limits (low and high) by three times the test standard deviation.
 
-```jsx
-Cpk = min[(USL - μ) / (3σ), (μ - LSL) / (3σ)]
-```
+<Code
+  language="plaintext"
+  code={`Cpk = min[(USL - μ) / (3σ), (μ - LSL) / (3σ)]`}
+/>
 
 - **USL** = Upper Specification Limit
 - **LSL** = Lower Specification Limit

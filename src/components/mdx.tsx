@@ -9,7 +9,7 @@ import { Prose } from '@/components/Prose'
 export const a = Link
 export { Button } from '@/components/Button'
 export { Code as code, CodeGroup, Pre as pre } from '@/components/Code'
-export { CodeBlock as Code } from '@/components/code/codeblock'
+export { CodeBlockServer as Code } from '@/components/code/codeblockserver'
 export { CodeBlockFromGithub as CodeGithub } from '@/components/code/codeblockfromgithub'
 
 export function wrapper({ children }: { children: React.ReactNode }) {
