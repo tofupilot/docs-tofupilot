@@ -1,4 +1,4 @@
-import { fetchContentFromUrl } from '@/actions/code'
+import { fetchContentFromUrl } from '@/components/code/code'
 import { languageMap } from '@/lib/shiki/highlighter'
 import { CodeBlockServer } from './codeblockserver'
 

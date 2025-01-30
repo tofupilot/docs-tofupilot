@@ -1,4 +1,4 @@
-import { getHighlightedCode } from '@/actions/code'
+import { getHighlightedCode } from '@/components/code/code'
 import { availableLanguages } from '@/lib/shiki/highlighter'
 import { CodeBlock } from './codeblock'
 
