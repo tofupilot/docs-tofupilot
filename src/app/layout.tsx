@@ -8,6 +8,7 @@ import { type Section } from '@/components/SectionProvider'
 import { Analytics } from '@vercel/analytics/react'
 
 import '@/styles/tailwind.css'
+import { CSPostHogProvider } from '@/components/monitoring/posthog'
 
 export const metadata: Metadata = {
   title: {
@@ -32,14 +33,16 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
-      <body className="flex min-h-full bg-white antialiased dark:bg-zinc-900">
-        <Providers>
-          <div className="w-full">
-            <Analytics />
-            <Layout allSections={allSections}>{children}</Layout>
-          </div>
-        </Providers>
-      </body>
+      <CSPostHogProvider>
+        <body className="flex min-h-full bg-white antialiased dark:bg-zinc-900">
+          <Providers>
+            <div className="w-full">
+              <Analytics />
+              <Layout allSections={allSections}>{children}</Layout>
+            </div>
+          </Providers>
+        </body>
+      </CSPostHogProvider>
     </html>
   )
 }
