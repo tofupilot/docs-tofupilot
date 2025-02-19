@@ -1,7 +1,24 @@
+import { defaultKeywords, defaultOpenGraph } from '../../metadata'
+
 export const metadata = {
   title: 'Terms & Conditions',
   description:
     'Read the terms and conditions for using TofuPilot services and products.',
+  keywords: [
+    ...defaultKeywords,
+    'terms and conditions',
+    'user agreement',
+    'service terms',
+    'legal terms',
+    'TofuPilot policies',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Terms & Conditions - User Agreement for TofuPilot Services | TofuPilot Documentation',
+    description:
+      'Review the legal terms governing the use of TofuPilot services, including user obligations and platform policies.',
+  },
 }
 
 export const sections = []

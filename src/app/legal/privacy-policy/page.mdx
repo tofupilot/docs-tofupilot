@@ -1,7 +1,24 @@
+import { defaultKeywords, defaultOpenGraph } from '../../metadata'
+
 export const metadata = {
   title: 'Privacy Policy',
   description:
     'Learn how TofuPilot collects, uses, and protects your personal information.',
+  keywords: [
+    ...defaultKeywords,
+    'privacy policy',
+    'data protection',
+    'personal information',
+    'GDPR compliance',
+    'CCPA compliance',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Privacy Policy - How TofuPilot Handles Your Data | TofuPilot Documentation',
+    description:
+      'Understand how TofuPilot collects, uses, and protects your personal data, including compliance with GDPR and CCPA.',
+  },
 }
 
 export const sections = []

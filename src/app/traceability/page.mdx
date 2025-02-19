@@ -1,6 +1,31 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
   title: 'Traceability',
-  description: 'Trace the activity of your unit under tests',
+  description: 'Trace the activity of your unit under tests.',
+  keywords: [
+    ...defaultKeywords,
+    'Traceability',
+    'Unit Tracking',
+    'Hardware Testing',
+    'Manufacturing Analytics',
+    'Component Traceability',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Traceability - Monitor Unit and Component Activity | TofuPilot Documentation',
+    description:
+      'Learn how to track unit activities, components, and assemblies in TofuPilot for improved manufacturing analytics and defect tracking.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/traceability-header.png',
+        width: 800,
+        height: 600,
+        alt: 'TofuPilot showing units and sub-units traceability.',
+      },
+    ],
+  },
 }
 
 # Traceability

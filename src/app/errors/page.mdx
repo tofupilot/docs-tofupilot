@@ -1,37 +1,52 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
   title: 'Errors',
   description:
-    "",
+    'Understand and troubleshoot API errors in TofuPilot with status codes and detailed error messages.',
+  keywords: [
+    ...defaultKeywords,
+    'API errors',
+    'error handling',
+    'TofuPilot troubleshooting',
+    'HTTP status codes',
+    'debugging API issues',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Errors - Troubleshoot and Resolve API Issues | TofuPilot Documentation',
+    description:
+      'Learn how to detect, diagnose, and fix API errors in TofuPilot using status codes and error messages.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/errors-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Guide to understanding and fixing errors in TofuPilot API.',
+      },
+    ],
+  },
 }
 
 # Errors
+
 Detect and correct errors quickly. {{ className: 'lead' }}
 
-
-<Image
-  src="/errors-header.png"
-  alt=""
-/>
+<Image src="/errors-header.png" alt="" />
 
 ## Overview
 
 Error messages from the API give you essential information about issues that occur during a request. They'll help you identify and diagnose errors, making it easier to resolve problems and improve your integrations with the API.
-
 
 ## API status codes
 
 Find the categories of status codes returned by the TofuPilot API:
 
 <Properties>
-  <Property name="2xx">
-    Successful response
-  </Property>
-  <Property name="4xx">
-    Client error
-  </Property>
-  <Property name="5xx">
-    Server error
-  </Property>
+  <Property name="2xx">Successful response</Property>
+  <Property name="4xx">Client error</Property>
+  <Property name="5xx">Server error</Property>
 </Properties>
 
 ### Error Messages
@@ -44,9 +59,3 @@ Use error messages to identify and fix issues. For example:
   "message": 'No procedure was found with the provided ID: "FVT2". Please verify the ID and try again. If the procedure does not exist, you can create a new one on the Procedures page in TofuPilot.'
 }
 ```
-
-
-{/*
-## Console Errors
-
- Add consol errors here */}

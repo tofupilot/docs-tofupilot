@@ -1,7 +1,32 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
-  title: 'Unit under test (UUT)',
+  title: 'Unit Under Test (UUT)',
   description:
-    "This guide explains how to use TofuPilot's sub-units feature to ensure traceability of tests and serial numbers throughout the assembly process.",
+    'Track the serial number, part number, and revision of units under test in TofuPilot.',
+  keywords: [
+    ...defaultKeywords,
+    'Unit Tracking',
+    'Serial Number Management',
+    'Hardware Testing',
+    'Manufacturing Traceability',
+    'Component Identification',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Unit Under Test (UUT) - Track Serial Numbers & Components | TofuPilot Documentation',
+    description:
+      'Learn how to manage serial numbers, part numbers, revisions, and batch numbers for units under test in TofuPilot.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/uut-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Unit Under Test (UUT) section header with TofuPilot integration.',
+      },
+    ],
+  },
 }
 
 # Unit under test (UUT)
@@ -34,7 +59,6 @@ With frameworks like OpenHTF, the serial number and additional parameters can be
     path="docs_tofupilot/unit-under-test/client/main.py"
   />
 </CodeGroup>
-
 
 <Properties>
   <Property name="serial_number" type="str">

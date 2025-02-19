@@ -272,7 +272,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'REST API', href: '/api' },
       { title: 'Offline upload', href: '/offline-upload' },
-      { title: 'Self-hosting', href: '/self-hosting', new: true },
+      { title: 'Self-hosting', href: '/self-hosting'},
       { title: 'Errors manual', href: '/errors' },
     ],
   },
