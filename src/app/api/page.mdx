@@ -1,10 +1,28 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
-  title: 'Runs API',
+  title: 'API Reference',
   description:
     "Explore the different run endpoints available in TofuPilot's REST API to manage test runs programmatically.",
+  keywords: [
+    ...defaultKeywords,
+    'REST API',
+    'TofuPilot API',
+    'test runs',
+    'API authentication',
+    'create test runs',
+    'manage test data',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Runs API - Manage Test Runs Programmatically | TofuPilot Documentation',
+    description:
+      "Discover how to authenticate, create, retrieve, and manage test runs using TofuPilot's REST API.",
+  },
 }
 
-# REST API
+# API Reference
 
 Interface any scripts with TofuPilot's REST API. {{ className: 'lead' }}
 
