@@ -262,7 +262,7 @@ export const navigation: Array<NavGroup> = [
     title: 'Web App',
     links: [
       { title: 'Test analytics', href: '/analytics' },
-      { title: 'Test phases analysis', href: '/analysis' },
+      { title: 'Test phase analysis', href: '/analysis' },
       { title: 'Traceability', href: '/traceability' },
       { title: 'Account management', href: '/user-management' },
     ],
