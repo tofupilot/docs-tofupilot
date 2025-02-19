@@ -1,7 +1,29 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
   title: 'User Management',
-  description:
-    'This guide provides instructions on how to sign up, sign in, create API keys, invite team members, and manage user access in TofuPilot.',
+  description: 'Manage user accounts, API keys, team invites, and access permissions in TofuPilot.',
+  keywords: [
+    ...defaultKeywords,
+    'User Management',
+    'Authentication',
+    'Team Access',
+    'API Keys',
+    'Account Security',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title: 'User Management - Manage Accounts & API Access | TofuPilot Documentation',
+    description: 'Learn how to sign up, sign in, create API keys, invite team members, and manage user access in TofuPilot.',
+    images: [
+      {
+        url: 'https://tofupilot.com/user-management-header.png',
+        width: 800,
+        height: 600,
+        alt: 'User Management in TofuPilot.',
+      },
+    ],
+  },
 }
 
 # Account management

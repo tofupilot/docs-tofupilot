@@ -1,7 +1,32 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
-  title: 'Offline upload',
+  title: 'Offline Upload',
   description:
     "This guide explains how to use TofuPilot's bulk upload feature to ensure analytics with asynchronous data loading.",
+  keywords: [
+    ...defaultKeywords,
+    'offline upload',
+    'bulk upload',
+    'asynchronous data',
+    'TofuPilot analytics',
+    'test results import',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Offline Upload - Bulk Upload and Asynchronous Data Handling | TofuPilot Documentation',
+    description:
+      'Learn how to upload test results asynchronously with TofuPilot, ensuring accurate analytics even without real-time connectivity.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/offline-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Runs Page with all Unit Under Testing (UUT) and their uploaded date.',
+      },
+    ],
+  },
 }
 
 # Offline upload
@@ -34,6 +59,54 @@ With the TofuPilot Python Client, you can upload test results, specifying `start
   />
 </CodeGroup>
 
+Uploaded runs then appear on the Runs page with their upload date.
+
+<Image
+  src="/offline-page-runs.png"
+  alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
+/>
+
+The Run page shows the **started** date of the test. These two runs have been started the same day (e.g. `started_at` October 28th) even if they have been uploaded different days.
+
+<Image
+  src="/asynchronous-page-run1.png"
+  alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
+/>
+
+<Image
+  src="/asynchronous-page-run2.png"
+  alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
+/>
+
+# Offline upload
+
+Upload your test results at any time after their execution. {{ className: 'lead' }}
+
+<Image
+  src="/offline-header.png"
+  alt="Runs Page with all Unit Under Testing (UUT) and their uploaded date."
+/>
+
+## Overview
+
+TofuPilot allows you to upload your test results in real-time, but you might also need to upload them asynchronously—for example, if you're not connected to the internet during testing or to bulk import data from previous tests.
+
+## Integration
+
+With the TofuPilot Python Client, you can upload test results, specifying `started_at` to keep the original test date; otherwise, the upload date will apply. Then use `create_run` to add test details or attachments.
+
+<CodeGroup>
+  <CodeGithub
+    title="OpenHTF"
+    branch="main"
+    path="docs_tofupilot/offline-upload/openhtf/main.py"
+  />
+  <CodeGithub
+    title="Python"
+    branch="main"
+    path="docs_tofupilot/offline-upload/client/main.py"
+  />
+</CodeGroup>
 
 Uploaded runs then appear on the Runs page with their upload date.
 

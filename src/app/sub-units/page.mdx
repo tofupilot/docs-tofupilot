@@ -1,7 +1,31 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
   title: 'Sub-units',
   description:
     "This guide explains how to use TofuPilot's sub-units feature to ensure traceability of tests and serial numbers throughout the assembly process.",
+  keywords: [
+    ...defaultKeywords,
+    'Sub-units',
+    'TofuPilot Assembly',
+    'Unit Tracking',
+    'Hardware Testing',
+    'Manufacturing Traceability',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title: 'Sub-units - Track Assembly Components | TofuPilot Documentation',
+    description:
+      'Learn how to manage and track sub-units in TofuPilot to ensure test traceability throughout the assembly process.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/subunits-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Unit and Sub-Unit view with their serial number.',
+      },
+    ],
+  },
 }
 
 # Sub-units

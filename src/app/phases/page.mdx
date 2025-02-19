@@ -1,7 +1,33 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
   title: 'Phases',
   description:
     'This guide shows how to create and add various test phases in TofuPilot and view the automatically generated reports, helping to identify frequent failures and time-consuming phases.',
+  keywords: [
+    ...defaultKeywords,
+    'Test Phases',
+    'Test Steps',
+    'TofuPilot Phases',
+    'Automated Testing',
+    'Test Analytics',
+    'Hardware Testing',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Phases - Test Phase Management & Analytics | TofuPilot Documentation',
+    description:
+      'Learn how to define, execute, and analyze test phases in TofuPilot, improving test efficiency and failure analysis.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/phases-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Phases section header showing test phase management within TofuPilot.',
+      },
+    ],
+  },
 }
 
 # Phases
@@ -69,7 +95,6 @@ You can create and add various test phases and view the automatically generated 
     path="docs_tofupilot/phases/optional/client/main.py"
   />
 </CodeGroup>
-
 
 <Properties>
   <Property name="measurements" type="array, optional">
@@ -158,7 +183,6 @@ You can find an example of Phases functionalities in this script, including meas
     path="docs_tofupilot/phases/advanced/client/main.py"
   />
 </CodeGroup>
-
 
 You can see the result on the Run page.
 

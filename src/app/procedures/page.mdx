@@ -1,7 +1,33 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
-  title: 'Unit under test (UUT)',
+  title: 'Unit Under Test (UUT)',
   description:
-    "This guide explains how to use TofuPilot's sub-units feature to ensure traceability of tests and serial numbers throughout the assembly process.",
+    'Learn how to manage serial numbers, sub-units, and traceability for test procedures in TofuPilot.',
+  keywords: [
+    ...defaultKeywords,
+    'Unit Under Test',
+    'UUT',
+    'Test Procedures',
+    'Hardware Testing',
+    'Traceability',
+    'TofuPilot',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Unit Under Test (UUT) - Serial Number Management & Traceability | TofuPilot Documentation',
+    description:
+      'This guide explains how to use TofuPilot’s sub-units feature to track and manage UUTs across test procedures.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/procedure-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Unit Under Test (UUT) header showing serial number tracking in TofuPilot.',
+      },
+    ],
+  },
 }
 
 # Procedures

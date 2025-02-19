@@ -1,5 +1,32 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
-  title: 'Manufacturing Test Traceability & Analytics | OpenHTF',
+  title: 'OpenHTF Integration',
+  description:
+    'Integrate your OpenHTF scripts with TofuPilot in a single line to automate test data collection and analytics.',
+  keywords: [
+    ...defaultKeywords,
+    'OpenHTF',
+    'TofuPilot integration',
+    'automated test data',
+    'hardware testing',
+    'OpenHTF analytics',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'OpenHTF Integration - Automated Test Data Collection & Analytics | TofuPilot Documentation',
+    description:
+      'Learn how to seamlessly integrate OpenHTF with TofuPilot to capture test phases, measurements, and attachments in real time.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/openhtf-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Run page showing the different phases performed for a Unit Under Test (UUT) in OpenHTF with TofuPilot.',
+      },
+    ],
+  },
 }
 
 # OpenHTF
@@ -28,10 +55,7 @@ By adding a **single line** to your OpenHTF script, TofuPilot's open-source Pyth
 
 Add it to your test like this:
 
-<CodeGithub
-    branch="main"
-  path="docs_tofupilot/integrations/openhtf/main.py"
-/>
+<CodeGithub branch="main" path="docs_tofupilot/integrations/openhtf/main.py" />
 
 Your OpenHTF reports are uploaded to your TofuPilot account using the Unit Under Test serial number `dut_id` (e.g., "PCB001"), which you can find on the **Runs** page.
 

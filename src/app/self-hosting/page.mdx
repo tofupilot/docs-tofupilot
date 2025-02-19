@@ -1,6 +1,31 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
   title: 'Self-Hosting',
-  description: 'This guide explains how to sef-host TofuPilot.',
+  description: 'This guide explains how to self-host TofuPilot.',
+  keywords: [
+    ...defaultKeywords,
+    'Self-Hosting',
+    'TofuPilot Deployment',
+    'Docker Setup',
+    'On-Premise Installation',
+    'Enterprise Hosting',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Self-Hosting - Deploy TofuPilot On-Premise | TofuPilot Documentation',
+    description:
+      'Learn how to self-host TofuPilot for on-premise deployment. Includes setup, authentication, and backup guidelines.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/self-hosting-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Self-hosting header showing TofuPilot deployed on a private server.',
+      },
+    ],
+  },
 }
 
 # Self-Hosting
