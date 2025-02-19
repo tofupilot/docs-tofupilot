@@ -1,7 +1,35 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
-  title: 'Test phases analysis',
-  description: '',
+  title: 'Test Phase Analysis',
+  description:
+    'Analyze and continuously improve your test phases with detailed insights into performance, failures, and yield metrics in TofuPilot.',
+  keywords: [
+    ...defaultKeywords,
+    'test phases',
+    'analysis',
+    'TofuPilot',
+    'test performance',
+    'failure analysis',
+    'yield metrics',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Test Phase Analysis - Optimize Your Testing Performance | TofuPilot Documentation',
+    description:
+      'Explore how to analyze and optimize test phases using TofuPilot, including failure analysis, duration tracking, and performance insights.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/phases-analysis.png',
+        width: 800,
+        height: 600,
+        alt: 'Test phase analysis dashboard in TofuPilot, highlighting failure trends and performance insights.',
+      },
+    ],
+  },
 }
+
 
 # Test phases analysis
 
