@@ -1,9 +1,33 @@
 import { HeroPattern } from '@/components/HeroPattern'
 
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
-  title: 'Documentation - TofuPilot',
+  title: 'Quickstart - Get Started with TofuPilot',
   description:
-    'This guide helps you start uploading your first test run to TofuPilot in under five minutes.',
+    'Upload your first test run to TofuPilot in under five minutes with this step-by-step guide.',
+  keywords: [
+    ...defaultKeywords,
+    'Quickstart',
+    'Test Run Upload',
+    'TofuPilot Guide',
+    'Getting Started',
+    'Hardware Testing',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title: 'Quickstart - Upload Your First Test Run | TofuPilot Documentation',
+    description:
+      'This guide walks you through creating an account and uploading your first test run to TofuPilot in just minutes.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/quickstart-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Quickstart Interactive Guide',
+      },
+    ],
+  },
 }
 
 <HeroPattern />
