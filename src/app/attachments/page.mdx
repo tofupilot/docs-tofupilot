@@ -1,8 +1,34 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
   title: 'Attachments',
   description:
     'This guide shows how to attach one or several files during the creation of a run in TofuPilot and view them on the Run page.',
+  keywords: [
+    ...defaultKeywords,
+    'attachments',
+    'file uploads',
+    'OpenHTF attachments',
+    'TofuPilot file storage',
+    'test data management',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Attachments - Upload and View Files in TofuPilot | TofuPilot Documentation',
+    description:
+      'Learn how to attach and manage files in TofuPilot runs using OpenHTF and the TofuPilot Client.',
+    images: [
+      {
+        url: 'https://openhtf.com/attachments-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Guide on attaching files in TofuPilot test runs.',
+      },
+    ],
+  },
 }
+
 
 # Attachments
 
