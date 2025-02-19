@@ -1,6 +1,33 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
 export const metadata = {
-  title: 'First-pass yield and process capability index',
-  description: '',
+  title: 'Test Analytics',
+  description:
+    'Monitor and optimize your test processes using First-Pass Yield (FPY) and Process Capability Index (Cpk) in TofuPilot.',
+  keywords: [
+    ...defaultKeywords,
+    'first-pass yield',
+    'FPY',
+    'process capability index',
+    'Cpk',
+    'test optimization',
+    'quality control',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'First-Pass Yield and Process Capability Index - Optimize Your Test Performance | TofuPilot Documentation',
+    description:
+      'Learn how to analyze and improve your test processes using First-Pass Yield (FPY) and Process Capability Index (Cpk) in TofuPilot.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/analytics-header.png',
+        width: 800,
+        height: 600,
+        alt: 'TofuPilot manufacturing test analytics showing test phase performance with OpenHTF.',
+      },
+    ],
+  },
 }
 
 # Test analytics
