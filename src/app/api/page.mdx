@@ -240,9 +240,6 @@ fetch('https://www.tofupilot.app/api/v1/runs', {
       <Property name="file_path" type="string, required">
         The path to the log file to be imported.
       </Property>
-      <Property name="importer" type="string, optional">
-        The type of importer to use. Defaults to "OPENHTF".
-      </Property>
     </Properties>
   </Col>
 
@@ -255,15 +252,12 @@ from tofupilot import TofuPilotClient
 client = TofuPilotClient()
 
 client.create_run_from_report(
-  file_path="path/to/your/test/report.json",
-  importer="OPENHTF"
-)
+  file_path="path/to/your/test/report.json",)
 ```
 
 ```bash {{ title: 'cURL' }}
 curl -X POST https://www.tofupilot.app/api/v1/import -H "Content-Type: application/json" -H "Authorization: Bearer ${TOFUPILOT_API_KEY}" -d '{
     "file_path": "path/to/your/test/report.json",
-    "importer": "OPENHTF"
 }'
 ```
 
@@ -276,7 +270,6 @@ fetch('https://www.tofupilot.app/api/v1/import', {
   },
   body: JSON.stringify({
     file_path: 'path/to/your/test/report.json',
-    importer: 'OPENHTF',
   }),
 })
 ```
