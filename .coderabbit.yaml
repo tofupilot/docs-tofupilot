@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
+# Simple CodeRabbit configuration
+version: 2
+model: claude-3-opus-20240229
+
+# Configure PR review behavior
+reviews:
+  enabled: true
+  auto_approve: false
+  
+  # Path filters to exclude node_modules and build artifacts
+  path_filters:
+    exclude:
+      - "node_modules/**"
+      - ".next/**"
