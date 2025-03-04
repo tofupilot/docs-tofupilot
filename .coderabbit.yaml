@@ -1,59 +1,16 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
-# CodeRabbit configuration file
+# Simple CodeRabbit configuration
 version: 2
-
-# Set the model to be used
 model: claude-3-opus-20240229
 
 # Configure PR review behavior
 reviews:
   enabled: true
   auto_approve: false
-  review_label: "needs-review"
   
-  # Path filters for which files to review
+  # Path filters to exclude node_modules and build artifacts
   path_filters:
     exclude:
       - "node_modules/**"
       - ".next/**"
-  
-  # Path-specific instructions
-  path_specific_instructions:
-    - pattern: "*.mdx"
-      instructions: "This is documentation in MDX format. Check for technical accuracy and clarity."
-
-# PR title and description templates
-templates:
-  # Automatically organize release notes
-  release_notes:
-    enabled: true
-    categories:
-      - title: "🚀 Features"
-        labels: ["feature", "enhancement"]
-      - title: "🐛 Bug Fixes"
-        labels: ["bug", "fix"]
-      - title: "📄 Documentation"
-        labels: ["documentation"]
-      - title: "🔄 Refactoring"
-        labels: ["refactor"]
-      - title: "🧪 Testing"
-        labels: ["test"]
-    template: |
-      ## Release v{{version}}
-      
-      {{#each categories}}
-      ### {{title}}
-      {{#each prs}}
-      - {{title}} (#{{number}})
-      {{/each}}
-      {{/each}}
-      
-      {{#if uncategorized}}
-      ### Other Changes
-      {{#each uncategorized}}
-      - {{title}} (#{{number}})
-      {{/each}}
-      {{/if}}
-      
-      Thank you to all contributors for this release!
