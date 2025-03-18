@@ -248,6 +248,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
       { title: 'Phases', href: '/phases' },
       { title: 'Sub-units', href: '/sub-units' },
+      { title: 'Stations', href: '/stations' },
       { title: 'Attachments', href: '/attachments' },
     ],
   },
@@ -272,7 +273,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'REST API', href: '/api' },
       { title: 'Offline upload', href: '/offline-upload' },
-      { title: 'Self-hosting', href: '/self-hosting'},
+      { title: 'Self-hosting', href: '/self-hosting' },
       { title: 'Errors manual', href: '/errors' },
     ],
   },
