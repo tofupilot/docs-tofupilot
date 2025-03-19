@@ -275,6 +275,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Offline upload', href: '/offline-upload' },
       { title: 'Self-hosting', href: '/self-hosting' },
       { title: 'Errors manual', href: '/errors' },
+      { title: 'Serial number parser', href: '/sn-parser' },
     ],
   },
 ]

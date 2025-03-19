@@ -1,0 +1,59 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
+export const metadata = {
+  title: 'Serial Number Parsing',
+  description:
+    'This guide shows how to create and add various stations in TofuPilot.',
+  keywords: [
+    ...defaultKeywords,
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Stations | TofuPilot Documentation',
+    description:
+      'Learn how to define, execute, and analyze test phases in TofuPilot, improving test efficiency and failure analysis.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/phases-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Phases section header showing test phase management within TofuPilot.',
+      },
+    ],
+  },
+}
+
+# Serial Number Parser
+
+Extract information from your serial numbers. {{ className: 'lead' }}
+
+<Image
+  src="/sn-parser-header.png"
+  alt=""
+/>
+
+## Overview
+
+Serial numbers often contain multiple pieces of information, but it can be a challenge to manage extraction rules separately and juggle parameters in the test script. The Serial Number Parsing feature allows you to extract these details directly in TofuPilot, regardless of your encoding, and store them in the appropriate parameters.
+
+
+## Integration
+
+To set up your serial number parser, go to **Settings > Serial Number**.
+
+With this feature, you can extract from your serial numbers — in any order:
+
+- Part number
+- Revision
+- Batch number
+
+Start by entering a sample serial number under Your example serial number. Then configure the regex for each part in the dedicated box. In the next box, you can check if the parsing works correctly.
+
+
+<Image
+  src="/sn-parser-page-settings.png"
+  alt=""
+/>
+
+If you choose to extract only one parameter (e.g., batch number), after running your test script, a message will appear in your terminal indicating that the other parameters (e.g., revision and part number) were not extracted.
