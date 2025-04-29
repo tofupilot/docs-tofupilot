@@ -46,6 +46,7 @@ Tracking hardware tests by serial number is key for traceability and performance
 
 With frameworks like OpenHTF, the serial number and additional parameters can be added as metadata when `Test` is specified. For custom test frameworks using the Python client, specify parameters in `unit_under_test` when creating the run.
 
+### Parameters
 <CodeGroup>
   <CodeGithub
     title="OpenHTF"
@@ -67,10 +68,6 @@ With frameworks like OpenHTF, the serial number and additional parameters can be
   <Property name="part_number" type="str">
     Part number of the unit under test.
   </Property>
-  <Property name="part_name" type="str (optional)">
-    Component name of the unit under test. Creates a new component if it doesn't
-    exist.
-  </Property>
   <Property name="revision" type="str (optional)">
     Revision of the unit under test.
   </Property>
@@ -78,6 +75,10 @@ With frameworks like OpenHTF, the serial number and additional parameters can be
     Batch number of the unit under test.
   </Property>
 </Properties>
+
+### Rename a component
+
+You can rename a Component's name, `part_number`, or `revision` directly in the application. Go to the Component page, then select **Edit name**, **Edit revision**, or **Edit part number** from the menu.
 
 ## In-app view
 

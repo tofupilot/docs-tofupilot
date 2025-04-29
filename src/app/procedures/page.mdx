@@ -42,7 +42,9 @@ The Procedures allow you to set up the test sequence for one or more units under
 
 ## Integration
 
-You can create a new procedure automatically from your test scripts by setting its ID, name, Unit Under Test, and test status.
+First, you need to create a new procedure in the TofuPilot interface. Go to **Procedures** page and click the **Create Procedure** button.
+
+Once the procedure is created, you can upload your Runs using the `procedure_id` parameter to link them to the correct Procedure. You’ll also need to set the Unit Under Test and the test status.
 
 ### Basic parameters
 
@@ -62,16 +64,19 @@ You can create a new procedure automatically from your test scripts by setting i
 
 <Properties>
   <Property name="procedure_id" type="str">
-    Define unique procedure ID.
-  </Property>
-  <Property name="procedure_name" type="str (optional)">
-    Set or rename the procedure name.
+    Define unique procedure ID. You can view or rename it on the Procedure page in the application.
   </Property>
   <Property name="run_passed" type="bool">
-    Set Pass/Fail status of the procedure.
+    Set the Pass/Fail status of the procedure.
+  </Property>
+  <Property name="unit_under_test" type="array">
+    Specify the [Unit under test (UUT)](/unit-under-test-uut) being tested.
+  </Property>
+  <Property name="started_at" type="str (optional)">
+    ISO 8601 start time of the Run. Example: "2024-09-11T08:00:00Z".
   </Property>
   <Property name="duration" type="timedelta (optional)">
-    Determine duration of the test.
+    Specify the duration of the test.
   </Property>
   <Property name="procedure_version" type="str (optional)">
     Define the version of the procedure.
@@ -79,27 +84,30 @@ You can create a new procedure automatically from your test scripts by setting i
 </Properties>
 
 <Note>
-  If a run has `phases` and its `duration` was not provided, the `duration` will
-  be automatically calculated as the sum of the durations of its phases
+    You can define the `duration` of the Procedure and the `duration` of the Phases independantly.
 </Note>
+
+### Rename a procedure
+
+You can rename Procedure name or its `procedure_id` directly in the application. Go to the Procedure page, then select **Edit ID** or **Edit Name** from the menu.
 
 ### Advanced parameters
 
 You can define several important additional parameters for your procedures, each covered in a separate section:
 
-- Break down test **[Phases](/phases)**
+- Break down test by **[Phases and Measurements](/phases)**
 - Define **[Unit under test (UUT)](/unit-under-test-uut)**, which includes serial number, batch, revision, and part number.
 - Add **[Sub-units](/sub-units)** during assembly
 - Include file **[Attachments](/attachments)**
 
 ## In-app view
 
-In TofuPilot, you can explore different procedures in the **Procedures** tab. On a Procedure page (for example, `procedure_id` FVT1 with the `procedure_name` PCB Testing), you can navigate between various tabs that display analytics for all runs executed from this procedure. These include:
+In TofuPilot, you can explore different procedures in the **Procedures** tab. On a Procedure page (for example, `procedure_id` FVT1, titled "PCBA Test"), you can navigate through various tabs that display analytics for all runs executed from this procedure. These include:
 
-- The status of **Runs** over time, defined by `run_passed`
+- The status of **Runs** over time, based on `run_passed`
 - The average test **Duration** over time, compute from `duration`
-- **First-Pass Yield**
-- **Cpk** for tests with numerical measurements and limits.
+- The **First-Pass Yield**
+- **Cpk** for tests with numerical measurements and defined limits.
 
 <Image src="/procedure-page1.png" alt="" />
 
