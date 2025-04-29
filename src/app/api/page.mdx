@@ -85,11 +85,8 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       <Property name="serial_number" type="string, required" indent={1}>
         Unit identifier. Creates a new unit if no match. _Example: "SN123456"_
       </Property>
-      <Property name="part_number" type="string, optional" indent={1}>
+      <Property name="part_number" type="string, required" indent={1}>
         Component identifier. Creates a new component if no match. _Example: "PN-001"_
-      </Property>
-      <Property name="part_name" type="string, optional" indent={1}>
-        Assigned name for the component, applied when creating a new one. _Example: "Custom Widget"_
       </Property>
       <Property name="revision" type="string, optional" indent={1}>
         Component revision. Required if multiple revisions exist. _Example: "A"_
@@ -102,10 +99,8 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
       </Property>
       <Property name="duration" type="string, optional">
       The duration of the run.
-
         - For REST API: Use the ISO 8601 duration format. _Example: "PT1H23M12S"_
         - For [Python Client](/python): Use a [`timedelta`](https://docs.python.org/3/library/datetime.html#timedelta-objects) object. _Example: `timedelta(hours=1, minutes=23, seconds=12)`_
-
       </Property>
       <Property name="phases" type="array, optional">
         [Phases](/phases) of the run.
@@ -159,9 +154,15 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
         Identifiers of [sub-units](/sub-units).
       </Property>
       <Property name="serial_number" type="string, required" indent={1}>
-        Serial number of [sub-unit](/sub-units). _Example: "SN789"_
+        Serial number of an existing unit. _Example: "SN789"_
       </Property>
-    </Properties>
+      <Property name="part_number" type="string, required" indent={1}>
+        Component identifier. Creates a new component if no match. _Example: "PN-001"_
+      </Property>
+    <Property name="procedure_version" type="str, optional">
+    Define the version of the procedure.
+    </Property>
+</Properties>
 
   </Col>
 

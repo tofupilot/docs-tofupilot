@@ -44,13 +44,19 @@ Many hardware teams today use Python for their test scripts. The TofuPilot Pytho
 
 2. Install the TofuPilot open-source Python client:
 
-<Code language="bash" code={`pip install tofupilot`} />
+    <Code language="bash" code={`pip install tofupilot`} />
 
-Add it to your test like this:
+3. Generate and add your [API-KEY to your environment variables](/user-management#api-key).
 
-<CodeGithub branch="main" path="docs_tofupilot/integrations/client/main.py" />
+4. Go to the application and create a Procedure by clicking on **Create Procedure** on the **Procedure** page. Copy the `procedure_id` (the first by default is "FVT1").
 
-Discover more TofuPilot's Python Client integrations in [Test Runs](/procedures) sections.
+5. Add it to your test like this:
+
+    <CodeGithub branch="main" path="docs_tofupilot/integrations/client/main.py" />
+
+Your Run are uploaded to your TofuPilot account using the Unit Under Test serial number and linked to the Procedure with the `procedure_id`. You can view uploaded Runs on the **Runs** page.
+
+Discover more TofuPilot's Python Client integrations in the [Test Runs](/procedures) or [REST API](/api) sections.
 
 ## Contribute
 

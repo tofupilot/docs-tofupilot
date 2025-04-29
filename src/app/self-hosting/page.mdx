@@ -184,7 +184,6 @@ from tofupilot.openhtf import TofuPilot
 def main():
         test = htf.Test(
               procedure_id="FVT1",
-              procedure_name="PCB Testing",
               part_number="PCB1",
               )
 
@@ -204,7 +203,6 @@ if __name__ == '__main__':
 
       client.create_run(
           procedure_id="FVT1",
-          procedure_name="PCB Testing",
           run_passed=True,
           unit_under_test={
                 "serial_number": "PCB1A001",
