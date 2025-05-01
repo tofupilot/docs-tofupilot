@@ -245,10 +245,10 @@ export const navigation: Array<NavGroup> = [
         href: '/',
       },
       { title: 'Procedures', href: '/procedures' },
-      { title: 'Phases and Measurements', href: '/phases' },
+      { title: 'Phases and Measurements', href: '/phases', new: true },
       { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
       { title: 'Sub-units', href: '/sub-units' },
-      { title: 'Stations', href: '/stations', new: true },
+      { title: 'Stations', href: '/stations' },
       { title: 'Logger', href: '/logger', new: true },
       { title: 'Attachments', href: '/attachments' },
     ],
@@ -258,26 +258,36 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'OpenHTF', href: '/openhtf' },
       { title: 'Python', href: '/python' },
+      { title: 'REST API', href: '/api' },
     ],
   },
   {
-    title: 'Web App',
+    title: 'Deployment & Operation',
+    links: [
+      { title: 'Offline upload', href: '/offline-upload' },
+      { title: 'Self-hosting', href: '/self-hosting' },
+      { title: 'Operator UI', href: '/operator-ui', new: true },
+    ],
+  },
+  {
+    title: 'Advanced Guides',
     links: [
       { title: 'Test analytics', href: '/analytics' },
       { title: 'Test phase analysis', href: '/analysis' },
       { title: 'Traceability', href: '/traceability' },
-      { title: 'Account management', href: '/user-management' },
-    ],
-  },
-  {
-    title: 'Guides',
-    links: [
-      { title: 'REST API', href: '/api' },
-      { title: 'Offline upload', href: '/offline-upload' },
-      { title: 'Self-hosting', href: '/self-hosting' },
+      // API Activity
       { title: 'Errors manual', href: '/errors' },
       { title: 'Serial number parser', href: '/sn-parser' },
     ],
+  },
+  {
+    title: 'Support',
+    links: [
+      { title: 'Account management', href: '/user-management' },
+      { title: 'Community', href: '/community' },
+    ],
+    // Pricing & Usage
+    // Security
   },
 ]
 
