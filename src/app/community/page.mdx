@@ -1,0 +1,69 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
+export const metadata = {
+  title: 'Community',
+  description:
+    'Join the OpenHTF community to collaborate with fellow hardware and manufacturing test engineers. Get support, share knowledge, and improve your testing with the help of the community.',
+  keywords: [
+    ...defaultKeywords,
+    'community',
+    'manufacturing test engineers',
+    'OpenHTF community',
+    'TofuPilot community',
+    'Discord OpenHTF',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Community - Join and Collaborate with the OpenHTF Community | OpenHTF Documentation',
+    description:
+      'Join and collaborate with the OpenHTF community to get help, share knowledge, and discuss hardware testing solutions with fellow engineers,',
+  },
+}
+
+# Community
+
+Join our Discord server to get help and collaborate with fellow hardware and manufacturing test engineers. {{ className: 'lead' }}
+
+<Image
+  src="/community-header.png"
+  link="https://discord.gg/HzkYUWg9PK"
+  alt="OpenHTF Community page header showcasing collaboration between hardware test engineers."
+/>
+
+## Support
+
+Whether you're building test systems with Python, OpenHTF, or something entirely custom, you're welcome in the community. If you ever run into issues, just reach out — we're here to help.
+
+<div className="not-prose mb-8 mt-6 flex gap-3">
+  <Button href="https://discord.gg/HzkYUWg9PK" variant="outline">
+    <>Join Discord Server</>
+  </Button>
+</div>
+
+## Contribute
+This documentation is open-source and welcomes contributions from the community.
+If you see an error, want to add examples, or have better ways of explaining things, open an issue on [documentation's GitHub](https://github.com/tofupilot/docs).
+
+
+## About us
+
+We’re manufacturing test engineers working on robotics. We first built our own custom Python-based test framework — then switched to OpenHTF when we discovered it. When documentation was missing or scattered, we wrote our own. To keep up with fast-changing products on the line, we also built the tool we were missing: TofuPilot, a plug-and-play test database and analytics layer that lets us move quickly, stay agile, and keep production flowing.
+
+If that sounds relevant to your work, you might like our newsletter — sent roughly every 3 weeks. We share feature updates, articles, and test templates we're building ourselves.
+
+
+<div className="not-prose mb-8 mt-6 flex gap-3">
+  <Button href="https://mailchi.mp/02b97e5daf4c/openhtf" variant="outline">
+    <>Subscribe to our newsletter</>
+  </Button>
+</div>
+
+
+## Why we still use OpenHTF
+OpenHTF has been a key tool for our team. Unsure about its current maintenance and future, we visited its founders, John and Joe, in Mountain View, and spoke with Akash, who now leads its maintenance at Waymo. In early 2025, we learned that OpenHTF is actively maintained by a dedicated team of five engineers, with no internal forks or breaking changes expected.
+
+<Image
+  src="/community-openhtf-founders.png"
+  alt="Photo of the TofuPilot co-founders with the OpenHTF founders at Google headquarters"
+/>
