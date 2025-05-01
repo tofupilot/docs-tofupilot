@@ -84,12 +84,9 @@ Once the procedure is created, you can upload your Runs using the `procedure_id`
 </Properties>
 
 <Note>
-    You can define the `duration` of the Procedure and the `duration` of the Phases independantly.
+    You can define the `duration` of the Run and the `duration` of individual Phases independently using the Python client. In OpenHTF, the Run duration is automatically computed based on the sum of all Phases durations.
 </Note>
 
-### Rename a procedure
-
-You can rename Procedure name or its `procedure_id` directly in the application. Go to the Procedure page, then select **Edit ID** or **Edit Name** from the menu.
 
 ### Advanced parameters
 
@@ -112,3 +109,10 @@ In TofuPilot, you can explore different procedures in the **Procedures** tab. On
 <Image src="/procedure-page1.png" alt="" />
 
 These features will be explained in more detail in the [Test phases analysis](/analysis) section.
+
+
+### Rename a procedure
+
+You can rename Procedure name or its `procedure_id` directly in the application. Go to the **Procedure** page, then select **Edit ID** or **Edit Name** from the menu.
+
+<Image src="/procedure-parameters.png" alt="" />
