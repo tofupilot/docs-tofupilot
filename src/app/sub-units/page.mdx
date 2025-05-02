@@ -59,6 +59,20 @@ You can define `sub_units` in your assembly test as a list of dictionaries. Each
   />
 </CodeGroup>
 
+### Sub-units properties
+
+<Properties>
+    <Property name="sub_units" type="array">
+        Specifies the components assembled within the unit under test.
+    </Property>
+    <Property name="serial_number" type="str"  indent={1}>
+        Serial Number of the assembled unit.
+    </Property>
+    <Property name="part_number" type="str"  indent={1}>
+        Part number of the assembled unit.
+    </Property>
+</Properties>
+
 ## In-app view
 
 You can see in this example the creation of the camera assembly with its sub-units listed as children in the **Units** page. You can navigate to these sub-units using the expansion menu on the left.
