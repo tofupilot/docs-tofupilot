@@ -35,25 +35,22 @@ Extract information from your serial numbers. {{ className: 'lead' }}
 
 ## Overview
 
-Serial numbers often contain multiple pieces of information, but it can be a challenge to manage extraction rules separately and juggle parameters in the test script. The Serial Number Parsing feature allows you to extract these details directly in TofuPilot, regardless of your encoding, and store them in the appropriate parameters.
+Serial numbers often encode multiple pieces of information, but it can be a challenge to manage extraction rules separately and juggle parameters in the test script. TofuPilot’s Serial Number Parsing feature lets you extract details like part numbers directly from serial numbers,regardless of your encoding format, and assign them to the appropriate test parameters automatically.
+
+
 
 
 ## Integration
 
-To set up your serial number parser, go to **Settings > Serial Number**.
+1. To set up your serial number parser, go to **Settings > Serial Number**.
 
-With this feature, you can extract from your serial numbers — in any order:
+2. Start by entering an example serial number under **Your example serial number**.
+3. Then define a regular expression to extract the part number in the **Part number regex** field.
 
-- Part number
-- Revision
-- Batch number
-
-Start by entering a sample serial number under Your example serial number. Then configure the regex for each part in the dedicated box. In the next box, you can check if the parsing works correctly.
+You can immediately validate your regex using the preview field below. Once configured, you no longer need to manually define `part_number` in your script—it will be automatically parsed and passed to the test at runtime.
 
 
 <Image
   src="/sn-parser-page-settings.png"
   alt="Screenshot of Tofupilot showing the page for managing serial number parsing."
 />
-
-If you choose to extract only one parameter (e.g., batch number), after running your test script, a message will appear in your terminal indicating that the other parameters (e.g., revision and part number) were not extracted.
