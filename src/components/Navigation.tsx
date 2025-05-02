@@ -238,7 +238,7 @@ function NavigationGroup({
 
 export const navigation: Array<NavGroup> = [
   {
-    title: 'Test Runs',
+    title: 'Test Execution',
     links: [
       {
         title: 'Quickstart',
@@ -270,14 +270,14 @@ export const navigation: Array<NavGroup> = [
     ],
   },
   {
-    title: 'Advanced Guides',
+    title: 'Guides',
     links: [
       { title: 'Test analytics', href: '/analytics' },
       { title: 'Test phase analysis', href: '/analysis' },
       { title: 'Traceability', href: '/traceability' },
-      // API Activity
-      { title: 'Errors manual', href: '/errors' },
+      { title: 'API Activity', href: '/api-activity' },
       { title: 'Serial number parser', href: '/sn-parser' },
+      { title: 'Errors manual', href: '/errors' },
     ],
   },
   {
