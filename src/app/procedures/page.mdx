@@ -72,8 +72,11 @@ Once the procedure is created, you can upload your Runs using the `procedure_id`
   <Property name="unit_under_test" type="array">
     Specify the [Unit under test (UUT)](/unit-under-test-uut) being tested.
   </Property>
+  <Property name="phases" type="array (optional)">
+      Break down test by [phases](/phases#phases-integration).
+  </Property>
   <Property name="started_at" type="str (optional)">
-    ISO 8601 start time of the Run. Example: "2024-09-11T08:00:00Z".
+    ISO 8601 start time of the Run. _Example: "2024-09-11T08:00:00Z"_
   </Property>
   <Property name="duration" type="timedelta (optional)">
     Specify the duration of the test.

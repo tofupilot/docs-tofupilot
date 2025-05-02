@@ -32,7 +32,7 @@ export const metadata = {
 
 # Phases and Measurements
 
-Organize your test flow by breaking it down into multiple phases. {{ className: 'lead' }}
+Structure your hardware tests with phases, and enrich each phase with one or more measurements.{{ className: 'lead' }}
 
 <Image
   src="/phases-header.png"
@@ -41,13 +41,16 @@ Organize your test flow by breaking it down into multiple phases. {{ className: 
 
 ## Overview
 
-A hardware test typically consists of several phases that perform measurements and validation. TofuPilot provides an easy way to record phase details and analyze performance across all executions, giving you precise analytics on phase failure rates and durations.
+A test procedure in TofuPilot is made of sequential phases—these represent logical blocks of a test such as “Check Voltage”. Each phase performs a specific function and records its own start and end time, as well as its outcome.
 
-## Integration
+Inside a phase, you can record one or more measurements. A measurement is a captured value, like a voltage, temperature, or pass/fail condition. Measurements can include numeric limits, units, and outcomes.
 
-You can create and add various test phases and view the automatically generated reports on the Run page.
+Phases give you structure; measurements capture the data. Together, they allow TofuPilot to display test results clearly, analyze failure patterns, and provide meaningful metrics like yield, duration, and control limits over time.
 
-### Required parameters
+
+## Phases integration
+
+TofuPilot tracks each phase with its name, outcome, and duration. With OpenHTF, you simply define the phases in the `Test`, and TofuPilot collects the information automatically.
 
 <CodeGroup>
   <CodeGithub
@@ -55,7 +58,6 @@ You can create and add various test phases and view the automatically generated 
     branch="main"
     path="docs_tofupilot/phases/required/openhtf/main.py"
   />
-
   <CodeGithub
     title="Python"
     branch="main"
@@ -63,24 +65,32 @@ You can create and add various test phases and view the automatically generated 
   />
 </CodeGroup>
 
+### Phases properties
+
 <Properties>
-  <Property name="name" type="str">
-    The name of the phase.
-  </Property>
-  <Property name="outcome" type='"PASS" | "FAIL" | "ERROR" | "SKIP", required'>
-    Outcome of the phase. _Example: "PASS"_
-  </Property>
-  <Property name="start_time_millis" type="number">
-    A Unix epoch timestamp in milliseconds representing the start time of the
-    phase. _Example: 1726147200000_
-  </Property>
-  <Property name="end_time_millis" type="number">
-    A Unix epoch timestamp in milliseconds representing the end time of the
-    phase. _Example: 1726147230000_
-  </Property>
+    <Property name="phases" type="array ">
+        List of phases.
+    </Property>
+    <Property name="name" type="str"  indent={1}>
+        The name of the phase.
+    </Property>
+    <Property name="outcome" type='"PASS" | "FAIL" | "ERROR" | "SKIP"'  indent={1}>
+        Result of the phase. _Example: "PASS"_
+    </Property>
+    <Property name="start_time_millis" type="number (optional)"  indent={1}>
+        Start time (Unix ms). _Example: 1726147200000_
+    </Property>
+    <Property name="end_time_millis" type="number (optional)"  indent={1}>
+        End time (Unix ms). _Example: 1726147230000_
+    </Property>
+    <Property name="measurements" type="array (optional)"  indent={1}>
+        List of measurements in the phase.
+    </Property>
 </Properties>
 
-### Optional parameters
+## Measurements integration
+
+Each phase can include one or more measurements. These can be numeric, boolean, string, or multi-dimensional arrays. With OpenHTF, you simply define the measurements using `openhtf.measures` and `openhtf.Measurement`, and TofuPilot collects the information automatically.
 
 <CodeGroup>
   <CodeGithub
@@ -88,7 +98,6 @@ You can create and add various test phases and view the automatically generated 
     branch="main"
     path="docs_tofupilot/phases/optional/openhtf/main.py"
   />
-
   <CodeGithub
     title="Python"
     branch="main"
@@ -96,45 +105,45 @@ You can create and add various test phases and view the automatically generated 
   />
 </CodeGroup>
 
+### Measurements properties
+
 <Properties>
-  <Property name="measurements" type="array, optional">
-    The array of one or several measurement in one phase.
-  </Property>
-  <Property name="name" type="string, required" indent={1}>
-    The name of one measurement.
-  </Property>
-  <Property
-    name="outcome"
-    type='"PASS" | "FAIL" | "UNSET", required'
-    indent={1}
-  >
-    Outcome of the measurement. _Example: "PASS"_
-  </Property>
-  <Property
-    name="measured_value"
-    type="number | string | boolean | JSON, optional"
-    indent={1}
-  >
-    The value of the measurement.
-  </Property>
-  <Property name="units" type="string, optional" indent={1}>
-    The units of the value. _Examples: Celsius Degrees, Voltage_
-  </Property>
-  <Property name="lower_limit" type="number, optional" indent={1}>
-    Minimum threshold. **Only taken into account if measured_value is a
-    number**. _Example: 3.2_
-  </Property>
-  <Property name="upper_limit" type="number, optional" indent={1}>
-    Maximum threshold. **Only taken into account if measured_value is a
-    number**. _Example: 13.2_
-  </Property>
+    <Property name="measurements" type="array (optional)">
+        List of measurements in the phase.
+    </Property>
+    <Property name="name" type="string" indent={1}>
+        Name of one measurement.
+    </Property>
+    <Property
+        name="outcome"
+        type='"PASS" | "FAIL" | "UNSET"'
+        indent={1}
+    >
+        Outcome of the measurement.
+    </Property>
+    <Property
+        name="measured_value"
+        type="number | string | boolean | dict (optional)"
+        indent={1}
+    >
+        Captured value.
+    </Property>
+    <Property name="units" type="string | array (optional)" indent={1}>
+        Units of the value. _Examples: Volts, Celsius_
+    </Property>
+    <Property name="lower_limit" type="number (optional)" indent={1}>
+        Minimum valid value (only for numbers).
+    </Property>
+    <Property name="upper_limit" type="number (optional)" indent={1}>
+        Maximum valid value (only for numbers).
+    </Property>
 </Properties>
 
 ## In-app view
 
 ### Run page
 
-You can view each test phase in the **Phases** section on the Run page.
+Each test run shows a breakdown of all phases and their associated measurements.
 
 <Image
   src="/phases-page-run.png"
@@ -143,7 +152,7 @@ You can view each test phase in the **Phases** section on the Run page.
 
 ### Procedure Page
 
-Clicking on a test phase from the **Run** page redirects you to the **Procedure** page, where you can see all executed runs of this procedure, sorted by that phase. You can navigate between different tabs to view the average **Duration** for each phase, the **Yields**, quantity of **Runs**, and **Cpk**.
+Clicking a phase in the **Run** page opens the **Procedure** page. You can analyze all historical data for that phase: average duration, yield, number of runs, and Cpk.
 
 <Image
   src="/phases-page-procedure1.png"
@@ -153,8 +162,7 @@ Clicking on a test phase from the **Run** page redirects you to the **Procedure*
 You can view phase details in the tabs or the **Control Chart** by clicking on a phase (e.g., `phase_one`). The Control Chart displays limits `lower_limit` and `upper_limit` and the 6-sigma standard deviation, calculated automatically.
 
 <Note>
-  If the limit definitions have changed over time, the most recent limits
-  provided will be used.
+    If measurement limits have changed over time, TofuPilot uses the most recent ones for charting.
 </Note>
 
 <Image
@@ -168,25 +176,49 @@ To unselect a phase, click its name on the top bar of the page or click on **Cle
 
 ## Advanced integration
 
-You can find an example of Phases functionalities in this script, including measured values, limits, units, and multiple measurements.
+### Multiple measurements in one phase
+
+You can group several related metrics within a single test block.
 
 <CodeGroup>
   <CodeGithub
     title="OpenHTF"
-    branch="main"
-    path="docs_tofupilot/phases/advanced/openhtf/main.py"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/phases/multi-measurements/openhtf/main.py"
   />
-
   <CodeGithub
     title="Python"
-    branch="main"
-    path="docs_tofupilot/phases/advanced/client/main.py"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/phases/multi-measurements/client/main.py"
   />
 </CodeGroup>
 
-You can see the result on the Run page.
 
 <Image
-  src="/phases-page-run2.png"
-  alt="Phase section header showing test phase management whithin TofuPilot."
+  src="/phases-multi-measurements.png"
+  alt="Multi-measurements displayed in one phase"
+/>
+
+### Multi-dimensional measurements
+
+You can capture arrays or time-series data within a single measurement.
+
+<CodeGroup>
+  <CodeGithub
+    title="OpenHTF"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/phases/dimensions/openhtf/main.py"
+  />
+  <CodeGithub
+    title="Python"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/phases/dimensions/client/main.py"
+  />
+</CodeGroup>
+
+You can open and explore dimension-based measurements by clicking the chart button within the Phases chart on the **Run** page:
+
+<Image
+  src="/phases-dimensions-measurements.png"
+  alt="Example of dimension-based measurements displayed in a chart."
 />
