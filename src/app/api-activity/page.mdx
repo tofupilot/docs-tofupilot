@@ -34,7 +34,7 @@ The API Activity dashboard gives you full visibility into your API usage. Track 
 
 Every API call is listed with detailed performance and usage metrics. Instantly see which endpoints are used most, how fast they respond, and where issues might be occurring.
 
-## In-app View
+## Key metrics
 
 Click on **API Activity** in the left menu to access the page. You'll see real-time monitoring of all API requests across your organization.
 
@@ -46,20 +46,24 @@ At the top of the page, you'll find:
 
 <Image src="/api-activity-kpi.png" alt="API metrics overview" />
 
-Below that, the dashboard displays a detailed list of API requests, sorted by most recent.
+## API request list
+
+The dashboard provides a detailed, real-time list of API requests, sorted by most recent. You can instantly see which endpoints are being used, how fast they respond, and where issues might be occurring.
 
 <Image src="/api-activity-list.png" alt="List of API requests" />
 
-### Request details
+### Detailed request trace
 
 Click on any row to open a detailed trace view. This includes:
 - Full input payload of the API request
-- HTTP method and response status
+- HTTP method and [response status](/api#api-status-codes)
 - Start time and total duration
 - Client version used
 - Trace type and related message
 
 <Image src="/api-activity-expended.png" alt="Expanded API request details" />
+
+### API trace timeline
 
 The **API Traces timeline** shows a breakdown of internal processing steps, helping you understand the sequence and time spent on each.
 
@@ -67,8 +71,7 @@ You can toggle between **absolute time** and **relative time** from the start of
 
 <Image src="/api-activity-traces-timeline.png" alt="API trace timeline" />
 
-
-### Filters and search
+## Filters and search options
 
 Quickly narrow down results with:
 - Search by endpoint or message content

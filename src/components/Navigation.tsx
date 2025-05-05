@@ -245,11 +245,13 @@ export const navigation: Array<NavGroup> = [
         href: '/',
       },
       { title: 'Procedures', href: '/procedures' },
-      { title: 'Phases and Measurements', href: '/phases', new: true },
+      { title: 'Phases', href: '/phases' },
+      { title: 'Measurements', href: '/measurements', new: true },
       { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
       { title: 'Sub-units', href: '/sub-units' },
       { title: 'Stations', href: '/stations' },
-      { title: 'Logging', href: '/logger', new: true },
+      { title: 'Operator UI', href: '/operator-ui', new: true },
+      { title: 'Logger', href: '/logger', new: true },
       { title: 'Attachments', href: '/attachments' },
     ],
   },
@@ -257,35 +259,26 @@ export const navigation: Array<NavGroup> = [
     title: 'Integrations',
     links: [
       { title: 'OpenHTF', href: '/openhtf' },
-      { title: 'Python', href: '/python' },
+      { title: 'Vanilla Python', href: '/python' },
       { title: 'REST API', href: '/api' },
-    ],
-  },
-  {
-    title: 'Deployment & Operation',
-    links: [
-      { title: 'Offline upload', href: '/offline-upload' },
-      { title: 'Self-hosting', href: '/self-hosting' },
-      // { title: 'Operator UI', href: '/operator-ui', new: true },
     ],
   },
   {
     title: 'Guides',
     links: [
+      { title: 'Self-hosting', href: '/self-hosting' },
+      { title: 'Offline upload', href: '/offline-upload' },
+      { title: 'Account management', href: '/user-management' },
       { title: 'Test analytics', href: '/analytics' },
       { title: 'Test phase analysis', href: '/analysis' },
       { title: 'Traceability', href: '/traceability' },
-      { title: 'API Activity', href: '/api-activity' },
+      { title: 'API activity', href: '/api-activity' },
       { title: 'Serial number parser', href: '/sn-parser' },
-      { title: 'Errors manual', href: '/errors' },
     ],
   },
   {
     title: 'Support',
-    links: [
-      { title: 'Account management', href: '/user-management' },
-      { title: 'Community', href: '/community' },
-    ],
+    links: [{ title: 'Community', href: '/community' }],
     // Pricing & Usage
     // Security
   },
