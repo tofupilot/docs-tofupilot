@@ -266,7 +266,7 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'Offline upload', href: '/offline-upload' },
       { title: 'Self-hosting', href: '/self-hosting' },
-      { title: 'Operator UI', href: '/operator-ui', new: true },
+      // { title: 'Operator UI', href: '/operator-ui', new: true },
     ],
   },
   {
