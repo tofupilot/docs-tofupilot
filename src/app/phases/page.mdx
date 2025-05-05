@@ -30,9 +30,9 @@ export const metadata = {
   },
 }
 
-# Phases and Measurements
+# Phases
 
-Structure your hardware tests with phases, and enrich each phase with one or more measurements.{{ className: 'lead' }}
+Structure your hardware tests with phases.{{ className: 'lead' }}
 
 <Image
   src="/phases-header.png"
@@ -41,14 +41,10 @@ Structure your hardware tests with phases, and enrich each phase with one or mor
 
 ## Overview
 
-A test procedure in TofuPilot is made of sequential phases—these represent logical blocks of a test such as “Check Voltage”. Each phase performs a specific function and records its own start and end time, as well as its outcome.
-
-Inside a phase, you can record one or more measurements. A measurement is a captured value, like a voltage, temperature, or pass/fail condition. Measurements can include numeric limits, units, and outcomes.
-
-Phases give you structure; measurements capture the data. Together, they allow TofuPilot to display test results clearly, analyze failure patterns, and provide meaningful metrics like yield, duration, and control limits over time.
+A test procedure in TofuPilot is made of sequential phases. These represent logical blocks of a test. Each phase performs a specific function and records its own start and end time, as well as its outcome.
 
 
-## Phases integration
+## Integration
 
 TofuPilot tracks each phase with its name, outcome, and duration. With OpenHTF, you simply define the phases in the `Test`, and TofuPilot collects the information automatically.
 
@@ -88,62 +84,11 @@ TofuPilot tracks each phase with its name, outcome, and duration. With OpenHTF, 
     </Property>
 </Properties>
 
-## Measurements integration
-
-Each phase can include one or more measurements. These can be numeric, boolean, string, or multi-dimensional arrays. With OpenHTF, you simply define the measurements using `openhtf.measures` and `openhtf.Measurement`, and TofuPilot collects the information automatically.
-
-<CodeGroup>
-  <CodeGithub
-    title="OpenHTF"
-    branch="main"
-    path="docs_tofupilot/phases/optional/openhtf/main.py"
-  />
-  <CodeGithub
-    title="Python"
-    branch="main"
-    path="docs_tofupilot/phases/optional/client/main.py"
-  />
-</CodeGroup>
-
-### Measurements properties
-
-<Properties>
-    <Property name="measurements" type="array (optional)">
-        List of measurements in the phase.
-    </Property>
-    <Property name="name" type="string" indent={1}>
-        Name of one measurement.
-    </Property>
-    <Property
-        name="outcome"
-        type='"PASS" | "FAIL" | "UNSET"'
-        indent={1}
-    >
-        Outcome of the measurement.
-    </Property>
-    <Property
-        name="measured_value"
-        type="number | string | boolean | dict (optional)"
-        indent={1}
-    >
-        Captured value.
-    </Property>
-    <Property name="units" type="string | array (optional)" indent={1}>
-        Units of the value. _Examples: Volts, Celsius_
-    </Property>
-    <Property name="lower_limit" type="number (optional)" indent={1}>
-        Minimum valid value (only for numbers).
-    </Property>
-    <Property name="upper_limit" type="number (optional)" indent={1}>
-        Maximum valid value (only for numbers).
-    </Property>
-</Properties>
-
 ## In-app view
 
 ### Run page
 
-Each test run shows a breakdown of all phases and their associated measurements.
+Each test run shows a breakdown of all phases and their associated [measurements](/measurements).
 
 <Image
   src="/phases-page-run.png"
@@ -159,66 +104,4 @@ Clicking a phase in the **Run** page opens the **Procedure** page. You can analy
   alt="Phases section header showing test phase management whithin TofuPilot."
 />
 
-You can view phase details in the tabs or the **Control Chart** by clicking on a phase (e.g., `phase_one`). The Control Chart displays limits `lower_limit` and `upper_limit` and the 6-sigma standard deviation, calculated automatically.
-
-<Note>
-    If measurement limits have changed over time, TofuPilot uses the most recent ones for charting.
-</Note>
-
-<Image
-  src="/phases-page-procedure2.png"
-  alt="Phases section header showing test phase management whithin TofuPilot."
-/>
-
-To unselect a phase, click its name on the top bar of the page or click on **Clear Filter**.
-
----
-
-## Advanced integration
-
-### Multiple measurements in one phase
-
-You can group several related metrics within a single test block.
-
-<CodeGroup>
-  <CodeGithub
-    title="OpenHTF"
-    branch="charlotte/new-features-ope-ui"
-    path="docs_tofupilot/phases/multi-measurements/openhtf/main.py"
-  />
-  <CodeGithub
-    title="Python"
-    branch="charlotte/new-features-ope-ui"
-    path="docs_tofupilot/phases/multi-measurements/client/main.py"
-  />
-</CodeGroup>
-
-
-<Image
-  src="/phases-multi-measurements.png"
-  alt="Multi-measurements displayed in one phase"
-/>
-
-### Multi-dimensional measurements
-
-You can capture arrays or time-series data within a single measurement.
-
-<CodeGroup>
-  <CodeGithub
-    title="OpenHTF"
-    branch="charlotte/new-features-ope-ui"
-    path="docs_tofupilot/phases/dimensions/openhtf/main.py"
-  />
-  <CodeGithub
-    title="Python"
-    branch="charlotte/new-features-ope-ui"
-    path="docs_tofupilot/phases/dimensions/client/main.py"
-  />
-</CodeGroup>
-
-You can open and explore dimension-based measurements by clicking the chart button within the Phases chart on the **Run** page:
-
-<Image
-  src="/phases-dimensions-measurements.png"
-  alt="Example of dimension-based measurements displayed in a chart."
-/>
+These features will be explained in more detail in the [Test phases analysis section](/analysis).

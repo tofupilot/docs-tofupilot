@@ -1,0 +1,217 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
+export const metadata = {
+  title: 'Measurements',
+  description:
+    'This guide shows how to create and add various test phases in TofuPilot and view the automatically generated reports, helping to identify frequent failures and time-consuming phases.',
+  keywords: [
+    ...defaultKeywords,
+    'Test Phases',
+    'Test Steps',
+    'TofuPilot Phases',
+    'Automated Testing',
+    'Test Analytics',
+    'Hardware Testing',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Measurements - Test Phase Management & Analytics | TofuPilot Documentation',
+    description:
+      'Learn how to define, execute, and analyze test phases in TofuPilot, improving test efficiency and failure analysis.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/phases-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Phases section header showing test phase management within TofuPilot.',
+      },
+    ],
+  },
+}
+
+# Measurements
+
+Enrich each phase with one or more measurements.{{ className: 'lead' }}
+
+<Image
+  src="/measurements-header.png"
+  alt="Phases section header showing test phase management whithin TofuPilot."
+/>
+
+## Overview
+
+A measurement is a captured value, like a voltage, temperature, or pass/fail condition. Measurements can include numeric limits, units, and outcomes. Each phase can include one or more measurements. These can be numeric, boolean, string, or multi-dimensional arrays.
+
+## Integration
+
+With OpenHTF, you simply define the measurements using `openhtf.measures` and `openhtf.Measurement`, and TofuPilot collects the information automatically.
+
+<CodeGroup>
+  <CodeGithub
+    title="OpenHTF"
+    branch="main"
+    path="docs_tofupilot/phases/optional/openhtf/main.py"
+  />
+  <CodeGithub
+    title="Vanilla Python"
+    branch="main"
+    path="docs_tofupilot/phases/optional/client/main.py"
+  />
+</CodeGroup>
+
+### Measurements properties
+
+<Properties>
+    <Property name="measurements" type="array (optional)">
+        List of measurements in the phase.
+    </Property>
+    <Property name="name" type="string" indent={1}>
+        Name of one measurement.
+    </Property>
+    <Property
+        name="outcome"
+        type='"PASS" | "FAIL" | "UNSET"'
+        indent={1}
+    >
+        Outcome of the measurement.
+    </Property>
+    <Property
+        name="measured_value"
+        type="number | string | boolean | dict (optional)"
+        indent={1}
+    >
+        Captured value.
+    </Property>
+    <Property name="units" type="string | array (optional)" indent={1}>
+        Units of the value. _Examples: Volts, Celsius_
+    </Property>
+    <Property name="lower_limit" type="number (optional)" indent={1}>
+        Minimum valid value (only for numbers).
+    </Property>
+    <Property name="upper_limit" type="number (optional)" indent={1}>
+        Maximum valid value (only for numbers).
+    </Property>
+</Properties>
+
+## Numerical
+You can use numerical measurement to capture quantities like voltage, resistance, or temperature.
+
+<CodeGroup>
+  <CodeGithub
+    title="OpenHTF"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/measurements/numerical/openhtf/main.py"
+  />
+  <CodeGithub
+    title="Vanilla Python"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/measurements/numerical/client/main.py"
+  />
+</CodeGroup>
+
+## String
+Used to capture serial numbers, firmware versions, or textual responses.
+
+<CodeGroup>
+  <CodeGithub
+    title="OpenHTF"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/measurements/string/openhtf/main.py"
+  />
+  <CodeGithub
+    title="Vanilla Python"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/measurements/string/client/main.py"
+  />
+</CodeGroup>
+
+
+## Boolean
+Used for pass/fail conditions, feature flags, or toggled states.
+
+<CodeGroup>
+  <CodeGithub
+    title="OpenHTF"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/measurements/boolean/openhtf/main.py"
+  />
+  <CodeGithub
+    title="Vanilla Python"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/measurements/boolean/client/main.py"
+  />
+</CodeGroup>
+
+## Multi-dimensional
+
+You can capture arrays or time-series data within a single measurement.
+
+<CodeGroup>
+  <CodeGithub
+    title="OpenHTF"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/measurements/dimensional/openhtf/main.py"
+  />
+  <CodeGithub
+    title="Vanilla Python"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/measurements/dimensional/client/main.py"
+  />
+</CodeGroup>
+
+You can open and explore dimension-based measurements by clicking the chart button within the Phases chart on the **Run** page:
+
+<Image
+  src="/measurements-multi-dim.png"
+  alt="Example of dimension-based measurements displayed in a chart."
+/>
+
+## Multiple measurements
+
+You can group several related measurements—whether numerical, string, boolean, or multi-dimensional—within a single test phase.
+
+<CodeGroup>
+  <CodeGithub
+    title="OpenHTF"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/measurements/multi-measurements/openhtf/main.py"
+  />
+  <CodeGithub
+    title="Vanilla Python"
+    branch="charlotte/new-features-ope-ui"
+    path="docs_tofupilot/measurements/multi-measurements/client/main.py"
+  />
+</CodeGroup>
+
+
+<Image
+  src="/measurements-multi-measurements.png"
+  alt="Multi-measurements displayed in one phase"
+/>
+
+## In-app view
+
+### Run page
+
+Each test run shows a breakdown of all phases and their associated measurements.
+
+<Image
+  src="/measurements-page-run.png"
+  alt="Phases section header showing test phase management whithin TofuPilot."
+/>
+
+### Control chart
+
+You can view measurment trends, go to the  **Procedure** page, click on a phase (e.g., `phase_one`), and select the desired measurement. The **Control Chart** displays limits `lower_limit` and `upper_limit` and the 6-sigma standard deviation, calculated automatically.
+
+<Note>
+    If measurement limits have changed over time, TofuPilot uses the most recent ones for charting.
+</Note>
+
+<Image
+  src="/measurements-page-procedure2.png"
+  alt="Phases section header showing test phase management whithin TofuPilot."
+/>
+
+To unselect a measurement, click its name on the top bar of the page or click on **Clear Filter**.
