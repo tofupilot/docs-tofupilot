@@ -53,11 +53,25 @@ You can define `sub_units` in your assembly test as a list of dictionaries. Each
   />
 
   <CodeGithub
-    title="Python"
+    title="Vanilla Python"
     branch="main"
     path="docs_tofupilot/sub-units/client/main.py"
   />
 </CodeGroup>
+
+### Sub-units properties
+
+<Properties>
+    <Property name="sub_units" type="array">
+        Specifies the components assembled within the unit under test.
+    </Property>
+    <Property name="serial_number" type="str"  indent={1}>
+        Serial Number of the assembled unit.
+    </Property>
+    <Property name="part_number" type="str"  indent={1}>
+        Part number of the assembled unit.
+    </Property>
+</Properties>
 
 ## In-app view
 

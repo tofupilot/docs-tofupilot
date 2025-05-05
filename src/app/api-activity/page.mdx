@@ -1,0 +1,81 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
+export const metadata = {
+  title: 'API Activity',
+  description:
+    "Explore the different run endpoints available in TofuPilot's REST API to manage test runs programmatically.",
+  keywords: [
+    ...defaultKeywords,
+    'REST API',
+    'TofuPilot API',
+    'test runs',
+    'API authentication',
+    'create test runs',
+    'manage test data',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'API Activity | TofuPilot Documentation',
+    description:
+      "Discover how to authenticate, create, retrieve, and manage test runs using TofuPilot's REST API.",
+  },
+}
+
+# API Activity
+
+Monitor and debug every API call made to TofuPilot. {{ className: 'lead' }}
+
+<Image src="/api-activity-header.png" alt="API Activity dashboard" />
+
+## Overview
+
+The API Activity dashboard gives you full visibility into your API usage. Track which endpoints are being called, monitor response times, and identify any failed or deprecated requests. It's your go-to tool for understanding system behavior and quickly debugging issues in production or integration.
+
+Every API call is listed with detailed performance and usage metrics. Instantly see which endpoints are used most, how fast they respond, and where issues might be occurring.
+
+## Key metrics
+
+Click on **API Activity** in the left menu to access the page. You'll see real-time monitoring of all API requests across your organization.
+
+At the top of the page, you'll find:
+- **Total Calls**: Total number of API requests
+- **Success Rate**: A clear view of successful vs. failed requests
+- **Avg Response**: Average response time across all calls
+- **Deprecated**: Count of deprecated or invalid API calls detected
+
+<Image src="/api-activity-kpi.png" alt="API metrics overview" />
+
+## API request list
+
+The dashboard provides a detailed, real-time list of API requests, sorted by most recent. You can instantly see which endpoints are being used, how fast they respond, and where issues might be occurring.
+
+<Image src="/api-activity-list.png" alt="List of API requests" />
+
+### Detailed request trace
+
+Click on any row to open a detailed trace view. This includes:
+- Full input payload of the API request
+- HTTP method and [response status](/api#api-status-codes)
+- Start time and total duration
+- Client version used
+- Trace type and related message
+
+<Image src="/api-activity-expended.png" alt="Expanded API request details" />
+
+### API trace timeline
+
+The **API Traces timeline** shows a breakdown of internal processing steps, helping you understand the sequence and time spent on each.
+
+You can toggle between **absolute time** and **relative time** from the start of the request.
+
+<Image src="/api-activity-traces-timeline.png" alt="API trace timeline" />
+
+## Filters and search options
+
+Quickly narrow down results with:
+- Search by endpoint or message content
+- Method filters: `GET`, `POST`, `PUT`, `DELETE`
+- Status filters: `All`, `Success`, `Error`
+
+<Image src="/api-activity-sortering.png" alt="Filtering options" />

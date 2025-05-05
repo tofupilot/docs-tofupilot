@@ -1,0 +1,153 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
+export const metadata = {
+  title: 'Operator-UI',
+  description: 'Learn how to set up the Operator UI in TofuPilot to visualize real-time Runs.',
+  keywords: [
+    ...defaultKeywords,
+    'Operator UI',
+    'real-time',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Operator UI | TofuPilot Documentation',
+    description:
+      'Learn how to set up the Operator UI in TofuPilot to visualize real-time Runs.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/operator-ui-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Header showing TofuPilot Operator UI connected to a test system.',
+      },
+    ],
+  },
+}
+
+# Operator UI
+
+Start and monitor your Runs in real time from the production floor. {{ className: 'lead' }}
+
+<Image
+  src="/operator-ui-header.png"
+  alt="Screenshot of TofuPilot Operator UI"
+/>
+
+## Overview
+
+The Operator UI lets you run and track test procedures deployed on your production stations. It provides a simple, focused interface for production operators to start tests, respond to prompts, and monitor progress live.
+
+## Integration
+
+The Operator UI is currently available with OpenHTF. Python client support is coming soon.
+
+### Prerequisites
+
+Upgrade the Python client to version > 1.9.4
+<Code language="bash" code={`pip install --upgrade tofupilot`} />
+
+### How it works
+
+1. Run your OpenHTF script.
+2. A unique URL will appear in your console.
+   <Code language="bash" code={`2025-05-02 17:45:29 - ✅ Streaming: Interactive stream successfully started at: https://www.tofupilot.app/[your_organization]/streaming/[uuid]`} />
+3. Click the link to open the Operator UI in TofuPilot.
+
+<Note>
+  Anyone with the URL can view the test run in progress. Use either a user API key or a station API key. With a user API key, only the named user can submit prompts during the test.
+</Note>
+
+### Script example
+
+Below is a test script using OpenHTF and TofuPilot. The test begins with a serial number prompt to ensure traceability and prevent execution without a valid unit. It combines automated checks (e.g., `power_on`) and operator input (e.g., `prompt_operator_led_color`), reflecting typical production workflows.
+
+<Code language="python" title="OpenHTF"
+  code={`import openhtf as htf
+from openhtf.plugs.user_input import UserInput
+from tofupilot.openhtf import TofuPilot
+from openhtf.util import units
+import time
+
+
+def power_on():
+    time.sleep(1)
+    return htf.PhaseResult.CONTINUE
+
+
+@htf.measures(
+    htf.Measurement("led_color").with_validator(lambda color: color in ["Red", "Green", "Blue"])
+)
+@htf.plug(user_input=UserInput)
+def prompt_operator_led_color(test, user_input):  # Prompt asking input from operator
+    led_color = user_input.prompt(message="What is the LED color? (Red/Green/Blue)")
+    test.measurements.led_color = led_color
+
+
+def main():
+    test = htf.Test(
+        power_on,
+        prompt_operator_led_color,
+        procedure_id="FVT1",
+        part_number="PCB1",
+    )
+    with TofuPilot(test):
+        test.execute(test_start=user_input.prompt_for_test_start())  # Prompt at start
+
+
+if __name__ == "__main__":
+    main()`}
+/>
+
+<Note>
+  Streaming is enabled by default. To disable it, use `with TofuPilot(test, stream=False)`.
+</Note>
+
+## In-app view
+
+The Operator UI connects your test scripts to real-time visibility on the production floor. When a test starts, a unique URL appears in your console — follow it to view live test streaming.
+
+You'll see:
+* Prompts and operator responses
+* Procedure metadata (ID, name, version)
+* Run info (UUID, duration, logs)
+* Phases and measurements (status, value(s), limits, units, durations, attachments)
+* User or station info (based on the API key)
+
+### Live Test Streaming
+
+The Operator UI updates in real time as the test progresses. In this screenshot, the test has completed and is now waiting for the next execution to begin.
+
+<Image
+  src="/operator-ui-streaming.png"
+  alt="Test view showing procedure metadata, run information, and a completed test waiting for a new prompt."
+/>
+
+### Manual Serial Number Input
+
+Some procedures start with a manual input, typically a serial number. To ensure this input is collected before the test starts, pass the user prompt as the `test_start` parameter when calling `test.execute()` (see code example above).
+
+<Image
+  src="/operator-ui-input1.png"
+  alt="Manual serial number input box with loaded procedure metadata waiting for a DUT ID."
+/>
+
+Even before the test is started, you can already see the associated metadata: procedure ID, version, part number, and hardware revision.
+
+### Custom Operator Prompts
+
+You can configure custom prompts in your test script. In this example, the operator is asked to confirm the LED color. This allows you to combine automated steps with manual validation.
+
+<Image
+  src="/operator-ui-input2.png"
+  alt="Prompt asking the operator to enter the color of an LED before continuing the test."
+/>
+
+### Phase and Measurement Details
+
+Each test phase is displayed as it runs, along with its duration and result. You can track all measurement types in real time — numeric, string, boolean, or even tables — along with their units, limits, and validation status.
+
+<Image
+  src="/operator-ui-phases.png"
+  alt="Real-time view of test phases and measurements including values, limits, units, and pass/fail status."
+/>

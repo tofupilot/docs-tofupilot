@@ -38,30 +38,23 @@ Start uploading your first test run to TofuPilot in under five minutes. {{ class
 
 <Image src="/quickstart-header.png" alt="Quickstart Interactive Guide" />
 
-## Account setup
+## 1. Creat your account
 
-To use TofuPilot, create an account or join an existing organization by [invitation](/user-management#invite-user).
+To get started, [create a free account](https://tofupilot.app/auth/signup) or join an existing organization by [invitation](/user-management#invite-user).
 
-<div className="not-prose">
-  <Button
-    href={'https://tofupilot.app/auth/signup'}
-    variant="text"
-    arrow="right"
-    target="_blank"
-    rel="noopener"
-  >
-    Create a free account
-  </Button>
-</div>
 
-## First test Run
+## 2. Simulate a test run
 
-After creating your account, an interactive guide within the application will walk you through the steps described below.
+Once you're logged in, the **Welcome aboard** page walks you through simulating test runs using either Python or OpenHTF scripts. No hardware required.
 
 <Image
   src="/quickstart-page-get-started.png"
   alt="Quickstart Interactive Guide"
 />
+
+## 3. Upload to TofuPilot
+
+To connect your script, add your [API key](/user-management#api-key), define the [procedure parameters](/procedures#integration), and include data for the [unit under test](/unit-under-test-uut#integration). Your test runs will show up in TofuPilot automatically.
 
 <Note>
   We recommend using **virtualenv** for isolated Python environments. Learn how
@@ -71,8 +64,37 @@ After creating your account, an interactive guide within the application will wa
   [Sublime Text](https://packagecontrol.io/packages/Virtualenv).
 </Note>
 
-## Next
+## 4. What's next?
 
-Congratulations on uploading your first test run to TofuPilot! This simple test is just the beginning. The next guides will show you how to add essential options like test phases, attachments, and more.
+Congratulations on uploading your first test run to TofuPilot! 🎉
+From here, you’ll add test measurements, stations, and more. The next guides show you how.
 
-Let's make this the start of a long and successful journey! 🥳
+
+---
+
+## More about TofuPilot
+If you ever run into issues or want to learn more about the team behind TofuPilot, this section is for you.
+
+
+### Get support
+
+Need help? Questions? Feedback? We're here for you.
+
+<div className="not-prose mb-8 mt-6 flex gap-3">
+  <Button href="https://discord.gg/HzkYUWg9PK" variant="outline">
+    <>Join Discord Server</>
+  </Button>
+</div>
+
+### About us
+
+We’re robotics-focused manufacturing test engineers. We started with a custom Python framework, later switching to OpenHTF — but found the tooling ecosystem lacking. So we built what we needed: **TofuPilot**, a plug-and-play test database and analytics layer to keep production agile and traceable.
+
+
+### Why we still use OpenHTF
+OpenHTF remains core to what we do. In early 2025, we met with its founders and current maintainers at Waymo. It’s actively maintained by a team of five engineers, with no breaking changes or forks expected.
+
+<Image
+  src="/quickstart-openhtf-community.png"
+  alt="Photo of the TofuPilot co-founders with the OpenHTF founders at Google headquarters"
+/>

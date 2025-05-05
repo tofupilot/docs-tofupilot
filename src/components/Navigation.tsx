@@ -238,17 +238,20 @@ function NavigationGroup({
 
 export const navigation: Array<NavGroup> = [
   {
-    title: 'Test Runs',
+    title: 'Test Execution',
     links: [
       {
         title: 'Quickstart',
         href: '/',
       },
       { title: 'Procedures', href: '/procedures' },
-      { title: 'Phases and Measurements', href: '/phases' },
+      { title: 'Phases', href: '/phases' },
+      { title: 'Measurements', href: '/measurements', new: true },
       { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
       { title: 'Sub-units', href: '/sub-units' },
-      { title: 'Stations', href: '/stations', new: true },
+      { title: 'Stations', href: '/stations' },
+      //{ title: 'Operator UI', href: '/operator-ui', new: true },
+      { title: 'Logger', href: '/logger', new: true },
       { title: 'Attachments', href: '/attachments' },
     ],
   },
@@ -256,25 +259,20 @@ export const navigation: Array<NavGroup> = [
     title: 'Integrations',
     links: [
       { title: 'OpenHTF', href: '/openhtf' },
-      { title: 'Python', href: '/python' },
-    ],
-  },
-  {
-    title: 'Web App',
-    links: [
-      { title: 'Test analytics', href: '/analytics' },
-      { title: 'Test phase analysis', href: '/analysis' },
-      { title: 'Traceability', href: '/traceability' },
-      { title: 'Account management', href: '/user-management' },
+      { title: 'Vanilla Python', href: '/python' },
+      { title: 'REST API', href: '/api' },
     ],
   },
   {
     title: 'Guides',
     links: [
-      { title: 'REST API', href: '/api' },
-      { title: 'Offline upload', href: '/offline-upload' },
       { title: 'Self-hosting', href: '/self-hosting' },
-      { title: 'Errors manual', href: '/errors' },
+      { title: 'Offline upload', href: '/offline-upload' },
+      { title: 'Account management', href: '/user-management' },
+      { title: 'Test analytics', href: '/analytics' },
+      { title: 'Test phase analysis', href: '/analysis' },
+      { title: 'Traceability', href: '/traceability' },
+      { title: 'API activity', href: '/api-activity' },
       { title: 'Serial number parser', href: '/sn-parser' },
     ],
   },

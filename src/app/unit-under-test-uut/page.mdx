@@ -55,30 +55,38 @@ With frameworks like OpenHTF, the serial number and additional parameters can be
   />
 
   <CodeGithub
-    title="Python"
+    title="Vanilla Python"
     branch="main"
     path="docs_tofupilot/unit-under-test/client/main.py"
   />
 </CodeGroup>
 
+### Units properties
+
 <Properties>
-  <Property name="serial_number" type="str">
-    Serial Number of the unit under test.
-  </Property>
-  <Property name="part_number" type="str">
-    Part number of the unit under test.
-  </Property>
-  <Property name="revision" type="str (optional)">
-    Revision of the unit under test.
-  </Property>
-  <Property name="batch_number" type="str (optional)">
-    Batch number of the unit under test.
-  </Property>
+    <Property name="unit_under_test" type="array">
+        Specify information of the unit being tested.
+    </Property>
+    <Property name="serial_number" type="str"  indent={1}>
+        Serial Number of the unit under test.
+    </Property>
+    <Property name="part_number" type="str"  indent={1}>
+        Part number of the unit under test.
+    </Property>
+    <Property name="revision" type="str (optional)" indent={1}>
+        Revision of the unit under test.
+    </Property>
+    <Property name="batch_number" type="str (optional)" indent={1}>
+        Batch number of the unit under test.
+    </Property>
 </Properties>
 
-### Rename a component
 
-You can rename a Component's name, `part_number`, or `revision` directly in the application. Go to the Component page, then select **Edit name**, **Edit revision**, or **Edit part number** from the menu.
+<Note>
+  The unit under test (UUT) is also referred to as the device under test (DUT) in OpenHTF. However, they refer to the same thing in this context.
+</Note>
+
+
 
 ## In-app view
 
@@ -91,3 +99,7 @@ Clicking on the unit will take you to the dedicated **Unit** page, where you can
 <Image src="/uut-page-unit.png" alt="Unit Under Test (UUT) on a Unit page." />
 
 These features will be explained in more detail in the [Traceability](/traceability) section.
+
+### Rename a component
+
+You can rename a Component's name, a Component number (`part_number`), or `revision` directly in the application. Go to the Component page, then select **Edit name**, **Edit part number**, or **Edit revision** from the menu.

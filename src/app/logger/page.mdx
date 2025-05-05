@@ -1,0 +1,150 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
+export const metadata = {
+  title: 'Logger',
+  description:
+    'Explore how to configure logger options in OpenHTF to capture and manage log output during test execution, with examples of standard and custom log handlers.',
+  keywords: [
+    ...defaultKeywords,
+    'logging',
+    'logger',
+    'terminal output',
+    'console output',
+    'log handlers',
+    'test execution logging',
+    'custom logger',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Logger - Configure Logging and Manage Log Outputs | OpenHTF Documentation',
+    description:
+      'Explore how to configure logger options in OpenHTF to capture and manage log output during test execution, with examples of standard and custom log handlers,',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/logger-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Logging section header showing test execution logging with TofuPilot integration.',
+      },
+    ],
+  },
+}
+
+# Logger
+
+Capture structured log output during test execution. {{ className: 'lead' }}
+
+<Image
+  src="/logger-header.png"
+  alt="Screenshot of Tofupilot illustrating the station feature."
+/>
+
+## Overview
+
+Logging is crucial for debugging and tracking test execution. OpenHTF provides  a built-in logger that captures detailed outputs, custom messages, and error traces, which are saved to test records through output callbacks. All logs are saved to the test record via output callbacks, and they are visible directly on each Run page in TofuPilot. This makes it easy to trace issues and understand what happened at each step of the test.
+
+## Integration
+
+You can log from any phase or plug using OpenHTF logger. All log levels are captured and processed by TofuPilot.
+
+<CodeGroup>
+    <CodeGithub
+    title="OpenHTF"
+    branch="main"
+    path="docs_tofupilot/logger/openhtf/main.py"
+    />
+    <CodeGithub
+    title="Vanilla Python"
+    branch="main"
+    path="docs_tofupilot/logger/client/main.py"
+    />
+</CodeGroup>
+
+### Logging levels
+
+You can use five logging levels depending on the severity of the event:
+
+
+| Level     | Method                    | Numeric Log Value | Console Flag | Description                        |
+|-----------|----------------------------|---------------|--------------|------------------------------------|
+| Debug     | `test.logger.debug()`     | 10            | D            | Detailed logs for troubleshooting  |
+| Info      | `test.logger.info()`      | 20            | I            | General messages                   |
+| Warning   | `test.logger.warning()`   | 30            | W            | Signs of potential issues          |
+| Error     | `test.logger.error()`     | 40            | E            | Failures during test execution     |
+| Critical  | `test.logger.critical()`  | 50            | C            | Severe failures or crashes         |
+
+
+By default, OpenHTF logs everything at the `debug` level.
+
+
+### Logs in output callbacks
+When output callbacks are enabled, logs are included in the report file. Each log entry includes its numeric level, source file, line number, timestamp, and message.
+
+```javascript {{ title: 'test_results.json' }}
+"log_records": [
+    {
+      "level": 30,
+      "logger_name": "openhtf.test_record.<test_uid>.phase.phase_test",
+      "source": "main.py",
+      "lineno": 11,
+      "timestamp_millis": 1729163738931,
+      "message": "Warning in test phase: Potential issue."
+    },
+  ...
+]
+```
+
+### Console output
+
+You can control how logs are displayed in the terminal with the `-v` flag. The console flag will prefix each log line with the log level (e.g., I, W, E) to indicate its severity:
+
+
+| Flag      | Output Level Printed    |
+|-----------|--------------------------|
+| *(none)*  | No logs                  |
+| `-v`      | Info and above (≥ 20)    |
+| `-vv`     | Debug and above (≥ 10)   |
+
+```sh
+python main.py -v
+```
+
+
+
+```txt {{ title: 'Terminal' }}
+I 15:11:48 test_descriptor - Executing test:
+I 15:11:48 <phase: phase_test> - Test phase started.
+W 15:11:48 <phase: phase_test> - Warning in test phase: Potential issue.
+E 15:11:48 <phase: phase_test> - Test phase error: Error occurred in test phase.
+I 15:11:48 <plug: ExamplePlug> - Teardown phase
+```
+
+For more advanced usage and customization, refer to the [OpenHTF logging documentation](https://www.openhtf.com/logger).
+
+## In-app view
+
+You can explore all log events directly from the TofuPilot UI, on each Run page.
+
+<Image
+  src="/logger-run-page.png"
+  alt="Screenshot of Tofupilot illustrating the station feature."
+/>
+
+Each log entry can be expanded to view additional metadata such as source filename, line number, and timestamp.
+
+<Image
+  src="/logger-run-page-expended.png"
+  alt="Screenshot of Tofupilot illustrating the station feature."
+/>
+
+You can:
+* Toggle between absolute and relative timestamps
+* Filter by log level
+* Sort logs chronologically
+* Search for specific keywords
+
+<Image
+  src="/logger-run-page-parameters.png"
+  alt="Screenshot of Tofupilot illustrating the station feature."
+/>

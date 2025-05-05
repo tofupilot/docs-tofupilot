@@ -32,7 +32,6 @@ Interface any scripts with TofuPilot's REST API. {{ className: 'lead' }}
 
 The TofuPilot REST API is the main interface for uploading test runs programmatically. It allows you to authenticate, upload test data, retrieve information about your runs, and update the unit under test.
 
----
 
 ## Authentication
 
@@ -66,6 +65,27 @@ Add the key to the request header using cURL:
     </CodeGroup>
 
 Keep your API key safe and [regenerate](/user-management#api-key) it if you suspect compromise.
+
+
+## API status codes
+
+TofuPilot uses standard HTTP status codes to indicate whether a request was successful or if an error occurred. These codes help you quickly understand and debug API responses.
+
+| Code  | Category        | Meaning                                      | Typical Causes                                              |
+|-------|-----------------|----------------------------------------------|-------------------------------------------------------------|
+| `200` | Success         | OK                                           | Request completed successfully.                             |
+| `201` | Success         | Created                                      | A new resource was created (e.g., a test run).              |
+| `204` | Success         | No Content                                   | Request succeeded but there's no response body.             |
+| `400` | Client Error    | Bad Request                                  | Invalid syntax or missing required fields.                  |
+| `401` | Client Error    | Unauthorized                                 | Missing or incorrect API key or token.                      |
+| `403` | Client Error    | Forbidden                                    | Authenticated but not allowed to perform this action.       |
+| `404` | Client Error    | Not Found                                    | Resource doesn’t exist (e.g., wrong procedure ID).          |
+| `409` | Client Error    | Conflict                                     | Request could not be completed due to a conflict (e.g., duplicate). |
+| `422` | Client Error    | Unprocessable Entity                         | Valid JSON, but semantic validation failed.                 |
+| `429` | Client Error    | Too Many Requests                            | Rate limit exceeded.                                        |
+| `500` | Server Error    | Internal Server Error                        | Unexpected error on the server.                             |
+| `502` | Server Error    | Bad Gateway                                  | Server received an invalid response from upstream.          |
+| `503` | Server Error    | Service Unavailable                          | TofuPilot is temporarily unavailable (e.g., maintenance).   |
 
 ---
 
@@ -157,10 +177,10 @@ Keep your API key safe and [regenerate](/user-management#api-key) it if you susp
         Serial number of an existing unit. _Example: "SN789"_
       </Property>
       <Property name="part_number" type="string, required" indent={1}>
-        Component identifier. Creates a new component if no match. _Example: "PN-001"_
+        Component identifier. _Example: "PN-001"_
       </Property>
     <Property name="procedure_version" type="str, optional">
-    Define the version of the procedure.
+    Version number of the procedure.
     </Property>
 </Properties>
 
