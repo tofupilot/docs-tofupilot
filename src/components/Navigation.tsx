@@ -250,7 +250,7 @@ export const navigation: Array<NavGroup> = [
       { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
       { title: 'Sub-units', href: '/sub-units' },
       { title: 'Stations', href: '/stations' },
-      { title: 'Operator UI', href: '/operator-ui', new: true },
+      //{ title: 'Operator UI', href: '/operator-ui', new: true },
       { title: 'Logger', href: '/logger', new: true },
       { title: 'Attachments', href: '/attachments' },
     ],
@@ -275,12 +275,6 @@ export const navigation: Array<NavGroup> = [
       { title: 'API activity', href: '/api-activity' },
       { title: 'Serial number parser', href: '/sn-parser' },
     ],
-  },
-  {
-    title: 'Support',
-    links: [{ title: 'Community', href: '/community' }],
-    // Pricing & Usage
-    // Security
   },
 ]
 
