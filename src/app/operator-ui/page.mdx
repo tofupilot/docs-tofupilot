@@ -65,7 +65,7 @@ Upgrade the Python client to version &ge; 1.11.0
 Below is a test script using OpenHTF and TofuPilot. The test begins with a serial number prompt. It combines automated checks (e.g., `power_on`) and operator input (e.g., `prompt_operator_led_color`, `prompt_operator_next_step`), reflecting typical production workflows.
 
 <Code language="python" title="OpenHTF"
-  code={`mport openhtf as htf
+  code={`import openhtf as htf
   from openhtf.plugs.user_input import UserInput
   from openhtf.plugs import user_input
   from tofupilot.openhtf import TofuPilot
@@ -77,12 +77,12 @@ Below is a test script using OpenHTF and TofuPilot. The test begins with a seria
       return htf.PhaseResult.CONTINUE
 
 
-@htf.plug(user_input=UserInput)
-def prompt_operator_next(test, user_input):
-    is_connected = user_input.prompt(
-        message="Click Next when the LED turn on",
-        text_input=False,  # Button prompt from operator
-    )
+  @htf.plug(user_input=UserInput)
+  def prompt_operator_next(user_input):
+      user_input.prompt(
+          message="Click Next when the LED turn on",
+          text_input=False,  # Button prompt from operator
+      )
 
 
   @htf.measures(htf.Measurement("led_color").equals("Green"))
@@ -104,7 +104,11 @@ def prompt_operator_next(test, user_input):
           part_number="PCB1",
       )
       with TofuPilot(test):
-          test.execute(test_start=user_input.prompt_for_test_start())  # Prompt at start`}
+          test.execute(test_start=user_input.prompt_for_test_start())  # Prompt at start
+
+
+  if __name__ == "__main__":
+      main()`}
 />
 
 
