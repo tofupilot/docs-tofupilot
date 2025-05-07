@@ -77,14 +77,12 @@ Below is a test script using OpenHTF and TofuPilot. The test begins with a seria
       return htf.PhaseResult.CONTINUE
 
 
-  @htf.measures(htf.Measurement("is_connected").equals(True))
-  @htf.plug(user_input=UserInput)
-  def prompt_operator_next_step(test, user_input):
-      is_connected = user_input.prompt(
-          message="Click Next when the LED turn on",
-          text_input=False,  # Button prompt from operator
-      )
-      test.measurements.is_connected = is_connected
+@htf.plug(user_input=UserInput)
+def prompt_operator_next(test, user_input):
+    is_connected = user_input.prompt(
+        message="Click Next when the LED turn on",
+        text_input=False,  # Button prompt from operator
+    )
 
 
   @htf.measures(htf.Measurement("led_color").equals("Green"))
@@ -100,7 +98,7 @@ Below is a test script using OpenHTF and TofuPilot. The test begins with a seria
   def main():
       test = htf.Test(
           power_on,
-          prompt_operator_next_step,
+          prompt_operator_next,
           prompt_operator_led_color,
           procedure_id="FVT1",
           part_number="PCB1",
