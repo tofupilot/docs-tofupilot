@@ -44,27 +44,30 @@ The Operator UI is currently available with OpenHTF. Python client support is co
 
 ### Prerequisites
 
-Upgrade the Python client to version > 1.9.4
+Upgrade the Python client to version &ge; 1.11.0
 <Code language="bash" code={`pip install --upgrade tofupilot`} />
 
 ### How it works
 
 1. Run your OpenHTF script.
-2. A unique URL will appear in your console.
-   <Code language="bash" code={`2025-05-02 17:45:29 - ✅ Streaming: Interactive stream successfully started at: https://www.tofupilot.app/[your_organization]/streaming/[uuid]`} />
-3. Click the link to open the Operator UI in TofuPilot.
+2. You'll see a message like this in your console:
+   <Code language="bash" code={`Connected to TofuPilot real-time server
+   Access Operator UI: [clickable_URL_to_Operator_UI]`} />
+
+3. Click the URL to open the Operator UI in TofuPilot.
 
 <Note>
-  Anyone with the URL can view the test run in progress. Use either a user API key or a station API key. With a user API key, only the named user can submit prompts during the test.
+    Share the URL to let others watch the test live. Only the authorized user can interact with it.
 </Note>
 
 ### Script example
 
-Below is a test script using OpenHTF and TofuPilot. The test begins with a serial number prompt to ensure traceability and prevent execution without a valid unit. It combines automated checks (e.g., `power_on`) and operator input (e.g., `prompt_operator_led_color`), reflecting typical production workflows.
+Below is a test script using OpenHTF and TofuPilot. The test begins with a serial number prompt. It combines automated checks (e.g., `power_on`) and operator input (e.g., `prompt_operator_led_color`), reflecting typical production workflows.
 
 <Code language="python" title="OpenHTF"
   code={`import openhtf as htf
 from openhtf.plugs.user_input import UserInput
+from openhtf.plugs import user_input
 from tofupilot.openhtf import TofuPilot
 from openhtf.util import units
 import time
@@ -116,7 +119,7 @@ You'll see:
 
 ### Live Test Streaming
 
-The Operator UI updates in real time as the test progresses. In this screenshot, the test has completed and is now waiting for the next execution to begin.
+The Operator UI updates in real time as the test progresses. In this screenshot, the test has completed and is now waiting for the next execution to begin. The previous test has been uploaded to TofuPilot and we can see information about the previous test (status, procedure ID, ...).
 
 <Image
   src="/operator-ui-streaming.png"
@@ -132,11 +135,11 @@ Some procedures start with a manual input, typically a serial number. To ensure 
   alt="Manual serial number input box with loaded procedure metadata waiting for a DUT ID."
 />
 
-Even before the test is started, you can already see the associated metadata: procedure ID, version, part number, and hardware revision.
+Even before the test is started, you can already see the associated metadata: procedure ID, part number, part revision, and hardware revision. The serial number will be displayed when user will submit it.
 
 ### Custom Operator Prompts
 
-You can configure custom prompts in your test script. In this example, the operator is asked to confirm the LED color. This allows you to combine automated steps with manual validation.
+You can configure custom prompts in your test script. In this example, the operator is asked to confirm the LED color during test. This allows you to combine automated steps with manual validation.
 
 <Image
   src="/operator-ui-input2.png"
@@ -145,7 +148,7 @@ You can configure custom prompts in your test script. In this example, the opera
 
 ### Phase and Measurement Details
 
-Each test phase is displayed as it runs, along with its duration and result. You can track all measurement types in real time — numeric, string, boolean, or even tables — along with their units, limits, and validation status.
+Each test phase is displayed as it runs, along with its duration and result. You can track all measurement types in real time — numeric, string, boolean, or even tables — along with their units, limits, validator, and status.
 
 <Image
   src="/operator-ui-phases.png"

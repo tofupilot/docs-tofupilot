@@ -46,11 +46,15 @@ To create a station in TofuPilot:
 
 1. Go to the **Stations** tab.
 2. Click **Create Station** and enter a name. A unique station ID (e.g., STA1) will be generated.
-3. **Generate the API key** and link relevant procedures to the station.
-
-Use the generated API key in your TofuPilot client by passing it as the `api_key` argument in your script or storing it in your environment variables. Check dedicated **[API Key](/user-management#api-key)** section for more details.
-
-In your script, make sure to use the `procedure_id` linked to your station when pushing test runs to TofuPilot.
+3. **Generate the API key**
+4. Use the generated Station API key in your TofuPilot client by passing it as the `api_key` argument in your script or by storing it in your environment variables. Check dedicated **[API Key](/user-management#api-key)** section for more details.
+    <CodeGroup>
+      <Code language="bash" title="OpenHTF" code={`with TofuPilot(test, api_key="YOUR_STATION_API_KEY"):
+        test.execute(lambda: "PCB1A001")`} />
+      <Code language="bash" title="Vanilla Python" code={`client = TofuPilotClient(api_key="YOUR_STATION_API_KEY")`} />
+    </CodeGroup>
+5. Link relevant procedures to the station.
+6. In your script, make sure to use the `procedure_id` linked to your station when pushing test runs to TofuPilot.
 
 ### Required parameters
 
