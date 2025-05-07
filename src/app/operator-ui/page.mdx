@@ -62,49 +62,75 @@ Upgrade the Python client to version &ge; 1.11.0
 
 ### Script example
 
-Below is a test script using OpenHTF and TofuPilot. The test begins with a serial number prompt. It combines automated checks (e.g., `power_on`) and operator input (e.g., `prompt_operator_led_color`), reflecting typical production workflows.
+Below is a test script using OpenHTF and TofuPilot. The test begins with a serial number prompt. It combines automated checks (e.g., `power_on`) and operator input (e.g., `prompt_operator_led_color`, `prompt_operator_next_step`), reflecting typical production workflows.
 
 <Code language="python" title="OpenHTF"
-  code={`import openhtf as htf
-from openhtf.plugs.user_input import UserInput
-from openhtf.plugs import user_input
-from tofupilot.openhtf import TofuPilot
-from openhtf.util import units
-import time
+  code={`mport openhtf as htf
+  from openhtf.plugs.user_input import UserInput
+  from openhtf.plugs import user_input
+  from tofupilot.openhtf import TofuPilot
+  import time
 
 
-def power_on():
-    time.sleep(1)
-    return htf.PhaseResult.CONTINUE
+  def power_on():
+      time.sleep(1)
+      return htf.PhaseResult.CONTINUE
 
 
-@htf.measures(
-    htf.Measurement("led_color").with_validator(lambda color: color in ["Red", "Green", "Blue"])
-)
 @htf.plug(user_input=UserInput)
-def prompt_operator_led_color(test, user_input):  # Prompt asking input from operator
-    led_color = user_input.prompt(message="What is the LED color? (Red/Green/Blue)")
-    test.measurements.led_color = led_color
-
-
-def main():
-    test = htf.Test(
-        power_on,
-        prompt_operator_led_color,
-        procedure_id="FVT1",
-        part_number="PCB1",
+def prompt_operator_next(test, user_input):
+    is_connected = user_input.prompt(
+        message="Click Next when the LED turn on",
+        text_input=False,  # Button prompt from operator
     )
-    with TofuPilot(test):
-        test.execute(test_start=user_input.prompt_for_test_start())  # Prompt at start
 
 
-if __name__ == "__main__":
-    main()`}
+  @htf.measures(htf.Measurement("led_color").equals("Green"))
+  @htf.plug(user_input=UserInput)
+  def prompt_operator_led_color(test, user_input):
+      led_color = user_input.prompt(
+          message="What is the LED color? (Green/Red/Blue)",
+          text_input=True,  # Text prompt from operator
+      )
+      test.measurements.led_color = led_color
+
+
+  def main():
+      test = htf.Test(
+          power_on,
+          prompt_operator_next,
+          prompt_operator_led_color,
+          procedure_id="FVT1",
+          part_number="PCB1",
+      )
+      with TofuPilot(test):
+          test.execute(test_start=user_input.prompt_for_test_start())  # Prompt at start`}
 />
 
-<Note>
-  Streaming is enabled by default. To disable it, use `with TofuPilot(test, stream=False)`.
-</Note>
+
+## Prompt configuration
+
+Use user_input.prompt(message, text_input) to show instructions or questions to the operator in the UI. Depending on the prompt type, the UI will either show a text input field or a simple Next button.
+
+<Code language="python" code={`user_input.prompt("What is the LED color?", text_input=True)`} />
+
+<Properties>
+  <Property name="openhtf.plugs.user_input.prompt(message, text_input)" type="str → str">
+    Displays a text prompt in the UI and returns the operator's response.
+    <Property name="message" type="str" indent="1">
+      The instruction or question shown to the operator in the UI.
+    </Property>
+    <Property name="text_input" type="bool" indent="1">
+        If `True`, the prompt displays a text box for operator input (e.g., typing "Green"). If `False`, it shows a "Next" button.
+    </Property>
+  </Property>
+</Properties>
+
+## Streaming control
+
+By default, test results are streamed live to the Operator UI. To disable streaming:
+
+<Code language="python" code={`with TofuPilot(test, stream=False):`} />
 
 ## In-app view
 
