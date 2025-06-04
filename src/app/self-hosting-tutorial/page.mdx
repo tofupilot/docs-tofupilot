@@ -46,50 +46,85 @@ This step-by-step guide walks you through deploying TofuPilot on a Digital Ocean
 
 1. **Sign up for Digital Ocean** at [cloud.digitalocean.com](https://cloud.digitalocean.com/registrations/new)
 
+
 2. **Create a new Droplet:**
-   - Choose **Ubuntu 22.04 LTS** as the operating system
-   - Select **Basic** plan with at least **2 GB RAM / 1 vCPU** ($12/month)
    - Choose a datacenter region close to your users
-   - Add your SSH key for secure access
+   - Choose **Ubuntu 22.04 (LTS) x64** as the operating system
+   - Select **Basic** plan with at least **Regular / 4 GB RAM / 2 CPU** as CPU options
+   - Choose and create a root **Password** as a Authentication Method
    - Name your droplet (e.g., "tofupilot-server")
 
-3. **Configure Firewall** (recommended):
-   - Create a new firewall rule
-   - Allow inbound traffic on ports: **22 (SSH)**, **80 (HTTP)**, **443 (HTTPS)**
-   - Apply the firewall to your droplet
+    <Image
+      src="/self-hosting-droplet-step1a.png"
+      alt="Screenshot of TofuPilot application with custom url"
+    />
 
-## Step 2: Set Up Domain Configuration
+    <Image
+      src="/self-hosting-droplet-step1b.png"
+      alt="Screenshot of TofuPilot application with custom url"
+    />
 
-You have two options for domain configuration:
+    <Image
+      src="/self-hosting-droplet-step1c.png"
+      alt="Screenshot of TofuPilot application with custom url"
+    />
 
-### Option A: Using Your Own Domain (Recommended for Production)
 
-1. **Get your droplet's IP address** from the Digital Ocean dashboard
-2. **Add DNS records** in your domain provider:
-   - **A record**: `tofupilot.yourcompany.com` → `your_droplet_ip`
-   - **A record**: `storage.tofupilot.yourcompany.com` → `your_droplet_ip`
+## Step 2: Launch your Droplet Console
+- Open your droplet from the Digital Ocean dashboard
+- **Launch Droplet Console** in **Access** tab
 
-### Option B: Using nip.io (Quick Testing/Development)
+<Image
+  src="/self-hosting-droplet-step2.png"
+  alt="Screenshot of TofuPilot application with custom url"
+/>
 
-If you don't have a domain name or want to test quickly, you can use nip.io:
 
-1. **Get your droplet's IP address** (e.g., `167.99.123.45`)
-2. **Use nip.io domains** that automatically resolve to your IP:
-   - Main domain: `tofupilot.167.99.123.45.nip.io`
-   - Storage domain: `storage.167.99.123.45.nip.io`
+## Step 3: Create custom certificates
+<Code
+  language="bash"
+  code={`# Create certificates directory
+  mkdir -p ./certs
 
-**Note**: Replace `167.99.123.45` with your actual droplet IP address. nip.io automatically resolves any subdomain to the IP address embedded in the domain name.
+  # Generate private key
+  openssl genrsa -out ./certs/tls.key 2048
 
-## Step 3: Connect to Your Droplet
+  # Generate self-signed certificate (replace with your domain)
+  openssl req -new -x509 -key ./certs/tls.key -out ./certs/tls.crt -days 365 -subj "/CN=178.62.124.12.nip.io"
+
+  # Verify certificate was created
+  ls -la ./certs/`}
+/>
+
+<Note>
+    Change `178.62.124.12.nip.io` by your domain address.
+</Note>
+
+## Step 4 - Option A: Install TofuPilot with custom configuration
+
 
 <Code
   language="bash"
-  code={`ssh root@your_droplet_ip`}
+  code={`curl -sSL https://tofupilot.sh/install | bash -s -- --generate-env`}
 />
 
-## Step 4: Install TofuPilot
+Edit Authentication, Database, Storage, and Email Configuration in this file:
 
-Run the one-line installer:
+<Code
+  language="bash"
+  code={`nano my-tofupilot-config.env`}
+/>
+
+Launch TofuPilot Installation
+
+<Code
+  language="bash"
+  code={`curl -sSL https://tofupilot.sh/install | bash -s -- --env-file my-tofupilot-config.env`}
+/>
+
+## Step 4 - Option B: Install TofuPilot with standard configuration
+
+Run the one-line installer in the console:
 
 <Code
   language="bash"
@@ -176,26 +211,64 @@ Configure SMTP email? [y/N]: y
    - Own domain: `https://tofupilot.yourcompany.com`
    - nip.io: `https://tofupilot.167.99.123.45.nip.io` (replace with your IP)
 
+
+## Step 7: Configure Firewall (recommended)
+   1. Open your droplet and click Edit on **Networking > Firewalls**
+   2. Create a new firewall rule
+   3. Allow inbound traffic on ports: **22 (SSH)**, **80 (HTTP)**, **443 (HTTPS)**
+   4. Apply the firewall to your droplet
+
+-> UPDATE !!!
+
+
+
+## Step x: Set Up Domain Configuration
+
+You have two options for domain configuration:
+
+### Option A: Using Your Own Domain (Recommended for Production)
+
+1. **Get your droplet's IP address** from the Digital Ocean dashboard
+2. **Add DNS records** in your domain provider:
+   - **A record**: `tofupilot.yourcompany.com` → `your_droplet_ip`
+   - **A record**: `storage.tofupilot.yourcompany.com` → `your_droplet_ip`
+
+### Option B: Using nip.io (Quick Testing/Development)
+
+If you don't have a domain name or want to test quickly, you can use nip.io:
+
+1. **Get your droplet's IP address** (e.g., `167.99.123.45`)
+2. **Use nip.io domains** that automatically resolve to your IP:
+   - Main domain: `tofupilot.167.99.123.45.nip.io`
+   - Storage domain: `storage.167.99.123.45.nip.io`
+
+<Note>
+  Replace `167.99.123.45` with your actual droplet IP address. nip.io automatically resolves any subdomain to the IP address embedded in the domain name.
+</Note>
+
+
+
+
 ## Digital Ocean Specific Tips
 
-**Firewall Configuration:**
+### Firewall Configuration:
 - Ensure your Digital Ocean firewall allows HTTP (80) and HTTPS (443)
 - You can manage this in the Digital Ocean dashboard under Networking > Firewalls
 
-**Monitoring:**
+### Monitoring:
 - Enable monitoring in your droplet settings for CPU, memory, and disk usage
 - Set up alerts for high resource usage
 
-**Backups:**
+### Backups:
 - Enable automatic backups for your droplet ($2.40/month for a $12/month droplet)
 - Consider creating snapshots before major updates
 
-**Scaling:**
+### Scaling:
 - Start with a $12/month droplet (2GB RAM) for small teams
 - Upgrade to $24/month (4GB RAM) or higher for larger deployments
 - You can resize your droplet from the Digital Ocean dashboard
 
-**Cost Estimation:**
+### Cost Estimation:
 - Basic droplet: $12/month
 - Automatic backups: $2.40/month
 - Total: ~$15/month for a small TofuPilot deployment
