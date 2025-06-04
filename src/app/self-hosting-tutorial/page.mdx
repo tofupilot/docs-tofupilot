@@ -81,6 +81,9 @@ This step-by-step guide walks you through deploying TofuPilot on a Digital Ocean
 
 
 ## Step 3: Create custom certificates
+
+In the Droplet Console, generate the different certificates by prompting:
+
 <Code
   language="bash"
   code={`# Create certificates directory
@@ -102,20 +105,21 @@ This step-by-step guide walks you through deploying TofuPilot on a Digital Ocean
 
 ## Step 4 - Option A: Install TofuPilot with custom configuration
 
+1. Generate environment for installation
 
 <Code
   language="bash"
   code={`curl -sSL https://tofupilot.sh/install | bash -s -- --generate-env`}
 />
 
-Edit Authentication, Database, Storage, and Email Configuration in this file:
+2. Edit Authentication, Database, Storage, and Email Configurations in this file:
 
 <Code
   language="bash"
   code={`nano my-tofupilot-config.env`}
 />
 
-Launch TofuPilot Installation
+3. Launch TofuPilot Installation
 
 <Code
   language="bash"
@@ -131,7 +135,7 @@ Run the one-line installer in the console:
   code={`curl -fsSL https://tofupilot.sh/install | bash`}
 />
 
-## Step 5: Configure TofuPilot
+### Configurations
 
 The installer will prompt you for configuration. Choose the example based on your domain setup:
 
@@ -220,7 +224,7 @@ Configure SMTP email? [y/N]: y
 
 -> UPDATE !!!
 
-
+-> Remove Domain configuration ?
 
 ## Step x: Set Up Domain Configuration
 
