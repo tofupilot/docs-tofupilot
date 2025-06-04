@@ -43,20 +43,20 @@ TofuPilot accounts are hosted on our AWS-powered cloud, managed by our team. Thi
 
 For strict IT policies or specific connectivity needs, TofuPilot can also be self-hosted.
 
-## Prerequisites
-
-### System Requirements
+## System Requirements
 
 Ensure your server meets the minimum specifications.
 
-- **OS**: Ubuntu 20.04 LTS or later (64-bit)
-- **CPU**: 2 cores or more
-- **RAM**: 4 GB or more
-- **Storage**: 20 GB of free disk space, or more depending on your run attachments needs
-- **Access**: Sudo access to your server.
-- **Network**: Open ports 80 (HTTP) and 443 (HTTPS)
+| Requirement | Specification |
+|-------------|----------------|
+| **OS**      | Ubuntu 20.04 LTS or later (64-bit) |
+| **CPU**     | 2 cores or more |
+| **RAM**     | 4 GB or more |
+| **Storage** | 20 GB of free disk space, or more depending on your run attachments needs |
+| **Access**  | Sudo access to your server |
+| **Network** | Open ports 80 (HTTP) and 443 (HTTPS) |
 
-### Domains
+## Domains
 
 Ensure your domain and DNS settings are prepared for self-hosting:
 
@@ -75,6 +75,11 @@ TofuPilot does not store user passwords in its database and offers two secure me
 2. **OAuth Authentication**: Users sign in using their Microsoft or Google accounts.
 
 You must enable **at least one** authentication method based on your requirements.
+
+<Image
+  src="/self-hosting-authentication.png"
+  alt="Screenshot of TofuPilot Authentication page"
+/>
 
 ### Email
 
