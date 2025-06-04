@@ -267,7 +267,7 @@ export const navigation: Array<NavGroup> = [
     title: 'Self-hosting',
     links: [
       { title: 'Prerequisites', href: '/self-hosting' },
-      { title: 'Install & Updates', href: '/self-hosting-install' },
+      { title: 'Install & Update', href: '/self-hosting-install' },
       { title: 'Backups', href: '/self-hosting-backups' },
       { title: 'Troubleshooting', href: '/self-hosting-troubleshooting' },
       {
