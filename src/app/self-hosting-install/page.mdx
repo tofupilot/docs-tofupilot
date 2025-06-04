@@ -1,0 +1,210 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
+export const metadata = {
+  title: 'Self-Hosting',
+  description: 'This guide explains how to self-host TofuPilot.',
+  keywords: [
+    ...defaultKeywords,
+    'Self-Hosting',
+    'TofuPilot Deployment',
+    'Docker Setup',
+    'On-Premise Installation',
+    'Enterprise Hosting',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Self-Hosting - Deploy TofuPilot On-Premise | TofuPilot Documentation',
+    description:
+      'Learn how to self-host TofuPilot for on-premise deployment. Includes setup, authentication, and backup guidelines.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/self-hosting-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Self-hosting header showing TofuPilot deployed on a private server.',
+      },
+    ],
+  },
+}
+
+# Self-Hosting: Installation & Updates
+
+Self-host TofuPilot for scenarios where managed cloud is not an option. {{ className: 'lead' }}
+
+<Image
+  src="/self-hosting-header.png"
+  alt="Screenshot of TofuPilot application with custom url"
+/>
+
+## Overview
+
+TofuPilot provides a one-line installer that automatically handles all dependencies and configuration.
+
+
+
+## Installation
+
+1. **SSH into your server:**
+
+   Connect to your server via its IP address using SSH, or [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) on Windows:
+
+   <Code
+    language="bash"
+    code={`ssh user@your_server_ip`}
+    />
+
+2. **Run the installer:**
+
+   The installer will automatically install Docker, Docker Compose, and all required dependencies:
+
+   <Code
+     language="bash"
+     code={`curl -fsSL https://tofupilot.sh/install | bash`}
+   />
+
+
+
+### Configuration Prompts
+
+The installer will prompt you for the following information:
+
+<Code
+  language="bash"
+  code={`Domain name [tofupilot.example.com]: tofupilot.yourcompany.com
+Storage domain [storage.tofupilot.yourcompany.com]: storage.tofupilot.yourcompany.com
+SSL certificate email [admin@tofupilot.yourcompany.com]: admin@yourcompany.com
+
+# SSL Configuration
+SSL mode [letsencrypt]: letsencrypt
+
+# Authentication (choose at least one)
+Configure Google OAuth? [y/N]: y
+  Google OAuth Client ID: your-google-client-id
+  Google OAuth Client Secret: ***hidden***
+
+Configure Microsoft Entra ID? [y/N]: n
+
+Configure SMTP email? [y/N]: y
+  SMTP server hostname: smtp.gmail.com
+  SMTP port [587]: 587
+  SMTP username: your-email@gmail.com
+  SMTP password: ***hidden***
+  From email address [tofupilot@tofupilot.yourcompany.com]: noreply@yourcompany.com`}
+/>
+
+
+## Post-Installation
+
+Once the script finishes, access the web app at `https://tofupilot.yourcompany.com` to create an admin account, and set up an organization (we recommend naming it `app`).
+
+You can upload test runs using the public TofuPilot Python package. Simply set your instance URL with the `url` parameter as shown below. All features described in the rest of the documentation will function as expected.
+
+<CodeGroup>
+    <Code title="OpenHTF" language="python" code={`import openhtf as htf
+from tofupilot.openhtf import TofuPilot
+
+def main():
+        test = htf.Test(
+              procedure_id="FVT1",
+              part_number="PCB1",
+              )
+
+with TofuPilot(test, url="https://tofupilot.yourcompany.com"): # specify URL here
+        test.execute(lambda: "PCB1A001")
+
+if __name__ == '__main__':
+        main()
+    `} />
+
+
+    <Code title="Vanilla Python" language="python" code={`from tofupilot import TofuPilotClient
+  from datetime import datetime, timedelta
+
+  def main():
+      client = TofuPilotClient(url="https://tofupilot.yourcompany.com") # specify URL here
+
+      client.create_run(
+          procedure_id="FVT1",
+          run_passed=True,
+          unit_under_test={
+                "serial_number": "PCB1A001",
+                "part_number": "PCB1"},
+          duration=timedelta(minutes=1, seconds=45),
+      )
+
+  if __name__ == '__main__':
+      main()`}  />
+
+</CodeGroup>
+
+## Update
+
+To update your self-hosted TofuPilot app to the latest version:
+
+<Code
+  language="bash"
+  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --update`}
+/>
+
+Alternatively, you can manually update using Docker Compose:
+
+<Code
+  language="bash"
+  code={`docker compose down && docker compose up -d --pull always`}
+/>
+
+
+## Advanced Installation Options
+
+The installer supports several options for different use cases:
+
+### Development Mode
+
+For development installations with the latest features:
+
+<Code
+  language="bash"
+  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --dev`}
+/>
+
+### Custom Configuration
+
+To use a pre-configured environment file:
+
+<Code
+  language="bash"
+  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --env-file /path/to/custom.env`}
+/>
+
+### Service Management
+
+Check deployment status:
+
+<Code
+  language="bash"
+  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --status`}
+/>
+
+View logs:
+
+<Code
+  language="bash"
+  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --logs`}
+/>
+
+Restart services:
+
+<Code
+  language="bash"
+  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --restart`}
+/>
+
+### Uninstall
+
+To completely remove TofuPilot:
+
+<Code
+  language="bash"
+  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --uninstall`}
+/>

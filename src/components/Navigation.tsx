@@ -246,12 +246,12 @@ export const navigation: Array<NavGroup> = [
       },
       { title: 'Procedures', href: '/procedures' },
       { title: 'Phases', href: '/phases' },
-      { title: 'Measurements', href: '/measurements', new: true },
+      { title: 'Measurements', href: '/measurements' },
       { title: 'Unit under test (UUT)', href: '/unit-under-test-uut' },
       { title: 'Sub-units', href: '/sub-units' },
       { title: 'Stations', href: '/stations' },
       { title: 'Operator UI', href: '/operator-ui', new: true },
-      { title: 'Logger', href: '/logger', new: true },
+      { title: 'Logger', href: '/logger' },
       { title: 'Attachments', href: '/attachments' },
     ],
   },
@@ -264,9 +264,22 @@ export const navigation: Array<NavGroup> = [
     ],
   },
   {
+    title: 'Self-hosting',
+    links: [
+      { title: 'Prerequisites', href: '/self-hosting' },
+      { title: 'Install & Updates', href: '/self-hosting-install' },
+      { title: 'Backups', href: '/self-hosting-backups' },
+      { title: 'Troubleshooting', href: '/self-hosting-troubleshooting' },
+      {
+        title: 'Digital Ocean Tutorial',
+        href: '/self-hosting-tutorial',
+        new: true,
+      },
+    ],
+  },
+  {
     title: 'Guides',
     links: [
-      { title: 'Self-hosting', href: '/self-hosting' },
       { title: 'Offline upload', href: '/offline-upload' },
       { title: 'Account management', href: '/user-management' },
       { title: 'Test analytics', href: '/analytics' },

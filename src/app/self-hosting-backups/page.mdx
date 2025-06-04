@@ -1,0 +1,57 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
+export const metadata = {
+  title: 'Self-Hosting',
+  description: 'This guide explains how to self-host TofuPilot.',
+  keywords: [
+    ...defaultKeywords,
+    'Self-Hosting',
+    'TofuPilot Deployment',
+    'Docker Setup',
+    'On-Premise Installation',
+    'Enterprise Hosting',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Self-Hosting - Deploy TofuPilot On-Premise | TofuPilot Documentation',
+    description:
+      'Learn how to self-host TofuPilot for on-premise deployment. Includes setup, authentication, and backup guidelines.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/self-hosting-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Self-hosting header showing TofuPilot deployed on a private server.',
+      },
+    ],
+  },
+}
+
+# Self-Hosting: Backups
+
+Self-host TofuPilot for scenarios where managed cloud is not an option. {{ className: 'lead' }}
+
+<Image
+  src="/self-hosting-header.png"
+  alt="Screenshot of TofuPilot application with custom url"
+/>
+
+## Overview
+
+TODO
+
+
+Ensure the following Docker volumes are included in your backup routine:
+
+## Volumes to Back Up
+
+- **`database-data`**:
+  Contains all database files, including schema definitions, configurations, and application data. Backup this volume to preserve your database's state and integrity.
+
+- **`storage-data`**:
+  Stores user-uploaded files such as profile pictures, attachments, and other assets. Backup this volume to safeguard external content and binary data.
+
+## Backup Recommendations
+
+Integrate these volumes into your backup process using methods like volume snapshots, off-site replication, or encrypted storage to ensure data durability and smooth recovery in case of failure or migration.
