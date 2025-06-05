@@ -60,41 +60,8 @@ TofuPilot provides a one-line installer that automatically handles all dependenc
 
    <Code
      language="bash"
-     code={`curl -fsSL https://tofupilot.sh/install | bash`}
+     code={`curl -fsSL https://tofupilot.sh/deploy | bash`}
    />
-
-<Image
-  src="/self-hosting-installer2.png"
-  alt="Screenshot of TofuPilot.sh landing page"
-/>
-
-### Configuration Prompts
-
-The installer will prompt you for the following information:
-
-<Code
-  language="bash"
-  code={`Domain name [tofupilot.example.com]: tofupilot.yourcompany.com
-Storage domain [storage.tofupilot.yourcompany.com]: storage.tofupilot.yourcompany.com
-SSL certificate email [admin@tofupilot.yourcompany.com]: admin@yourcompany.com
-
-# SSL Configuration
-SSL mode [letsencrypt]: letsencrypt
-
-# Authentication (choose at least one)
-Configure Google OAuth? [y/N]: y
-  Google OAuth Client ID: your-google-client-id
-  Google OAuth Client Secret: ***hidden***
-
-Configure Microsoft Entra ID? [y/N]: n
-
-Configure SMTP email? [y/N]: y
-  SMTP server hostname: smtp.gmail.com
-  SMTP port [587]: 587
-  SMTP username: your-email@gmail.com
-  SMTP password: ***hidden***
-  From email address [tofupilot@tofupilot.yourcompany.com]: noreply@yourcompany.com`}
-/>
 
 
 ## Post-Installation
@@ -163,7 +130,7 @@ To update your self-hosted TofuPilot app to the latest version:
 
 <Code
   language="bash"
-  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --update`}
+  code={`curl -fsSL https://tofupilot.sh/deploy | bash -s -- --update`}
 />
 
 Alternatively, you can manually update using Docker Compose:
@@ -174,56 +141,125 @@ Alternatively, you can manually update using Docker Compose:
 />
 
 
-## Advanced Installation Options
-
-The installer supports several options for different use cases:
-
-### Development Mode
-
-For development installations with the latest features:
-
-<Code
-  language="bash"
-  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --dev`}
-/>
-
-### Custom Configuration
-
-To use a pre-configured environment file:
-
-<Code
-  language="bash"
-  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --env-file /path/to/custom.env`}
-/>
-
-### Service Management
-
-Check deployment status:
-
-<Code
-  language="bash"
-  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --status`}
-/>
-
-View logs:
-
-<Code
-  language="bash"
-  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --logs`}
-/>
-
-Restart services:
-
-<Code
-  language="bash"
-  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --restart`}
-/>
-
-### Uninstall
+## Uninstall
 
 To completely remove TofuPilot:
 
 <Code
   language="bash"
-  code={`curl -fsSL https://tofupilot.sh/install | bash -s -- --uninstall`}
+  code={`curl -fsSL https://tofupilot.sh/deploy | bash -s -- --uninstall`}
 />
+
+## Advanced installation options
+
+### Interactif prompt desactivated
+
+1. Generate a template configuration files:
+
+    <Code
+      language="bash"
+      code={`curl -fsSL https://tofupilot.sh/deploy | bash -s -- --generate-env template`}
+    />
+
+2. Open and fill-up the configuration file:
+
+    <Code
+      language="bash"
+      code={`nano my-tofupilot-config.env`}
+    />
+
+
+    <Code
+      language="bash"
+      title="my-tofupilot-config.env"
+      code={`# Domain Configuration
+      DOMAIN_NAME=
+      STORAGE_DOMAIN_NAME=
+      ACME_EMAIL=
+
+      # SSL Configuration
+      SSL_MODE=
+      SSL_CERT_PATH=
+      SSL_KEY_PATH=
+
+      # Authentication Configuration (user-configurable only)
+      AUTH_GOOGLE_ID=
+      AUTH_GOOGLE_SECRET=
+      AUTH_MICROSOFT_ENTRA_ID_ID=
+      AUTH_MICROSOFT_ENTRA_ID_SECRET=
+      AUTH_MICROSOFT_ENTRA_ID_ISSUER=
+
+      # Email Configuration
+      EMAIL_SMTP_HOST=
+      EMAIL_SMTP_PORT=
+      EMAIL_SMTP_USER=
+      EMAIL_SMTP_PASSWORD=
+      EMAIL_FROM_AUTH=`}
+    />
+
+
+
+3. Install or update image by charging configuration files:
+
+    <Code
+      language="bash"
+      code={`curl -fsSL https://tofupilot.sh/deploy | bash -s -- --load-env path my-tofupilot-config.env`}
+    />
+
+4. You can check the installation log with:
+
+    <Code
+      language="bash"
+      code={`docker compose logs -f`}
+    />
+
+
+### Custom certificates
+
+If you're using a self-signed certificate, make sure to register its path during setup. To confirm it's working, open your app in a browser and verify that the certificate is valid and HTTPS loads correctly.
+
+In your Python script, pass the path to your certificate using the verify parameter: `verify="/path/to/selfsigned.crt"`
+
+Example:
+
+<Code
+      language="python"
+      code={`from tofupilot import TofuPilotClient
+
+
+def phase_file_attachment():
+    file_paths = ["data/temperature-map.png"]  # Replace with your files paths
+    return file_paths
+
+
+def main():
+    client = TofuPilotClient(url="<App Domain>", verify="/path/to/selfsigned.crt")
+
+    attachments = phase_file_attachment()
+
+    client.create_run(
+        procedure_id="FVT1",  # Create the procedure first in the app
+        unit_under_test={"serial_number": "PCB1A001", "part_number": "PCB1"},
+        run_passed=True,
+        attachments=attachments,
+    )
+
+
+if __name__ == "__main__":
+    main()`}
+    />
+
+
+
+### Python client update
+
+To update the python client:
+
+<Code
+  language="bash"
+  code={`pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ tofupilot==1.11.2`}
+/>
+
+<Note>
+    Make sure to replace `1.11.2` with the latest version of the TofuPilot Python client. You can find it at https://github.com/tofupilot/python-client.
+</Note>

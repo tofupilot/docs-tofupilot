@@ -276,3 +276,32 @@ If you don't have a domain name or want to test quickly, you can use nip.io:
 - Basic droplet: $12/month
 - Automatic backups: $2.40/month
 - Total: ~$15/month for a small TofuPilot deployment
+
+
+### Configuration Prompts -> mettre ailleurs
+
+The installer will prompt you for the following information:
+
+<Code
+  language="bash"
+  code={`Domain name [tofupilot.example.com]: tofupilot.yourcompany.com
+Storage domain [storage.tofupilot.yourcompany.com]: storage.tofupilot.yourcompany.com
+SSL certificate email [admin@tofupilot.yourcompany.com]: admin@yourcompany.com
+
+# SSL Configuration
+SSL mode [letsencrypt]: letsencrypt
+
+# Authentication (choose at least one)
+Configure Google OAuth? [y/N]: y
+  Google OAuth Client ID: your-google-client-id
+  Google OAuth Client Secret: ***hidden***
+
+Configure Microsoft Entra ID? [y/N]: n
+
+Configure SMTP email? [y/N]: y
+  SMTP server hostname: smtp.gmail.com
+  SMTP port [587]: 587
+  SMTP username: your-email@gmail.com
+  SMTP password: ***hidden***
+  From email address [tofupilot@tofupilot.yourcompany.com]: noreply@yourcompany.com`}
+/>
