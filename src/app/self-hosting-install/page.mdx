@@ -141,6 +141,22 @@ if __name__ == '__main__':
 
 </CodeGroup>
 
+## Backup
+
+### Volumes to Back Up
+
+Ensure the following Docker volumes are included in your backup routine:
+
+- **`tofupilot-database-data`**:
+  Contains all database files, including schema definitions, configurations, and application data. Backup this volume to preserve your database's state and integrity.
+
+- **`tofupilot-storage-data`**:
+  Stores user-uploaded files such as profile pictures, attachments, and other assets. Backup this volume to safeguard external content and binary data.
+
+### Backup Recommendations
+
+Integrate these volumes into your backup process using methods like volume snapshots, off-site replication, or encrypted storage to ensure data durability and smooth recovery in case of failure or migration.
+
 ## Update
 
 To update your self-hosted TofuPilot app to the latest version:

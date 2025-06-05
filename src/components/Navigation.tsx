@@ -268,7 +268,6 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'Prerequisites', href: '/self-hosting' },
       { title: 'Install & Update', href: '/self-hosting-install' },
-      { title: 'Backups', href: '/self-hosting-backups' },
       { title: 'Troubleshooting', href: '/self-hosting-troubleshooting' },
       {
         title: 'Digital Ocean Tutorial',
