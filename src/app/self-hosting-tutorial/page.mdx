@@ -40,9 +40,9 @@ Self-host TofuPilot for scenarios where managed cloud is not an option. {{ class
 
 ## Overview
 
-This step-by-step guide walks you through deploying TofuPilot on a Digital Ocean droplet.
+This step-by-step guide walks you through deploying TofuPilot on a Digital Ocean droplet with a standard configuration.
 
-## Step 1: Create a Digital Ocean Droplet
+## Step 1: Create a droplet
 
 1. **Sign up for Digital Ocean** at [cloud.digitalocean.com](https://cloud.digitalocean.com/registrations/new)
 
@@ -70,7 +70,7 @@ This step-by-step guide walks you through deploying TofuPilot on a Digital Ocean
     />
 
 
-## Step 2: Launch your Droplet Console
+## Step 2: Launch your console
 - Open your droplet from the Digital Ocean dashboard
 - **Launch Droplet Console** in **Access** tab
 
@@ -80,155 +80,23 @@ This step-by-step guide walks you through deploying TofuPilot on a Digital Ocean
 />
 
 
-## Step 3: Create custom certificates
-
-In the Droplet Console, generate the different certificates by prompting:
-
-<Code
-  language="bash"
-  code={`# Create certificates directory
-  mkdir -p ./certs
-
-  # Generate private key
-  openssl genrsa -out ./certs/tls.key 2048
-
-  # Generate self-signed certificate (replace with your domain)
-  openssl req -new -x509 -key ./certs/tls.key -out ./certs/tls.crt -days 365 -subj "/CN=178.62.124.12.nip.io"
-
-  # Verify certificate was created
-  ls -la ./certs/`}
-/>
-
-<Note>
-    Change `178.62.124.12.nip.io` by your domain address.
-</Note>
-
-## Step 4 - Option A: Install TofuPilot with custom configuration
-
-1. Generate environment for installation
-
-<Code
-  language="bash"
-  code={`curl -sSL https://tofupilot.sh/install | bash -s -- --generate-env`}
-/>
-
-2. Edit Authentication, Database, Storage, and Email Configurations in this file:
-
-<Code
-  language="bash"
-  code={`nano my-tofupilot-config.env`}
-/>
-
-3. Launch TofuPilot Installation
-
-<Code
-  language="bash"
-  code={`curl -sSL https://tofupilot.sh/install | bash -s -- --env-file my-tofupilot-config.env`}
-/>
-
-## Step 4 - Option B: Install TofuPilot with standard configuration
+## Step 3: Launch TofuPilot installation
 
 Run the one-line installer in the console:
 
 <Code
   language="bash"
-  code={`curl -fsSL https://tofupilot.sh/install | bash`}
+  code={`curl -fsSL https://tofupilot.sh/deploy | bash`}
 />
 
-### Configurations
-
-The installer will prompt you for configuration. Choose the example based on your domain setup:
-
-### Using Your Own Domain:
-<Code
-  language="bash"
-  code={`Domain name [tofupilot.example.com]: tofupilot.yourcompany.com
-Storage domain [storage.tofupilot.yourcompany.com]: storage.tofupilot.yourcompany.com
-SSL certificate email [admin@tofupilot.yourcompany.com]: admin@yourcompany.com
-
-# SSL Configuration (Let's Encrypt recommended)
-SSL mode [letsencrypt]: letsencrypt
-
-# Configure at least one authentication method
-Configure Google OAuth? [y/N]: y
-  Google OAuth Client ID: your-google-client-id
-  Google OAuth Client Secret: ***hidden***
-
-Configure Microsoft Entra ID? [y/N]: n
-
-Configure SMTP email? [y/N]: y
-  SMTP server hostname: smtp.gmail.com
-  SMTP port [587]: 587
-  SMTP username: your-email@gmail.com
-  SMTP password: ***hidden***
-  From email address [tofupilot@tofupilot.yourcompany.com]: noreply@yourcompany.com`}
+<Image
+  src="/self-hosting-droplet-step3.png"
+  alt="Screenshot of the Digital Ocean console during TofuPilot installation"
 />
 
-#### Using nip.io (replace 167.99.123.45 with your droplet IP):
-<Code
-  language="bash"
-  code={`Domain name [tofupilot.example.com]: tofupilot.167.99.123.45.nip.io
-Storage domain [storage.tofupilot.167.99.123.45.nip.io]: storage.167.99.123.45.nip.io
-SSL certificate email [admin@tofupilot.167.99.123.45.nip.io]: your-email@gmail.com
+## Step 4: Configurations
 
-# SSL Configuration (Let's Encrypt works with nip.io)
-SSL mode [letsencrypt]: letsencrypt
-
-# Configure at least one authentication method
-Configure Google OAuth? [y/N]: y
-  Google OAuth Client ID: your-google-client-id
-  Google OAuth Client Secret: ***hidden***
-
-Configure Microsoft Entra ID? [y/N]: n
-
-Configure SMTP email? [y/N]: y
-  SMTP server hostname: smtp.gmail.com
-  SMTP port [587]: 587
-  SMTP username: your-email@gmail.com
-  SMTP password: ***hidden***
-  From email address [tofupilot@tofupilot.167.99.123.45.nip.io]: your-email@gmail.com`}
-/>
-
-## Step 6: Verify Installation
-
-1. **Check service status:**
-   <Code
-     language="bash"
-     code={`docker compose ps`}
-   />
-
-2. **Test HTTPS access:**
-
-   For your own domain:
-   <Code
-     language="bash"
-     code={`curl -I https://tofupilot.yourcompany.com`}
-   />
-
-   For nip.io (replace with your IP):
-   <Code
-     language="bash"
-     code={`curl -I https://tofupilot.167.99.123.45.nip.io`}
-   />
-
-3. **Access your TofuPilot instance:**
-   - Own domain: `https://tofupilot.yourcompany.com`
-   - nip.io: `https://tofupilot.167.99.123.45.nip.io` (replace with your IP)
-
-
-## Step 7: Configure Firewall (recommended)
-   1. Open your droplet and click Edit on **Networking > Firewalls**
-   2. Create a new firewall rule
-   3. Allow inbound traffic on ports: **22 (SSH)**, **80 (HTTP)**, **443 (HTTPS)**
-   4. Apply the firewall to your droplet
-
--> UPDATE !!!
-
--> Remove Domain configuration ?
-
-## Step x: Set Up Domain Configuration
-
-You have two options for domain configuration:
+The installer will prompt you for configuration. You have two options for domain configuration:
 
 ### Option A: Using Your Own Domain (Recommended for Production)
 
@@ -236,36 +104,140 @@ You have two options for domain configuration:
 2. **Add DNS records** in your domain provider:
    - **A record**: `tofupilot.yourcompany.com` → `your_droplet_ip`
    - **A record**: `storage.tofupilot.yourcompany.com` → `your_droplet_ip`
+3. **Set configuration** in your Digital Ocean console:
+
+    <Code
+      language="bash"
+      code={`Domain configuration:
+    Domain name [tofupilot.example.com]: tofupilot.yourcompany.com
+    Storage domain [storage.tofupilot.yourcompany.com]: storage.tofupilot.yourcompany.com
+    SSL certificate email [admin@tofupilot.yourcompany.com]: admin@yourcompany.com
+
+    # SSL Configuration (Let's Encrypt recommended)
+    SSL mode [letsencrypt]: letsencrypt
+
+    # Configure at least one authentication method
+    Configure Google OAuth? [y/N]: y
+    Google OAuth Client ID: your-google-client-id
+    Google OAuth Client Secret: ***hidden***
+
+    Configure Microsoft Entra ID? [y/N]: n
+
+    Configure SMTP email? [y/N]: y
+    SMTP server hostname: smtp.gmail.com
+    SMTP port [587]: 587
+    SMTP username: your-email@gmail.com
+    SMTP password: ***hidden***
+    From email address [tofupilot@tofupilot.yourcompany.com]: noreply@yourcompany.com`}
+    />
 
 ### Option B: Using nip.io (Quick Testing/Development)
 
 If you don't have a domain name or want to test quickly, you can use nip.io:
 
-1. **Get your droplet's IP address** (e.g., `167.99.123.45`)
-2. **Use nip.io domains** that automatically resolve to your IP:
-   - Main domain: `tofupilot.167.99.123.45.nip.io`
-   - Storage domain: `storage.167.99.123.45.nip.io`
+1. **Get your droplet's IP address** (e.g., `178.62.124.12`)
+2. **Use nip.io domains** that automatically resolve any subdomain to the IP address embedded in the domain.
+      - Main domain: `tofupilot.178.62.124.12.nip.io`
+      - Storage domain: `storage.178.62.124.12.nip.io`
+
+3. **Set configuration** in your Digital Ocean console:
+
+    <Code
+      language="bash"
+      code={`Domain configuration:
+    Domain name [tofupilot.example.com]: tofupilot.178.62.124.12.nip.io
+    Storage domain [storage.tofupilot.178.62.124.12.nip.io]: storage.178.62.124.12.nip.io
+    SSL certificate email [admin@tofupilot.178.62.124.12.nip.io]: your-email@gmail.com
+
+    # SSL Configuration (Let's Encrypt works with nip.io)
+    SSL mode [letsencrypt]: letsencrypt
+
+    # Configure at least one authentication method
+    Configure Google OAuth? [y/N]: y
+    Google OAuth Client ID: your-google-client-id
+    Google OAuth Client Secret: ***hidden***
+
+    Configure Microsoft Entra ID? [y/N]: n
+
+    Configure SMTP email? [y/N]: y
+    SMTP server hostname: smtp.gmail.com
+    SMTP port [587]: 587
+    SMTP username: your-email@gmail.com
+    SMTP password: ***hidden***
+    From email address [tofupilot@tofupilot.178.62.124.12.nip.io]: your-email@gmail.com`}
+    />
 
 <Note>
-  Replace `167.99.123.45` with your actual droplet IP address. nip.io automatically resolves any subdomain to the IP address embedded in the domain name.
+    In this tutorial, TofuPilot is installed with standard configurations. If you need custom configurations, please refer to
+    [Advanced installation options](/self-hosting-install#advanced-installation-options).
 </Note>
 
+## Step 5: Monitor installation
+
+At the end of first steps installation, you can monitor TofuPilot app deployment using this command:
+
+<Code
+     language="bash"
+     code={`docker compose logs -f`}
+   />
+
+<Image
+  src="/self-hosting-droplet-step5.png"
+  alt="Screenshot of the Digital Ocean console during TofuPilot installation"
+/>
+
+## Step 6: Verify installation
+
+### 1. Check service status
+   <Code
+     language="bash"
+     code={`docker compose ps`}
+   />
+
+   For these 4 services, `tofupilot-app`, `tofupilot-database`, `tofupilot-proxy`, and `tofupilot-storage`, you will information on ports name, docker image, command, creation date, and status.
 
 
 
-## Digital Ocean Specific Tips
+### 2. Test HTTPS access:
+
+   **Option A: With your own domain**
+
+   <Code
+     language="bash"
+     code={`curl -I https://tofupilot.yourcompany.com`}
+   />
+
+   **Option B: Using nip.io (replace with your IP)**
+   <Code
+     language="bash"
+     code={`curl -I https://tofupilot.178.62.124.12.nip.io`}
+   />
+
+
+### 3. Access your TofuPilot instance:
+   - Own domain: `https://tofupilot.yourcompany.com`
+   - nip.io: `https://178.62.124.12.nip.io` (replace with your IP)
+
+
+<Image
+  src="/self-hosting-droplet-step6.png"
+  alt="Screenshot of TofuPilot App self-hosted installed"
+/>
+
+## Specific Tips
 
 ### Firewall Configuration:
 - Ensure your Digital Ocean firewall allows HTTP (80) and HTTPS (443)
-- You can manage this in the Digital Ocean dashboard under Networking > Firewalls
+- You can manage this in the Digital Ocean dashboard under **Networking > Firewalls**
+
+### Backups:
+- Enable automatic backups for your droplet ($2.40/month for a $12/month droplet)
+- You can manage backups in the Digital Ocean dashboard under **Backups> Setup Automated Backups**
+- Consider creating snapshots before major updates
 
 ### Monitoring:
 - Enable monitoring in your droplet settings for CPU, memory, and disk usage
 - Set up alerts for high resource usage
-
-### Backups:
-- Enable automatic backups for your droplet ($2.40/month for a $12/month droplet)
-- Consider creating snapshots before major updates
 
 ### Scaling:
 - Start with a $12/month droplet (2GB RAM) for small teams
@@ -276,32 +248,3 @@ If you don't have a domain name or want to test quickly, you can use nip.io:
 - Basic droplet: $12/month
 - Automatic backups: $2.40/month
 - Total: ~$15/month for a small TofuPilot deployment
-
-
-### Configuration Prompts -> mettre ailleurs
-
-The installer will prompt you for the following information:
-
-<Code
-  language="bash"
-  code={`Domain name [tofupilot.example.com]: tofupilot.yourcompany.com
-Storage domain [storage.tofupilot.yourcompany.com]: storage.tofupilot.yourcompany.com
-SSL certificate email [admin@tofupilot.yourcompany.com]: admin@yourcompany.com
-
-# SSL Configuration
-SSL mode [letsencrypt]: letsencrypt
-
-# Authentication (choose at least one)
-Configure Google OAuth? [y/N]: y
-  Google OAuth Client ID: your-google-client-id
-  Google OAuth Client Secret: ***hidden***
-
-Configure Microsoft Entra ID? [y/N]: n
-
-Configure SMTP email? [y/N]: y
-  SMTP server hostname: smtp.gmail.com
-  SMTP port [587]: 587
-  SMTP username: your-email@gmail.com
-  SMTP password: ***hidden***
-  From email address [tofupilot@tofupilot.yourcompany.com]: noreply@yourcompany.com`}
-/>
