@@ -37,7 +37,6 @@ Self-host TofuPilot for scenarios where managed cloud is not an option. {{ class
   alt="Screenshot of TofuPilot application with custom url"
 />
 
-
 ## Overview
 
 This step-by-step guide walks you through deploying TofuPilot on a Digital Ocean droplet with a standard configuration.
@@ -46,39 +45,35 @@ This step-by-step guide walks you through deploying TofuPilot on a Digital Ocean
 
 1. **Sign up for Digital Ocean** at [cloud.digitalocean.com](https://cloud.digitalocean.com/registrations/new)
 
-
-2. **Create a new Droplet:**
+2. **Create a new droplet:**
    - Choose a datacenter region close to your users
    - Choose **Ubuntu 22.04 (LTS) x64** as the operating system
    - Select **Basic** plan with at least **Regular / 4 GB RAM / 2 CPU** as CPU options
-   - Choose and create a root **Password** as a Authentication Method
+   - Choose and create a root **Password** as the authentication method
    - Name your droplet (e.g., "tofupilot-server")
 
-    <Image
-      src="/self-hosting-droplet-step1a.png"
-      alt="Screenshot of TofuPilot application with custom url"
-    />
-
-    <Image
-      src="/self-hosting-droplet-step1b.png"
-      alt="Screenshot of TofuPilot application with custom url"
-    />
-
-    <Image
-      src="/self-hosting-droplet-step1c.png"
-      alt="Screenshot of TofuPilot application with custom url"
-    />
-
+<Image
+  src="/self-hosting-droplet-step1a.png"
+  alt="Screenshot of droplet config"
+/>
+<Image
+  src="/self-hosting-droplet-step1b.png"
+  alt="Screenshot of droplet settings"
+/>
+<Image
+  src="/self-hosting-droplet-step1c.png"
+  alt="Screenshot of droplet summary"
+/>
 
 ## Step 2: Launch your console
+
 - Open your droplet from the Digital Ocean dashboard
 - **Launch Droplet Console** in **Access** tab
 
 <Image
   src="/self-hosting-droplet-step2.png"
-  alt="Screenshot of TofuPilot application with custom url"
+  alt="Screenshot of console"
 />
-
 
 ## Step 3: Launch TofuPilot installation
 
@@ -91,14 +86,14 @@ Run the one-line installer in the console:
 
 <Image
   src="/self-hosting-droplet-step3.png"
-  alt="Screenshot of the Digital Ocean console during TofuPilot installation"
+  alt="Screenshot of the installation"
 />
 
 ## Step 4: Configurations
 
 The installer will prompt you for configuration. You have two options for domain configuration:
 
-### Option A: Using Your Own Domain (Recommended for Production)
+### Option A: Using your own domain (recommended for production)
 
 1. **Get your droplet's IP address** from the Digital Ocean dashboard
 2. **Add DNS records** in your domain provider:
@@ -131,21 +126,18 @@ The installer will prompt you for configuration. You have two options for domain
     From email address [tofupilot@tofupilot.yourcompany.com]: noreply@yourcompany.com`}
     />
 
-### Option B: Using nip.io (Quick Testing/Development)
-
-If you don't have a domain name or want to test quickly, you can use nip.io:
+### Option B: Using nip.io (quick testing/development)
 
 1. **Get your droplet's IP address** (e.g., `178.62.124.12`)
-2. **Use nip.io domains** that automatically resolve any subdomain to the IP address embedded in the domain.
-      - Main domain: `tofupilot.178.62.124.12.nip.io`
-      - Storage domain: `storage.178.62.124.12.nip.io`
-
+2. **Use nip.io domains** that automatically resolve subdomains to the embedded IP:
+   - Main domain: `178.62.124.12.nip.io`
+   - Storage domain: `storage.178.62.124.12.nip.io`
 3. **Set configuration** in your Digital Ocean console:
 
     <Code
       language="bash"
       code={`Domain configuration:
-    Domain name [tofupilot.example.com]: tofupilot.178.62.124.12.nip.io
+    Domain name [tofupilot.example.com]: 178.62.124.12.nip.io
     Storage domain [storage.tofupilot.178.62.124.12.nip.io]: storage.178.62.124.12.nip.io
     SSL certificate email [admin@tofupilot.178.62.124.12.nip.io]: your-email@gmail.com
 
@@ -164,87 +156,92 @@ If you don't have a domain name or want to test quickly, you can use nip.io:
     SMTP port [587]: 587
     SMTP username: your-email@gmail.com
     SMTP password: ***hidden***
-    From email address [tofupilot@tofupilot.178.62.124.12.nip.io]: your-email@gmail.com`}
+    From email address [tofupilot@178.62.124.12.nip.io]: your-email@gmail.com`}
     />
 
 <Note>
-    In this tutorial, TofuPilot is installed with standard configurations. If you need custom configurations, please refer to
-    [Advanced installation options](/self-hosting-install#advanced-installation-options).
+In this tutorial, TofuPilot is installed with standard configurations. For custom setups, see [Advanced installation options](/self-hosting-install#advanced-installation-options).
 </Note>
 
 ## Step 5: Monitor installation
 
-At the end of first steps installation, you can monitor TofuPilot app deployment using this command:
+Use this command to watch the TofuPilot app startup:
 
 <Code
-     language="bash"
-     code={`docker compose logs -f`}
-   />
+  language="bash"
+  code={`docker compose logs -f`}
+/>
 
 <Image
   src="/self-hosting-droplet-step5.png"
-  alt="Screenshot of the Digital Ocean console during TofuPilot installation"
+  alt="Monitoring installation"
 />
 
 ## Step 6: Verify installation
 
 ### 1. Check service status
-   <Code
-     language="bash"
-     code={`docker compose ps`}
-   />
 
-   For these 4 services, `tofupilot-app`, `tofupilot-database`, `tofupilot-proxy`, and `tofupilot-storage`, you will information on ports name, docker image, command, creation date, and status.
+<Code
+  language="bash"
+  code={`docker compose ps`}
+/>
 
+You should see these 4 services:
+- `tofupilot-app`
+- `tofupilot-database`
+- `tofupilot-proxy`
+- `tofupilot-storage`
 
+### 2. Test HTTPS access
 
-### 2. Test HTTPS access:
+**Option A: Own domain**
 
-   **Option A: With your own domain**
+<Code
+  language="bash"
+  code={`curl -I https://tofupilot.yourcompany.com`}
+/>
 
-   <Code
-     language="bash"
-     code={`curl -I https://tofupilot.yourcompany.com`}
-   />
+**Option B: nip.io**
 
-   **Option B: Using nip.io (replace with your IP)**
-   <Code
-     language="bash"
-     code={`curl -I https://tofupilot.178.62.124.12.nip.io`}
-   />
+<Code
+  language="bash"
+  code={`curl -I https://178.62.124.12.nip.io`}
+/>
 
+### 3. Access your TofuPilot instance
 
-### 3. Access your TofuPilot instance:
-   - Own domain: `https://tofupilot.yourcompany.com`
-   - nip.io: `https://178.62.124.12.nip.io` (replace with your IP)
-
+- Own domain: `https://tofupilot.yourcompany.com`
+- nip.io: `https://178.62.124.12.nip.io`
 
 <Image
   src="/self-hosting-droplet-step6.png"
-  alt="Screenshot of TofuPilot App self-hosted installed"
+  alt="TofuPilot instance running"
 />
 
-## Specific Tips
+## Specific tips
 
-### Firewall Configuration:
-- Ensure your Digital Ocean firewall allows HTTP (80) and HTTPS (443)
-- You can manage this in the Digital Ocean dashboard under **Networking > Firewalls**
+### Firewall configuration
 
-### Backups:
-- Enable automatic backups for your droplet ($2.40/month for a $12/month droplet)
-- You can manage backups in the Digital Ocean dashboard under **Backups> Setup Automated Backups**
-- Consider creating snapshots before major updates
+- Allow HTTP (80) and HTTPS (443)
+- Manage this under **Networking > Firewalls** in Digital Ocean
 
-### Monitoring:
-- Enable monitoring in your droplet settings for CPU, memory, and disk usage
+### Backups
+
+- Enable automated backups ($2.40/month on a $12/month droplet)
+- Use snapshots before major updates
+
+### Monitoring
+
+- Enable monitoring for CPU, memory, and disk
 - Set up alerts for high resource usage
 
-### Scaling:
-- Start with a $12/month droplet (2GB RAM) for small teams
-- Upgrade to $24/month (4GB RAM) or higher for larger deployments
-- You can resize your droplet from the Digital Ocean dashboard
+### Scaling
 
-### Cost Estimation:
-- Basic droplet: $12/month
-- Automatic backups: $2.40/month
-- Total: ~$15/month for a small TofuPilot deployment
+- Start at $12/month (2 GB RAM)
+- Upgrade to $24/month (4 GB RAM) or more as needed
+
+### Cost estimation
+
+- Droplet: $12/month
+- Backups: $2.40/month
+- **Total**: ~$15/month for small teams

@@ -30,87 +30,89 @@ export const metadata = {
 
 # Self-Hosting: Prerequisites
 
-Self-host TofuPilot for scenarios where managed cloud is not an option. {{ className: 'lead' }}
+Self-host TofuPilot when a managed cloud solution is not viable. {{ className: 'lead' }}
 
 <Image
   src="/self-hosting-header.png"
-  alt="Screenshot of TofuPilot application with custom url"
+  alt="Screenshot of TofuPilot application with custom URL"
 />
 
 ## Overview
 
-TofuPilot accounts are hosted on our AWS-powered cloud, managed by our team. This ensures strong security, high performance, automatic updates, and removes the need for your infrastructure management.
+By default, TofuPilot accounts are hosted on our secure, high-performance, AWS-based cloud infrastructure. This includes automated updates and removes the burden of infrastructure management.
 
-For strict IT policies or specific connectivity needs, TofuPilot can also be self-hosted.
+For organizations with strict IT policies or specific network requirements, TofuPilot can be self-hosted.
 
 ## System Requirements
 
-Ensure your server meets the minimum specifications.
+Ensure your server meets the following minimum specifications:
 
 | Requirement | Specification |
 |-------------|----------------|
 | **OS**      | Ubuntu 20.04 LTS or later (64-bit) |
 | **CPU**     | 2 cores or more |
 | **RAM**     | 4 GB or more |
-| **Storage** | 20 GB of free disk space, or more depending on your run attachments needs |
-| **Access**  | Sudo access to your server |
+| **Storage** | At least 20 GB of free disk space (more may be required depending on run attachments) |
+| **Access**  | Sudo privileges required |
 | **Network** | Open ports 80 (HTTP) and 443 (HTTPS) |
 
 ## Domains
 
-Ensure your domain and DNS settings are prepared for self-hosting:
+Prepare your domain and DNS settings for self-hosting:
 
-- **Domain Name**: Register a domain or subdomain for TofuPilot (e.g., `tofupilot.yourcompany.com`).
-- **Storage Domain Name**: Register a subdomain for TofuPilot storage (e.g., `storage.tofupilot.yourcompany.com`).
-- **DNS Records**: Create two A records in your DNS settings:
-  - Point `tofupilot.yourcompany.com` to your server's public IPv4 address.
-  - Point `storage.tofupilot.yourcompany.com` to the same public IPv4 address.
-- **SSL Certificate**: Ensure you have a valid email address for registering the SSL certificate with Let’s Encrypt.
+- **Application Domain**: Register a domain or subdomain for TofuPilot (e.g., `tofupilot.yourcompany.com`).
+- **Storage Domain**: Register a subdomain for storing attachments (e.g., `storage.tofupilot.yourcompany.com`).
+- **DNS Records**: Create two A records:
+  - `tofupilot.yourcompany.com` → your server's public IPv4 address
+  - `storage.tofupilot.yourcompany.com` → your server's public IPv4 address
+- **SSL Certificate**: Ensure a valid email address is available for SSL certificate registration via Let’s Encrypt.
 
 ## Authentication
 
-TofuPilot does not store user passwords in its database and offers two secure methods for user sign-up and authentication:
+TofuPilot does not store user passwords. It supports two secure authentication methods:
 
-1. **Email Authentication**: Users sign in by receiving a magic code sent to their email.
-2. **OAuth Authentication**: Users sign in using their Microsoft or Google accounts.
+1. **Email Authentication** – Users receive a one-time code via email to log in.
+2. **OAuth Authentication** – Users log in via Microsoft or Google accounts.
 
-You must enable **at least one** authentication method based on your requirements.
+You must enable **at least one** method to allow user sign-in.
 
 <Image
   src="/self-hosting-authentication.png"
-  alt="Screenshot of TofuPilot Authentication page"
+  alt="Screenshot of TofuPilot authentication settings"
 />
 
-### Email
+### Email Authentication
 
-To enable email-based authentication, retrieve the following SMTP server details:
+To enable email-based login, configure your SMTP settings:
 
-- **SMTP Host**: The hostname of your email server (e.g., `smtp.yourdomain.com`).
-- **SMTP Port**: Typically `587` for TLS or `465` for SSL.
-- **Email From Address**: The email address that will send the magic codes (e.g., `auth@yourdomain.com`).
-- **SMTP User**: The username for your email account (e.g., `auth@yourdomain.com`).
-- **SMTP Password**: The password or app-specific password for your email account.
-
-To enable OAuth authentication, create an authorized application in your Google or Microsoft account:
+- **SMTP Host**: Your email server's hostname (e.g., `smtp.yourdomain.com`)
+- **SMTP Port**: Usually `587` (TLS) or `465` (SSL)
+- **From Address**: Email address used to send login codes (e.g., `auth@yourdomain.com`)
+- **SMTP Username**: Email account username (e.g., `auth@yourdomain.com`)
+- **SMTP Password**: Email account password or app-specific password
 
 ### Microsoft Entra ID OAuth
 
-1. Go to the [Microsoft Entra admin center](https://entra.microsoft.com/).
-2. Navigate to **Microsoft Entra ID** > Manage > **App registrations**.
-3. Register a new application with these details:
-   - **Redirect URI**: e.g. `https://tofupilot.yourcompany.com/api/auth/callback/microsoft-entra-id`
-   - Set **Supported Account Types** to match your needs (e.g., single tenant or multi-tenant).
-4. After registration, retrieve the following:
-   - **Application (client) ID**
-   - **Directory (tenant) ID**
-   - **Client Secret**: Create a client secret under **Certificates & secrets**.
+To enable Microsoft login:
+
+1. Visit the [Microsoft Entra admin center](https://entra.microsoft.com/).
+2. Navigate to **Microsoft Entra ID** > **Manage** > **App registrations**.
+3. Register a new application with:
+   - **Redirect URI**: `https://tofupilot.yourcompany.com/api/auth/callback/microsoft-entra-id`
+   - **Supported Account Types**: Choose according to your organization (e.g., single or multi-tenant)
+4. After registration, collect the following:
+   - **Client ID**
+   - **Tenant ID**
+   - **Client Secret** (create under **Certificates & secrets**)
 
 ### Google OAuth
 
-1. Go to the [Google Cloud Console](https://console.developers.google.com/apis/credentials).
-2. Create a new OAuth 2.0 Client ID under **Credentials**.
-3. Configure the following:
-   - **Authorized Redirect URI**: `https://tofupilot.yourcompany.com/api/auth/callback/google`
-4. Retrieve the following:
+To enable Google login:
+
+1. Open the [Google Cloud Console](https://console.developers.google.com/apis/credentials).
+2. Under **Credentials**, create a new OAuth 2.0 Client ID.
+3. Set the **Authorized Redirect URI**:
+   - `https://tofupilot.yourcompany.com/api/auth/callback/google`
+4. Save the following:
    - **Client ID**
    - **Client Secret**

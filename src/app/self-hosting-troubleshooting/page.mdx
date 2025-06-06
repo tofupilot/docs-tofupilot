@@ -39,25 +39,26 @@ Self-host TofuPilot for scenarios where managed cloud is not an option. {{ class
 
 ## Overview
 
-This guide helps you troubleshoot common issues when self-hosting TofuPilot. It covers architecture-specific errors (like on Apple Silicon), port conflicts, SSL setup, and how to check service status.
-
+This guide helps you troubleshoot common issues when self-hosting TofuPilot. It covers architecture-specific errors (such as on Apple Silicon), port conflicts, SSL setup, and how to check service status.
 
 ## ARM64 Architecture (Apple Silicon)
 
-If you encounter "exec format error" on ARM64 systems:
+If you encounter an "exec format error" on ARM64 systems:
 
 1. **Docker Desktop (Mac)**: Enable Rosetta emulation
-   - Docker Desktop → Settings → General → Use Rosetta for x86/amd64 emulation
+
+   - Go to Docker Desktop → Settings → General → Enable Use Rosetta for x86/amd64 emulation
 
 2. **Install QEMU emulators**:
-   <Code
-     language="bash"
-     code={`docker run --rm --privileged tonistiigi/binfmt --install all`}
-   />
+
+    <Code
+      language="bash"
+      code={`docker run --rm --privileged tonistiigi/binfmt --install all`}
+    />
 
 ## Port Conflicts
 
-If ports 80/443 are in use, check running services:
+If ports 80 or 443 are already in use, check for conflicting services:
 
 <Code
   language="bash"
@@ -68,20 +69,26 @@ If ports 80/443 are in use, check running services:
 
 If HTTPS is not working immediately after installation:
 
-- SSL certificates may take a few minutes to generate
-- Check certificate status: `curl -I https://tofupilot.yourcompany.com`
-- Verify DNS records point to your server's IP address
+- Certificate generation may take a few minutes.
+- Check the certificate status:
+
+    <Code
+      language="bash"
+      code={`curl -I https://tofupilot.yourcompany.com`}
+    />
+
+- Make sure your DNS records correctly point to your server’s public IP.
 
 ## Service Status
 
-Check if all services are running properly:
+To confirm that all services are running properly:
 
 <Code
   language="bash"
   code={`docker compose ps`}
 />
 
-View service logs:
+To view detailed service logs:
 
 <Code
   language="bash"
