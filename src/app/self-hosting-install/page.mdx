@@ -154,6 +154,8 @@ To completely remove TofuPilot:
 
 ### Interactif prompt desactivated
 
+Instead of using the basic run installer, you need to:
+
 1. Generate a template configuration files:
 
     <Code
@@ -161,7 +163,7 @@ To completely remove TofuPilot:
       code={`curl -fsSL https://tofupilot.sh/deploy | bash -s -- --generate-env template`}
     />
 
-2. Open and fill-up the configuration file:
+2. Open, fill-up, and save the configuration file:
 
     <Code
       language="bash"
@@ -220,10 +222,11 @@ If you're using a self-signed certificate, make sure to register its path during
 
 In your Python script, pass the path to your certificate using the verify parameter: `verify="/path/to/selfsigned.crt"`
 
-Example:
+Here is an example of script:
 
 <Code
       language="python"
+      title="main.py"
       code={`from tofupilot import TofuPilotClient
 
 
@@ -233,7 +236,10 @@ def phase_file_attachment():
 
 
 def main():
-    client = TofuPilotClient(url="<App Domain>", verify="/path/to/selfsigned.crt")
+    client = TofuPilotClient(
+        url="<App Domain>",
+        verify="/path/to/selfsigned.crt", # Set the path to your certificates
+      )
 
     attachments = phase_file_attachment()
 
