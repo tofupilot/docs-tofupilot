@@ -1,0 +1,96 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
+export const metadata = {
+  title: 'Self-Hosting',
+  description: 'This guide explains how to self-host TofuPilot.',
+  keywords: [
+    ...defaultKeywords,
+    'Self-Hosting',
+    'TofuPilot Deployment',
+    'Docker Setup',
+    'On-Premise Installation',
+    'Enterprise Hosting',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Self-Hosting - Deploy TofuPilot On-Premise | TofuPilot Documentation',
+    description:
+      'Learn how to self-host TofuPilot for on-premise deployment. Includes setup, authentication, and backup guidelines.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/self-hosting-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Self-hosting header showing TofuPilot deployed on a private server.',
+      },
+    ],
+  },
+}
+
+# Self-Hosting: Troubleshooting
+
+Self-host TofuPilot for scenarios where managed cloud is not an option. {{ className: 'lead' }}
+
+<Image
+  src="/self-hosting-header.png"
+  alt="Screenshot of TofuPilot application with custom url"
+/>
+
+## Overview
+
+This guide helps you troubleshoot common issues when self-hosting TofuPilot. It covers architecture-specific errors (such as on Apple Silicon), port conflicts, SSL setup, and how to check service status.
+
+## ARM64 Architecture (Apple Silicon)
+
+If you encounter an "exec format error" on ARM64 systems:
+
+1. **Docker Desktop (Mac)**: Enable Rosetta emulation
+
+   - Go to Docker Desktop → Settings → General → Enable Use Rosetta for x86/amd64 emulation
+
+2. **Install QEMU emulators**:
+
+    <Code
+      language="bash"
+      code={`docker run --rm --privileged tonistiigi/binfmt --install all`}
+    />
+
+## Port Conflicts
+
+If ports 80 or 443 are already in use, check for conflicting services:
+
+<Code
+  language="bash"
+  code={`sudo netstat -tlnp | grep -E ':80|:443'`}
+/>
+
+## SSL Certificate Issues
+
+If HTTPS is not working immediately after installation:
+
+- Certificate generation may take a few minutes.
+- Check the certificate status:
+
+    <Code
+      language="bash"
+      code={`curl -I https://tofupilot.yourcompany.com`}
+    />
+
+- Make sure your DNS records correctly point to your server’s public IP.
+
+## Service Status
+
+To confirm that all services are running properly:
+
+<Code
+  language="bash"
+  code={`docker compose ps`}
+/>
+
+To view detailed service logs:
+
+<Code
+  language="bash"
+  code={`docker compose logs -f`}
+/>

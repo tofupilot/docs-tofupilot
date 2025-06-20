@@ -1,0 +1,261 @@
+import { defaultKeywords, defaultOpenGraph } from '../metadata'
+
+export const metadata = {
+  title: 'Self-Hosting',
+  description: 'This guide explains how to self-host TofuPilot.',
+  keywords: [
+    ...defaultKeywords,
+    'Self-Hosting',
+    'TofuPilot Deployment',
+    'Docker Setup',
+    'On-Premise Installation',
+    'Enterprise Hosting',
+  ],
+  openGraph: {
+    ...defaultOpenGraph,
+    title:
+      'Self-Hosting - Deploy TofuPilot On-Premise | TofuPilot Documentation',
+    description:
+      'Learn how to self-host TofuPilot for on-premise deployment. Includes setup, authentication, and backup guidelines.',
+    images: [
+      {
+        url: 'https://tofupilot.com/docs/self-hosting-header.png',
+        width: 800,
+        height: 600,
+        alt: 'Self-hosting header showing TofuPilot deployed on a private server.',
+      },
+    ],
+  },
+}
+
+# Self-Hosting: Install & Update
+
+Self-host TofuPilot for scenarios where managed cloud is not an option. {{ className: 'lead' }}
+
+<Image
+  src="/self-hosting-header.png"
+  alt="Screenshot of TofuPilot application with custom url"
+/>
+
+## Overview
+
+TofuPilot provides a one-line installer that automatically handles all dependencies and configuration.
+
+## Installation
+
+1. **SSH into your server:**
+
+   Connect to your server via its IP address using SSH, or [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) on Windows:
+
+   <Code
+    language="bash"
+    code={`ssh user@your_server_ip`}
+    />
+
+2. **Run the installer:**
+
+   The installer automatically installs Docker, Docker Compose, and all required dependencies:
+
+   <Code
+     language="bash"
+     code={`curl -fsSL https://tofupilot.sh/deploy | bash`}
+   />
+
+## Post-installation
+
+### Account creation
+
+Once the script finishes, access the web app at `https://tofupilot.yourcompany.com` to create an admin account and set up an organization (we recommend naming it `app`).
+
+### Integration
+
+You can upload test runs using the public TofuPilot Python package. Simply set your instance URL with the `url` parameter as shown below. All features described in the rest of the documentation will function as expected.
+
+<CodeGroup>
+    <Code title="OpenHTF" language="python" code={`import openhtf as htf
+from tofupilot.openhtf import TofuPilot
+
+def main():
+    test = htf.Test(
+        procedure_id="FVT1",
+        part_number="PCB1",
+    )
+
+    with TofuPilot(test, url="https://tofupilot.yourcompany.com"):  # specify URL here
+        test.execute(lambda: "PCB1A001")
+
+if __name__ == '__main__':
+    main()`} />
+
+    <Code title="Vanilla Python" language="python" code={`from tofupilot import TofuPilotClient
+from datetime import datetime, timedelta
+
+def main():
+    client = TofuPilotClient(url="https://tofupilot.yourcompany.com")  # specify URL here
+
+    client.create_run(
+        procedure_id="FVT1",
+        run_passed=True,
+        unit_under_test={
+            "serial_number": "PCB1A001",
+            "part_number": "PCB1"
+        },
+        duration=timedelta(minutes=1, seconds=45),
+    )
+
+if __name__ == '__main__':
+    main()`} />
+</CodeGroup>
+
+## Backup
+
+### Volumes to back up
+
+Ensure the following Docker volumes are included in your backup routine:
+
+- **`tofupilot-database-data`**:
+  Contains all database files, including schema definitions, configurations, and application data. Backup this volume to preserve your database's state and integrity.
+
+- **`tofupilot-storage-data`**:
+  Stores user-uploaded files such as profile pictures, attachments, and other assets. Backup this volume to safeguard external content and binary data.
+
+### Backup recommendations
+
+Integrate these volumes into your backup process using methods like volume snapshots, off-site replication, or encrypted storage to ensure data durability and smooth recovery in case of failure or migration.
+
+## Update
+
+To update your self-hosted TofuPilot app to the latest version:
+
+<Code
+  language="bash"
+  code={`curl -fsSL https://tofupilot.sh/deploy | bash -s -- --update`}
+/>
+
+Alternatively, update manually using Docker Compose:
+
+<Code
+  language="bash"
+  code={`docker compose down && docker compose up -d --pull always`}
+/>
+
+## Uninstall
+
+To completely remove TofuPilot:
+
+<Code
+  language="bash"
+  code={`curl -fsSL https://tofupilot.sh/deploy | bash -s -- --uninstall`}
+/>
+
+## Advanced installation options
+
+### Interactive prompt disabled
+
+Instead of using the basic installer, follow these steps:
+
+1. Generate a template configuration file:
+
+    <Code
+      language="bash"
+      code={`curl -fsSL https://tofupilot.sh/deploy | bash -s -- --generate-env template`}
+    />
+
+2. Open, fill out, and save the configuration file:
+
+    <Code
+      language="bash"
+      code={`nano my-tofupilot-config.env`}
+    />
+
+    <Code
+      language="bash"
+      title="my-tofupilot-config.env"
+      code={`# Domain Configuration
+        DOMAIN_NAME=
+        STORAGE_DOMAIN_NAME=
+        ACME_EMAIL=
+
+        # SSL Configuration
+        SSL_MODE=
+        SSL_CERT_PATH=
+        SSL_KEY_PATH=
+
+        # Authentication Configuration
+        AUTH_GOOGLE_ID=
+        AUTH_GOOGLE_SECRET=
+        AUTH_MICROSOFT_ENTRA_ID_ID=
+        AUTH_MICROSOFT_ENTRA_ID_SECRET=
+        AUTH_MICROSOFT_ENTRA_ID_ISSUER=
+
+        # Email Configuration
+        EMAIL_SMTP_HOST=
+        EMAIL_SMTP_PORT=
+        EMAIL_SMTP_USER=
+        EMAIL_SMTP_PASSWORD=
+        EMAIL_FROM_AUTH=`}
+    />
+
+3. Install or update using your configuration file:
+
+    <Code
+      language="bash"
+      code={`curl -fsSL https://tofupilot.sh/deploy | bash -s -- --load-env path my-tofupilot-config.env`}
+    />
+
+4. Check the installation logs:
+
+    <Code
+      language="bash"
+      code={`docker compose logs -f`}
+    />
+
+### Custom certificates
+
+If you're using a self-signed certificate, make sure to register its path during setup. To confirm it's working, open your app in a browser and verify the certificate is valid and HTTPS loads correctly.
+
+In your Python script, pass the path to your certificate using the `verify` parameter:
+`verify="/path/to/selfsigned.crt"`
+
+Example script:
+
+<Code
+  language="python"
+  title="main.py"
+  code={`from tofupilot import TofuPilotClient
+
+def phase_file_attachment():
+    file_paths = ["data/temperature-map.png"]  # Replace with your file paths
+    return file_paths
+
+def main():
+    client = TofuPilotClient(
+        url="<App Domain>",
+        verify="/path/to/selfsigned.crt",  # Set the path to your certificate
+    )
+
+    attachments = phase_file_attachment()
+
+    client.create_run(
+        procedure_id="FVT1",  # Create the procedure first in the app
+        unit_under_test={"serial_number": "PCB1A001", "part_number": "PCB1"},
+        run_passed=True,
+        attachments=attachments,
+    )
+
+if __name__ == "__main__":
+    main()`}
+/>
+
+### Python client update
+
+To update the Python client:
+
+<Code
+  language="bash"
+  code={`pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ tofupilot==1.11.2`}
+/>
+
+<Note>
+    Make sure to replace `1.11.2` with the latest version of the TofuPilot Python client. You can find it at https://github.com/tofupilot/python-client.
+</Note>
